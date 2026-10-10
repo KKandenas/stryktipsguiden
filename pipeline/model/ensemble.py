@@ -17,7 +17,8 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 Tripel = Tuple[float, float, float]
 
-KALLOR = ["odds", "streck", "Tio tidningars tips", "speltips.se", "hurbra.se", "sportsgambler.com", "sportsmole.co.uk"]
+KALLOR = ["odds", "streck", "Tio tidningars tips", "speltips.se", "hurbra.se", "bettingstugan.se", "tippat.se",
+          "gamblingcabin.se", "sportsgambler.com", "sportsmole.co.uk"]
 UTFALL = {"1": 0, "X": 1, "2": 2}
 GOLV = 0.02          # lägsta sannolikhet per tecken innan log
 TECKEN_EPS = 0.2     # tips med bara tecken: 80 % fördelas på valda tecken, 20 % på övriga

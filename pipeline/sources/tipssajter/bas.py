@@ -22,6 +22,10 @@ class Tipssajt:
         """Artiklar med tips för kupongens matcher. spelstopp är UTC ISO."""
         raise NotImplementedError
 
+    def forbered_html(self, html: str) -> str:
+        """Före textomvandlingen: t.ex. märka upp valda tecken som annars bara syns som färg."""
+        return html
+
     def kontrollera(self, text: str, artikel: Artikel, matcher: List[Match]) -> bool:
         """Efter hämtning: gäller artikeln verkligen den här omgången? (t.ex. datumkontroll)"""
         return True

@@ -247,3 +247,40 @@ def test_tips_tolkas_inte_efter_avspark(conn, monkeypatch):
     assert len(claude.anrop) == 1
     assert "1. Manchester United – Tottenham" in claude.anrop[0]
     assert "2. Chelsea – Bournemouth" not in claude.anrop[0]
+
+
+# ---------- svenska tipssajter ----------
+
+def test_bettingstugan_valjer_huvudanalysen_for_omgangen():
+    from pipeline.sources.tipssajter.bettingstugan import valj_lank
+    html = ('<a href="https://bettingstugan.se/speltips/stryktipset-lordag-10-10-tidiga-analysen">'
+            '<a href="/speltips/stryktipset-lordag-10-10-2">'
+            '<a href="https://bettingstugan.se/speltips/stryktipset-analys-tips-lordag-10-10">'
+            '<a href="https://bettingstugan.se/speltips/stryktipset-analys-tips-lordag-3-10">')
+    assert valj_lank(html, "2026-10-10T13:59:00Z") == "https://bettingstugan.se/speltips/stryktipset-analys-tips-lordag-10-10"
+    assert valj_lank(html, "2026-10-24T13:59:00Z") is None
+
+
+def test_tippat_markerar_valda_tecken_och_kontrollerar_datum():
+    from pipeline.sources.tipssajter.tippat import Tippat
+    html = ('<p>Lördag 10 oktober</p><td>Manchester United</td><td>Tottenham</td>'
+            '<div class=" flex size-5 bg-gray-700 text-white">1</div><div class=" flex size-5">X</div>'
+            '<div class=" flex size-5">2</div>')
+    s = Tippat()
+    text = html_till_text(s.forbered_html(html))
+    assert "[VALT 1]" in text and "[VALT X]" not in text
+    m = [Match(1, "Manchester United", "Tottenham", "Premier League", "England", "2026-10-10T16:30:00Z")]
+    assert s.kontrollera(text, None, m) is True
+    m2 = [Match(1, "Manchester United", "Tottenham", "Premier League", "England", "2026-10-17T14:00:00Z")]
+    assert s.kontrollera(text, None, m2) is False
+
+
+def test_gamblingcabin_publiceringsdatum():
+    from pipeline.sources.tipssajter.gamblingcabin import Gamblingcabin, publicerad
+    text = "Panelens spikar & drag  Publicerad:    9 oktober, 2026 16:10  Helgens Spik: Bolton"
+    assert publicerad(text).day == 9
+    s = Gamblingcabin()
+    s._spelstopp = "2026-10-10T13:59:00Z"
+    assert s.kontrollera(text, None, []) is True
+    s._spelstopp = "2026-10-24T13:59:00Z"
+    assert s.kontrollera(text, None, []) is False

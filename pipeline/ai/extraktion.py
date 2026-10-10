@@ -22,6 +22,8 @@ För varje match i listan som artikeln faktiskt tar ställning till:
 - p1, px, p2: bara om artikeln anger sannolikheter i procent eller andelar för 1/X/2 – annars null. Hitta aldrig på sannolikheter, och räkna inte om odds till sannolikheter.
 - sammanfattning: högst två korta meningar på svenska om skribentens huvudargument (form, skador, inbördes möten). Bara sådant som står i artikeln.
 
+Om texten innehåller markeringar som [VALT 1] är det tecknen skribenten valt på sin kupong för den matchen (flera markeringar = gardering).
+
 Ta bara med matcher som artikeln handlar om, med matchnumret från listan. Om artikeln inte handlar om någon av matcherna: returnera en tom lista."""
 
 SCHEMA = {

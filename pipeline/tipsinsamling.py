@@ -58,7 +58,7 @@ def samla(conn: sqlite3.Connection, anropa: Anropare, sajter: Optional[List[Tips
                     continue
                 stat["artiklar"] += 1
                 try:
-                    text = html_till_text(hamta_sida(a.url))
+                    text = html_till_text(sajt.forbered_html(hamta_sida(a.url)))
                 except HamtningsFel as e:
                     log.warning("Tips: %s: %s", a.url, e)
                     stat["fel"] += 1

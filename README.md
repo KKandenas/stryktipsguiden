@@ -214,13 +214,15 @@ Python < 3.10 där SDK:erna inte finns, hoppas AI-stegen över med en loggrad.
 | Tio tidningars tips | svensk, från Svenska Spel | ingår i kupongdatan (fas 1) |
 | speltips.se | svensk, en artikel per omgång | RSS-flödet: nyaste "Stryktipset d/m" veckan före spelstopp |
 | hurbra.se | svensk, en artikel per omgång ("Tipset: X2") | adressen följer spelstoppets datum: `/stryktipset-10-oktober-2026/` |
+| bettingstugan.se | svensk, analys med tecken per match | länk med omgångens datum på `/stryktipset`, huvudanalysen i första hand |
+| tippat.se | svensk, expertens kupong ("Sparka & Spring") | fast sida; valda tecken (färgmarkerade i HTML) märks upp som `[VALT 1]`, och kupongens datum kontrolleras |
+| gamblingcabin.se | svensk, panelens spikar och drag (bara några matcher) | senaste panelen från `/speltips/`, publiceringsdatumet ska vara veckan före spelstopp |
 | sportsgambler.com | internationell, en artikel per match | ligasidornas länkar `<hemma>-vs-<borta>-prediction-…-<datum>` paras med kupongen |
 | sportsmole.co.uk | internationell, en artikel per match ("We say: 2-1") | ligasidornas länkar paras på lagnamn; artikelns avsparksdatum kontrolleras efter hämtning |
 
 Undersökta men inte använda: forebet.com, predictz.com och windrawwin.com blockerar automatiska anrop
 (Cloudflare). Aftonbladet och Expressen spärrar AI-tjänster i robots.txt. livescore.com spärrar sina
-nyhetssidor för AI-tjänster. gamblingcabin.se har inte publicerat tips sedan 2023, och
-dagensbastaspel.se saknar en Stryktipssida.
+nyhetssidor för AI-tjänster. dagensbastaspel.se saknar en Stryktipssida.
 
 **Inga resultatläckor:** tips tolkas bara för matcher som inte har startat. Tipssidor visar
 livestatus och resultat efter avspark, och det får inte påverka tipset (gäller tidiga matcher före
@@ -301,7 +303,8 @@ men utan strecken:
 - Appen visar varje tipsares träffprocent, antal matcher och vikt under *Så har modellen träffat*.
 
 Läget i oktober 2026: Tio tidningars tips har vikt 0,016 (3 692 matcher, tillför nästan inget utöver
-oddsen). speltips.se, hurbra.se, sportsgambler.com och sportsmole.co.uk samlas in från och med nu
+oddsen). speltips.se, hurbra.se, bettingstugan.se, tippat.se, gamblingcabin.se, sportsgambler.com och
+sportsmole.co.uk samlas in från och med nu
 och står på startvikten tills de har 30 avgjorda matcher, vilket tar ungefär 3–4 veckor.
 
 ### Försök: optimera mot förväntad utdelning (inte infört)
