@@ -66,7 +66,7 @@ Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att häm
 `GET https://api.the-odds-api.com/v4/sports/{sport}/odds?apiKey=…&regions=eu,uk&markets=h2h&oddsFormat=decimal`
 
 - Kräver `ODDS_API_KEY`. Varje anrop kostar 1 kredit per region (alltså 2 med `eu,uk`). Gratisnivån ger 500 krediter i månaden.
-  Med vårt schema blir det ungefär 4 körningar × 2–4 ligor × 2 = 16–32 krediter i veckan.
+  Med vårt schema blir det ungefär 6–7 körningar × 2–4 ligor × 2 = 25–56 krediter i veckan (under 250 i månaden).
 - Svaret är en lista med events (`home_team`, `away_team`, `commence_time`). Per bolag finns
   `bookmakers[].markets[key=h2h].outcomes[]`, där utfallen heter som lagen plus `"Draw"`.
 - Matchar mot kupongen på liga (via `config.LIGA_TILL_ODDSAPI`), avspark (±3 h) och lagnamn

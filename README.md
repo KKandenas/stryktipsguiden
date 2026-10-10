@@ -80,7 +80,9 @@ Gör också så här:
 
 | När | Varför |
 |---|---|
-| Tor 19:00 / 18:00 | Ny kupong, streck, odds |
+| Mån 10:00 / 09:00 | Ny kupong (öppnar 07:00), streck, odds, tips och AI-kommentarer |
+| Ons 19:00 / 18:00 | Uppdaterade streck, odds och tips |
+| Tor 19:00 / 18:00 | Uppdaterade streck, odds och tips |
 | Lör 14:00, 15:00, 15:25 (vintertid även 15:20) | Sista streck och odds före spelstopp 15:59 |
 | Sön 10:00 och 20:00 | Resultat och utdelning (fas 5: källstatistik) |
 

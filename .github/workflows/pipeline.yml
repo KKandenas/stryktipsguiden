@@ -6,7 +6,9 @@ name: Pipeline
 # så att slutstrecken kommer med även om lördagskörningen blir sen.
 on:
   schedule:
-    - cron: "0 17 * * 4"    # tor 19:00 / 18:00  – ny kupong, streck, odds
+    - cron: "0 8 * * 1"     # mån 10:00 / 09:00  – ny kupong (öppnar 07:00), streck, odds, tips
+    - cron: "0 17 * * 3"    # ons 19:00 / 18:00  – uppdaterade streck, odds och tips
+    - cron: "0 17 * * 4"    # tor 19:00 / 18:00  – streck, odds, tips
     - cron: "0 12 * * 6"    # lör 14:00 / 13:00  – streck och odds
     - cron: "0 13 * * 6"    # lör 15:00 / 14:00
     - cron: "25 13 * * 6"   # lör 15:25 / 14:25  – sista försök före spelstopp sommartid
