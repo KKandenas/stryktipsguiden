@@ -13,6 +13,7 @@
 export const BUDGETAR = [1, 32, 64, 96, 128, 192, 432];
 export const LAMBDA = 0.3;          // risknivå: 0 = bara träffchans, 1 = bara utdelning. 0,3 valt efter backtest, se README
 export const VARDE_GRANS = 0.03;    // orange prick från 3 procentenheter understreckat
+export const VARDE_GRANS_OSAKER = 0.05;   // …och från 5 när bedömningen bara bygger på Svenska Spels odds
 export const TECKEN = ["1", "X", "2"];
 
 const MIN_STRECK = 0.01;            // skydd mot division med ~0 för nästan ostreckade tecken

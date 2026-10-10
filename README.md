@@ -191,7 +191,15 @@ förväntad utdelning, där understreckade tecken betalar mer. Dynamisk programm
 Upp till λ ≈ 0,3 kostar värdetänkandet nästan ingen träffsäkerhet. Högre λ sänker träffsäkerheten
 tydligt. Återbetalningen är brusig, eftersom ett fåtal 13-rättare avgör mycket, och historiken
 bygger på Svenska Spels startodds. Den ska därför läsas som en riktning, inte en garanti.
-Orange prick visas när chansen är minst 3 procentenheter över strecken (`VARDE_GRANS`).
+Orange prick visas när chansen är minst 3 procentenheter över strecken (`VARDE_GRANS`). Matcher där
+bara Svenska Spels odds finns (oftast Superettan och nedåt, eftersom The Odds API inte täcker dem)
+märks *osäkrare* och kräver 5 procentenheter (`VARDE_GRANS_OSAKER`). I historiken är oddsens försprång
+mot folket mindre där: Brier 0,609 mot 0,615 för Ettan och division 2, jämfört med 0,614 mot 0,627 för
+engelska matcher.
+
+**Experterna i matchvyn** rankas efter träffsäkerhet på matcher från samma land (England/Sverige/
+Övrigt), senaste 8 veckorna, med minst 10 matcher. Annars används hela historiken, och om det inte
+räcker heller, alla ligor. Poäng: rätt spik 1, halvgardering ½, helgardering ⅓.
 
 
 ### Tester

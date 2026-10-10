@@ -255,6 +255,10 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .detaljtabell .minus { color: var(--dampad); }
 .tipsmark { color: var(--primar); font-size: 15px; }
 .tipsmark.satt { color: var(--ratt); }
+.liga .osaker { color: var(--orange); font-weight: 600; }
+.osaker-not {
+  font-size: 13px; background: var(--banner); border-radius: 10px; padding: 8px 10px; margin-bottom: 10px !important;
+}
 .motivering { font-size: 13px; color: var(--dampad); margin-top: 8px !important; }
 .motivering b { color: var(--text); }
 .resultatrad { font-weight: 700; margin-top: 10px !important; }

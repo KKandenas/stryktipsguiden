@@ -1,7 +1,7 @@
 import {
-  BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011h";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011h";
+  BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
+} from "./optimizer.js?v=20261011i";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011i";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -205,7 +205,9 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
       el("span", { class: "nr", text: String(m.nr) }),
       el("span", {},
         el("span", { class: "lag", text: `${m.hemmalag} – ${m.bortalag}` }),
-        el("span", { class: "liga", text: `${[m.liga, !m.resultat && m.avspark && kortFmt.format(new Date(m.avspark))].filter(Boolean).join(" · ")}${slut}` }),
+        el("span", { class: "liga" },
+          `${[m.liga, !m.resultat && m.avspark && kortFmt.format(new Date(m.avspark))].filter(Boolean).join(" · ")}${slut}`,
+          m.osaker ? el("span", { class: "osaker", title: "Bara Svenska Spels odds – osäkrare bedömning", text: " · osäkrare" }) : null),
       ),
       v ? el("span", { class: `etikett ${v.typ}`, text: v.typ }) : null,
     );
@@ -214,7 +216,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
     for (const t of TECKEN) {
       const chans = m.chans ? procent(m.chans[t]) : null;
       const streck = m.streck ? Math.round(m.streck[t]) : null;
-      const harVarde = m.varde && m.varde[t] >= VARDE_GRANS;
+      const harVarde = m.varde && m.varde[t] >= (m.osaker ? VARDE_GRANS_OSAKER : VARDE_GRANS);
       const vald = v && v.tecken.includes(t);
       const arLast = last.includes(t);
       const klasser = ["ruta", vald && "vald", arLast && "last", m.resultat === t && "utfall"].filter(Boolean).join(" ");
@@ -298,6 +300,11 @@ function detaljer(m) {
     }), "", "procentenheter");
   }
   if (m.chans_kalla === "streck") rad("Odds saknas", [null, null, null], "", "chansen bygger på strecken");
+  if (m.osaker && m.chans_kalla !== "streck") {
+    d.append(el("p", { class: "osaker-not", text:
+      "Osäkrare bedömning: här finns bara Svenska Spels odds, som har högre marginal och uppdateras mer sällan " +
+      "än de stora bolagens. Värdeprick visas först när chansen är minst 5 procentenheter över strecken." }));
+  }
 
   if (m.odds?.bolag?.length) {
     rubrik("Odds");
@@ -307,17 +314,25 @@ function detaljer(m) {
     }
   }
 
-  // Experter: de tre som träffat bäst senaste tiden bland dem som tippat matchen
+  // Experter: de tre som träffat bäst senaste tiden bland dem som tippat matchen – i första hand
+  // på matcher från samma land (England/Sverige/Övrigt), annars över alla ligor.
   const form = state.formRang || [];
+  const grupp = m.land === "England" || m.land === "Sverige" ? m.land : "Övrigt";
+  const formFor = (namn) => {
+    const egen = form.find((x) => x.namn === namn && x.grupp === grupp);
+    if (egen && egen.antal >= 10) return { ...egen, i: grupp === "Övrigt" ? "övriga ligor" : `${grupp === "England" ? "engelska" : "svenska"} matcher` };
+    const alla = form.find((x) => x.namn === namn && (x.grupp === "alla" || x.grupp === undefined));
+    return alla && alla.antal >= 10 ? { ...alla, i: "alla ligor" } : null;
+  };
   const tips = (m.tips || []).filter((t) => t.tecken)
-    .map((t) => ({ ...t, f: form.find((x) => x.namn === t.kalla) }))
-    .sort((a, b) => (b.f && b.f.antal >= 10 ? b.f.poang : -1) - (a.f && a.f.antal >= 10 ? a.f.poang : -1));
+    .map((t) => ({ ...t, f: formFor(t.kalla) }))
+    .sort((a, b) => (b.f ? b.f.poang : -1) - (a.f ? a.f.poang : -1));
   const topp = tips.slice(0, 3);
   if (topp.length) {
     rubrik(tips.length > 3 ? "Experter – de tre bästa senaste tiden" : "Experter");
     for (const t of topp) {
-      const under = t.f && t.f.antal >= 10
-        ? `${Math.round(t.f.poang * 100)} % träff ${t.f.period === "8v" ? "senaste 8 v." : "totalt"} (${t.f.antal})`
+      const under = t.f
+        ? `${Math.round(t.f.poang * 100)} % träff, ${t.f.i}${t.f.period === "8v" ? " senaste 8 v." : ""} (${t.f.antal})`
         : "för lite historik ännu";
       rad(KORTNAMN[t.kalla] || t.kalla, TECKEN.map((x) => (t.tecken.includes(x)
         ? el("span", { class: `tipsmark${m.resultat === x ? " satt" : ""}`, "aria-label": `tippar ${x}`, text: "●" }) : "")),

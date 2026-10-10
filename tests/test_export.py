@@ -110,7 +110,22 @@ def test_tipsarnas_form_raknar_garderingar_rattvist(conn):
         conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken) VALUES (?, ?, 'x', ?)", (mid, a, res))
         conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken) VALUES (?, ?, 'x', '1X2')", (mid, b))
     conn.commit()
-    form = {f["namn"]: f for f in export.tipsare_form(conn, "2026-10-11T00:00:00Z")}
+    alla = export.tipsare_form(conn, "2026-10-11T00:00:00Z")
+    form = {f["namn"]: f for f in alla if f["grupp"] == "alla"}
     assert form["spikaren"]["poang"] == 1.0 and form["spikaren"]["antal"] == 13
     assert abs(form["garderaren"]["poang"] - 1 / 3) < 1e-3
-    assert export.tipsare_form(conn, "2026-10-11T00:00:00Z")[0]["namn"] == "spikaren"
+    assert [f["namn"] for f in alla if f["grupp"] == "alla"][0] == "spikaren"
+    # Fixturens matcher är engelska → samma siffror i gruppen England, ingen grupp Sverige
+    england = {f["namn"]: f for f in alla if f["grupp"] == "England"}
+    assert england["spikaren"]["antal"] == 13
+    assert not [f for f in alla if f["grupp"] == "Sverige"]
+
+
+def test_osaker_nar_bara_svenska_spels_odds_finns(conn):
+    fyll(conn)   # match 1 har även Pinnacle, övriga bara Svenska Spels odds
+    berakna_prognoser(conn)
+    k = export.bygg_kupong(conn, 4974, nu=INNAN)
+    assert k["matcher"][0]["osaker"] is False
+    assert k["matcher"][0]["odds"]["bara_svenskaspel"] is False
+    assert k["matcher"][1]["osaker"] is True
+    assert k["matcher"][1]["odds"]["bara_svenskaspel"] is True

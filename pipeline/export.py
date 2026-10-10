@@ -23,8 +23,11 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
   }]
 }
 
-"tipsare_form": [{"namn", "poang", "antal", "period": "8v" | "alla"}]   (bäst först; poäng: rätt spik 1,
-  halvgardering ½, helgardering ⅓)
+"tipsare_form": [{"namn", "grupp": "alla" | "England" | "Sverige" | "Övrigt", "poang", "antal",
+                  "period": "8v" | "alla"}]   (bäst först per grupp; poäng: rätt spik 1, halvgardering ½,
+                  helgardering ⅓)
+matcher[].osaker: true om bedömningen bara bygger på Svenska Spels odds (eller strecken) – appen kräver
+  då större avvikelse för värdeprick.
 
 "statistik": {"aktiv_modell", "modeller": [{version, brier, logloss, traff, antal}], "kallor": [...],
               "ligor": [...], "senaste": [{omgang, datum, modell_ratt, folket_ratt}]} | null
@@ -120,7 +123,8 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
         if bolag:
             n = len(bolag)
             ordning = sorted(bolag, key=lambda b: (BOLAGSORDNING.index(b) if b in BOLAGSORDNING else 99, b))
-            odds = {"antal_bolag": n,
+            bara_svs = set(bolag) <= {"svenskaspel", BOLAG_START}
+            odds = {"antal_bolag": n, "bara_svenskaspel": bara_svs,
                     "snitt": _tripel(tuple(sum(t[i] for t in bolag.values()) / n for i in range(3)), 2),
                     "bolag": [{"bolag": b, **_tripel(bolag[b], 2)} for b in ordning[:MAX_BOLAG]]}
 
@@ -140,6 +144,8 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "chans": _tripel(chans), "chans_kalla": kalla,
             "streck": _tripel(u.streck, 1), "streck_tid": u.streck_tid,
             "varde": _tripel(varde(chans, u.streck)) if kalla == "modell" and u.streck else None,
+            # Osäkrare bedömning: bara Svenska Spels odds (hög marginal) eller inga odds alls
+            "osaker": kalla != "modell" or bool(odds and odds["bara_svenskaspel"]),
             "chans_tips": _tripel(chans_tips),
             "varde_tips": _tripel(varde(chans_tips, u.streck)) if chans_tips and u.streck else None,
             "odds": odds, "tips": tips, "kommentar": kommentar[0] if kommentar else None,
@@ -166,27 +172,35 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
     }
 
 
-def tipsare_form(conn: sqlite3.Connection, nu: str) -> list:
-    """Hur bra varje tipsare träffat senaste FORM_DAGAR dagarna (eller totalt om underlaget är litet).
+def landsgrupp(land: Optional[str]) -> str:
+    """Grupp för tipsarnas form: England och Sverige för sig, resten tillsammans."""
+    return land if land in ("England", "Sverige") else "Övrigt"
 
-    Poäng per tips: rätt spik = 1, rätt halvgardering = ½, rätt helgardering = ⅓, fel = 0 – så att
-    garderingar inte ger gratis träffar. Sorterat bäst först."""
+
+def tipsare_form(conn: sqlite3.Connection, nu: str) -> list:
+    """Hur bra varje tipsare träffat, totalt ("alla") och per landsgrupp (England/Sverige/Övrigt).
+
+    Senaste FORM_DAGAR dagarna räknas i första hand; har tipsaren färre än FORM_MIN avgjorda matcher
+    där används hela historiken (period "alla"). Poäng per tips: rätt spik = 1, rätt halvgardering = ½,
+    rätt helgardering = ⅓, fel = 0 – så att garderingar inte ger gratis träffar. Sorterat bäst först."""
     grans = (parse_iso(nu) - timedelta(days=FORM_DAGAR)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    rader = conn.execute(
+        """SELECT k.namn, t.tecken, m.resultat, m.avspark, m.land FROM tips t JOIN kallor k ON k.id = t.kalla_id
+           JOIN matcher m ON m.id = t.match_id WHERE m.resultat IS NOT NULL AND t.tecken IS NOT NULL""").fetchall()
+    per: dict = {}
+    for namn, tecken, res, avspark, land in rader:
+        p = 1 / len(tecken) if res in tecken else 0.0
+        ny_ = avspark is not None and avspark >= grans
+        for grupp in ("alla", landsgrupp(land)):
+            d = per.setdefault((namn, grupp), {"alla": [], "8v": []})
+            d["alla"].append(p)
+            if ny_:
+                d["8v"].append(p)
     ut = []
-    for (namn,) in conn.execute("SELECT DISTINCT k.namn FROM tips t JOIN kallor k ON k.id = t.kalla_id"):
-        def poang(villkor, params):
-            rader = conn.execute(
-                f"""SELECT t.tecken, m.resultat FROM tips t JOIN kallor k ON k.id = t.kalla_id
-                    JOIN matcher m ON m.id = t.match_id
-                    WHERE k.namn = ? AND m.resultat IS NOT NULL AND t.tecken IS NOT NULL {villkor}""",
-                (namn, *params)).fetchall()
-            return [(1 / len(tk) if r in tk else 0.0) for tk, r in rader]
-        p, period = poang("AND m.avspark >= ?", (grans,)), "8v"
-        if len(p) < FORM_MIN:
-            p, period = poang("", ()), "alla"
-        if p:
-            ut.append({"namn": namn, "poang": round(sum(p) / len(p), 3), "antal": len(p), "period": period})
-    return sorted(ut, key=lambda x: (-(x["antal"] >= FORM_MIN), -x["poang"]))
+    for (namn, grupp), d in per.items():
+        p, period = (d["8v"], "8v") if len(d["8v"]) >= FORM_MIN else (d["alla"], "alla")
+        ut.append({"namn": namn, "grupp": grupp, "poang": round(sum(p) / len(p), 3), "antal": len(p), "period": period})
+    return sorted(ut, key=lambda x: (x["grupp"], -(x["antal"] >= FORM_MIN), -x["poang"]))
 
 
 def _argmax_ratt(p, resultat) -> bool:
