@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-10T21:10:52Z",
+ "genererad": "2026-10-10T21:18:49Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -780,7 +780,21 @@
     "antal": 0
    },
    {
+    "namn": "hurbra.se",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
     "namn": "sportsgambler.com",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "sportsmole.co.uk",
     "vikt": 0.1,
     "skattad": false,
     "traff": null,

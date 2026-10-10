@@ -50,12 +50,21 @@ def samla(conn: sqlite3.Connection, anropa: Anropare, sajter: Optional[List[Tips
                 continue
             log.info("Tips: %s – %d artiklar för omgång %s", sajt.namn, len(artiklar), omgang_id)
             for a in artiklar:
+                # Bara matcher som inte har startat: sidor visar livestatus och resultat efter avspark,
+                # och då får tipsen inte tolkas om (resultatet kunde läcka in i tipset).
+                ms = [m for m in matcher if (a.matchnr is None or m.matchnr in a.matchnr)
+                      and (not m.avspark or m.avspark > nu)]
+                if not ms:
+                    continue
                 stat["artiklar"] += 1
                 try:
                     text = html_till_text(hamta_sida(a.url))
                 except HamtningsFel as e:
                     log.warning("Tips: %s: %s", a.url, e)
                     stat["fel"] += 1
+                    continue
+                if not sajt.kontrollera(text, a, matcher):
+                    log.info("Tips: %s gäller inte den här omgången – hoppar över", a.url)
                     continue
                 h = text_hash(text)
                 rad = conn.execute("SELECT extraherad, extraherad_hash FROM artiklar WHERE url = ?", (a.url,)).fetchone()
@@ -71,7 +80,6 @@ def samla(conn: sqlite3.Connection, anropa: Anropare, sajter: Optional[List[Tips
                         continue
                     if parse_iso(nu) - parse_iso(rad["extraherad"]) < timedelta(hours=OMTOLKA_EFTER_H):
                         continue
-                ms = [m for m in matcher if a.matchnr is None or m.matchnr in a.matchnr]
                 try:
                     tips = extrahera(anropa, ms, a.titel, text, sajt.namn, nu)
                 except AiFel as e:

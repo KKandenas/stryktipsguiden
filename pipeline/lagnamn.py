@@ -33,6 +33,10 @@ ALIAS = {
     "nottingham": "nottingham forest", "brighton": "brighton hove albion", "spurs": "tottenham hotspur",
     "inter": "inter milan", "bayern munchen": "bayern munich", "koln": "fc koln",
     "st mirren": "st mirren", "st johnstone": "st johnstone",
+    # Förkortningar som tipssajter använder (t.ex. Sports Mole)
+    "sheff weds": "sheffield wednesday", "sheff wed": "sheffield wednesday", "sheff utd": "sheffield united",
+    "qpr": "queens park rangers", "west brom": "west bromwich albion", "nottm forest": "nottingham forest",
+    "notts co": "notts county", "mk dons": "milton keynes dons", "afc wimbledon": "wimbledon",
 }
 
 

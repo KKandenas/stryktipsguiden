@@ -198,3 +198,52 @@ def test_leverantor_valjs_efter_nyckel(monkeypatch):
     assert klient.leverantor() == "gemini"
     monkeypatch.setenv("AI_LEVERANTOR", "claude")
     assert klient.leverantor() == "claude"
+
+
+# ---------- hurbra.se och Sports Mole ----------
+
+def test_hurbra_adress_fran_spelstopp():
+    from pipeline.sources.tipssajter.hurbra import adress
+    assert adress("2026-10-10T13:59:00Z") == "https://hurbra.se/stryktipset-10-oktober-2026/"
+    assert adress("2026-05-24T13:59:00Z") == "https://hurbra.se/stryktipset-24-maj-2026/"
+
+
+def test_hurbra_utan_artikel_ger_tom_lista(monkeypatch):
+    from pipeline.http import HamtningsFel
+    from pipeline.sources.tipssajter import hurbra
+
+    def saknas(url, **k):
+        raise HamtningsFel(f"{url} svarade 404")
+    monkeypatch.setattr(hurbra, "hamta_sida", saknas)
+    assert hurbra.Hurbra().hitta_artiklar([], "2026-10-10T13:59:00Z") == []
+
+
+def test_sportsmole_lankar_lag_och_datum():
+    from pipeline.sources.tipssajter.sportsmole import LANK, Sportsmole, avsparksdatum, para_ihop
+    html = ('<a href="/football/huddersfield-town/preview/huddersfield-vs-sheff-weds-prediction-team-news-lineups_606509.html">'
+            '<a href="/football/blackburn-rovers/preview/blackburn-vs-cardiff-prediction-team-news-lineups_606461.html">')
+    lankar = LANK.findall(html)
+    matcher = [Match(13, "Huddersfield", "Sheffield W", "League One", "England", "2026-10-10T14:00:00Z"),
+               Match(6, "Blackburn", "Cardiff", "Championship", "England", "2026-10-10T14:00:00Z")]
+    a = {x.matchnr[0]: x for x in para_ihop(matcher, lankar)}
+    assert a[13].url.endswith("huddersfield-vs-sheff-weds-prediction-team-news-lineups_606509.html")
+    assert a[6].url.endswith("_606461.html")
+    text = "Preview: Blackburn Rovers vs Cardiff City  Championship  Blackburn  Oct 10, 2026 3.00pm  We say: 2-1"
+    assert avsparksdatum(text).day == 10
+    assert Sportsmole().kontrollera(text, a[6], matcher) is True
+    gammal = text.replace("Oct 10, 2026", "Mar 14, 2026")      # förra säsongens möte
+    assert Sportsmole().kontrollera(gammal, a[6], matcher) is False
+
+
+def test_tips_tolkas_inte_efter_avspark(conn, monkeypatch):
+    """Efter avspark kan sidan visa resultatet – då får tipset inte tolkas om."""
+    fyll(conn)
+    # Tidig avspark (12:30 svensk tid) för match 2 – den är igång när pipelinen körs 12:00Z
+    conn.execute("UPDATE matcher SET avspark = '2026-10-10T10:30:00Z' WHERE matchnr = 2")
+    conn.commit()
+    monkeypatch.setattr(tipsinsamling, "hamta_sida", lambda url, **k: "<p>Live: 2-0</p>")
+    claude = FalskClaude({"tips": []})
+    tipsinsamling.samla(conn, claude, [FalskSajt()], nu="2026-10-10T12:00:00Z")
+    assert len(claude.anrop) == 1
+    assert "1. Manchester United – Tottenham" in claude.anrop[0]
+    assert "2. Chelsea – Bournemouth" not in claude.anrop[0]
