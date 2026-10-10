@@ -154,13 +154,15 @@ def steg_prognos(conn, alla: bool = False) -> bool:
             s2, u2 = berakna_prognoser(conn, modell, bara_saknade=True)
             sparade, utan = sparade + s2, u2
         log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", modell.version, sparade, utan)
-        # ensemble-v1 för öppna och nyss stängda omgångar (historiken räknas walk-forward i statistiksteget)
-        ens = ladda_modell(conn, EnsembleModell.version)
-        if ens.vikter is not None:
-            aktuella = [r[0] for r in conn.execute(
-                "SELECT id FROM omgangar WHERE spelstopp > ? AND utdelning_13 IS NULL", (_utc_om(-7 * 24),))]
-            s, u = berakna_prognoser(conn, ens, aktuella)
-            log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", ens.version, s, u)
+        # ensemble-v1 och tips-v1 för öppna och nyss stängda omgångar (historiken räknas walk-forward
+        # i statistiksteget)
+        aktuella = [r[0] for r in conn.execute(
+            "SELECT id FROM omgangar WHERE spelstopp > ? AND utdelning_13 IS NULL", (_utc_om(-7 * 24),))]
+        for version in (EnsembleModell.version, "tips-v1"):
+            m = ladda_modell(conn, version)
+            if m.vikter is not None:
+                s, u = berakna_prognoser(conn, m, aktuella)
+                log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", m.version, s, u)
         return True
     except Exception as e:
         log.exception("Prognos: misslyckades: %s", e)
@@ -208,7 +210,9 @@ def steg_statistik(conn, tvinga: bool = False) -> bool:
         for v, m in r["modeller"].items():
             log.info("Statistik: %s – Brier %.4f, log loss %.4f", v, m["brier"], m["logloss"])
         if r["vikter"]:
-            log.info("Statistik: vikter %s", {k: round(v, 3) for k, v in r["vikter"]["w"].items()})
+            log.info("Statistik: vikter ensemble-v1 %s", {k: round(v, 3) for k, v in r["vikter"]["w"].items()})
+        if r["tipsvikter"]:
+            log.info("Statistik: vikter tips-v1 %s", {k: round(v, 3) for k, v in r["tipsvikter"]["w"].items()})
         return True
     except Exception as e:
         log.exception("Statistik: misslyckades: %s", e)

@@ -19,7 +19,8 @@ from typing import Dict, List, Optional, Tuple
 
 from ..tid import nu_utc
 from . import ensemble
-from .modeller import EnsembleModell, STANDARD_MODELL, las_underlag, observation, vald_version
+from .modeller import (STARTVIKT_TIPS, STANDARD_MODELL, TIPSKALLOR, EnsembleModell, TipsModell, las_underlag,
+                       observation, vald_version)
 from .sannolikhet import brier
 
 log = logging.getLogger(__name__)
@@ -90,8 +91,25 @@ def _spara_prognos(conn, match_id: int, version: str, p, nu: str) -> int:
         (match_id, version, p[0], p[1], p[2], nu))
 
 
-def walk_forward(conn, data) -> Tuple[int, Optional[ensemble.Vikter]]:
-    version = EnsembleModell.version
+# Inställningar per tränad modell: vilka källor, hur få matcher som räcker och hur hårt vikterna
+# hålls mot startvikten. tips-v1 får väga in tipsare tidigt (30 matcher) men med starkare straff.
+TRANING = {
+    EnsembleModell.version: dict(),
+    TipsModell.version: dict(kallor_att_prova=["odds"] + TIPSKALLOR, min_obs=30, l2=5.0,
+                             startvikter={"odds": 1.0, **{k: STARTVIKT_TIPS for k in TIPSKALLOR}}),
+}
+EXTRA = {TipsModell.version: {k: STARTVIKT_TIPS for k in TIPSKALLOR}}
+
+
+def _utan_streck(o: ensemble.Observation) -> ensemble.Observation:
+    return ensemble.Observation({k: v for k, v in o.kallor.items() if k != "streck"}, o.utfall)
+
+
+def walk_forward(conn, data, version: str = EnsembleModell.version) -> Tuple[int, Optional[ensemble.Vikter]]:
+    install = TRANING[version]
+    extra = EXTRA.get(version)
+    if version == TipsModell.version:
+        data = [(*rad[:5], _utan_streck(rad[5])) for rad in data]
     omgangar = sorted({(stopp, oid) for oid, stopp, *_ in data})
     per_omgang = defaultdict(list)
     for rad in data:
@@ -104,14 +122,14 @@ def walk_forward(conn, data) -> Tuple[int, Optional[ensemble.Vikter]]:
             rader = per_omgang[oid]
             if len(tran) >= MIN_TRANING:
                 if vikter is None or sedan >= OMTRANA_VAR:
-                    vikter, sedan = ensemble.anpassa(tran), 0
+                    vikter, sedan = ensemble.anpassa(tran, **install), 0
                 sedan += 1
                 for _, _, mid, _, _, o in rader:
                     if "odds" in o.kallor:
-                        sparade += _spara_prognos(conn, mid, version, ensemble.prognos(vikter, o), nu)
+                        sparade += _spara_prognos(conn, mid, version, ensemble.prognos(vikter, o, extra), nu)
             tran += [o for *_, o in rader if "odds" in o.kallor]
 
-        slutlig = ensemble.anpassa(tran) if len(tran) >= MIN_TRANING else None
+        slutlig = ensemble.anpassa(tran, **install) if len(tran) >= MIN_TRANING else None
         if slutlig is not None:
             parametrar = json.dumps(slutlig.till_dict(), sort_keys=True)
             gammal = conn.execute("SELECT parametrar FROM modellvikter WHERE modellversion = ?", (version,)).fetchone()
@@ -132,7 +150,7 @@ def _prognoser(conn, version: str) -> Dict[int, tuple]:
 
 def modellstatistik(conn, data) -> Dict[str, Dict[str, float]]:
     """Mät alla versioner på matcher där samtliga har prognos. Returnerar totalen per version."""
-    versioner = [STANDARD_MODELL, "odds-v1", EnsembleModell.version]
+    versioner = [STANDARD_MODELL, "odds-v1", EnsembleModell.version, TipsModell.version]
     prog = {v: _prognoser(conn, v) for v in versioner}
     versioner = [v for v in versioner if prog[v]]
     gemensamma = [r for r in data if all(r[2] in prog[v] for v in versioner)]
@@ -202,6 +220,7 @@ def kor(conn: sqlite3.Connection) -> dict:
     data = _avgjorda(conn)
     k = kallstatistik(conn, data)
     n, vikter = walk_forward(conn, data)
+    n_tips, vikter_tips = walk_forward(conn, data, TipsModell.version)
     totalt = modellstatistik(conn, data)
     val = valj_modell(conn, data)
     with conn:
@@ -209,4 +228,5 @@ def kor(conn: sqlite3.Connection) -> dict:
                         ON CONFLICT(nyckel) DO UPDATE SET varde = excluded.varde, uppdaterad = excluded.uppdaterad""",
                      (str(senaste_avgjorda(conn) or 0), nu_utc()))
     return {"matcher": len(data), "kallstatistik": k, "ensemble_prognoser": n,
-            "vikter": vikter.till_dict() if vikter else None, "modeller": totalt, "aktiv": val}
+            "vikter": vikter.till_dict() if vikter else None, "modeller": totalt, "aktiv": val,
+            "tips_prognoser": n_tips, "tipsvikter": vikter_tips.till_dict() if vikter_tips else None}

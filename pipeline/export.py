@@ -14,6 +14,7 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
       "chans_kalla": "modell" | "streck" | null,
       "streck": {"1": 65, "X": 20, "2": 15} | null, "streck_tid": "...Z" | null,
       "varde":  {"1": -0.10, "X": 0.04, "2": 0.06} | null,
+      "chans_tips", "varde_tips": samma sak enligt tips-v1 (odds + tipsare viktade efter träffsäkerhet) | null,
       "odds":   {"antal_bolag": 3, "snitt": {"1": 1.75, "X": 4.3, "2": 4.7}} | null,
       "tips":   [{"kalla": "Tio tidningars tips", "tecken": "1", "text": "5-1-4 av 10 tidningar"}],
       "kommentar": null,
@@ -38,7 +39,8 @@ from pathlib import Path
 from typing import Optional
 
 from . import config
-from .model.modeller import BOLAG_START, MODELLER, STANDARD_MODELL, las_underlag, vald_version
+from .model.modeller import (BOLAG_START, MODELLER, STANDARD_MODELL, STARTVIKT_TIPS, TIPSKALLOR, las_underlag,
+                             las_vikter, vald_version)
 from .model.sannolikhet import varde
 from .tid import nu_utc
 
@@ -113,6 +115,9 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
                                       (m["id"],))]
 
         kommentar = conn.execute("SELECT text FROM kommentarer WHERE match_id = ?", (m["id"],)).fetchone()
+        pt = conn.execute("SELECT p1, px, p2 FROM prognoser WHERE match_id = ? AND modellversion = 'tips-v1'",
+                          (m["id"],)).fetchone()
+        chans_tips = (pt[0], pt[1], pt[2]) if pt else None
 
         matcher.append({
             "nr": m["matchnr"], "hemmalag": m["hemmalag"], "bortalag": m["bortalag"],
@@ -120,6 +125,8 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "chans": _tripel(chans), "chans_kalla": kalla,
             "streck": _tripel(u.streck, 1), "streck_tid": u.streck_tid,
             "varde": _tripel(varde(chans, u.streck)) if kalla == "modell" and u.streck else None,
+            "chans_tips": _tripel(chans_tips),
+            "varde_tips": _tripel(varde(chans_tips, u.streck)) if chans_tips and u.streck else None,
             "odds": odds, "tips": tips, "kommentar": kommentar[0] if kommentar else None,
             "resultat": m["resultat"] if visa_resultat else None,
             "mal": (f"{m['mal_hemma']}-{m['mal_borta']}"
@@ -181,7 +188,21 @@ def bygg_statistik(conn: sqlite3.Connection, version: str, antal_omgangar: int =
             folket_ratt += _argmax_ratt(json.loads(m[2]) if m[2] else None, m[0])
         senaste.append({"omgang": o["id"], "datum": o["datum"], "modell_ratt": modell_ratt, "folket_ratt": folket_ratt})
 
-    return {"aktiv_modell": version, "modeller": modeller, "kallor": kallor, "ligor": ligor, "senaste": senaste}
+    # Tipsarnas vikt i tips-v1 (skattad, eller startvikt om tipsaren har för få avgjorda matcher än)
+    v = las_vikter(conn, "tips-v1")
+    alla_kallor = {r[0]: (r[1], r[2], r[3]) for r in conn.execute(
+        """SELECT k.namn, s.traff, s.brier, s.antal_matcher FROM kallstatistik s JOIN kallor k ON k.id = s.kalla_id
+           WHERE s.liga = 'Alla'""")}
+    tipsare = []
+    for namn in TIPSKALLOR:
+        skattad = v is not None and namn in v.w
+        t, b, n = alla_kallor.get(namn, (None, None, 0))
+        tipsare.append({"namn": namn, "vikt": round(v.w[namn], 3) if skattad else STARTVIKT_TIPS,
+                        "skattad": skattad, "traff": round(t, 3) if t is not None else None, "antal": n or 0})
+    oddsvikt = round(v.w.get("odds", 1.0), 3) if v else 1.0
+
+    return {"aktiv_modell": version, "modeller": modeller, "kallor": kallor, "ligor": ligor, "senaste": senaste,
+            "tipsare": tipsare, "tips_oddsvikt": oddsvikt}
 
 
 def skriv(kupong: dict, sokvag: Path, kompakt: bool = False) -> bool:

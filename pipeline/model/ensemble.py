@@ -92,22 +92,27 @@ def _los(A: List[List[float]], b: List[float]) -> List[float]:
     return x
 
 
-def anpassa(data: List[Observation], iterationer: int = 25) -> Vikter:
-    """Skatta vikter. Källor med färre än MIN_OBS träningsmatcher utesluts (vikt 0)."""
+def anpassa(data: List[Observation], iterationer: int = 25, kallor_att_prova: Optional[List[str]] = None,
+            min_obs: int = MIN_OBS, l2: float = L2, startvikter: Optional[Dict[str, float]] = None) -> Vikter:
+    """Skatta vikter. Källor med färre än min_obs träningsmatcher utesluts (vikt 0).
+
+    startvikter: vikten varje källa dras mot (L2-straff) – standard är oddsvikt 1 och övriga 0."""
+    startvikter = startvikter or {"odds": 1.0}
     data = [o for o in data if o.utfall in UTFALL]
-    kallor = [s for s in KALLOR if sum(1 for o in data if s in o.kallor) >= MIN_OBS]
+    kallor = [s for s in (kallor_att_prova or KALLOR) if sum(1 for o in data if s in o.kallor) >= min_obs]
     if not data or not kallor:
         return Vikter(antal=len(data))
     F = [_features(o, kallor) for o in data]
     y = [UTFALL[o.utfall] for o in data]
     P = 2 + len(kallor)
-    # Utgångsläge och straff dras mot "bara odds": oddsvikt 1, övriga 0.
-    prior = [0.0, 0.0] + [1.0 if s == "odds" else 0.0 for s in kallor]
+    # Utgångsläge och straff dras mot startvikterna (oftast "bara odds").
+    prior = [0.0, 0.0] + [startvikter.get(s, 0.0) for s in kallor]
     theta = prior[:]
+    L2_ = l2
 
     for _ in range(iterationer):
-        grad = [-L2 * (t - p0) for t, p0 in zip(theta, prior)]
-        H = [[(L2 if i == j else 0.0) for j in range(P)] for i in range(P)]
+        grad = [-L2_ * (t - p0) for t, p0 in zip(theta, prior)]
+        H = [[(L2_ if i == j else 0.0) for j in range(P)] for i in range(P)]
         for Fi, yi in zip(F, y):
             p = _softmax([sum(t * f for t, f in zip(theta, Fi[k])) for k in range(3)])
             medel = [sum(p[k] * Fi[k][j] for k in range(3)) for j in range(P)]
@@ -127,10 +132,13 @@ def anpassa(data: List[Observation], iterationer: int = 25) -> Vikter:
     return Vikter((0.0, theta[0], theta[1]), dict(zip(kallor, theta[2:])), len(data))
 
 
-def prognos(v: Vikter, o: Observation) -> Optional[Tripel]:
-    if not any(s in o.kallor for s in v.w):
+def prognos(v: Vikter, o: Observation, extra_vikter: Optional[Dict[str, float]] = None) -> Optional[Tripel]:
+    """extra_vikter: vikter för källor som inte skattats ännu (för lite data) – används bara om
+    källan saknas i v.w."""
+    w_alla = {**(extra_vikter or {}), **v.w}
+    if not any(s in o.kallor for s in w_alla):
         return None
-    z = [v.a[k] + sum(w * _logp(o.kallor.get(s))[k] for s, w in v.w.items()) for k in range(3)]
+    z = [v.a[k] + sum(w * _logp(o.kallor.get(s))[k] for s, w in w_alla.items()) for k in range(3)]
     p = _softmax(z)
     return (p[0], p[1], p[2])
 

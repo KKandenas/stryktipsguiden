@@ -132,6 +132,16 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .kort { background: var(--yta); border-radius: var(--radie); padding: 16px; margin-bottom: 12px; box-shadow: var(--skugga); }
 .kort-rubrik { font-family: var(--rubrikfont); font-size: 20px; font-weight: 700; letter-spacing: .01em; margin-bottom: 10px; }
 .budget { margin-top: -44px; position: relative; z-index: 1; }
+.forslag { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; background: var(--ruta); border-radius: 12px; margin-bottom: 14px; }
+.forslag button {
+  border: 0; border-radius: 9px; background: transparent; padding: 8px 6px; cursor: pointer; text-align: center; line-height: 1.2;
+}
+.forslag button b { display: block; font-family: var(--rubrikfont); font-size: 17px; font-weight: 800; }
+.forslag button span { display: block; font-size: 11px; color: var(--dampad); }
+.forslag button[aria-checked="true"] { background: var(--yta); box-shadow: 0 1px 4px rgba(10, 25, 60, .15); }
+.forslag button[aria-checked="true"] b { color: var(--primar); }
+.forslag button:disabled { opacity: .45; cursor: not-allowed; }
+.forslag button:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
 .vy[hidden] { display: none; }
 
 .banner { background: var(--banner); border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; font-size: 14px; }

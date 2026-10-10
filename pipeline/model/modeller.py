@@ -110,7 +110,31 @@ class EnsembleModell:
         return ensemble.prognos(self.vikter, o)
 
 
-MODELLER = {m.version: m for m in (OddsModell(), OddsModellV2(), EnsembleModell())}
+# Tipsarna som tips-v1 väger in. En ny tipsare börjar på STARTVIKT_TIPS och vikten lärs sedan
+# från resultaten (med straff mot startvikten, så att lite data bara flyttar den lite).
+TIPSKALLOR = ["Tio tidningars tips", "speltips.se", "sportsgambler.com"]
+STARTVIKT_TIPS = 0.1
+
+
+class TipsModell:
+    """tips-v1: odds + tipsarna, viktade efter hur ofta tipsarna haft rätt (logistisk regression).
+
+    Parallellt alternativ till basmodellen – väljs i appen, aldrig automatiskt. Strecken ingår inte."""
+    version = "tips-v1"
+    beskrivning = "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt"
+
+    def __init__(self, vikter: Optional[ensemble.Vikter] = None):
+        self.vikter = vikter
+
+    def prognos(self, u: Underlag) -> Optional[Tripel]:
+        o = observation(u)
+        o.kallor.pop("streck", None)
+        if self.vikter is None or "odds" not in o.kallor:
+            return None
+        return ensemble.prognos(self.vikter, o, {k: STARTVIKT_TIPS for k in TIPSKALLOR})
+
+
+MODELLER = {m.version: m for m in (OddsModell(), OddsModellV2(), EnsembleModell(), TipsModell())}
 STANDARD_MODELL = "odds-v2"
 
 
@@ -127,6 +151,8 @@ def las_vikter(conn: sqlite3.Connection, version: str) -> Optional[ensemble.Vikt
 def ladda_modell(conn: sqlite3.Connection, version: str):
     if version == EnsembleModell.version:
         return EnsembleModell(las_vikter(conn, version))
+    if version == TipsModell.version:
+        return TipsModell(las_vikter(conn, version))
     return MODELLER[version]
 
 

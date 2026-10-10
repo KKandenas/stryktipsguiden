@@ -4,7 +4,7 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera } from "./optimizer.js?v=20261011c";
+import { allaRader, optimera } from "./optimizer.js?v=20261011d";
 
 /** Matcher i optimerarens format. kalla "modell": modellens chans och folkets streck.
  *  kalla "folket": strecken används som chans – då väljs rent efter vad folket tror. */

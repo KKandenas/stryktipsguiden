@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011c";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011c";
+} from "./optimizer.js?v=20261011d";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011d";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -19,7 +19,15 @@ const state = {
   senaste: null,       // senaste.json – förra omgången, för rättning
   rBudget: null,       // vald budget i rättningen
   rOppna: new Set(),   // utfällda matcher i rättningen
+  kalla: "modell",     // "modell" eller "tips" – vilket förslag som visas
 };
+
+/** Matcherna enligt valt förslag: med "tips" används tips-v1:s chans och värde där de finns. */
+function matcherEnligtKalla(kupong) {
+  if (state.kalla !== "tips") return kupong.matcher;
+  return kupong.matcher.map((m) => (m.chans_tips ? { ...m, chans: m.chans_tips, varde: m.varde_tips } : m));
+}
+const harTips = (kupong) => kupong.matcher.some((m) => m.chans_tips);
 
 // ---------- lagring (localStorage kan saknas eller kasta, t.ex. i privat läge) ----------
 
@@ -30,6 +38,7 @@ function sparaLagring() {
   try {
     const d = lasLagring();
     d.budget = state.budget;
+    d.kalla = state.kalla;
     d.lasningar = d.lasningar || {};
     const id = state.kupong.omgang.id;
     if (Object.keys(state.lasningar).length) d.lasningar[id] = state.lasningar;
@@ -74,6 +83,15 @@ async function start() {
   }
   const lagrat = lasLagring();
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
+  if (lagrat.kalla === "tips" && harTips(state.kupong)) state.kalla = "tips";
+  for (const b of document.querySelectorAll(".forslag button")) {
+    b.disabled = b.dataset.kalla === "tips" && !harTips(state.kupong);
+    b.addEventListener("click", () => {
+      state.kalla = b.dataset.kalla;
+      if (state.senaste) renderaRattning();
+      uppdatera();
+    });
+  }
   state.lasningar = (lagrat.lasningar || {})[state.kupong.omgang.id] || {};
 
   byggBudgetknappar();
@@ -165,7 +183,8 @@ function renderaTopp() {
 }
 
 function renderaMatcher() {
-  ritaMatcher($("matcher"), state.kupong, state.resultat, state.lasningar, state.oppna, true);
+  ritaMatcher($("matcher"), { ...state.kupong, matcher: matcherEnligtKalla(state.kupong) },
+    state.resultat, state.lasningar, state.oppna, true);
 }
 
 /** Ritar kupongens matcher. interaktiv=false (rättningen): tecknen går inte att låsa. */
@@ -261,7 +280,8 @@ function detaljer(m) {
   return d;
 }
 
-const MODELLNAMN = { "odds-v2": "Modellen (odds)", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell" };
+const MODELLNAMN = { "odds-v2": "Modellen (odds)", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell",
+  "tips-v1": "Tipsviktat" };
 const pct = (x) => `${Math.round(x * 100)} %`;
 const dec = (x) => x.toFixed(3).replace(".", ",");
 
@@ -298,6 +318,28 @@ function renderaStatistik() {
   }
   tabell.append(kropp);
   box.append(tabell);
+
+  if (st.tipsare?.length) {
+    box.append(el("h3", { text: "Tipsarnas vikt i det tipsviktade förslaget" }));
+    const t = el("table", { class: "stat-tabell" },
+      el("thead", {}, el("tr", {}, el("th", { text: "Tipsare" }), el("th", { class: "tal", text: "Träff" }),
+        el("th", { class: "tal", text: "Matcher" }), el("th", { class: "tal", text: "Vikt" }))));
+    const b = el("tbody");
+    b.append(el("tr", {}, el("td", { text: "Bookmakerodds" }), el("td", { class: "tal", text: "–" }),
+      el("td", { class: "tal", text: "–" }), el("td", { class: "tal", text: dec(st.tips_oddsvikt ?? 1) })));
+    for (const tp of st.tipsare) {
+      b.append(el("tr", {}, el("td", {}, tp.namn, tp.skattad ? null : el("span", { class: "dampad", text: " (startvikt)" })),
+        el("td", { class: "tal", text: tp.traff != null ? pct(tp.traff) : "–" }),
+        el("td", { class: "tal", text: tp.antal.toLocaleString("sv-SE") }),
+        el("td", { class: "tal", text: dec(tp.vikt) })));
+    }
+    t.append(b);
+    box.append(t);
+    box.append(el("p", { class: "forklaring-stat", text:
+      "Vikten visar hur mycket tipsaren flyttar sannolikheterna jämfört med oddsen (0 = ingen påverkan). " +
+      "Nya tipsare börjar på en liten startvikt och får en egen, inlärd vikt när de har minst 30 avgjorda matcher. " +
+      "Vikterna lärs om varje söndag – tipsare som ofta har rätt där oddsen har fel får mer att säga till om." }));
+  }
 
   if (st.ligor?.length) {
     box.append(el("h3", { text: "Per liga (modellen)" }));
@@ -411,7 +453,8 @@ function renderaRattning() {
 
   for (const b of $("r-budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.rBudget));
   const lasningar = (lasLagring().lasningar || {})[omgang.id] || {};
-  const res = optimera(k.matcher, state.rBudget, lasningar);
+  const rMatcher = matcherEnligtKalla(k);
+  const res = optimera(rMatcher, state.rBudget, lasningar);
   const box = $("r-resultat");
   box.replaceChildren();
 
@@ -432,10 +475,11 @@ function renderaRattning() {
     const rader = [13, 12, 11, 10].filter((n) => fordelning[n]).map((n) =>
       `${n} rätt: ${fordelning[n]} ${fordelning[n] === 1 ? "rad" : "rader"}${avgjord && utd[String(n)] ? ` à ${kr(utd[String(n)])}` : ""}`);
     box.append(el("p", { class: "dampad", text: rader.length ? rader.join(" · ") : "Ingen rad nådde 10 rätt." }));
-    box.append(el("p", { class: "dampad liten", text: (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
+    box.append(el("p", { class: "dampad liten", text: (state.kalla === "tips" ? "Tipsviktat förslag. " : "") +
+      (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
       "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." }));
   }
-  ritaMatcher($("r-matcher"), k, res, lasningar, state.rOppna, false);
+  ritaMatcher($("r-matcher"), { ...k, matcher: rMatcher }, res, lasningar, state.rOppna, false);
 }
 
 // ---------- backtest ----------
@@ -601,7 +645,8 @@ function arstabell(serier) {
 }
 
 function uppdatera() {
-  state.resultat = optimera(state.kupong.matcher, state.budget, state.lasningar);
+  state.resultat = optimera(matcherEnligtKalla(state.kupong), state.budget, state.lasningar);
+  for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
 
   for (const b of $("budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.budget));
   const fel = $("fel");

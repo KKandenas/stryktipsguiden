@@ -278,6 +278,24 @@ historik kan ensemble-v1 ta över av sig själv.
 I appen visar avsnittet **"Så har modellen träffat"** tabellen ovan, träffsäkerhet per liga och hur
 många rätt modellens och folkets favorittecken fick de senaste tio omgångarna.
 
+### Tipsviktat förslag (tips-v1)
+
+Ett parallellt förslag som väljs med växeln **Modellen / Tipsviktat** högst upp på kupongen.
+Det väljs aldrig automatiskt. `tips-v1` väger ihop bookmakerodds (odds-v2) och tipsarna (Tio
+tidningars tips, speltips.se, sportsgambler.com) med samma logistiska regression som ensemble-v1,
+men utan strecken:
+
+- **Startvikt 0,1** för en ny tipsare. Från 30 avgjorda matcher skattas en egen vikt, med straff mot
+  startvikten (`l2 = 5`), så att lite data bara flyttar vikten lite.
+- Vikterna tränas om varje söndag. Historiken backtestas walk-forward precis som ensemble-v1, och
+  `tips-v1` mäts i modellstatistiken bredvid odds-v2.
+- Tips som bara anger tecken räknas om till sannolikheter (80 % på valda tecken).
+- Appen visar varje tipsares träffprocent, antal matcher och vikt under *Så har modellen träffat*.
+
+Läget i oktober 2026: Tio tidningars tips har vikt 0,016 (3 692 matcher, tillför nästan inget utöver
+oddsen). speltips.se och sportsgambler.com samlas in från och med nu och står på startvikten tills
+de har 30 avgjorda matcher, vilket tar ungefär 3–4 veckor.
+
 ### Försök: optimera mot förväntad utdelning (inte infört)
 
 Utdelningen kan förutsägas mycket väl från strecken på de rätta tecknen
