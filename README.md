@@ -218,8 +218,9 @@ En artikel tolkas om bara om texten ändrats och den förra tolkningen är äldr
 **Kommentarer** (`pipeline/ai/kommentarer.py`): 1–2 meningar per match utifrån chans, streck, värde
 och tipsen. En kommentar skrivs om bara när underlaget ändrats märkbart (avrundade värden hashas).
 
-**Inställningar** i `pipeline/ai/klient.py`: modell (`GEMINI_MODELL`, går också att sätta som
-miljövariabel), tänkande (`GEMINI_TANKANDE = "low"`) och omförsök vid 429 (gratisnivån har låga
+**Inställningar** i `pipeline/ai/klient.py`: modell (`GEMINI_MODELL`, standard `gemini-3.8-flash`).
+Den kan bytas utan kodändring via repo-variabeln `GEMINI_MODELL` under Settings → Secrets and
+variables → Actions → fliken Variables, t.ex. `gemini-2.5-flash`. Dessutom: tänkande (`GEMINI_TANKANDE = "low"`) och omförsök vid 429 (gratisnivån har låga
 gränser per minut). En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
 
 **Kostnad:** Geminis gratisnivå räcker för det här. Observera att Google får använda innehåll som

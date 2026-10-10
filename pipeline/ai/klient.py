@@ -16,7 +16,7 @@ from typing import Any, Callable, Dict, Optional
 
 log = logging.getLogger(__name__)
 
-GEMINI_MODELL = os.environ.get("GEMINI_MODELL", "gemini-3.8-flash")
+GEMINI_MODELL = os.environ.get("GEMINI_MODELL", "").strip() or "gemini-3.8-flash"  # kan sättas som repo-variabel
 GEMINI_TANKANDE = "low"            # minimal | low | medium | high
 
 CLAUDE_MODELL = "claude-opus-5-5"
