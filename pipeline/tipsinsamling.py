@@ -1,7 +1,7 @@
-"""Hämta tipsartiklar för öppna omgångar och låt Claude tolka dem till tabellen tips.
+"""Hämta tipsartiklar för öppna omgångar och låt AI-modellen tolka dem till tabellen tips.
 
 En artikel tolkas om bara om texten ändrats OCH den senaste tolkningen är äldre än OMTOLKA_EFTER_H,
-så att sidor med levande odds inte kostar ett Claude-anrop vid varje körning.
+så att sidor med levande odds inte kostar ett AI-anrop vid varje körning.
 """
 from __future__ import annotations
 
@@ -75,7 +75,7 @@ def samla(conn: sqlite3.Connection, anropa: Anropare, sajter: Optional[List[Tips
                 try:
                     tips = extrahera(anropa, ms, a.titel, text, sajt.namn, nu)
                 except AiFel as e:
-                    log.error("Tips: Claude kunde inte tolka %s: %s", a.url, e)
+                    log.error("Tips: AI-modellen kunde inte tolka %s: %s", a.url, e)
                     stat["fel"] += 1
                     continue
                 andrade = lagring.spara_tips(conn, omgang_id, tips)

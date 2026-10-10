@@ -8,14 +8,14 @@ GitHub Actions (schema)                          GitHub Pages
 ┌──────────────────────────────┐   committar    ┌──────────────────────────┐
 │ python -m pipeline auto      │ ─────────────▶ │ docs/  (statisk webbapp) │
 │  Svenska Spel, The Odds API  │  data/*.db     │  läser bara kupong.json  │
-│  (fas 4: tipssajter, Claude) │  kupong.json   └──────────────────────────┘
+│  tipssajter, Gemini (fas 4)  │  kupong.json   └──────────────────────────┘
 └──────────────────────────────┘
 ```
 
 - **Pipeline** (`pipeline/`): Python. Hämtar data, sparar i SQLite (`data/stryktips.db`, committas
   till repot), räknar sannolikheter och exporterar `docs/kupong.json`.
 - **App** (`docs/`): HTML, CSS och JS utan byggsteg. Ingen backend och inga nycklar i webbläsaren.
-- **AI** (fas 4): Claude anropas bara från pipelinen.
+- **AI** (fas 4): Gemini (eller Claude) anropas bara från pipelinen.
 
 ## Status
 
@@ -47,8 +47,8 @@ Kommandon:
 | `python -m pipeline odds` | The Odds API för öppna omgångar (kräver `ODDS_API_KEY`) |
 | `python -m pipeline resultat` | Resultat och utdelning för omgångar efter spelstopp |
 | `python -m pipeline backfill 4700 4973` | Hämta historiska omgångar (1 s paus mellan anrop) |
-| `python -m pipeline tips` | Hämta tipsartiklar och låt Claude tolka dem (kräver `ANTHROPIC_API_KEY`) |
-| `python -m pipeline kommentarer` | Skriv AI-kommentarer för öppna omgångar (kräver `ANTHROPIC_API_KEY`) |
+| `python -m pipeline tips` | Hämta tipsartiklar och låt AI-modellen tolka dem (kräver `GEMINI_API_KEY`) |
+| `python -m pipeline kommentarer` | Skriv AI-kommentarer för öppna omgångar (kräver `GEMINI_API_KEY`) |
 | `python -m pipeline prognos [--alla]` | Räkna sannolikheter med aktiv modellversion (`--alla` räknar om hela historiken) |
 | `python -m pipeline export` | Skriv `docs/kupong.json` (närmaste öppna omgång, annars den senaste) |
 | `python -m pipeline export --omgang 4974 --till docs/exempel-kupong.json --dolj-resultat` | Skapa exempelfilen |
@@ -62,7 +62,8 @@ Lägg till `-v` för mer loggning. Miljövariabeln `STRYKTIPS_DB` styr vilken da
 | Secret | Krävs | Används till |
 |---|---|---|
 | `ODDS_API_KEY` | Nej | Bookmakerodds från [The Odds API](https://the-odds-api.com). Utan nyckel används bara Svenska Spels egna odds. |
-| `ANTHROPIC_API_KEY` | Nej, men behövs för fas 4 | Claude: tolkning av tipsartiklar och matchkommentarer. Skapas på console.anthropic.com. |
+| `GEMINI_API_KEY` | Nej, men behövs för fas 4 | Gemini: tolkning av tipsartiklar och matchkommentarer. Gratis nyckel på aistudio.google.com. |
+| `ANTHROPIC_API_KEY` | Nej | Alternativ till Gemini (Claude). Används bara om `GEMINI_API_KEY` saknas eller `AI_LEVERANTOR=claude`. |
 
 Lägg till dem under **Settings → Secrets and variables → Actions → New repository secret**.
 
@@ -190,8 +191,11 @@ Körs automatiskt i GitHub Actions. Lokalt krävs Node 18 eller senare.
 
 ## Tipssajter och AI (fas 4)
 
-Claude anropas bara från pipelinen (`pipeline/ai/`), aldrig från appen. Utan `ANTHROPIC_API_KEY`,
-eller på Python < 3.10 där SDK:n inte finns, hoppas stegen över med en loggrad.
+AI anropas bara från pipelinen (`pipeline/ai/`), aldrig från appen. **Gemini** är förvalt
+(`gemini-3.8-flash`, gratisnivå via Google AI Studio). Claude finns kvar som alternativ.
+Leverantören väljs efter vilken nyckel som finns: `GEMINI_API_KEY` i första hand och
+`ANTHROPIC_API_KEY` i andra. `AI_LEVERANTOR=claude` tvingar Claude. Utan nyckel, eller på
+Python < 3.10 där SDK:erna inte finns, hoppas AI-stegen över med en loggrad.
 
 | Källa | Typ | Hur artiklar hittas |
 |---|---|---|
@@ -206,24 +210,24 @@ Undersökta men inte använda: forebet.com, predictz.com och windrawwin.com bloc
 2 sekunders paus mellan anrop till samma sajt och cache i `data/cache/` (sparas mellan körningar
 med `actions/cache`, committas inte). Själva artikeltexten sparas aldrig i databasen, bara en hash.
 
-**Tolkning** (`pipeline/ai/extraktion.py`): Claude får matchlistan och artikeltexten och svarar med
-strikt JSON (`output_config.format`): tecken (1/X/2 eller gardering), sannolikheter bara om artikeln
+**Tolkning** (`pipeline/ai/extraktion.py`): modellen får matchlistan och artikeltexten och svarar
+med strikt JSON enligt ett schema: tecken (1/X/2 eller gardering), sannolikheter bara om artikeln
 anger dem, och en kort sammanfattning på svenska. Svaret valideras innan det sparas i `tips`.
 En artikel tolkas om bara om texten ändrats och den förra tolkningen är äldre än 12 timmar.
 
 **Kommentarer** (`pipeline/ai/kommentarer.py`): 1–2 meningar per match utifrån chans, streck, värde
 och tipsen. En kommentar skrivs om bara när underlaget ändrats märkbart (avrundade värden hashas).
 
-**Modell:** `claude-opus-5-5` med effort `medium`. Om modellen avböjer en förfrågan körs den
-automatiskt om på en reservmodell (`fallbacks: "default"`). Modell och effort ställs in i
-`pipeline/ai/klient.py`.
+**Inställningar** i `pipeline/ai/klient.py`: modell (`GEMINI_MODELL`, går också att sätta som
+miljövariabel), tänkande (`GEMINI_TANKANDE = "low"`) och omförsök vid 429 (gratisnivån har låga
+gränser per minut). En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
 
-**Kostnad, grov uppskattning:** en full tolkning är cirka 110 000 tokens in (13 matchartiklar och
-en kupongartikel), ungefär 1 USD med tänkande inräknat. Med torsdag och lördag blir det runt
-5–10 USD i månaden. Sänk kostnaden genom att sätta `EFFORT = "low"` eller ta bort sportsgambler.com ur `SAJTER`.
+**Kostnad:** Geminis gratisnivå räcker för det här. Observera att Google får använda innehåll som
+skickas på gratisnivån för att förbättra sina produkter. Här är det bara publika artiklar och
+kupongdata. Med Claude (`claude-opus-5-5`) blir det cirka 5–10 USD i månaden.
 
 **Lägg till en sajt:** se `pipeline/sources/tipssajter/__init__.py`. Det är en klass med
-`hitta_artiklar()`, och resten (hämtning, Claude, lagring, kommentarer) sköts automatiskt.
+`hitta_artiklar()`, och resten (hämtning, AI, lagring, kommentarer) sköts automatiskt.
 
 ## kupong.json
 

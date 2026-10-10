@@ -5,9 +5,9 @@
     python -m pipeline odds                 # The Odds API för öppna omgångar
     python -m pipeline resultat             # resultat och utdelning för avslutade omgångar
     python -m pipeline backfill 4900 4973   # hämta historiska omgångar
-    python -m pipeline tips                 # tipssajter → Claude → tabellen tips (kräver ANTHROPIC_API_KEY)
+    python -m pipeline tips                 # tipssajter → AI → tabellen tips (kräver GEMINI_API_KEY)
     python -m pipeline prognos [--alla]     # räkna sannolikheter (aktiv modellversion)
-    python -m pipeline kommentarer          # AI-kommentarer per match (kräver ANTHROPIC_API_KEY)
+    python -m pipeline kommentarer          # AI-kommentarer per match (kräver GEMINI_API_KEY)
     python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
     python -m pipeline migrera
 
@@ -160,7 +160,7 @@ def steg_tips(conn) -> bool:
         return True
     try:
         stat = tipsinsamling.samla(conn, ai_klient.anropa_json)
-        log.info("Tips: %(artiklar)d artiklar, %(tolkade)d tolkade av Claude, %(tips)d nya/ändrade tips, %(fel)d fel", stat)
+        log.info("Tips: %(artiklar)d artiklar, %(tolkade)d tolkade av AI, %(tips)d nya/ändrade tips, %(fel)d fel", stat)
     except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
         log.exception("Tips: oväntat fel: %s", e)
     return True

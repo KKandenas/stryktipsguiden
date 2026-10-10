@@ -1,4 +1,4 @@
-"""Fas 4: tipssajter, Claude-tolkning och kommentarer. Claude ersätts av en falsk anropare."""
+"""Fas 4: tipssajter, AI-tolkning och kommentarer. AI-modellen ersätts av en falsk anropare."""
 import pytest
 
 from pipeline import export, lagring, tipsinsamling
@@ -174,3 +174,27 @@ def test_sdk_tar_emot_parametrarna_vi_skickar():
     params = inspect.signature(anthropic.Anthropic(api_key="test").beta.messages.create).parameters
     for namn in ("model", "max_tokens", "system", "messages", "output_config", "betas", "fallbacks"):
         assert namn in params, f"anthropic {anthropic.__version__} saknar parametern {namn}"
+
+
+def test_gemini_sdk_tar_emot_vart_format():
+    """Körs bara där google-genai är installerat (Python 3.10+, t.ex. i CI)."""
+    pytest.importorskip("google.genai")
+    from google.genai import interactions as gi
+    from pipeline.ai.extraktion import SCHEMA
+    f = gi.TextResponseFormat.model_validate({"type": "text", "mime_type": "application/json", "schema": SCHEMA})
+    assert f.schema_ == SCHEMA
+    g = gi.GenerationConfig.model_validate({"thinking_level": "low", "max_output_tokens": 8000})
+    assert g.max_output_tokens == 8000
+
+
+def test_leverantor_valjs_efter_nyckel(monkeypatch):
+    from pipeline.ai import klient
+    for k in ("GEMINI_API_KEY", "ANTHROPIC_API_KEY", "AI_LEVERANTOR"):
+        monkeypatch.delenv(k, raising=False)
+    assert klient.leverantor() is None
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "x")
+    assert klient.leverantor() == "claude"
+    monkeypatch.setenv("GEMINI_API_KEY", "y")
+    assert klient.leverantor() == "gemini"
+    monkeypatch.setenv("AI_LEVERANTOR", "claude")
+    assert klient.leverantor() == "claude"

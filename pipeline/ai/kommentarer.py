@@ -12,7 +12,7 @@ import sqlite3
 from typing import Any, Dict, List
 
 from ..tid import nu_utc
-from .klient import MODELL, AiFel, Anropare
+from .klient import AiFel, Anropare, modellnamn
 
 log = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ SCHEMA = {
 
 
 def underlag(match: Dict[str, Any]) -> Dict[str, Any]:
-    """Det Claude får se om en match (från ett matchobjekt i kupong.json). Avrundat så att små
+    """Det AI-modellen får se om en match (från ett matchobjekt i kupong.json). Avrundat så att små
     oddsrörelser inte ger nya kommentarer."""
     pct = lambda d: {k: round(v * 100) for k, v in d.items()} if d else None  # noqa: E731
     return {
@@ -103,8 +103,8 @@ def uppdatera(conn: sqlite3.Connection, anropa: Anropare, kupong: Dict[str, Any]
                 """INSERT INTO kommentarer (match_id, text, underlag_hash, modell, skapad) VALUES (?, ?, ?, ?, ?)
                    ON CONFLICT(match_id) DO UPDATE SET text = excluded.text, underlag_hash = excluded.underlag_hash,
                        modell = excluded.modell, skapad = excluded.skapad""",
-                (ids[nr], text, underlag_hash(per_nr.pop(nr)), MODELL, nu))
+                (ids[nr], text, underlag_hash(per_nr.pop(nr)), modellnamn(), nu))
             sparade += 1
     if per_nr:
-        log.warning("Kommentarer: Claude svarade inte för match %s", sorted(per_nr))
+        log.warning("Kommentarer: modellen svarade inte för match %s", sorted(per_nr))
     return sparade

@@ -1,4 +1,4 @@
-"""Tipssajter. Varje sajt är en klass som hittar artiklar för en omgång; Claude tolkar dem sedan.
+"""Tipssajter. Varje sajt är en klass som hittar artiklar för en omgång; AI-modellen tolkar dem sedan.
 
 Lägg till en sajt:
 1. Skapa en fil här med en subklass av Tipssajt som implementerar hitta_artiklar().

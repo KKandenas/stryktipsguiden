@@ -1,4 +1,4 @@
-"""Låt Claude läsa en tipsartikel och plocka ut tips (tecken, ev. sannolikheter, kort sammanfattning)."""
+"""Låt AI-modellen läsa en tipsartikel och plocka ut tips (tecken, ev. sannolikheter, kort sammanfattning)."""
 from __future__ import annotations
 
 import json
@@ -33,10 +33,11 @@ SCHEMA = {
                 "type": "object",
                 "properties": {
                     "matchnr": {"type": "integer"},
-                    "tecken": {"anyOf": [{"type": "string", "enum": TECKEN}, {"type": "null"}]},
-                    "p1": {"anyOf": [{"type": "number"}, {"type": "null"}]},
-                    "px": {"anyOf": [{"type": "number"}, {"type": "null"}]},
-                    "p2": {"anyOf": [{"type": "number"}, {"type": "null"}]},
+                    # Null via typlistor fungerar hos både Gemini och Claude; validera() kontrollerar tecknet.
+                    "tecken": {"type": ["string", "null"], "description": "1, X, 2, 1X, 12, X2, 1X2 eller null"},
+                    "p1": {"type": ["number", "null"]},
+                    "px": {"type": ["number", "null"]},
+                    "p2": {"type": ["number", "null"]},
                     "sammanfattning": {"type": "string"},
                 },
                 "required": ["matchnr", "tecken", "p1", "px", "p2", "sammanfattning"],
@@ -70,7 +71,7 @@ def _sannolikheter(t: Dict[str, Any]) -> Optional[tuple]:
 
 
 def validera(svar: Dict[str, Any], tillatna: List[int], kalla: str, tidpunkt: str) -> List[Tips]:
-    """Gör om Claudes svar till Tips. Ogiltiga poster loggas och hoppas över."""
+    """Gör om modellens svar till Tips. Ogiltiga poster loggas och hoppas över."""
     if not isinstance(svar, dict) or not isinstance(svar.get("tips"), list):
         raise AiFel(f"Oväntat svar: {json.dumps(svar)[:200]}")
     tips, sedda = [], set()
