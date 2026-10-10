@@ -77,6 +77,8 @@ Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att häm
 
 ## Exportformat för egna rader
 
+> Används inte i appen just nu (nedladdningen togs bort 2026-10-10). Sparat som referens.
+
 Svenska Spels sida för uppladdning (`spela.svenskaspel.se/externa-systemspel`) och dess
 specifikation kräver inloggning. Formatet nedan bygger därför på oberoende beskrivningar
 (t.ex. liverattning.se och Svenska Spels dokument "Beskrivning av tjänsten Egna rader", 2012):

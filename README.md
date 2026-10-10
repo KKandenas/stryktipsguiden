@@ -137,7 +137,7 @@ Oddsen träffar tydligt bättre än strecken, och den skillnaden är vad värdet
 
 **https://kkandenas.github.io/stryktipsguiden/**. Lägg till `?exempel` i adressen för att alltid se exempelkupongen.
 
-Appen ligger i `docs/` och består av `index.html`, `app.css`, `app.js` och `optimizer.js`. Den läser
+Appen ligger i `docs/` och består av `index.html`, `app.css`, `app.js`, `optimizer.js` och `backtest.js`. Den läser
 `kupong.json` och faller tillbaka på `exempel-kupong.json` om filen saknas. Vald budget och låsta
 tecken sparas i webbläsarens localStorage, per omgång.
 
@@ -174,14 +174,6 @@ tydligt. Återbetalningen är brusig, eftersom ett fåtal 13-rättare avgör myc
 bygger på Svenska Spels startodds. Den ska därför läsas som en riktning, inte en garanti.
 Orange prick visas när chansen är minst 3 procentenheter över strecken (`VARDE_GRANS`).
 
-### Export av rader
-
-"Ladda ner rader" ger en textfil i formatet för egna rader: `Stryktipset` på första raden och
-sedan en enkelrad per spelrad, `E,1,X,2,…` med 13 tecken, radslut CRLF. Formatet bygger på flera
-oberoende beskrivningar. Svenska Spels egen specifikation kräver inloggning och har inte kunnat
-verifieras. **Kontrollera första gången** genom att ladda upp filen under Stryktipset → Externa
-systemspel när du är inloggad. Om Svenska Spel inte vill ha rubrikraden: ändra `raderTillFil` i
-`docs/optimizer.js`.
 
 ### Tester
 

@@ -1,5 +1,5 @@
 import {
-  BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, raderTillFil, sammanfattning,
+  BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
 } from "./optimizer.js";
 import { backtesta } from "./backtest.js";
 
@@ -72,7 +72,6 @@ async function start() {
 
   byggBudgetknappar();
   $("matcher").addEventListener("click", klickMatch);
-  $("ladda-ner").addEventListener("click", laddaNer);
   $("rensa").addEventListener("click", () => { state.lasningar = {}; uppdatera(); });
   uppdatera();
   setInterval(renderaTopp, 60_000);   // håll nedräkningen till spelstopp aktuell
@@ -496,20 +495,13 @@ function uppdatera() {
   for (const b of $("budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.budget));
   const fel = $("fel");
   if (state.resultat.ok) {
-    const text = sammanfattning(state.resultat, state.kupong.omgang.radpris || 1);
-    $("sammanfattning").textContent = text;
-    const [summa, delar] = text.split(" — ");
-    $("kort-summa").textContent = summa;
-    $("kort-delar").textContent = delar || "";
+    $("sammanfattning").textContent = sammanfattning(state.resultat, state.kupong.omgang.radpris || 1);
     fel.hidden = true;
   } else {
     $("sammanfattning").textContent = "";
-    $("kort-summa").textContent = "Går inte ihop";
-    $("kort-delar").textContent = "Ändra budget eller låsningar";
     fel.textContent = state.resultat.fel;
     fel.hidden = false;
   }
-  $("ladda-ner").disabled = !state.resultat.ok;
   $("rensa").hidden = Object.keys(state.lasningar).length === 0;
 
   renderaTopp();
@@ -541,15 +533,5 @@ function klickMatch(e) {
   }
 }
 
-function laddaNer() {
-  if (!state.resultat?.ok) return;
-  const text = raderTillFil(state.resultat.val);
-  const url = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
-  const a = el("a", { href: url, download: `stryktipset-${state.kupong.omgang.id}-${state.budget}rader.txt` });
-  document.body.append(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 start();

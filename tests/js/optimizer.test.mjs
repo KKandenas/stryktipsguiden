@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, raderTillFil, sammanfattning,
+  BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, sammanfattning,
 } from "../../docs/optimizer.js";
 
 const exempel = JSON.parse(readFileSync(new URL("../../docs/exempel-kupong.json", import.meta.url), "utf8"));
@@ -84,15 +84,12 @@ test("sammanfattning", () => {
   assert.equal(sammanfattning({ rader: 1, hel: 0, halv: 0, spik: 13 }), "1 rad · 1 kr — 13 spik");
 });
 
-test("filformat för egna rader", () => {
+
+test("alla rader i systemet är unika", () => {
   const r = optimera(exempel.matcher, 32);
-  const fil = raderTillFil(r.val);
-  const rader = fil.split("\r\n");
-  assert.equal(rader[0], "Stryktipset");
-  assert.equal(rader.at(-1), "");                 // avslutande radbrytning
-  assert.equal(rader.length, 1 + 32 + 1);
-  for (const rad of rader.slice(1, -1)) assert.match(rad, /^E(,[1X2]){13}$/);
-  assert.equal(new Set(rader.slice(1, -1)).size, 32); // inga dubbletter
+  const rader = allaRader(r.val).map((x) => x.join(""));
+  assert.equal(rader.length, 32);
+  assert.equal(new Set(rader).size, 32);
 });
 
 test("antal rätt", () => {

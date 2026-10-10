@@ -154,14 +154,6 @@ export function allaRader(val) {
   return rader;
 }
 
-/**
- * Textfil för uppladdning som "egna rader" hos Svenska Spel: produktnamn på första raden,
- * sedan en enkelrad per rad som "E,1,X,2,..." (13 tecken). Radslut CRLF.
- */
-export function raderTillFil(val, produkt = "Stryktipset") {
-  const rader = allaRader(val).map((r) => "E," + r.join(","));
-  return [produkt, ...rader].join("\r\n") + "\r\n";
-}
 
 /** Antal rätt för den bästa raden i systemet (matcher där utfallet finns bland valda tecken). */
 export function antalRatt(val, resultat) {
