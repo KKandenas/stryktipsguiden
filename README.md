@@ -267,6 +267,23 @@ historik kan ensemble-v1 ta över av sig själv.
 I appen visar avsnittet **"Så har modellen träffat"** tabellen ovan, träffsäkerhet per liga och hur
 många rätt modellens och folkets favorittecken fick de senaste tio omgångarna.
 
+### Backtest: "Om du hade spelat varje vecka"
+
+Pipelinen skriver `docs/historik.json` (cirka 160 kB), med chans, streck, resultat och utdelning för
+13–10 rätt för varje avgjord omgång där modellen har prognoser (från december 2021). Appen laddar
+filen först när avsnittet öppnas och kör varje omgång genom **samma `optimizer.js`** som tar fram
+dina rader, så backtestet räknar exakt som appen. Logiken finns i `docs/backtest.js`.
+
+- Du väljer antal rader per vecka (1–432) och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
+  saldot vecka för vecka, utfallet per år och de största vinsterna.
+- Som jämförelse visas "Folket": samma antal rader, men valda efter strecken i stället för modellens chans.
+- Utdelningen räknas som om dina rader inte hade påverkat potten. Vissa veckor ger 10 eller 11 rätt
+  ingen utdelning alls, när väldigt många har det. Det kommer med eftersom vi använder de riktiga beloppen.
+
+Exempel med 64 rader i veckan och 253 omgångar: modellen fick tillbaka 46 % (−8 807 kr) och folket
+13 % (−14 125 kr). Svenska Spel behåller ungefär en tredjedel av insatserna, så att gå plus är svårt.
+Modellen förlorar betydligt mindre än att följa folket.
+
 ## kupong.json
 
 Det enda appen läser. Formatet finns beskrivet i början av `pipeline/export.py`. Kort sammanfattat:

@@ -1,6 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, raderTillFil, sammanfattning,
 } from "./optimizer.js";
+import { backtesta } from "./backtest.js";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -13,6 +14,8 @@ const state = {
   lasningar: {},       // {matchnr: "1X"} för aktuell omgång
   oppna: new Set(),    // matcher med utfälld kommentar
   resultat: null,      // senaste optimeringen
+  historik: null,      // historik.json, laddas först när backtestet öppnas
+  btBudget: null,      // vald budget i backtestet
 };
 
 // ---------- lagring (localStorage kan saknas eller kasta, t.ex. i privat läge) ----------
@@ -69,6 +72,7 @@ async function start() {
   $("ladda-ner").addEventListener("click", laddaNer);
   $("rensa").addEventListener("click", () => { state.lasningar = {}; uppdatera(); });
   try { if (!localStorage.getItem(LAGRING)) $("forklaring").open = true; } catch { $("forklaring").open = true; }
+  $("backtest").addEventListener("toggle", oppnaBacktest);
   uppdatera();
 }
 
@@ -271,6 +275,168 @@ function renderaStatistik() {
     "sannolikheter, vilket straffar säkra tips som slår fel. Den sammanvägda modellen tas i bruk automatiskt först " +
     "när den träffat bättre än oddsen på de senaste cirka 40 omgångarna." }));
   sektion.hidden = false;
+}
+
+// ---------- backtest ----------
+
+const kr = (x) => `${Math.round(x).toLocaleString("sv-SE")} kr`;
+const plusKr = (x) => (x > 0 ? "+" : x < 0 ? "−" : "") + kr(Math.abs(x));
+
+async function oppnaBacktest() {
+  if (!$("backtest").open || state.historik) return;
+  try {
+    const r = await fetch("historik.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error(String(r.status));
+    state.historik = await r.json();
+    state.btBudget = state.btBudget || 64;
+    renderaBacktest();
+  } catch (e) {
+    $("backtest-innehall").replaceChildren(el("p", { class: "fel", text: "Historiken kunde inte laddas." }));
+    console.error(e);
+  }
+}
+
+function renderaBacktest() {
+  const h = state.historik;
+  const box = $("backtest-innehall");
+  box.replaceChildren();
+  if (!h?.omgangar?.length) { box.append(el("p", { class: "dampad", text: "Ingen historik ännu." })); return; }
+
+  const forsta = h.omgangar[0].datum, sista = h.omgangar.at(-1).datum;
+  box.append(el("p", { class: "dampad", text:
+    `Appens förslag spelat varje vecka i ${h.omgangar.length} omgångar (${forsta} – ${sista}), jämfört med att ` +
+    "spela samma antal rader efter folkets streck. Riktig utdelning för 13–10 rätt." }));
+
+  const knappar = el("div", { class: "budgetknappar", role: "radiogroup", "aria-label": "Rader per vecka" });
+  for (const b of BUDGETAR) {
+    const k = el("button", { type: "button", role: "radio", "aria-checked": String(b === state.btBudget), text: String(b) });
+    k.addEventListener("click", () => { state.btBudget = b; renderaBacktest(); });
+    knappar.append(k);
+  }
+  box.append(knappar);
+
+  const serier = [
+    { namn: "Modellen", klass: "s1", farg: "var(--serie-1)", res: backtesta(h, state.btBudget, "modell") },
+    { namn: "Folket", klass: "s2", farg: "var(--serie-2)", res: backtesta(h, state.btBudget, "folket") },
+  ];
+
+  const kort = el("div", { class: "bt-kort" });
+  for (const s of serier) {
+    const { insats, vinst, antal } = s.res;
+    kort.append(el("div", { class: "bt-ruta" },
+      el("span", { class: "namn" }, el("i", { class: `nyckel ${s.klass}`, "aria-hidden": "true" }), s.namn),
+      el("div", { class: "netto", text: plusKr(vinst - insats) }),
+      el("p", { text: `Insats ${kr(insats)}` }),
+      el("p", { text: `Tillbaka ${kr(vinst)} (${Math.round((100 * vinst) / insats)} %)` }),
+      el("p", { text: `13 rätt: ${antal[13]} · 12: ${antal[12]} · 11: ${antal[11]} · 10: ${antal[10]}` })));
+  }
+  box.append(kort);
+  box.append(diagram(serier));
+  box.append(arstabell(serier));
+
+  const storsta = serier[0].res.omgangar.filter((o) => o.vinst > 0).sort((a, b) => b.vinst - a.vinst).slice(0, 3);
+  if (storsta.length) {
+    box.append(el("h3", { text: "Modellens största vinster" }));
+    for (const o of storsta) {
+      box.append(el("p", { text: `${o.datum} · ${o.basta} rätt · ${kr(o.vinst)}` }));
+    }
+  }
+  box.append(el("p", { class: "bt-not", text:
+    "Historiken bygger på Svenska Spels öppningsodds, som är mindre träffsäkra än odds nära spelstopp. " +
+    "Vissa veckor ger 10 eller 11 rätt ingen utdelning alls, när väldigt många har det. " +
+    "Resultatet styrs mycket av enstaka 13-rättare och säger lite om framtiden. Svenska Spel behåller ungefär " +
+    "en tredjedel av insatserna, så de flesta förlorar på sikt." }));
+}
+
+function diagram(serier) {
+  const W = 320, H = 180, V = 44, HO = 8, T = 8, B = 22;
+  const n = serier[0].res.omgangar.length;
+  const saldon = serier.map((s) => {
+    let sum = 0;
+    return s.res.omgangar.map((o) => (sum += o.vinst - o.insats));
+  });
+  const alla = saldon.flat().concat(0);
+  let min = Math.min(...alla), max = Math.max(...alla);
+  const steg = (() => { const r = (max - min) / 4; const p = 10 ** Math.floor(Math.log10(r || 1)); return [1, 2, 5, 10].map((m) => m * p).find((x) => x >= r); })();
+  min = Math.floor(min / steg) * steg; max = Math.ceil(max / steg) * steg;
+  const x = (i) => V + (i / Math.max(n - 1, 1)) * (W - V - HO);
+  const y = (v) => T + (1 - (v - min) / (max - min || 1)) * (H - T - B);
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = (tag, attrs = {}) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); return e; };
+
+  const rot = svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+    "aria-label": `Saldo vecka för vecka. ${serier.map((s, i) => `${s.namn}: ${plusKr(saldon[i].at(-1))}`).join(", ")}.` });
+  for (let v = min; v <= max + 1e-9; v += steg) {
+    rot.append(svg("line", { class: v === 0 ? "noll" : "grid", x1: V, x2: W - HO, y1: y(v), y2: y(v) }));
+    const t = svg("text", { class: "axel", x: V - 4, y: y(v) + 3, "text-anchor": "end" });
+    t.textContent = Math.abs(v) >= 1000 ? `${(v / 1000).toLocaleString("sv-SE")} tkr` : `${v}`;
+    rot.append(t);
+  }
+  let senasteAr = null, senasteX = -Infinity;
+  serier[0].res.omgangar.forEach((o, i) => {
+    const ar = o.datum.slice(0, 4);
+    if (ar !== senasteAr) {
+      senasteAr = ar;
+      const iAret = serier[0].res.omgangar.filter((q) => q.datum.startsWith(ar)).length;
+      if (iAret < 5 || x(i) - senasteX < 30) return;   // brutet år eller för nära förra etiketten
+      senasteX = x(i);
+      const t = svg("text", { class: "axel", x: x(i), y: H - 6, "text-anchor": "middle" });
+      t.textContent = ar;
+      rot.append(t);
+    }
+  });
+  serier.forEach((s, si) => {
+    rot.append(svg("polyline", { class: "linje", stroke: s.farg,
+      points: saldon[si].map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ") }));
+  });
+  const hair = svg("line", { class: "hair", y1: T, y2: H - B, visibility: "hidden" });
+  rot.append(hair);
+  const prickar = serier.map((s) => { const c = svg("circle", { r: 4, fill: s.farg, stroke: "var(--yta)", "stroke-width": 2, visibility: "hidden" }); rot.append(c); return c; });
+
+  const ram = el("div", { class: "bt-diagram" });
+  // Avläsning ovanför diagrammet: visar senaste veckan, eller den vecka pekaren/fingret är på.
+  const tips = el("div", { class: "bt-avlasning", "aria-live": "polite" });
+  const avlas = (i, aktiv) => {
+    const o = serier[0].res.omgangar[i];
+    tips.replaceChildren(el("div", { class: "dampad", text: aktiv ? `${o.datum} · omgång ${o.id}` : `Saldo efter ${o.datum}` }),
+      ...serier.map((s, si) => el("div", { class: "rad" }, el("i", { class: `nyckel ${s.klass}`, "aria-hidden": "true" }),
+        el("b", { text: plusKr(saldon[si][i]) }), el("span", { class: "dampad",
+          text: aktiv ? `${s.namn}: ${s.res.omgangar[i].basta} rätt, vann ${kr(s.res.omgangar[i].vinst)}` : s.namn }))));
+  };
+  const visa = (i) => {
+    hair.setAttribute("x1", x(i)); hair.setAttribute("x2", x(i)); hair.setAttribute("visibility", "visible");
+    prickar.forEach((c, si) => { c.setAttribute("cx", x(i)); c.setAttribute("cy", y(saldon[si][i])); c.setAttribute("visibility", "visible"); });
+    avlas(i, true);
+  };
+  const dolj = () => { avlas(n - 1, false); hair.setAttribute("visibility", "hidden"); prickar.forEach((c) => c.setAttribute("visibility", "hidden")); };
+  dolj();
+  rot.addEventListener("pointermove", (e) => {
+    const r = rot.getBoundingClientRect();
+    const vx = ((e.clientX - r.left) / r.width) * W;
+    visa(Math.round(Math.min(Math.max((vx - V) / (W - V - HO), 0), 1) * (n - 1)));
+  });
+  rot.addEventListener("pointerleave", dolj);
+  ram.append(tips, rot);
+  return ram;
+}
+
+function arstabell(serier) {
+  const ar = {};
+  serier.forEach((s, si) => s.res.omgangar.forEach((o) => {
+    const a = (ar[o.datum.slice(0, 4)] ||= { insats: 0, vinst: [0, 0] });
+    if (si === 0) a.insats += o.insats;
+    a.vinst[si] += o.vinst;
+  }));
+  const t = el("table", { class: "stat-tabell" },
+    el("thead", {}, el("tr", {}, el("th", { text: "År" }), el("th", { class: "tal", text: "Insats" }),
+      ...serier.map((s) => el("th", { class: "tal", text: s.namn })))));
+  const b = el("tbody");
+  for (const [a, v] of Object.entries(ar)) {
+    b.append(el("tr", {}, el("td", { text: a }), el("td", { class: "tal", text: kr(v.insats) }),
+      ...v.vinst.map((w) => el("td", { class: "tal", text: kr(w) }))));
+  }
+  t.append(b);
+  return el("div", {}, el("h3", { text: "Tillbaka per år" }), t);
 }
 
 function uppdatera() {

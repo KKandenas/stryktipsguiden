@@ -13,6 +13,8 @@
   --fel: #c0392b;
   --banner: #fff4e5;
   --radie: 14px;
+  --serie-1: #2a78d6;   /* modellen */
+  --serie-2: #eb6834;   /* folket */
   color-scheme: light;
 }
 
@@ -31,13 +33,15 @@
     --ratt: #4cc27f;
     --fel: #ef6b5b;
     --banner: #3a2c1a;
+    --serie-1: #3987e5;
+    --serie-2: #d95926;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #151514; --yta: #1f1f1d; --text: #ecebe6; --dampad: #9c9a92; --linje: #33322f;
   --ruta: #2a2a27; --vald: #ecebe6; --vald-text: #151514; --orange: #f59a3c; --last: #6b9ff0;
-  --ratt: #4cc27f; --fel: #ef6b5b; --banner: #3a2c1a; color-scheme: dark;
+  --ratt: #4cc27f; --fel: #ef6b5b; --banner: #3a2c1a; --serie-1: #3987e5; --serie-2: #d95926; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -156,6 +160,31 @@ h1 { font-size: 24px; line-height: 1.2; margin-top: 2px; }
 .stapel.folket i { background: var(--dampad); opacity: .55; }
 .stapel span { color: var(--dampad); font-size: 12px; white-space: nowrap; }
 .forklaring-stat { color: var(--dampad); font-size: 13px; margin-top: 10px; }
+
+/* Backtest */
+.backtest { margin-top: 18px; border-top: 1px solid var(--linje); padding-top: 10px; }
+.backtest summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+.backtest .budgetknappar { margin: 8px 0 12px; }
+.bt-kort { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.bt-ruta { border: 1px solid var(--linje); border-radius: 10px; padding: 10px; font-size: 13px; }
+.bt-ruta .namn { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; }
+.bt-ruta .netto { font-size: 20px; font-weight: 700; margin: 4px 0 2px; }
+.bt-ruta p { color: var(--dampad); margin: 0; }
+.nyckel { display: inline-block; width: 14px; height: 2px; border-radius: 1px; }
+.nyckel.s1 { background: var(--serie-1); }
+.nyckel.s2 { background: var(--serie-2); }
+.bt-diagram { position: relative; margin-top: 14px; }
+.bt-diagram svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.bt-diagram .axel { fill: var(--dampad); font-size: 10px; }
+.bt-diagram .grid { stroke: var(--linje); stroke-width: 1; }
+.bt-diagram .noll { stroke: var(--dampad); stroke-width: 1; stroke-dasharray: 3 3; }
+.bt-diagram .linje { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.bt-diagram .hair { stroke: var(--dampad); stroke-width: 1; }
+.bt-avlasning { font-size: 12px; min-height: 52px; margin-bottom: 4px; }
+.bt-avlasning b { font-size: 13px; min-width: 76px; }
+.bt-avlasning .rad { display: flex; align-items: center; gap: 6px; }
+.bt-not { color: var(--dampad); font-size: 12px; margin-top: 10px; }
+.backtest .stat-tabell td.tal, .backtest .stat-tabell th.tal { width: auto; padding-left: 8px; }
 
 .fot { padding: 16px 16px 40px; text-align: center; }
 .fot p + p { margin-top: 4px; }

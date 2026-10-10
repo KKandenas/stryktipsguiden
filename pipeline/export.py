@@ -184,7 +184,7 @@ def bygg_statistik(conn: sqlite3.Connection, version: str, antal_omgangar: int =
     return {"aktiv_modell": version, "modeller": modeller, "kallor": kallor, "ligor": ligor, "senaste": senaste}
 
 
-def skriv(kupong: dict, sokvag: Path) -> bool:
+def skriv(kupong: dict, sokvag: Path, kompakt: bool = False) -> bool:
     """Skriv filen om innehållet ändrats (bortsett från 'genererad'). Returnerar True om den skrevs."""
     if sokvag.exists():
         try:
@@ -195,9 +195,44 @@ def skriv(kupong: dict, sokvag: Path) -> bool:
             log.warning("%s var trasig och skrivs över", sokvag)
     sokvag.parent.mkdir(parents=True, exist_ok=True)
     tmp = sokvag.with_suffix(".tmp")
-    tmp.write_text(json.dumps(kupong, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    text = (json.dumps(kupong, ensure_ascii=False, separators=(",", ":")) if kompakt
+            else json.dumps(kupong, ensure_ascii=False, indent=1))
+    tmp.write_text(text + "\n", encoding="utf-8")
     tmp.replace(sokvag)
     return True
+
+
+def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
+    """Avgjorda omgångar med prognos för alla 13 matcher – underlag för backtestet i appen.
+
+    Kompakt format (appen räknar raderna själv med optimizer.js, så logiken är exakt densamma):
+    {"formatversion": 1, "genererad": "...", "modell": "odds-v1",
+     "omgangar": [{"id": 4973, "datum": "2026-10-03",
+                   "utdelning": [13 rätt, 12, 11, 10],          # kr per rad
+                   "matcher": [[chans1, chansX, chans2, streck1, streckX, streck2, "resultat"], ...]}]}
+    """
+    version = vald_version(conn)
+    omgangar = []
+    for o in conn.execute("""SELECT id, datum, utdelning_13, utdelning_12, utdelning_11, utdelning_10 FROM omgangar
+                             WHERE utdelning_13 IS NOT NULL AND installd = 0 ORDER BY id""").fetchall():
+        matcher = []
+        for m in conn.execute(
+                """SELECT m.resultat,
+                          (SELECT json_array(p1, px, p2) FROM prognoser WHERE match_id = m.id
+                             AND modellversion IN (?, ?) ORDER BY modellversion = ? DESC LIMIT 1),
+                          (SELECT json_array(p1, px, p2) FROM streck WHERE match_id = m.id
+                             ORDER BY tidpunkt DESC LIMIT 1)
+                   FROM matcher m WHERE m.omgang_id = ? ORDER BY m.matchnr""",
+                (version, STANDARD_MODELL, version, o["id"])):
+            if not m[0] or not m[1] or not m[2]:
+                break
+            chans, streck = json.loads(m[1]), json.loads(m[2])
+            matcher.append([round(x, 4) for x in chans] + [round(x, 1) for x in streck] + [m[0]])
+        if len(matcher) == 13:
+            omgangar.append({"id": o["id"], "datum": o["datum"],
+                             "utdelning": [o["utdelning_13"], o["utdelning_12"], o["utdelning_11"], o["utdelning_10"]],
+                             "matcher": matcher})
+    return {"formatversion": 1, "genererad": nu or nu_utc(), "modell": version, "omgangar": omgangar}
 
 
 def exportera(conn: sqlite3.Connection, omgang_id: Optional[int] = None, sokvag: Optional[Path] = None,
@@ -216,4 +251,8 @@ def exportera(conn: sqlite3.Connection, omgang_id: Optional[int] = None, sokvag:
         log.info("Export: %s skriven (omgång %s, %s)", sokvag.name, omgang_id, kupong["omgang"]["status"])
     else:
         log.info("Export: %s oförändrad", sokvag.name)
+    if sokvag == config.DOCS_DIR / "kupong.json":
+        historik = bygg_historik(conn)
+        if skriv(historik, config.DOCS_DIR / "historik.json", kompakt=True):
+            log.info("Export: historik.json skriven (%d omgångar)", len(historik["omgangar"]))
     return omgang_id

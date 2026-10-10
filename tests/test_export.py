@@ -78,3 +78,20 @@ def test_exempelfilen_ar_giltig():
     assert k["formatversion"] == export.FORMATVERSION
     assert len(k["matcher"]) == 13
     assert all(m["chans"] is not None for m in k["matcher"])
+
+
+def test_historik_tar_bara_avgjorda_omgangar_med_prognos(conn):
+    draw = las_fixture("svs_draw_4974.json")["draw"]
+    draw["drawNumber"] = 4973
+    lagring.spara_kupong(conn, tolka_kupong(draw, "2026-10-03T11:00:00Z"))
+    berakna_prognoser(conn)
+    assert export.bygg_historik(conn)["omgangar"] == []          # inte avgjord än
+    lagring.spara_resultat(conn, tolka_resultat(las_fixture("svs_result_4973.json")["result"]))
+    h = export.bygg_historik(conn)
+    assert h["modell"] == "odds-v1" and len(h["omgangar"]) == 1
+    o = h["omgangar"][0]
+    assert o["utdelning"] == [59266.0, 736.0, 49.0, 16.0]
+    assert len(o["matcher"]) == 13
+    m1 = o["matcher"][0]
+    assert len(m1) == 7 and m1[6] == "2" and m1[3:6] == [65.0, 20.0, 15.0]
+    assert abs(sum(m1[:3]) - 1) < 1e-3
