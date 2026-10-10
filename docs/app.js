@@ -203,6 +203,76 @@ function detaljer(m) {
   return d;
 }
 
+const MODELLNAMN = { "odds-v1": "Modellen (odds)", "ensemble-v1": "Sammanvägd modell" };
+const pct = (x) => `${Math.round(x * 100)} %`;
+const dec = (x) => x.toFixed(3).replace(".", ",");
+
+function renderaStatistik() {
+  const st = state.kupong.statistik;
+  const sektion = $("statistik");
+  if (!st || !st.modeller?.length) { sektion.hidden = true; return; }
+  const box = $("statistik-innehall");
+  box.replaceChildren();
+  const aktiv = st.modeller.find((m) => m.version === st.aktiv_modell) || st.modeller[0];
+  const folket = st.kallor.find((k) => k.namn === "Svenska folket");
+
+  box.append(el("p", { text:
+    `Mätt på ${aktiv.antal.toLocaleString("sv-SE")} avgjorda matcher. Modellens mest sannolika tecken gick in i ${pct(aktiv.traff)}` +
+    (folket ? ` av matcherna, folkets i ${pct(folket.traff)}.` : ".") +
+    " Det viktiga är att sannolikheterna stämmer – det är dem värdet bygger på." }));
+
+  box.append(el("h3", { text: "Träffsäkerhet" }));
+  const tabell = el("table", { class: "stat-tabell" },
+    el("thead", {}, el("tr", {}, el("th", { text: "Källa" }), el("th", { class: "tal", text: "Träff" }),
+      el("th", { class: "tal", text: "Brier" }))));
+  const kropp = el("tbody");
+  for (const m of st.modeller) {
+    const namn = el("td", {}, MODELLNAMN[m.version] || m.version,
+      m.version === st.aktiv_modell ? el("span", { class: "markor", text: "används" }) : null);
+    kropp.append(el("tr", { class: m.version === st.aktiv_modell ? "aktiv" : "" },
+      namn, el("td", { class: "tal", text: pct(m.traff) }), el("td", { class: "tal", text: dec(m.brier) })));
+  }
+  for (const k of st.kallor) {
+    kropp.append(el("tr", {}, el("td", { text: k.namn }),
+      el("td", { class: "tal", text: k.traff != null ? pct(k.traff) : "–" }), el("td", { class: "tal", text: dec(k.brier) })));
+  }
+  tabell.append(kropp);
+  box.append(tabell);
+
+  if (st.ligor?.length) {
+    box.append(el("h3", { text: "Per liga (modellen)" }));
+    const t = el("table", { class: "stat-tabell" });
+    const b = el("tbody");
+    for (const l of st.ligor) {
+      b.append(el("tr", {}, el("td", { text: `${l.liga} (${l.antal})` }), el("td", { class: "tal", text: pct(l.traff) }),
+        el("td", { class: "tal", text: dec(l.brier) })));
+    }
+    t.append(b);
+    box.append(t);
+  }
+
+  if (st.senaste?.length) {
+    box.append(el("h3", { text: "Senaste omgångarna – favorittecknet på alla 13" }));
+    for (const o of st.senaste) {
+      const d = new Date(o.datum + "T12:00:00Z");
+      box.append(el("div", { class: "omgangsrad" },
+        el("span", { text: `v. ${vecka(d)} · ${d.getUTCDate()}/${d.getUTCMonth() + 1}` }),
+        el("div", { class: "staplar" },
+          el("div", { class: "stapel" }, el("i", { style: `width:${(o.modell_ratt / 13) * 100}%` }),
+            el("span", { text: `Modellen ${o.modell_ratt}` })),
+          el("div", { class: "stapel folket" }, el("i", { style: `width:${(o.folket_ratt / 13) * 100}%` }),
+            el("span", { text: `Folket ${o.folket_ratt}` })))));
+    }
+  }
+
+  box.append(el("p", { class: "forklaring-stat", text:
+    "Träff = andel matcher där det mest sannolika tecknet gick in. Brier mäter hur väl sannolikheterna stämmer: " +
+    "0 är perfekt och 0,667 är att gissa en tredjedel på allt – lägre är bättre. Tipsens tecken räknas om till " +
+    "sannolikheter, vilket straffar säkra tips som slår fel. Den sammanvägda modellen tas i bruk automatiskt först " +
+    "när den träffat bättre än oddsen på de senaste cirka 40 omgångarna." }));
+  sektion.hidden = false;
+}
+
 function uppdatera() {
   state.resultat = optimera(state.kupong.matcher, state.budget, state.lasningar);
 
@@ -221,6 +291,7 @@ function uppdatera() {
 
   renderaTopp();
   renderaMatcher();
+  renderaStatistik();
   sparaLagring();
 }
 

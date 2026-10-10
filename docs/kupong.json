@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-10T19:12:25Z",
+ "genererad": "2026-10-10T19:35:42Z",
  "modell": {
   "version": "odds-v1",
   "beskrivning": "Snitt av bookmakerodds med marginalen borträknad"
@@ -501,5 +501,122 @@
    "resultat": "X",
    "mal": "2-2"
   }
- ]
+ ],
+ "statistik": {
+  "aktiv_modell": "odds-v1",
+  "modeller": [
+   {
+    "version": "odds-v1",
+    "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+    "brier": 0.6079,
+    "logloss": 1.0141,
+    "traff": 0.49,
+    "antal": 2782
+   },
+   {
+    "version": "ensemble-v1",
+    "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+    "brier": 0.6091,
+    "logloss": 1.0161,
+    "traff": 0.488,
+    "antal": 2782
+   }
+  ],
+  "kallor": [
+   {
+    "namn": "Svenska folket",
+    "brier": 0.6146,
+    "traff": 0.498,
+    "antal": 3926
+   },
+   {
+    "namn": "Tio tidningars tips",
+    "brier": 0.8207,
+    "traff": 0.504,
+    "antal": 3692
+   }
+  ],
+  "ligor": [
+   {
+    "liga": "Championship",
+    "brier": 0.6331,
+    "traff": 0.454,
+    "antal": 897
+   },
+   {
+    "liga": "Premier League",
+    "brier": 0.5866,
+    "traff": 0.524,
+    "antal": 706
+   },
+   {
+    "liga": "League One",
+    "brier": 0.6319,
+    "traff": 0.464,
+    "antal": 224
+   }
+  ],
+  "senaste": [
+   {
+    "omgang": 4974,
+    "datum": "2026-10-10",
+    "modell_ratt": 6,
+    "folket_ratt": 8
+   },
+   {
+    "omgang": 4973,
+    "datum": "2026-10-03",
+    "modell_ratt": 8,
+    "folket_ratt": 9
+   },
+   {
+    "omgang": 4972,
+    "datum": "2026-09-26",
+    "modell_ratt": 3,
+    "folket_ratt": 3
+   },
+   {
+    "omgang": 4971,
+    "datum": "2026-09-19",
+    "modell_ratt": 3,
+    "folket_ratt": 3
+   },
+   {
+    "omgang": 4970,
+    "datum": "2026-09-12",
+    "modell_ratt": 3,
+    "folket_ratt": 3
+   },
+   {
+    "omgang": 4969,
+    "datum": "2026-09-05",
+    "modell_ratt": 5,
+    "folket_ratt": 5
+   },
+   {
+    "omgang": 4968,
+    "datum": "2026-08-29",
+    "modell_ratt": 5,
+    "folket_ratt": 5
+   },
+   {
+    "omgang": 4967,
+    "datum": "2026-08-22",
+    "modell_ratt": 4,
+    "folket_ratt": 5
+   },
+   {
+    "omgang": 4966,
+    "datum": "2026-08-15",
+    "modell_ratt": 4,
+    "folket_ratt": 4
+   },
+   {
+    "omgang": 4965,
+    "datum": "2026-08-08",
+    "modell_ratt": 4,
+    "folket_ratt": 5
+   }
+  ]
+ }
 }

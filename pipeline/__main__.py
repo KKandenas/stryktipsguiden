@@ -6,7 +6,8 @@
     python -m pipeline resultat             # resultat och utdelning för avslutade omgångar
     python -m pipeline backfill 4900 4973   # hämta historiska omgångar
     python -m pipeline tips                 # tipssajter → AI → tabellen tips (kräver GEMINI_API_KEY)
-    python -m pipeline prognos [--alla]     # räkna sannolikheter (aktiv modellversion)
+    python -m pipeline prognos [--alla]     # räkna sannolikheter (odds-v1, och ensemble-v1 om vikter finns)
+    python -m pipeline statistik            # källstatistik, träning, backtest och modellval
     python -m pipeline kommentarer          # AI-kommentarer per match (kräver GEMINI_API_KEY)
     python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
     python -m pipeline migrera
@@ -27,7 +28,8 @@ from . import config, db, export, lagring, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
-from .model.modeller import aktiv_modell, berakna_prognoser
+from .model import statistik
+from .model.modeller import EnsembleModell, aktiv_modell, berakna_prognoser, ladda_modell
 from .modeller import Match, ValideringsFel
 from .sources import oddsapi, svenskaspel
 from .tid import nu_utc, till_utc
@@ -142,6 +144,13 @@ def steg_prognos(conn, alla: bool = False) -> bool:
             s2, u2 = berakna_prognoser(conn, modell, bara_saknade=True)
             sparade, utan = sparade + s2, u2
         log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", modell.version, sparade, utan)
+        # ensemble-v1 för öppna och nyss stängda omgångar (historiken räknas walk-forward i statistiksteget)
+        ens = ladda_modell(conn, EnsembleModell.version)
+        if ens.vikter is not None:
+            aktuella = [r[0] for r in conn.execute(
+                "SELECT id FROM omgangar WHERE spelstopp > ? AND utdelning_13 IS NULL", (_utc_om(-7 * 24),))]
+            s, u = berakna_prognoser(conn, ens, aktuella)
+            log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", ens.version, s, u)
         return True
     except Exception as e:
         log.exception("Prognos: misslyckades: %s", e)
@@ -178,6 +187,24 @@ def steg_kommentarer(conn) -> bool:
     return True
 
 
+def steg_statistik(conn, tvinga: bool = False) -> bool:
+    if not tvinga and not statistik.behover_koras(conn):
+        log.info("Statistik: inga nya resultat sedan senaste körningen")
+        return True
+    try:
+        r = statistik.kor(conn)
+        log.info("Statistik: %d avgjorda matcher, %d ensemble-prognoser nya/ändrade, aktiv modell %s",
+                 r["matcher"], r["ensemble_prognoser"], r["aktiv"])
+        for v, m in r["modeller"].items():
+            log.info("Statistik: %s – Brier %.4f, log loss %.4f", v, m["brier"], m["logloss"])
+        if r["vikter"]:
+            log.info("Statistik: vikter %s", {k: round(v, 3) for k, v in r["vikter"]["w"].items()})
+        return True
+    except Exception as e:
+        log.exception("Statistik: misslyckades: %s", e)
+        return False
+
+
 def steg_export(conn, omgang_id=None, till=None, dolj_resultat=False) -> bool:
     try:
         export.exportera(conn, omgang_id, Path(till) if till else None, dolj_resultat)
@@ -208,7 +235,7 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipshjälpens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "migrera"):
+    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "statistik", "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
     b.add_argument("fran", type=int)
@@ -237,6 +264,7 @@ def main(argv=None) -> int:
         kritiskt_ok &= steg_resultat(conn)
         steg_tips(conn)
         steg_prognos(conn)
+        steg_statistik(conn)
         steg_kommentarer(conn)
         kritiskt_ok &= steg_export(conn)
     elif args.kommando == "svenskaspel":
@@ -251,6 +279,8 @@ def main(argv=None) -> int:
         steg_tips(conn)
     elif args.kommando == "kommentarer":
         steg_kommentarer(conn)
+    elif args.kommando == "statistik":
+        kritiskt_ok = steg_statistik(conn, tvinga=True)
     elif args.kommando == "prognos":
         kritiskt_ok = steg_prognos(conn, args.alla)
     elif args.kommando == "export":

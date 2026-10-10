@@ -25,7 +25,7 @@ GitHub Actions (schema)                          GitHub Pages
 | 2 | Sannolikhetsmodell och export av `kupong.json` | ✅ |
 | 3 | Webbappen och radoptimering | ✅ |
 | 4 | Tipssajter och AI-kommentarer | ✅ |
-| 5 | Lärande från historik och backtest | |
+| 5 | Lärande från historik och backtest | ✅ |
 
 ## Kom igång lokalt
 
@@ -52,6 +52,7 @@ Kommandon:
 | `python -m pipeline prognos [--alla]` | Räkna sannolikheter med aktiv modellversion (`--alla` räknar om hela historiken) |
 | `python -m pipeline export` | Skriv `docs/kupong.json` (närmaste öppna omgång, annars den senaste) |
 | `python -m pipeline export --omgang 4974 --till docs/exempel-kupong.json --dolj-resultat` | Skapa exempelfilen |
+| `python -m pipeline statistik` | Källstatistik, träning av ensemble-v1, backtest och modellval (körs annars automatiskt när nya resultat finns) |
 | `python -m pipeline migrera` | Kör bara databasmigreringarna |
 
 Lägg till `-v` för mer loggning. Miljövariabeln `STRYKTIPS_DB` styr vilken databasfil som används
@@ -230,11 +231,48 @@ kupongdata. Med Claude (`claude-opus-5-5`) blir det cirka 5–10 USD i månaden.
 **Lägg till en sajt:** se `pipeline/sources/tipssajter/__init__.py`. Det är en klass med
 `hitta_artiklar()`, och resten (hämtning, AI, lagring, kommentarer) sköts automatiskt.
 
+## Lärande från historik (fas 5)
+
+`pipeline/model/statistik.py` körs automatiskt när en ny omgång blivit avgjord (oftast söndag):
+
+1. **Källstatistik** (`kallstatistik`): Brier score och träffprocent per källa och liga mot faktiska
+   resultat. Källorna är Svenska folket (streck), Tio tidningars tips, speltips.se och sportsgambler.com.
+   Tips som bara anger tecken räknas om till sannolikheter: valda tecken delar på 80 %.
+2. **ensemble-v1** (`pipeline/model/ensemble.py`): logistisk regression som väger ihop odds, streck och
+   tips som ett viktat geometriskt snitt, `log p ∝ Σ vikt_källa · log p_källa` plus en justering per
+   tecken. En källa som saknas för en match påverkar inte den matchen, och en källa vägs in först när
+   den finns för minst 200 träningsmatcher. Vikterna skattas med Newtons metod, i ren Python.
+3. **Walk-forward-backtest:** varje historisk omgång förutsägs med vikter som bara tränats på tidigare
+   omgångar (omträning var fjärde omgång, start efter 500 matcher). Prognoserna sparas i `prognoser`
+   och vikterna i `modellvikter`.
+4. **Modellstatistik** (`modellstatistik`): Brier, log loss och träffprocent per modellversion och liga,
+   på samma matcher för alla versioner.
+5. **Modellval:** ensemble-v1 tas i bruk bara om den har lägre log loss än odds-v1 på de senaste
+   520 matcherna (cirka 40 omgångar). Beslutet sparas i `installningar.aktiv_modell`.
+
+**Läget i oktober 2026** (2 782 matcher, 2022–2026):
+
+| | Brier | Log loss | Träff |
+|---|---|---|---|
+| odds-v1 (används) | 0,6079 | 1,0141 | 49 % |
+| ensemble-v1 | 0,6091 | 1,0161 | 49 % |
+| Svenska folket | 0,6146 | – | 50 % |
+| Tio tidningars tips | 0,8207 | – | 50 % |
+
+Sammanvägningen slår ännu inte oddsen. Bookmakers odds innehåller redan det strecken och tidningarna
+vet, så **appen använder bara odds**, precis som det är tänkt tills något bevisligen är bättre.
+Valet görs om varje vecka: när tipssajterna och bookmakeroddsen från The Odds API har samlat
+historik kan ensemble-v1 ta över av sig själv.
+
+I appen visar avsnittet **"Så har modellen träffat"** tabellen ovan, träffsäkerhet per liga och hur
+många rätt modellens och folkets favorittecken fick de senaste tio omgångarna.
+
 ## kupong.json
 
 Det enda appen läser. Formatet finns beskrivet i början av `pipeline/export.py`. Kort sammanfattat:
 omgång (id, datum, spelstopp, status), och för varje match lag, liga, avspark, `chans`, `streck`,
-`varde` och `odds` (för 1/X/2), tips, kommentar (från fas 4) och resultat.
+`varde` och `odds` (för 1/X/2), tips, kommentar och resultat. `statistik` innehåller det som visas
+under "Så har modellen träffat".
 `docs/exempel-kupong.json` är omgång 4974 visad som öppen, så att appen kan testas även när ingen
 omgång är öppen.
 

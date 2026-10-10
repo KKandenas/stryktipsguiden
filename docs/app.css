@@ -138,6 +138,25 @@ h1 { font-size: 24px; line-height: 1.2; margin-top: 2px; }
 .knapp.primar { background: var(--vald); color: var(--vald-text); border-color: var(--vald); }
 .knapp:disabled { opacity: .45; cursor: not-allowed; }
 
+/* Statistik */
+.statistik { margin-top: 12px; }
+.statistik h2 { font-size: 18px; margin-bottom: 6px; }
+.statistik h3 { font-size: 14px; margin: 16px 0 6px; color: var(--dampad); font-weight: 600; }
+.statistik p { font-size: 14px; }
+.stat-tabell { width: 100%; border-collapse: collapse; font-size: 14px; }
+.stat-tabell th { text-align: left; font-weight: 600; color: var(--dampad); font-size: 12px; padding: 4px 0; }
+.stat-tabell td { padding: 6px 0; border-top: 1px solid var(--linje); vertical-align: middle; }
+.stat-tabell td.tal, .stat-tabell th.tal { text-align: right; width: 64px; }
+.stat-tabell tr.aktiv td:first-child { font-weight: 700; }
+.markor { font-size: 11px; font-weight: 700; color: var(--vald-text); background: var(--vald); border-radius: 5px; padding: 1px 5px; margin-left: 4px; }
+.omgangsrad { display: grid; grid-template-columns: 96px 1fr; gap: 8px; align-items: center; font-size: 13px; padding: 3px 0; }
+.staplar { display: grid; gap: 3px; }
+.stapel { display: flex; align-items: center; gap: 6px; }
+.stapel i { display: block; height: 8px; border-radius: 4px; background: var(--vald); min-width: 2px; }
+.stapel.folket i { background: var(--dampad); opacity: .55; }
+.stapel span { color: var(--dampad); font-size: 12px; white-space: nowrap; }
+.forklaring-stat { color: var(--dampad); font-size: 13px; margin-top: 10px; }
+
 .fot { padding: 16px 16px 40px; text-align: center; }
 .fot p + p { margin-top: 4px; }
 

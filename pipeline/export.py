@@ -21,6 +21,11 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
   }]
 }
 
+"statistik": {"aktiv_modell", "modeller": [{version, brier, logloss, traff, antal}], "kallor": [...],
+              "ligor": [...], "senaste": [{omgang, datum, modell_ratt, folket_ratt}]} | null
+  (träff = andel matcher där mest sannolika tecknet gick in; modell_ratt = antal rätt för en
+   enkelrad med modellens favorittecken, folket_ratt = samma med mest streckade tecknet)
+
 status: "oppen" (före spelstopp), "stangd" (väntar på resultat), "avgjord", "installd".
 chans_kalla "streck" betyder att odds saknades och att strecken används som nödlösning (inget värde räknas då).
 """
@@ -33,7 +38,7 @@ from pathlib import Path
 from typing import Optional
 
 from . import config
-from .model.modeller import BOLAG_START, aktiv_modell, las_underlag
+from .model.modeller import BOLAG_START, MODELLER, STANDARD_MODELL, las_underlag, vald_version
 from .model.sannolikhet import varde
 from .tid import nu_utc
 
@@ -64,7 +69,7 @@ def valj_omgang(conn: sqlite3.Connection, nu: str) -> Optional[int]:
 def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = None,
                 dolj_resultat: bool = False) -> dict:
     nu = nu or nu_utc()
-    modell = aktiv_modell()
+    modell = MODELLER[vald_version(conn)]
     o = conn.execute("SELECT * FROM omgangar WHERE id = ?", (omgang_id,)).fetchone()
     if o is None:
         raise ExportFel(f"Omgång {omgang_id} finns inte")
@@ -83,8 +88,10 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
     for m in conn.execute("SELECT * FROM matcher WHERE omgang_id = ? ORDER BY matchnr", (omgang_id,)):
         fore = min(o["spelstopp"], nu)
         u = las_underlag(conn, m["id"], fore)
-        p = conn.execute("SELECT p1, px, p2 FROM prognoser WHERE match_id = ? AND modellversion = ?",
-                         (m["id"], modell.version)).fetchone()
+        # Vald modell i första hand; saknar den prognos för matchen används odds-v1.
+        p = conn.execute("SELECT p1, px, p2 FROM prognoser WHERE match_id = ? AND modellversion IN (?, ?) "
+                         "ORDER BY modellversion = ? DESC LIMIT 1",
+                         (m["id"], modell.version, STANDARD_MODELL, modell.version)).fetchone()
 
         chans, kalla = None, None
         if p is not None:
@@ -132,7 +139,49 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "utdelning": ({str(n): o[f"utdelning_{n}"] for n in (13, 12, 11, 10)} if visa_resultat else None),
         },
         "matcher": matcher,
+        "statistik": bygg_statistik(conn, modell.version),
     }
+
+
+def _argmax_ratt(p, resultat) -> bool:
+    return p is not None and resultat is not None and p["1X2".index(resultat)] >= max(p) - 1e-9
+
+
+def bygg_statistik(conn: sqlite3.Connection, version: str, antal_omgangar: int = 10) -> Optional[dict]:
+    """Hur bra modellen och källorna har träffat historiskt (från statistiksteget)."""
+    modeller = [{"version": r["modellversion"], "beskrivning": MODELLER[r["modellversion"]].beskrivning,
+                 "brier": round(r["brier"], 4), "logloss": round(r["logloss"], 4),
+                 "traff": round(r["traff"], 3), "antal": r["antal"]}
+                for r in conn.execute("SELECT * FROM modellstatistik WHERE liga = 'Alla' ORDER BY logloss")
+                if r["modellversion"] in MODELLER]
+    if not modeller:
+        return None
+    kallor = [{"namn": r[0], "brier": round(r[1], 4), "traff": round(r[2], 3) if r[2] is not None else None,
+               "antal": r[3]}
+              for r in conn.execute("""SELECT k.namn, s.brier, s.traff, s.antal_matcher FROM kallstatistik s
+                                       JOIN kallor k ON k.id = s.kalla_id WHERE s.liga = 'Alla' AND s.antal_matcher >= 50
+                                       ORDER BY s.brier""")]
+    ligor = [{"liga": r[0], "brier": round(r[1], 4), "traff": round(r[2], 3), "antal": r[3]}
+             for r in conn.execute("""SELECT liga, brier, traff, antal FROM modellstatistik
+                                      WHERE modellversion = ? AND liga != 'Alla' AND antal >= 100
+                                      ORDER BY antal DESC LIMIT 6""", (version,))]
+
+    senaste = []
+    for o in conn.execute("""SELECT id, datum FROM omgangar WHERE utdelning_13 IS NOT NULL AND installd = 0
+                             ORDER BY id DESC LIMIT ?""", (antal_omgangar,)).fetchall():
+        modell_ratt = folket_ratt = 0
+        for m in conn.execute("""SELECT m.resultat,
+                                   (SELECT json_array(p1, px, p2) FROM prognoser WHERE match_id = m.id
+                                      AND modellversion IN (?, ?) ORDER BY modellversion = ? DESC LIMIT 1),
+                                   (SELECT json_array(p1, px, p2) FROM streck WHERE match_id = m.id
+                                      ORDER BY tidpunkt DESC LIMIT 1)
+                                 FROM matcher m WHERE m.omgang_id = ?""",
+                              (version, STANDARD_MODELL, version, o["id"])):
+            modell_ratt += _argmax_ratt(json.loads(m[1]) if m[1] else None, m[0])
+            folket_ratt += _argmax_ratt(json.loads(m[2]) if m[2] else None, m[0])
+        senaste.append({"omgang": o["id"], "datum": o["datum"], "modell_ratt": modell_ratt, "folket_ratt": folket_ratt})
+
+    return {"aktiv_modell": version, "modeller": modeller, "kallor": kallor, "ligor": ligor, "senaste": senaste}
 
 
 def skriv(kupong: dict, sokvag: Path) -> bool:
