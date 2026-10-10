@@ -9,7 +9,7 @@ DB_PATH = Path(os.environ.get("STRYKTIPS_DB", ROOT / "data" / "stryktips.db"))
 MIGRATIONS_DIR = Path(__file__).resolve().parent / "migrations"
 DOCS_DIR = ROOT / "docs"
 
-USER_AGENT = "Stryktipsguiden/0.1 (hobbyprojekt; https://github.com/KKandenas/stryktipshjalpen)"
+USER_AGENT = "Stryktipsguiden/0.1 (hobbyprojekt; https://github.com/KKandenas/stryktipsguiden)"
 HTTP_TIMEOUT = 20
 
 # Svenska Spels interna API (det som webbplatsen själv använder). Se DATAKALLOR.md.

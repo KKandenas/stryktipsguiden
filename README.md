@@ -135,7 +135,7 @@ Oddsen träffar tydligt bättre än strecken, och den skillnaden är vad värdet
 
 ## Appen
 
-**https://kkandenas.github.io/stryktipshjalpen/**. Lägg till `?exempel` i adressen för att alltid se exempelkupongen.
+**https://kkandenas.github.io/stryktipsguiden/**. Lägg till `?exempel` i adressen för att alltid se exempelkupongen.
 
 Appen ligger i `docs/` och består av `index.html`, `app.css`, `app.js` och `optimizer.js`. Den läser
 `kupong.json` och faller tillbaka på `exempel-kupong.json` om filen saknas. Vald budget och låsta
