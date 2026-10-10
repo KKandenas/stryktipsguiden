@@ -1,4 +1,4 @@
-"""Stryktipshjälpen – datapipeline."""
+"""Stryktipsguiden – datapipeline."""
 import warnings
 
 # macOS systempython är byggd mot LibreSSL; ofarligt för oss men brusigt i loggen.

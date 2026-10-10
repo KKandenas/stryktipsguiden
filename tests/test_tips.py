@@ -35,8 +35,8 @@ def test_html_till_text_hoppar_over_skript_och_meny():
 
 def test_robots():
     rp = tolka_robots("User-agent: *\nDisallow: /wp-admin/\nDisallow: /go/\n")
-    assert rp.can_fetch("Stryktipshjalpen/0.1", "https://speltips.se/stryktipset-10-10")
-    assert not rp.can_fetch("Stryktipshjalpen/0.1", "https://speltips.se/go/bet365")
+    assert rp.can_fetch("Stryktipsguiden/0.1", "https://speltips.se/stryktipset-10-10")
+    assert not rp.can_fetch("Stryktipsguiden/0.1", "https://speltips.se/go/bet365")
 
 
 # ---------- sajter ----------

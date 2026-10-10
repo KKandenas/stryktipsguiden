@@ -3,42 +3,98 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#9e0f1c" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#5c0911" media="(prefers-color-scheme: dark)">
-<title>Stryktipshjälpen</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%239e0f1c'/%3E%3Ccircle cx='24' cy='8' r='4' fill='%23ffb020'/%3E%3Ctext x='5' y='25' font-family='system-ui,sans-serif' font-size='17' font-weight='800' fill='white'%3E1X%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b1a40">
+<meta name="description" content="Stryktipsguiden – radförslag till Stryktipset med odds, streck, värde och AI-kommentarer.">
+<title>Stryktipsguiden</title>
+<link rel="icon" type="image/png" sizes="32x32" href="bilder/ikon-32.png">
+<link rel="apple-touch-icon" href="bilder/ikon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Stryktipsguiden">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="app.css">
 <script type="module" src="app.js"></script>
 </head>
-<body>
-<header class="topp">
-  <div class="topp-inre">
-    <div class="topprad">
-      <span class="produkt">Stryktipshjälpen</span>
-      <span id="status" class="status" hidden></span>
-    </div>
-    <h1 id="rubrik">Laddar kupongen …</h1>
-    <p id="underrubrik"></p>
-    <p id="nedrakning" class="nedrakning" hidden></p>
-  </div>
+<body data-vy="kupong">
+<header class="banner-omr">
+  <picture>
+    <source media="(max-width: 700px)" srcset="bilder/banner-768.jpg">
+    <img class="banner-bild" src="bilder/banner.jpg" width="1536" height="362" alt="Stryktipsguiden – analyser, tips, vinnare">
+  </picture>
 </header>
 
+<nav class="meny" aria-label="Huvudmeny">
+  <div class="meny-inre">
+    <a class="meny-namn" href="#kupong"><img src="bilder/ikon-32.png" width="24" height="24" alt="">Stryktipsguiden</a>
+    <div class="meny-val">
+      <button id="meny-knapp" class="meny-knapp" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="meny-lista">
+        <span id="meny-aktuell">Kupongen</span><span class="pil" aria-hidden="true">▾</span>
+      </button>
+      <ul id="meny-lista" class="meny-lista" hidden>
+        <li><a href="#kupong" data-vy="kupong"><b>Kupongen</b><span>Radförslag för veckans omgång</span></a></li>
+        <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
+        <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
+        <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <main>
-  <section class="kort budget" aria-labelledby="budget-rubrik">
-    <h2 id="budget-rubrik" class="kort-rubrik">Hur många rader?</h2>
-    <div id="budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader"></div>
-    <p id="sammanfattning" class="sammanfattning" aria-live="polite"></p>
-    <p id="fel" class="fel" role="alert" hidden></p>
+  <!-- ===== Kupongen ===== -->
+  <section class="vy" data-vy="kupong">
+    <div class="omgang">
+      <div class="omgang-inre">
+        <div class="topprad">
+          <h1 id="rubrik">Laddar kupongen …</h1>
+          <span id="status" class="status" hidden></span>
+        </div>
+        <p id="underrubrik"></p>
+        <p id="nedrakning" class="nedrakning" hidden></p>
+      </div>
+    </div>
+
+    <div class="innehall">
+      <section class="kort budget" aria-labelledby="budget-rubrik">
+        <h2 id="budget-rubrik" class="kort-rubrik">Hur många rader?</h2>
+        <div id="budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader"></div>
+        <p id="sammanfattning" class="sammanfattning" aria-live="polite"></p>
+        <p id="fel" class="fel" role="alert" hidden></p>
+      </section>
+
+      <div id="banner" class="banner" hidden></div>
+      <p class="tips-rad">Tryck på ett tecken för att låsa det 🔒 · tryck på matchen för kommentar · <a href="#hjalp">Så läser du kupongen</a></p>
+
+      <ol id="matcher" class="matcher" aria-label="Matcher"></ol>
+
+      <section class="atgarder">
+        <button id="rensa" class="knapp" type="button" hidden>Rensa låsningar</button>
+        <p class="dampad liten">Filen har formatet för egna rader hos Svenska Spel (Stryktipset → Externa systemspel).</p>
+      </section>
+    </div>
   </section>
 
-  <div id="banner" class="banner" hidden></div>
+  <!-- ===== Träffsäkerhet ===== -->
+  <section class="vy innehall" data-vy="statistik" hidden>
+    <h1 class="vy-rubrik">Så har modellen träffat</h1>
+    <section id="statistik" class="kort statistik">
+      <div id="statistik-innehall"><p class="dampad">Laddar …</p></div>
+    </section>
+  </section>
 
-  <details class="forklaring" id="forklaring">
-    <summary>Så läser du kupongen</summary>
-    <div class="forklaring-inre">
+  <!-- ===== Backtest ===== -->
+  <section class="vy innehall" data-vy="backtest" hidden>
+    <h1 class="vy-rubrik">Om du spelat varje vecka</h1>
+    <section class="kort statistik">
+      <div id="backtest-innehall"><p class="dampad">Laddar historiken …</p></div>
+    </section>
+  </section>
+
+  <!-- ===== Hjälp ===== -->
+  <section class="vy innehall" data-vy="hjalp" hidden>
+    <h1 class="vy-rubrik">Så läser du kupongen</h1>
+    <section class="kort forklaring-inre">
       <div class="forklaring-exempel" aria-hidden="true">
         <span class="ruta vald"><span class="tecken">1</span><span class="siffror">57 · 65</span></span>
         <span class="ruta"><span class="tecken">X</span><span class="siffror">22 · 20</span><i class="prick"></i></span>
@@ -47,26 +103,12 @@
       <ul>
         <li>Under varje tecken står <b>chans · streck</b> i procent. Chansen kommer från bookmakerodds, strecken visar hur svenska folket spelat.</li>
         <li><i class="prick inline"></i> Orange prick = <b>understreckat</b>. Chansen är minst 3 procentenheter högre än strecken. Går tecknet in delar färre på potten.</li>
-        <li>Röda rutor är tecknen i ditt system.</li>
-        <li><b>Tryck på ett tecken</b> för att låsa det 🔒. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren.</li>
+        <li>Blå rutor är tecknen i ditt system. <b>SPIK</b> = ett tecken, <b>HALV</b> = två, <b>HEL</b> = alla tre.</li>
+        <li><b>Tryck på ett tecken</b> för att låsa det 🔒. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren, oddsen och tipsen.</li>
+        <li><b>Ladda ner rader</b> ger en textfil som kan laddas upp som egna rader hos Svenska Spel.</li>
       </ul>
-    </div>
-  </details>
-
-  <ol id="matcher" class="matcher" aria-label="Matcher"></ol>
-
-  <section class="atgarder">
-    <button id="rensa" class="knapp" type="button" hidden>Rensa låsningar</button>
-    <p class="dampad liten">Filen har formatet för egna rader hos Svenska Spel (Stryktipset → Externa systemspel).</p>
-  </section>
-
-  <section id="statistik" class="kort statistik" aria-labelledby="statistik-rubrik" hidden>
-    <h2 id="statistik-rubrik" class="kort-rubrik">Så har modellen träffat</h2>
-    <div id="statistik-innehall"></div>
-    <details id="backtest" class="backtest">
-      <summary>Om du hade spelat varje vecka</summary>
-      <div id="backtest-innehall"><p class="dampad">Laddar historiken …</p></div>
-    </details>
+      <p><a class="knapp primar" href="#kupong">Till kupongen</a></p>
+    </section>
   </section>
 </main>
 
@@ -82,7 +124,7 @@
       <b id="kort-summa">–</b>
       <span id="kort-delar"></span>
     </div>
-    <button id="ladda-ner" class="knapp primar" type="button">Ladda ner rader</button>
+    <button id="ladda-ner" class="knapp gul" type="button">Ladda ner rader</button>
   </div>
 </div>
 </body>

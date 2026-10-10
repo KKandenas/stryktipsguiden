@@ -232,7 +232,7 @@ def backfill(conn, fran: int, till: int, paus: float = 1.0) -> bool:
 
 
 def main(argv=None) -> int:
-    p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipshjälpens datapipeline")
+    p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipsguidens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
     for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "statistik", "migrera"):

@@ -1,4 +1,4 @@
-# Stryktipshjälpen
+# Stryktipsguiden
 
 Föreslår rader till Stryktipset utifrån hur många rader du vill spela, med en kommentar till varje
 match. Bakom appen samlar en automatisk pipeline på GitHub historik, så att förslagen blir bättre över tid.

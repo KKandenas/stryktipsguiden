@@ -48,6 +48,9 @@ async function hamta(fil) {
 }
 
 async function start() {
+  initMeny();
+  window.addEventListener("hashchange", visaVy);
+  visaVy();
   const tvingaExempel = new URLSearchParams(location.search).has("exempel");
   try {
     if (tvingaExempel) throw new Error("exempel begärt");
@@ -71,8 +74,6 @@ async function start() {
   $("matcher").addEventListener("click", klickMatch);
   $("ladda-ner").addEventListener("click", laddaNer);
   $("rensa").addEventListener("click", () => { state.lasningar = {}; uppdatera(); });
-  try { if (!localStorage.getItem(LAGRING)) $("forklaring").open = true; } catch { $("forklaring").open = true; }
-  $("backtest").addEventListener("toggle", oppnaBacktest);
   uppdatera();
   setInterval(renderaTopp, 60_000);   // håll nedräkningen till spelstopp aktuell
 }
@@ -229,10 +230,12 @@ const dec = (x) => x.toFixed(3).replace(".", ",");
 
 function renderaStatistik() {
   const st = state.kupong.statistik;
-  const sektion = $("statistik");
-  if (!st || !st.modeller?.length) { sektion.hidden = true; return; }
   const box = $("statistik-innehall");
   box.replaceChildren();
+  if (!st || !st.modeller?.length) {
+    box.append(el("p", { class: "dampad", text: "Statistiken räknas fram när det finns avgjorda omgångar." }));
+    return;
+  }
   const aktiv = st.modeller.find((m) => m.version === st.aktiv_modell) || st.modeller[0];
   const folket = st.kallor.find((k) => k.namn === "Svenska folket");
 
@@ -290,7 +293,39 @@ function renderaStatistik() {
     "0 är perfekt och 0,667 är att gissa en tredjedel på allt – lägre är bättre. Tipsens tecken räknas om till " +
     "sannolikheter, vilket straffar säkra tips som slår fel. Den sammanvägda modellen tas i bruk automatiskt först " +
     "när den träffat bättre än oddsen på de senaste cirka 40 omgångarna." }));
-  sektion.hidden = false;
+  box.append(el("p", {}, el("a", { class: "knapp primar", href: "#backtest", text: "Se vad det hade gett i kronor" })));
+}
+
+// ---------- meny och vyer ----------
+
+const VYER = { kupong: "Kupongen", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp" };
+
+function initMeny() {
+  const knapp = $("meny-knapp"), lista = $("meny-lista");
+  const stang = () => { lista.hidden = true; knapp.setAttribute("aria-expanded", "false"); };
+  knapp.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const oppen = lista.hidden;
+    lista.hidden = !oppen;
+    knapp.setAttribute("aria-expanded", String(oppen));
+    if (oppen) lista.querySelector('[aria-current="page"]')?.focus();
+  });
+  lista.addEventListener("click", (e) => { if (e.target.closest("a")) stang(); });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".meny-val")) stang(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !lista.hidden) { stang(); knapp.focus(); } });
+}
+
+function visaVy() {
+  const namn = location.hash.slice(1);
+  const vy = VYER[namn] ? namn : "kupong";
+  document.body.dataset.vy = vy;
+  for (const s of document.querySelectorAll("main > .vy")) s.hidden = s.dataset.vy !== vy;
+  for (const a of document.querySelectorAll("#meny-lista a")) {
+    if (a.dataset.vy === vy) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  }
+  $("meny-aktuell").textContent = VYER[vy];
+  if (vy === "backtest") oppnaBacktest();
+  if (vy !== "kupong" || namn) window.scrollTo(0, 0);
 }
 
 // ---------- backtest ----------
@@ -299,7 +334,7 @@ const kr = (x) => `${Math.round(x).toLocaleString("sv-SE")} kr`;
 const plusKr = (x) => (x > 0 ? "+" : x < 0 ? "−" : "") + kr(Math.abs(x));
 
 async function oppnaBacktest() {
-  if (!$("backtest").open || state.historik) return;
+  if (state.historik) return;
   try {
     const r = await fetch("historik.json", { cache: "no-cache" });
     if (!r.ok) throw new Error(String(r.status));
