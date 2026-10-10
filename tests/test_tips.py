@@ -165,3 +165,12 @@ def test_kommentarer_skrivs_och_hamnar_i_exporten(conn):
     k2["matcher"][1]["streck"] = {"1": 80.0, "X": 12.0, "2": 8.0}
     assert kommentarer.uppdatera(conn, claude, k2) == 1
     assert '"matchnr": 2' in claude.anrop[1] and '"matchnr": 1,' not in claude.anrop[1]
+
+
+def test_sdk_tar_emot_parametrarna_vi_skickar():
+    """Körs bara där anthropic är installerat (Python 3.10+, t.ex. i CI)."""
+    anthropic = pytest.importorskip("anthropic")
+    import inspect
+    params = inspect.signature(anthropic.Anthropic(api_key="test").beta.messages.create).parameters
+    for namn in ("model", "max_tokens", "system", "messages", "output_config", "betas", "fallbacks"):
+        assert namn in params, f"anthropic {anthropic.__version__} saknar parametern {namn}"
