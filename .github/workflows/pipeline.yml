@@ -19,7 +19,7 @@ on:
         description: "Vad ska köras?"
         type: choice
         default: auto
-        options: [auto, svenskaspel, odds, resultat, backfill]
+        options: [auto, svenskaspel, odds, resultat, tips, kommentarer, backfill]
       fran:
         description: "backfill: första omgång (t.ex. 4900)"
         required: false
@@ -48,11 +48,19 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # Cachade sidor från tipssajter (data/cache committas inte).
+      - uses: actions/cache@v5
+        with:
+          path: data/cache
+          key: sidcache-${{ github.run_id }}
+          restore-keys: sidcache-
+
       - name: Kör pipelinen
         id: pipeline
         continue-on-error: true
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           KOMMANDO: ${{ inputs.kommando || 'auto' }}
           FRAN: ${{ inputs.fran }}
           TILL: ${{ inputs.till }}

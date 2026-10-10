@@ -105,13 +105,15 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
                                       "JOIN kallor k ON k.id = t.kalla_id WHERE t.match_id = ? ORDER BY k.namn",
                                       (m["id"],))]
 
+        kommentar = conn.execute("SELECT text FROM kommentarer WHERE match_id = ?", (m["id"],)).fetchone()
+
         matcher.append({
             "nr": m["matchnr"], "hemmalag": m["hemmalag"], "bortalag": m["bortalag"],
             "liga": m["liga"], "land": m["land"], "avspark": m["avspark"],
             "chans": _tripel(chans), "chans_kalla": kalla,
             "streck": _tripel(u.streck, 1), "streck_tid": u.streck_tid,
             "varde": _tripel(varde(chans, u.streck)) if kalla == "modell" and u.streck else None,
-            "odds": odds, "tips": tips, "kommentar": None,
+            "odds": odds, "tips": tips, "kommentar": kommentar[0] if kommentar else None,
             "resultat": m["resultat"] if visa_resultat else None,
             "mal": (f"{m['mal_hemma']}-{m['mal_borta']}"
                     if visa_resultat and m["mal_hemma"] is not None else None),

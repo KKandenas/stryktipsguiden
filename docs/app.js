@@ -184,7 +184,7 @@ function renderaMatcher() {
 
 function detaljer(m) {
   const d = el("div", { class: "detaljer" });
-  d.append(el("p", { class: "kommentar", text: m.kommentar || "AI-kommentaren kommer i en senare version av appen." }));
+  d.append(el("p", { class: "kommentar", text: m.kommentar || "Ingen AI-kommentar för den här matchen ännu." }));
   if (m.chans_kalla === "streck") d.append(el("p", { class: "dampad", text: "Odds saknas – chansen bygger på strecken." }));
   if (m.odds) {
     const s = m.odds.snitt;

@@ -1,1 +1,3 @@
 requests>=2.31
+# Claude (fas 4). Kräver Python 3.10+; på äldre Python hoppar AI-stegen över.
+anthropic; python_version >= "3.10"

@@ -5,7 +5,9 @@
     python -m pipeline odds                 # The Odds API för öppna omgångar
     python -m pipeline resultat             # resultat och utdelning för avslutade omgångar
     python -m pipeline backfill 4900 4973   # hämta historiska omgångar
+    python -m pipeline tips                 # tipssajter → Claude → tabellen tips (kräver ANTHROPIC_API_KEY)
     python -m pipeline prognos [--alla]     # räkna sannolikheter (aktiv modellversion)
+    python -m pipeline kommentarer          # AI-kommentarer per match (kräver ANTHROPIC_API_KEY)
     python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
     python -m pipeline migrera
 
@@ -21,7 +23,9 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, export, lagring
+from . import config, db, export, lagring, tipsinsamling
+from .ai import klient as ai_klient
+from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
 from .model.modeller import aktiv_modell, berakna_prognoser
 from .modeller import Match, ValideringsFel
@@ -144,6 +148,36 @@ def steg_prognos(conn, alla: bool = False) -> bool:
         return False
 
 
+def _ai_redo(steg: str) -> bool:
+    ok, orsak = ai_klient.tillganglig()
+    if not ok:
+        log.info("%s: hoppar över – %s", steg, orsak)
+    return ok
+
+
+def steg_tips(conn) -> bool:
+    if not _ai_redo("Tips"):
+        return True
+    try:
+        stat = tipsinsamling.samla(conn, ai_klient.anropa_json)
+        log.info("Tips: %(artiklar)d artiklar, %(tolkade)d tolkade av Claude, %(tips)d nya/ändrade tips, %(fel)d fel", stat)
+    except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
+        log.exception("Tips: oväntat fel: %s", e)
+    return True
+
+
+def steg_kommentarer(conn) -> bool:
+    if not _ai_redo("Kommentarer"):
+        return True
+    for (omgang_id,) in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ? AND installd = 0", (nu_utc(),)).fetchall():
+        try:
+            n = ai_kommentarer.uppdatera(conn, ai_klient.anropa_json, export.bygg_kupong(conn, omgang_id))
+            log.info("Kommentarer: omgång %s – %d nya/ändrade", omgang_id, n)
+        except Exception as e:
+            log.error("Kommentarer: omgång %s: %s", omgang_id, e)
+    return True
+
+
 def steg_export(conn, omgang_id=None, till=None, dolj_resultat=False) -> bool:
     try:
         export.exportera(conn, omgang_id, Path(till) if till else None, dolj_resultat)
@@ -174,7 +208,7 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipshjälpens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "svenskaspel", "odds", "resultat", "migrera"):
+    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
     b.add_argument("fran", type=int)
@@ -201,7 +235,9 @@ def main(argv=None) -> int:
         kritiskt_ok &= steg_svenskaspel(conn)
         steg_odds(conn)
         kritiskt_ok &= steg_resultat(conn)
+        steg_tips(conn)
         steg_prognos(conn)
+        steg_kommentarer(conn)
         kritiskt_ok &= steg_export(conn)
     elif args.kommando == "svenskaspel":
         kritiskt_ok = steg_svenskaspel(conn)
@@ -211,6 +247,10 @@ def main(argv=None) -> int:
         kritiskt_ok = steg_resultat(conn)
     elif args.kommando == "backfill":
         kritiskt_ok = backfill(conn, args.fran, args.till)
+    elif args.kommando == "tips":
+        steg_tips(conn)
+    elif args.kommando == "kommentarer":
+        steg_kommentarer(conn)
     elif args.kommando == "prognos":
         kritiskt_ok = steg_prognos(conn, args.alla)
     elif args.kommando == "export":

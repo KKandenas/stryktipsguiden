@@ -1,6 +1,6 @@
 import copy
 
-from pipeline import db, lagring
+from pipeline import config, db, lagring
 from pipeline.modeller import Odds
 from pipeline.sources.svenskaspel import tolka_kupong, tolka_resultat
 from tests.conftest import las_fixture
@@ -12,7 +12,7 @@ def antal(conn, tabell):
 
 def test_migreringar_kors_bara_en_gang(conn):
     assert db.migrera(conn) == []
-    assert antal(conn, "schema_migreringar") == 2
+    assert antal(conn, "schema_migreringar") == len(list(config.MIGRATIONS_DIR.glob("*.sql")))
 
 
 def test_spara_kupong_tva_ganger_ger_inga_dubbletter(conn):
