@@ -1,0 +1,148 @@
+:root {
+  --bg: #f6f5f1;
+  --yta: #ffffff;
+  --text: #1d1d1b;
+  --dampad: #6b6a64;
+  --linje: #e4e2da;
+  --ruta: #f1efe8;
+  --vald: #1d1d1b;
+  --vald-text: #ffffff;
+  --orange: #f08a24;
+  --last: #2f6fd6;
+  --ratt: #2e8b57;
+  --fel: #c0392b;
+  --banner: #fff4e5;
+  --radie: 14px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151514;
+    --yta: #1f1f1d;
+    --text: #ecebe6;
+    --dampad: #9c9a92;
+    --linje: #33322f;
+    --ruta: #2a2a27;
+    --vald: #ecebe6;
+    --vald-text: #151514;
+    --orange: #f59a3c;
+    --last: #6b9ff0;
+    --ratt: #4cc27f;
+    --fel: #ef6b5b;
+    --banner: #3a2c1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151514; --yta: #1f1f1d; --text: #ecebe6; --dampad: #9c9a92; --linje: #33322f;
+  --ruta: #2a2a27; --vald: #ecebe6; --vald-text: #151514; --orange: #f59a3c; --last: #6b9ff0;
+  --ratt: #4cc27f; --fel: #ef6b5b; --banner: #3a2c1a; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+main, .topp-inre, .fot { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+h1, h2, p { margin: 0; }
+button { font: inherit; color: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.dampad { color: var(--dampad); }
+.liten { font-size: 13px; }
+
+/* Topp */
+.topp { padding: 20px 0 12px; }
+.produkt { font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--dampad); }
+h1 { font-size: 24px; line-height: 1.2; margin-top: 2px; }
+#underrubrik { margin-top: 2px; }
+
+.kort { background: var(--yta); border: 1px solid var(--linje); border-radius: var(--radie); padding: 14px; margin-bottom: 12px; }
+
+.banner { background: var(--banner); border-radius: var(--radie); padding: 10px 14px; margin-bottom: 12px; font-size: 14px; }
+.banner a { color: inherit; }
+
+/* Budget */
+.budgetknappar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.budgetknappar button {
+  min-height: 44px; border-radius: 10px; border: 1px solid var(--linje); background: var(--ruta);
+  font-weight: 600; cursor: pointer; padding: 0;
+}
+.budgetknappar button[aria-checked="true"] { background: var(--vald); color: var(--vald-text); border-color: var(--vald); }
+.sammanfattning { margin-top: 10px; font-weight: 600; text-align: center; }
+.fel { margin-top: 8px; color: var(--fel); font-size: 14px; text-align: center; }
+
+/* Förklaring */
+.forklaring { margin-bottom: 12px; font-size: 14px; }
+.forklaring summary { cursor: pointer; color: var(--dampad); padding: 4px 2px; list-style-position: inside; }
+.forklaring-inre { padding: 8px 2px 0; }
+.forklaring ul { margin: 10px 0 0; padding-left: 18px; }
+.forklaring li { margin-bottom: 6px; }
+.forklaring-exempel { display: flex; gap: 6px; max-width: 200px; }
+.forklaring-exempel .ruta { flex: 1; }
+
+/* Matcher */
+.matcher { list-style: none; margin: 0; padding: 0; }
+.match { background: var(--yta); border: 1px solid var(--linje); border-radius: var(--radie); margin-bottom: 8px; overflow: hidden; }
+.match-huvud {
+  display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: start;
+  width: 100%; padding: 12px 12px 8px; background: none; border: 0; text-align: left; cursor: pointer;
+}
+.nr { font-weight: 700; color: var(--dampad); padding-top: 1px; }
+.lag { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.liga { display: block; font-size: 13px; color: var(--dampad); margin-top: 1px; }
+.etikett {
+  font-size: 11px; font-weight: 700; letter-spacing: .05em; padding: 3px 7px; border-radius: 6px;
+  border: 1px solid var(--linje); color: var(--dampad); white-space: nowrap; margin-top: 1px;
+}
+.etikett.HALV { border-color: var(--text); color: var(--text); }
+.etikett.HEL { background: var(--vald); color: var(--vald-text); border-color: var(--vald); }
+
+.rutor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 0 12px 12px 46px; }
+.ruta {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 52px; border-radius: 10px; background: var(--ruta); border: 2px solid transparent;
+  cursor: pointer; padding: 4px 2px; line-height: 1.15;
+}
+.ruta .tecken { font-weight: 700; font-size: 17px; }
+.ruta .siffror { font-size: 12px; color: var(--dampad); }
+.ruta.vald { background: var(--vald); color: var(--vald-text); }
+.ruta.vald .siffror { color: var(--vald-text); opacity: .75; }
+.ruta.last { border-color: var(--last); }
+.ruta .las { position: absolute; top: 3px; left: 5px; font-size: 10px; color: var(--last); }
+.ruta.vald .las { color: var(--vald-text); }
+.ruta.utfall::after {
+  content: ""; position: absolute; inset: -2px; border-radius: 10px; border: 2px solid var(--ratt); pointer-events: none;
+}
+.prick { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+.prick.inline { position: static; display: inline-block; vertical-align: middle; }
+.ruta:focus-visible, .match-huvud:focus-visible, .budgetknappar button:focus-visible, .knapp:focus-visible {
+  outline: 2px solid var(--last); outline-offset: 2px;
+}
+
+.detaljer { border-top: 1px solid var(--linje); padding: 12px 12px 14px 46px; font-size: 14px; }
+.detaljer p + p { margin-top: 6px; }
+.kommentar { font-size: 15px; }
+
+/* Åtgärder */
+.atgarder { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.knapp {
+  min-height: 48px; border-radius: 12px; border: 1px solid var(--linje); background: var(--ruta);
+  font-weight: 600; cursor: pointer;
+}
+.knapp.primar { background: var(--vald); color: var(--vald-text); border-color: var(--vald); }
+.knapp:disabled { opacity: .45; cursor: not-allowed; }
+
+.fot { padding: 16px 16px 40px; text-align: center; }
+.fot p + p { margin-top: 4px; }
+
+@media (max-width: 380px) {
+  .budgetknappar { gap: 4px; }
+  .budgetknappar button { font-size: 14px; }
+  .rutor, .detaljer { padding-left: 12px; }
+}

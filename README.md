@@ -23,7 +23,7 @@ GitHub Actions (schema)                          GitHub Pages
 |---|---|---|
 | 1 | Datainsamling: kupong, streck, odds, resultat, utdelning | ✅ |
 | 2 | Sannolikhetsmodell och export av `kupong.json` | ✅ |
-| 3 | Webbappen och radoptimering | |
+| 3 | Webbappen och radoptimering | ✅ |
 | 4 | Tipssajter och AI-kommentarer | |
 | 5 | Lärande från historik och backtest | |
 
@@ -128,6 +128,63 @@ Utvärdering på 3 245 matcher (2021–2026, Svenska Spels startodds). Lägre ä
 | Svenska folkets streck | 0,6188 | 1,0315 |
 
 Oddsen träffar tydligt bättre än strecken, och den skillnaden är vad värdet bygger på.
+
+## Appen
+
+**https://kkandenas.github.io/stryktipshjalpen/**. Lägg till `?exempel` i adressen för att alltid se exempelkupongen.
+
+Appen ligger i `docs/` och består av `index.html`, `app.css`, `app.js` och `optimizer.js`. Den läser
+`kupong.json` och faller tillbaka på `exempel-kupong.json` om filen saknas. Vald budget och låsta
+tecken sparas i webbläsarens localStorage, per omgång.
+
+Lokalt (ES-moduler kräver en server, så det går inte att dubbelklicka på filen):
+```bash
+python3 -m http.server 8765 -d docs
+```
+Öppna sedan http://localhost:8765.
+
+### Radoptimering (`docs/optimizer.js`)
+
+Antalet rader bestämmer garderingarna exakt (2^halv · 3^hel = rader):
+
+| Rader | 1 | 32 | 64 | 96 | 128 | 192 | 432 |
+|---|---|---|---|---|---|---|---|
+| Fördelning | 13 spik | 5 halv | 6 halv | 5 halv + 1 hel | 7 halv | 6 halv + 1 hel | 4 halv + 3 hel |
+
+För varje match och teckenval S räknas en poäng ut:
+`(1 − λ)·log(Σ chans) + λ·log(Σ chans/streck)`. Första delen är träffchansen, och den andra är
+förväntad utdelning, där understreckade tecken betalar mer. Dynamisk programmering över
+(match, antal halv, antal hel) hittar den kombination som ger högst total poäng. Låsta tecken blir tvingade val.
+
+**Risknivån λ = 0,3** valdes efter backtest på 252 avgjorda omgångar med riktiga utdelningar för 10–13 rätt:
+
+| λ | Andel omgångar med ≥11 rätt (192 rader) | Återbetalning 192 rader | Återbetalning 432 rader |
+|---|---|---|---|
+| 0,0 | 20 % | 45 % | 37 % |
+| 0,3 | 20 % | 44 % | 96 % |
+| 0,5 | 11 % | 24 % | 25 % |
+| 0,7 | 4 % | 27 % | 52 % |
+
+Upp till λ ≈ 0,3 kostar värdetänkandet nästan ingen träffsäkerhet. Högre λ sänker träffsäkerheten
+tydligt. Återbetalningen är brusig, eftersom ett fåtal 13-rättare avgör mycket, och historiken
+bygger på Svenska Spels startodds. Den ska därför läsas som en riktning, inte en garanti.
+Orange prick visas när chansen är minst 3 procentenheter över strecken (`VARDE_GRANS`).
+
+### Export av rader
+
+"Ladda ner rader" ger en textfil i formatet för egna rader: `Stryktipset` på första raden och
+sedan en enkelrad per spelrad, `E,1,X,2,…` med 13 tecken, radslut CRLF. Formatet bygger på flera
+oberoende beskrivningar. Svenska Spels egen specifikation kräver inloggning och har inte kunnat
+verifieras. **Kontrollera första gången** genom att ladda upp filen under Stryktipset → Externa
+systemspel när du är inloggad. Om Svenska Spel inte vill ha rubrikraden: ändra `raderTillFil` i
+`docs/optimizer.js`.
+
+### Tester
+
+```bash
+node --test tests/js/
+```
+Körs automatiskt i GitHub Actions. Lokalt krävs Node 18 eller senare.
 
 ## kupong.json
 

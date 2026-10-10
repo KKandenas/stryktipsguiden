@@ -2,18 +2,61 @@
 <html lang="sv">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
 <title>Stryktipshjälpen</title>
-<style>
-  body { font-family: system-ui, sans-serif; margin: 0; padding: 32px 16px; background: #fafaf7; color: #1c1c1a; }
-  main { max-width: 480px; margin: 0 auto; }
-  @media (prefers-color-scheme: dark) { body { background: #161615; color: #ecebe6; } }
-</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1d1b'/%3E%3Ccircle cx='23' cy='9' r='4' fill='%23f08a24'/%3E%3Ctext x='6' y='25' font-family='system-ui,sans-serif' font-size='17' font-weight='700' fill='white'%3E1X%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+<script type="module" src="app.js"></script>
 </head>
 <body>
+<header class="topp">
+  <div class="topp-inre">
+    <p class="produkt">Stryktipshjälpen</p>
+    <h1 id="rubrik">Laddar kupongen …</h1>
+    <p id="underrubrik" class="dampad"></p>
+  </div>
+</header>
+
 <main>
-  <h1>Stryktipshjälpen</h1>
-  <p>Appen är under uppbyggnad. Datainsamlingen är igång.</p>
+  <div id="banner" class="banner" hidden></div>
+
+  <section class="kort budget" aria-labelledby="budget-rubrik">
+    <h2 id="budget-rubrik" class="sr-only">Antal rader</h2>
+    <div id="budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader"></div>
+    <p id="sammanfattning" class="sammanfattning" aria-live="polite"></p>
+    <p id="fel" class="fel" role="alert" hidden></p>
+  </section>
+
+  <details class="forklaring" id="forklaring">
+    <summary>Så läser du kupongen</summary>
+    <div class="forklaring-inre">
+      <div class="forklaring-exempel" aria-hidden="true">
+        <span class="ruta vald"><span class="tecken">1</span><span class="siffror">57 · 65</span></span>
+        <span class="ruta"><span class="tecken">X</span><span class="siffror">22 · 20</span><i class="prick"></i></span>
+      </div>
+      <ul>
+        <li>Under varje tecken står <b>chans · streck</b> i procent. Chansen kommer från bookmakerodds, strecken visar hur svenska folket spelat.</li>
+        <li><i class="prick inline"></i> Orange prick = <b>understreckat</b>. Chansen är minst 3 procentenheter högre än strecken. Går tecknet in delar färre på potten.</li>
+        <li>Mörka rutor är tecknen i ditt system.</li>
+        <li><b>Tryck på ett tecken</b> för att låsa det. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren.</li>
+      </ul>
+    </div>
+  </details>
+
+  <ol id="matcher" class="matcher" aria-label="Matcher"></ol>
+
+  <section class="kort atgarder">
+    <button id="ladda-ner" class="knapp primar" type="button">Ladda ner rader (.txt)</button>
+    <button id="rensa" class="knapp" type="button" hidden>Rensa låsningar</button>
+    <p class="dampad liten">Filen har formatet för egna rader hos Svenska Spel (Stryktipset → Externa systemspel).</p>
+  </section>
 </main>
+
+<footer class="fot dampad liten">
+  <p id="modellinfo"></p>
+  <p>Spela ansvarsfullt. Stödlinjen: 020-81 91 00.</p>
+</footer>
 </body>
 </html>

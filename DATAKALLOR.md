@@ -77,4 +77,16 @@ Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att häm
 
 ## Exportformat för egna rader
 
-Undersöks i fas 3.
+Svenska Spels sida för uppladdning (`spela.svenskaspel.se/externa-systemspel`) och dess
+specifikation kräver inloggning. Formatet nedan bygger därför på oberoende beskrivningar
+(t.ex. liverattning.se och Svenska Spels dokument "Beskrivning av tjänsten Egna rader", 2012):
+
+```
+Stryktipset
+E,1,1,1,1,2,1,2,1,1,X,1,2,1
+E,X,X,1,1,2,X,1,1,1,X,1,2,1
+```
+
+- En enkelrad per rad: `E` följt av 13 tecken (`1`, `X`, `2`), kommaseparerade.
+- Filen kan också innehålla matematiska system (`M…`-rader), men det använder vi inte. Vi exporterar alltid alla enkelrader.
+- Rubrikraden `Stryktipset` och radslutet CRLF har inte kunnat bekräftas. Verifiera vid första uppladdningen.
