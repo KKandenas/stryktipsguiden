@@ -1,0 +1,80 @@
+# Datakällor
+
+Undersökt 2026-10-10. Svenska Spels endpoints är **inofficiella**: det är samma JSON-API som
+spela.svenskaspel.se själv anropar. De kan ändras utan förvarning. Testerna i `tests/` mot sparade
+svar i `tests/fixtures/` visar exakt vilka fält vi är beroende av.
+
+## Svenska Spel
+
+Bas-URL: `https://api.spela.svenskaspel.se/draw/1/stryktipset`
+Ingen nyckel krävs. Pipelinen skickar en egen User-Agent och pausar 1 s mellan anrop vid backfill.
+
+> Det officiella API:t (`api.www.svenskaspel.se/external/1/...`) kräver en accesskey (svarar 401
+> utan). Det behövs inte.
+> `spela.svenskaspel.se/robots.txt` förbjuder `/api/` på *den* domänen. API-domänen
+> `api.spela.svenskaspel.se` har ingen robots.txt. Vi gör ett fåtal anrop per vecka.
+
+| Endpoint | Innehåll |
+|---|---|
+| `GET /draws` | Öppna omgångar. Tom lista mellan spelstopp (lör 15:59) och måndag 07:00. |
+| `GET /draws/{nr}` | En omgång, även gamla. Fungerar tillbaka till ca 2015 (omgång ~4400). |
+| `GET /draws/{nr}/result` | Resultat och utdelning. **404** tills omgången är avgjord. |
+| `GET /draws/result` | Senast avgjorda omgången. |
+
+### `draw`-objektet (från `/draws` och `/draws/{nr}`)
+
+| Fält | Exempel | Används till |
+|---|---|---|
+| `drawNumber` | `4974` | `omgangar.id` |
+| `regCloseTime` | `"2026-10-10T15:59:00+02:00"` | spelstopp |
+| `regOpenTime` | `"2026-10-05T07:00:00+02:00"` | tidpunkt för startodds |
+| `drawState` | `Open` / `Closed` / `Finalized` | |
+| `currentNetSale` | `"26061816,00"` (decimalkomma) | omsättning |
+| `rowPrice` | `"1,00"` | 1 kr/rad |
+| `drawEvents[]` | 13 st | matcherna |
+
+Per `drawEvents[i]`:
+
+| Fält | Exempel | Not |
+|---|---|---|
+| `eventNumber` | `1` | matchnummer 1–13 |
+| `cancelled` | `false` | |
+| `match.matchStart` | `"2026-10-10T18:30:00+02:00"` | avspark |
+| `match.participants[type=home/away].name` | `"Manchester United"` | fullständigt namn (`mediumName` är förkortat) |
+| `match.league.name`, `match.league.country.name` | `"Premier League"`, `"England"` | landsnamn på svenska |
+| `svenskaFolket.one/x/two` | `"65"`, `"20"`, `"15"` | streck i hela procent |
+| `svenskaFolket.date` | `"2026-10-10T16:00:01.284+02:00"` | ögonblicksbildens tid; används som `streck.tidpunkt` |
+| `odds.one/x/two` | `"1,70"` | Svenska Spels (Oddset) aktuella odds. Saknas på äldre omgångar och efter avspark. |
+| `startOdds.one/x/two` | `"1,75"` | odds när kupongen öppnade, finns från ca 2021 |
+| `tioTidningarsTips.one/x/two` | `5`, `1`, `4` | hur många av tio tidningar som tippar respektive tecken, finns ca 2020–2026 (inte alltid) |
+
+Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att hämta i efterhand.
+
+### `result`-objektet (`/draws/{nr}/result`)
+
+| Fält | Exempel |
+|---|---|
+| `events[].eventNumber`, `.outcome` | `1`, `"2"` (1/X/2) |
+| `events[].outcomeScore.home/away` | `0`, `7` |
+| `events[].cancelled` | `false` (inställd match: utfallet lottas, `outcome` är ändå satt) |
+| `distribution[].name` | `"13 rätt"` … `"10 rätt"` |
+| `distribution[].amount` | `"59266,00"` (kr per rad, `"0,00"` om ingen vann) |
+| `distribution[].winners` | `77` |
+
+## The Odds API (valfri)
+
+`GET https://api.the-odds-api.com/v4/sports/{sport}/odds?apiKey=…&regions=eu,uk&markets=h2h&oddsFormat=decimal`
+
+- Kräver `ODDS_API_KEY`. Varje anrop kostar 1 kredit per region (alltså 2 med `eu,uk`). Gratisnivån ger 500 krediter i månaden.
+  Med vårt schema blir det ungefär 4 körningar × 2–4 ligor × 2 = 16–32 krediter i veckan.
+- Svaret är en lista med events (`home_team`, `away_team`, `commence_time`). Per bolag finns
+  `bookmakers[].markets[key=h2h].outcomes[]`, där utfallen heter som lagen plus `"Draw"`.
+- Matchar mot kupongen på liga (via `config.LIGA_TILL_ODDSAPI`), avspark (±3 h) och lagnamn
+  (`pipeline/lagnamn.py`). Om en match inte hittas loggas en varning. Lägg då till ett alias.
+- Events försvinner vid avspark, så odds hämtas bara för matcher som inte startat.
+- Fixturen `tests/fixtures/oddsapi_soccer_epl.json` är handskriven efter API-dokumentationen
+  (vi hade ingen nyckel när koden skrevs). Ersätt den med ett riktigt svar när du har en nyckel.
+
+## Exportformat för egna rader
+
+Undersöks i fas 3.

@@ -1,0 +1,30 @@
+[
+  {"id": "e1", "sport_key": "soccer_epl", "commence_time": "2026-10-10T16:30:00Z",
+   "home_team": "Manchester United", "away_team": "Tottenham Hotspur",
+   "bookmakers": [
+     {"key": "pinnacle", "title": "Pinnacle", "last_update": "2026-10-10T12:58:31Z",
+      "markets": [{"key": "h2h", "last_update": "2026-10-10T12:58:31Z", "outcomes": [
+        {"name": "Manchester United", "price": 1.78}, {"name": "Tottenham Hotspur", "price": 4.75}, {"name": "Draw", "price": 4.2}]}]},
+     {"key": "unibet_eu", "title": "Unibet", "last_update": "2026-10-10T12:55:02Z",
+      "markets": [{"key": "h2h", "last_update": "2026-10-10T12:55:02Z", "outcomes": [
+        {"name": "Manchester United", "price": 1.72}, {"name": "Tottenham Hotspur", "price": 4.6}, {"name": "Draw", "price": 4.1}]}]},
+     {"key": "trasigt_bolag", "title": "Trasigt", "last_update": "2026-10-10T12:50:00Z",
+      "markets": [{"key": "h2h", "outcomes": [{"name": "Manchester United", "price": 1.7}]}]}
+   ]},
+  {"id": "e2", "sport_key": "soccer_epl", "commence_time": "2026-10-10T14:00:00Z",
+   "home_team": "Sunderland", "away_team": "Brighton and Hove Albion",
+   "bookmakers": [
+     {"key": "pinnacle", "title": "Pinnacle", "last_update": "2026-10-10T12:58:31Z",
+      "markets": [{"key": "h2h", "outcomes": [
+        {"name": "Sunderland", "price": 3.3}, {"name": "Brighton and Hove Albion", "price": 2.2}, {"name": "Draw", "price": 3.5}]}]}
+   ]},
+  {"id": "e3", "sport_key": "soccer_epl", "commence_time": "2026-10-10T14:00:00Z",
+   "home_team": "Chelsea", "away_team": "AFC Bournemouth", "bookmakers": []},
+  {"id": "e4", "sport_key": "soccer_epl", "commence_time": "2026-10-17T14:00:00Z",
+   "home_team": "Aston Villa", "away_team": "Brentford",
+   "bookmakers": [
+     {"key": "pinnacle", "title": "Pinnacle", "last_update": "2026-10-10T12:58:31Z",
+      "markets": [{"key": "h2h", "outcomes": [
+        {"name": "Aston Villa", "price": 1.9}, {"name": "Brentford", "price": 4.0}, {"name": "Draw", "price": 3.6}]}]}
+   ]}
+]
