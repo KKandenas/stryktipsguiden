@@ -15,12 +15,16 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
       "streck": {"1": 65, "X": 20, "2": 15} | null, "streck_tid": "...Z" | null,
       "varde":  {"1": -0.10, "X": 0.04, "2": 0.06} | null,
       "chans_tips", "varde_tips": samma sak enligt tips-v1 (odds + tipsare viktade efter träffsäkerhet) | null,
-      "odds":   {"antal_bolag": 3, "snitt": {"1": 1.75, "X": 4.3, "2": 4.7}} | null,
+      "odds":   {"antal_bolag": 3, "snitt": {"1": 1.75, "X": 4.3, "2": 4.7},
+                 "bolag": [{"bolag": "pinnacle", "1": 1.78, "X": 4.2, "2": 4.75}, …]} | null,
       "tips":   [{"kalla": "Tio tidningars tips", "tecken": "1", "text": "5-1-4 av 10 tidningar"}],
       "kommentar": null,
       "resultat": "1" | null, "mal": "2-1" | null
   }]
 }
+
+"tipsare_form": [{"namn", "poang", "antal", "period": "8v" | "alla"}]   (bäst först; poäng: rätt spik 1,
+  halvgardering ½, helgardering ⅓)
 
 "statistik": {"aktiv_modell", "modeller": [{version, brier, logloss, traff, antal}], "kallor": [...],
               "ligor": [...], "senaste": [{omgang, datum, modell_ratt, folket_ratt}]} | null
@@ -42,12 +46,21 @@ from . import config
 from .model.modeller import (BOLAG_START, MODELLER, STANDARD_MODELL, STARTVIKT_TIPS, TIPSKALLOR, las_underlag,
                              las_vikter, vald_version)
 from .model.sannolikhet import varde
-from .tid import nu_utc
+from datetime import timedelta
+
+from .tid import nu_utc, parse_iso
 
 log = logging.getLogger(__name__)
 
 FORMATVERSION = 1
 TECKEN = ("1", "X", "2")
+
+# Bolag som visas i appen, i den här ordningen (övriga i bokstavsordning efter), högst MAX_BOLAG.
+BOLAGSORDNING = ["pinnacle", "svenskaspel", "svenskaspel_start", "unibet_eu", "betsson", "nordicbet", "bet365",
+                 "betfair_ex_eu", "williamhill", "coolbet", "betclic", "marathonbet", "sport888"]
+MAX_BOLAG = 5
+FORM_DAGAR = 56          # "senaste tiden" för tipsarnas form = 8 veckor
+FORM_MIN = 10            # färre matcher än så → hela historiken används i stället
 
 
 class ExportFel(Exception):
@@ -106,8 +119,10 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
         odds = None
         if bolag:
             n = len(bolag)
+            ordning = sorted(bolag, key=lambda b: (BOLAGSORDNING.index(b) if b in BOLAGSORDNING else 99, b))
             odds = {"antal_bolag": n,
-                    "snitt": _tripel(tuple(sum(t[i] for t in bolag.values()) / n for i in range(3)), 2)}
+                    "snitt": _tripel(tuple(sum(t[i] for t in bolag.values()) / n for i in range(3)), 2),
+                    "bolag": [{"bolag": b, **_tripel(bolag[b], 2)} for b in ordning[:MAX_BOLAG]]}
 
         tips = [{"kalla": r["namn"], "tecken": r["tecken"], "text": r["sammanfattning"]}
                 for r in conn.execute("SELECT k.namn, t.tecken, t.sammanfattning FROM tips t "
@@ -147,7 +162,31 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
         },
         "matcher": matcher,
         "statistik": bygg_statistik(conn, modell.version),
+        "tipsare_form": tipsare_form(conn, nu),
     }
+
+
+def tipsare_form(conn: sqlite3.Connection, nu: str) -> list:
+    """Hur bra varje tipsare träffat senaste FORM_DAGAR dagarna (eller totalt om underlaget är litet).
+
+    Poäng per tips: rätt spik = 1, rätt halvgardering = ½, rätt helgardering = ⅓, fel = 0 – så att
+    garderingar inte ger gratis träffar. Sorterat bäst först."""
+    grans = (parse_iso(nu) - timedelta(days=FORM_DAGAR)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    ut = []
+    for (namn,) in conn.execute("SELECT DISTINCT k.namn FROM tips t JOIN kallor k ON k.id = t.kalla_id"):
+        def poang(villkor, params):
+            rader = conn.execute(
+                f"""SELECT t.tecken, m.resultat FROM tips t JOIN kallor k ON k.id = t.kalla_id
+                    JOIN matcher m ON m.id = t.match_id
+                    WHERE k.namn = ? AND m.resultat IS NOT NULL AND t.tecken IS NOT NULL {villkor}""",
+                (namn, *params)).fetchall()
+            return [(1 / len(tk) if r in tk else 0.0) for tk, r in rader]
+        p, period = poang("AND m.avspark >= ?", (grans,)), "8v"
+        if len(p) < FORM_MIN:
+            p, period = poang("", ()), "alla"
+        if p:
+            ut.append({"namn": namn, "poang": round(sum(p) / len(p), 3), "antal": len(p), "period": period})
+    return sorted(ut, key=lambda x: (-(x["antal"] >= FORM_MIN), -x["poang"]))
 
 
 def _argmax_ratt(p, resultat) -> bool:

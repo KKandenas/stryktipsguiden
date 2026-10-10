@@ -231,9 +231,33 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .r-stort span { font-size: 13px; color: var(--dampad); }
 #r-matcher .ruta { cursor: default; }
 
-.detaljer { border-top: 1px solid var(--linje); padding: 12px 14px 14px; font-size: 14px; background: var(--yta-2); }
+.detaljer { border-top: 1px solid var(--linje); padding: 14px 12px 14px; font-size: 14px; background: var(--yta-2); }
 .detaljer p + p { margin-top: 6px; }
-.kommentar { font-size: 15px; line-height: 1.5; }
+.kommentar {
+  font-size: 15px; line-height: 1.5; background: var(--yta); border-radius: 12px; padding: 10px 12px;
+  border-left: 3px solid var(--gul); margin-bottom: 12px;
+}
+.detaljtabell { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--yta); border-radius: 12px; overflow: hidden; }
+.detaljtabell thead th { font-family: var(--rubrikfont); font-size: 16px; font-weight: 800; padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--linje); }
+.detaljtabell thead th.tal { text-align: center; }
+.detaljtabell td { padding: 8px 10px; border-top: 1px solid var(--linje); vertical-align: middle; }
+.detaljtabell td.tal { text-align: center; width: 18%; font-variant-numeric: tabular-nums; }
+.detaljtabell td:first-child { font-weight: 600; }
+.detaljtabell .under { display: block; font-size: 11px; font-weight: 400; color: var(--dampad); }
+.detaljtabell tr.grupp th {
+  text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--dampad); background: var(--yta-2); padding: 10px 10px 6px;
+}
+.detaljtabell tr.markerad td { background: color-mix(in srgb, var(--primar) 9%, transparent); }
+.detaljtabell tr.markerad td:first-child { box-shadow: inset 3px 0 0 var(--primar); }
+.detaljtabell tr.dampad-rad td { color: var(--dampad); font-weight: 400; }
+.detaljtabell .plus { color: var(--ratt); font-weight: 700; }
+.detaljtabell .minus { color: var(--dampad); }
+.tipsmark { color: var(--primar); font-size: 15px; }
+.tipsmark.satt { color: var(--ratt); }
+.motivering { font-size: 13px; color: var(--dampad); margin-top: 8px !important; }
+.motivering b { color: var(--text); }
+.resultatrad { font-weight: 700; margin-top: 10px !important; }
 
 /* ---------- knappar ---------- */
 .atgarder { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 16px; text-align: center; }

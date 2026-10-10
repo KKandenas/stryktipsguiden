@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-10T21:27:17Z",
+ "genererad": "2026-10-10T22:40:12Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -60,7 +60,15 @@
      "1": 1.7,
      "X": 4.4,
      "2": 4.8
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel",
+      "1": 1.7,
+      "X": 4.4,
+      "2": 4.8
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -107,7 +115,15 @@
      "1": 1.78,
      "X": 4.25,
      "2": 4.4
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 1.78,
+      "X": 4.25,
+      "2": 4.4
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -154,7 +170,15 @@
      "1": 2.65,
      "X": 3.65,
      "2": 2.65
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.65,
+      "X": 3.65,
+      "2": 2.65
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -201,7 +225,15 @@
      "1": 3.0,
      "X": 3.7,
      "2": 2.38
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 3.0,
+      "X": 3.7,
+      "2": 2.38
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -248,7 +280,15 @@
      "1": 2.7,
      "X": 3.65,
      "2": 2.63
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.7,
+      "X": 3.65,
+      "2": 2.63
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -295,7 +335,15 @@
      "1": 2.7,
      "X": 3.65,
      "2": 2.55
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.7,
+      "X": 3.65,
+      "2": 2.55
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -342,7 +390,15 @@
      "1": 2.55,
      "X": 3.5,
      "2": 2.75
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.55,
+      "X": 3.5,
+      "2": 2.75
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -389,7 +445,15 @@
      "1": 2.75,
      "X": 3.35,
      "2": 2.65
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.75,
+      "X": 3.35,
+      "2": 2.65
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -436,7 +500,15 @@
      "1": 2.2,
      "X": 3.8,
      "2": 3.1
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.2,
+      "X": 3.8,
+      "2": 3.1
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -483,7 +555,15 @@
      "1": 2.7,
      "X": 3.5,
      "2": 2.6
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.7,
+      "X": 3.5,
+      "2": 2.6
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -530,7 +610,15 @@
      "1": 2.02,
      "X": 3.55,
      "2": 3.85
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 2.02,
+      "X": 3.55,
+      "2": 3.85
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -577,7 +665,15 @@
      "1": 3.0,
      "X": 3.5,
      "2": 2.38
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 3.0,
+      "X": 3.5,
+      "2": 2.38
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -624,7 +720,15 @@
      "1": 1.7,
      "X": 4.0,
      "2": 4.4
-    }
+    },
+    "bolag": [
+     {
+      "bolag": "svenskaspel_start",
+      "1": 1.7,
+      "X": 4.0,
+      "2": 4.4
+     }
+    ]
    },
    "tips": [],
    "kommentar": null,
@@ -830,5 +934,13 @@
    }
   ],
   "tips_oddsvikt": 0.939
- }
+ },
+ "tipsare_form": [
+  {
+   "namn": "Tio tidningars tips",
+   "poang": 0.496,
+   "antal": 3692,
+   "period": "alla"
+  }
+ ]
 }

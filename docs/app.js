@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011g";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011g";
+} from "./optimizer.js?v=20261011h";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011h";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -20,12 +20,14 @@ const state = {
   rBudget: null,       // vald budget i rättningen
   rOppna: new Set(),   // utfällda matcher i rättningen
   kalla: "modell",     // "modell" eller "tips" – vilket förslag som visas
+  formRang: [],        // tipsarnas form (kupong.json → tipsare_form), bäst först
 };
 
 /** Matcherna enligt valt förslag: med "tips" används tips-v1:s chans och värde där de finns. */
 function matcherEnligtKalla(kupong) {
   if (state.kalla !== "tips") return kupong.matcher;
-  return kupong.matcher.map((m) => (m.chans_tips ? { ...m, chans: m.chans_tips, varde: m.varde_tips } : m));
+  return kupong.matcher.map((m) => (m.chans_tips
+    ? { ...m, chans: m.chans_tips, varde: m.varde_tips, chans_modell: m.chans, varde_modell: m.varde } : m));
 }
 const harTips = (kupong) => kupong.matcher.some((m) => m.chans_tips);
 
@@ -81,6 +83,7 @@ async function start() {
       return;
     }
   }
+  state.formRang = state.kupong.tipsare_form || [];
   const lagrat = lasLagring();
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
   if (lagrat.kalla === "tips" && harTips(state.kupong)) state.kalla = "tips";
@@ -261,24 +264,76 @@ function tipsetiketter(m, v) {
   return rad;
 }
 
+const BOLAGSNAMN = {
+  pinnacle: "Pinnacle", svenskaspel: "Svenska Spel", svenskaspel_start: "Svenska Spel (start)", unibet_eu: "Unibet",
+  unibet_uk: "Unibet", betsson: "Betsson", nordicbet: "NordicBet", bet365: "Bet365", betfair_ex_eu: "Betfair",
+  betfair_ex_uk: "Betfair", williamhill: "William Hill", coolbet: "Coolbet", betclic: "Betclic", marathonbet: "Marathonbet",
+  sport888: "888sport", matchbook: "Matchbook", onexbet: "1xBet", paddypower: "Paddy Power", betvictor: "BetVictor",
+};
+const decOdds = (x) => x.toFixed(2).replace(".", ",");
+
+/** Utfälld match: kommentar och en tabell "Spelstatistik inför match" med kolumnerna 1 · X · 2. */
 function detaljer(m) {
   const d = el("div", { class: "detaljer" });
-  d.append(el("p", { class: "kommentar", text: m.kommentar || "Ingen AI-kommentar för den här matchen ännu." }));
-  if (m.chans_kalla === "streck") d.append(el("p", { class: "dampad", text: "Odds saknas – chansen bygger på strecken." }));
-  if (m.odds) {
-    const s = m.odds.snitt;
-    const fmt = (x) => x.toFixed(2).replace(".", ",");
-    d.append(el("p", { class: "dampad",
-      text: `Odds ${fmt(s["1"])} / ${fmt(s.X)} / ${fmt(s["2"])} (snitt av ${m.odds.antal_bolag} bolag)` }));
-  }
+  if (m.kommentar) d.append(el("p", { class: "kommentar", text: m.kommentar }));
+
+  const tabell = el("table", { class: "detaljtabell" });
+  tabell.append(el("thead", {}, el("tr", {}, el("th", { text: "Inför match" }),
+    ...TECKEN.map((t) => el("th", { class: "tal", text: t })))));
+  const kropp = el("tbody");
+  const rubrik = (text) => kropp.append(el("tr", { class: "grupp" }, el("th", { colspan: 4, text })));
+  const rad = (namn, varden, klass = "", under = null) => kropp.append(el("tr", { class: klass },
+    el("td", {}, namn, under ? el("span", { class: "under", text: under }) : null),
+    ...TECKEN.map((t, i) => el("td", { class: "tal" }, varden[i] ?? "–"))));
+  const proc = (c) => TECKEN.map((t) => (c ? `${procent(c[t])} %` : null));
+
+  const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
+  if (modell) rad("Modellen", proc(modell), state.kalla === "modell" ? "markerad" : "", "chans enligt oddsen");
+  if (m.chans_tips) rad("Tipsviktat", proc(m.chans_tips), state.kalla === "tips" ? "markerad" : "", "odds + tipsare");
+  if (m.streck) rad("Svenska folket", TECKEN.map((t) => `${Math.round(m.streck[t])} %`), "", "streck");
   if (m.varde) {
-    const fmt = (x) => { const p = Math.round(x * 100); return (p > 0 ? "+" : p < 0 ? "−" : "±") + Math.abs(p); };
-    d.append(el("p", { class: "dampad", text: `Värde: 1 ${fmt(m.varde["1"])} · X ${fmt(m.varde.X)} · 2 ${fmt(m.varde["2"])} procentenheter` }));
+    rad("Värde", TECKEN.map((t) => {
+      const p = Math.round(m.varde[t] * 100);
+      return el("span", { class: p >= VARDE_GRANS * 100 ? "plus" : p < 0 ? "minus" : "", text: (p > 0 ? "+" : p < 0 ? "−" : "±") + Math.abs(p) });
+    }), "", "procentenheter");
   }
-  for (const t of m.tips || []) {
-    d.append(el("p", { class: "dampad", text: `${t.kalla}: ${t.tecken}${t.text ? ` (${t.text})` : ""}` }));
+  if (m.chans_kalla === "streck") rad("Odds saknas", [null, null, null], "", "chansen bygger på strecken");
+
+  if (m.odds?.bolag?.length) {
+    rubrik("Odds");
+    for (const b of m.odds.bolag) rad(BOLAGSNAMN[b.bolag] || b.bolag, TECKEN.map((t) => decOdds(b[t])));
+    if (m.odds.antal_bolag > m.odds.bolag.length) {
+      rad(`Snitt av ${m.odds.antal_bolag} bolag`, TECKEN.map((t) => decOdds(m.odds.snitt[t])), "dampad-rad");
+    }
   }
-  if (m.resultat) d.append(el("p", { text: `Resultat: ${m.mal ? m.mal + " – " : ""}${m.resultat}` }));
+
+  // Experter: de tre som träffat bäst senaste tiden bland dem som tippat matchen
+  const form = state.formRang || [];
+  const tips = (m.tips || []).filter((t) => t.tecken)
+    .map((t) => ({ ...t, f: form.find((x) => x.namn === t.kalla) }))
+    .sort((a, b) => (b.f && b.f.antal >= 10 ? b.f.poang : -1) - (a.f && a.f.antal >= 10 ? a.f.poang : -1));
+  const topp = tips.slice(0, 3);
+  if (topp.length) {
+    rubrik(tips.length > 3 ? "Experter – de tre bästa senaste tiden" : "Experter");
+    for (const t of topp) {
+      const under = t.f && t.f.antal >= 10
+        ? `${Math.round(t.f.poang * 100)} % träff ${t.f.period === "8v" ? "senaste 8 v." : "totalt"} (${t.f.antal})`
+        : "för lite historik ännu";
+      rad(KORTNAMN[t.kalla] || t.kalla, TECKEN.map((x) => (t.tecken.includes(x)
+        ? el("span", { class: `tipsmark${m.resultat === x ? " satt" : ""}`, "aria-label": `tippar ${x}`, text: "●" }) : "")),
+        "", under);
+    }
+  }
+  tabell.append(kropp);
+  d.append(tabell);
+
+  for (const t of topp.filter((t) => t.text)) {
+    d.append(el("p", { class: "motivering" }, el("b", { text: `${KORTNAMN[t.kalla] || t.kalla}: ` }), t.text));
+  }
+  if (tips.length > 3) {
+    d.append(el("p", { class: "dampad liten", text: `Även tippat: ${tips.slice(3).map((t) => `${KORTNAMN[t.kalla] || t.kalla} ${t.tecken}`).join(" · ")}` }));
+  }
+  if (m.resultat) d.append(el("p", { class: "resultatrad", text: `Resultat: ${m.mal ? m.mal.replace("-", "–") + " · " : ""}${m.resultat}` }));
   return d;
 }
 

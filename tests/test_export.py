@@ -95,3 +95,22 @@ def test_historik_tar_bara_avgjorda_omgangar_med_prognos(conn):
     m1 = o["matcher"][0]
     assert len(m1) == 7 and m1[6] == "2" and m1[3:6] == [65.0, 20.0, 15.0]
     assert abs(sum(m1[:3]) - 1) < 1e-3
+
+
+def test_tipsarnas_form_raknar_garderingar_rattvist(conn):
+    """Rätt spik = 1, rätt halvgardering = ½, rätt helgardering = ⅓ – så att garderingar inte ger gratis träff."""
+    draw = las_fixture("svs_draw_4974.json")["draw"]
+    draw["drawNumber"] = 4973
+    lagring.spara_kupong(conn, tolka_kupong(draw, "2026-10-03T11:00:00Z"))
+    lagring.spara_resultat(conn, tolka_resultat(las_fixture("svs_result_4973.json")["result"]))
+    facit = {r[0]: r[1] for r in conn.execute("SELECT matchnr, resultat FROM matcher")}
+    a, b = lagring.kalla_id(conn, "spikaren"), lagring.kalla_id(conn, "garderaren")
+    for nr, res in facit.items():
+        mid = conn.execute("SELECT id FROM matcher WHERE matchnr = ?", (nr,)).fetchone()[0]
+        conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken) VALUES (?, ?, 'x', ?)", (mid, a, res))
+        conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken) VALUES (?, ?, 'x', '1X2')", (mid, b))
+    conn.commit()
+    form = {f["namn"]: f for f in export.tipsare_form(conn, "2026-10-11T00:00:00Z")}
+    assert form["spikaren"]["poang"] == 1.0 and form["spikaren"]["antal"] == 13
+    assert abs(form["garderaren"]["poang"] - 1 / 3) < 1e-3
+    assert export.tipsare_form(conn, "2026-10-11T00:00:00Z")[0]["namn"] == "spikaren"
