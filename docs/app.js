@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011f";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011f";
+} from "./optimizer.js?v=20261011g";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011g";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -239,7 +239,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
 
 const KORTNAMN = { "Tio tidningars tips": "Tidningar", "speltips.se": "speltips", "hurbra.se": "hurbra",
   "bettingstugan.se": "Bettingstugan", "tippat.se": "Tippat", "gamblingcabin.se": "Gamblingcabin",
-  "sportsgambler.com": "sportsgambler", "sportsmole.co.uk": "Sports Mole" };
+  "sportsgambler.com": "sportsgambler", "sportsmole.co.uk": "Sports Mole", "footballpredictions.com": "FootballPredictions" };
 
 /** Små etiketter med varje källas tips. "emot" = inget av tipsets tecken finns i systemet. */
 function tipsetiketter(m, v) {

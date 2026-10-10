@@ -113,7 +113,7 @@ class EnsembleModell:
 # Tipsarna som tips-v1 väger in. En ny tipsare börjar på STARTVIKT_TIPS och vikten lärs sedan
 # från resultaten (med straff mot startvikten, så att lite data bara flyttar den lite).
 TIPSKALLOR = ["Tio tidningars tips", "speltips.se", "hurbra.se", "bettingstugan.se", "tippat.se", "gamblingcabin.se",
-              "sportsgambler.com", "sportsmole.co.uk"]
+              "sportsgambler.com", "sportsmole.co.uk", "footballpredictions.com"]
 STARTVIKT_TIPS = 0.1
 
 

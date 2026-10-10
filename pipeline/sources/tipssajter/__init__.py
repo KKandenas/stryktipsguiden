@@ -10,6 +10,7 @@ Källan läggs automatiskt in i tabellen kallor första gången den används.
 """
 from .bas import Artikel, Tipssajt
 from .bettingstugan import Bettingstugan
+from .footballpredictions import Footballpredictions
 from .gamblingcabin import Gamblingcabin
 from .hurbra import Hurbra
 from .speltips import Speltips
@@ -17,6 +18,7 @@ from .sportsgambler import Sportsgambler
 from .sportsmole import Sportsmole
 from .tippat import Tippat
 
-SAJTER = [Speltips(), Hurbra(), Bettingstugan(), Tippat(), Gamblingcabin(), Sportsgambler(), Sportsmole()]
+SAJTER = [Speltips(), Hurbra(), Bettingstugan(), Tippat(), Gamblingcabin(), Sportsgambler(), Sportsmole(),
+          Footballpredictions()]
 
 __all__ = ["Artikel", "Tipssajt", "SAJTER"]

@@ -60,8 +60,9 @@ def _lag(slug: str) -> str:
     return slug.replace("-", " ")
 
 
-def para_ihop(matcher: List[Match], lankar) -> List[Artikel]:
-    """Para kupongens matcher med förhandsartiklar (samma datum ±1 dag, båda lagen lika)."""
+def para_ihop(matcher: List[Match], lankar, bas: str = BAS, kalla: str = "") -> List[Artikel]:
+    """Para kupongens matcher med förhandsartiklar (samma datum ±1 dag, båda lagen lika).
+    lankar: (sökväg, hemma-slug, borta-slug, "YYYY-MM-DD"). Används även av andra sajter med datum i adressen."""
     unika = {l[0]: l for l in lankar}
     artiklar = []
     for m in matcher:
@@ -74,7 +75,7 @@ def para_ihop(matcher: List[Match], lankar) -> List[Artikel]:
                 continue
             poang = min(likhet(m.hemmalag, _lag(hemma)), likhet(m.bortalag, _lag(borta)))
             if poang >= MIN_LIKHET and (bast is None or poang > bast[0]):
-                bast = (poang, sokvag, f"{_lag(hemma).title()} vs {_lag(borta).title()}")
+                bast = (poang, sokvag, f"{kalla}{_lag(hemma).title()} vs {_lag(borta).title()}")
         if bast:
-            artiklar.append(Artikel(BAS + bast[1], bast[2], [m.matchnr]))
+            artiklar.append(Artikel(bas + bast[1], bast[2], [m.matchnr]))
     return artiklar

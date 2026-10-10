@@ -284,3 +284,16 @@ def test_gamblingcabin_publiceringsdatum():
     assert s.kontrollera(text, None, []) is True
     s._spelstopp = "2026-10-24T13:59:00Z"
     assert s.kontrollera(text, None, []) is False
+
+
+def test_footballpredictions_lankar_med_datum():
+    from pipeline.sources.tipssajter.footballpredictions import LANK
+    from pipeline.sources.tipssajter.sportsgambler import para_ihop
+    html = ('<a href="https://footballpredictions.com/footballpredictions/championshippredictions/'
+            'blackburn-rovers-vs-cardiff-prediction-10-10-2026/">'
+            '<a href="https://footballpredictions.com/footballpredictions/championshippredictions/'
+            'blackburn-rovers-vs-cardiff-prediction-14-3-2026/">')
+    lankar = [(p, h, b, f"{y}-{int(m):02d}-{int(d):02d}") for p, h, b, d, m, y in LANK.findall(html)]
+    matcher = [Match(6, "Blackburn", "Cardiff", "Championship", "England", "2026-10-10T14:00:00Z")]
+    a = para_ihop(matcher, lankar, bas="https://footballpredictions.com")
+    assert len(a) == 1 and a[0].url.endswith("blackburn-rovers-vs-cardiff-prediction-10-10-2026/")
