@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-10T18:00:53Z",
+ "genererad": "2026-10-10T19:12:25Z",
  "modell": {
   "version": "odds-v1",
   "beskrivning": "Snitt av bookmakerodds med marginalen borträknad"
@@ -9,10 +9,15 @@
   "id": 4974,
   "datum": "2026-10-10",
   "spelstopp": "2026-10-10T13:59:00Z",
-  "status": "stangd",
+  "status": "avgjord",
   "omsattning": 26061816.0,
   "radpris": 1,
-  "utdelning": null
+  "utdelning": {
+   "13": 46731.0,
+   "12": 827.0,
+   "11": 67.0,
+   "10": 23.0
+  }
  },
  "matcher": [
   {
@@ -49,8 +54,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "1-1"
   },
   {
    "nr": 2,
@@ -86,8 +91,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "5-1"
   },
   {
    "nr": 3,
@@ -123,8 +128,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "2-2"
   },
   {
    "nr": 4,
@@ -160,8 +165,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "2",
+   "mal": "0-2"
   },
   {
    "nr": 5,
@@ -197,8 +202,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "2-1"
   },
   {
    "nr": 6,
@@ -234,8 +239,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "2-1"
   },
   {
    "nr": 7,
@@ -271,8 +276,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "2",
+   "mal": "1-2"
   },
   {
    "nr": 8,
@@ -308,8 +313,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "1-1"
   },
   {
    "nr": 9,
@@ -345,8 +350,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "1-0"
   },
   {
    "nr": 10,
@@ -382,8 +387,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "2",
+   "mal": "0-1"
   },
   {
    "nr": 11,
@@ -419,8 +424,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "3-0"
   },
   {
    "nr": 12,
@@ -456,8 +461,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "2",
+   "mal": "0-4"
   },
   {
    "nr": 13,
@@ -493,8 +498,8 @@
    },
    "tips": [],
    "kommentar": null,
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "2-2"
   }
  ]
 }
