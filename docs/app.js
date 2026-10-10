@@ -74,6 +74,7 @@ async function start() {
   try { if (!localStorage.getItem(LAGRING)) $("forklaring").open = true; } catch { $("forklaring").open = true; }
   $("backtest").addEventListener("toggle", oppnaBacktest);
   uppdatera();
+  setInterval(renderaTopp, 60_000);   // håll nedräkningen till spelstopp aktuell
 }
 
 // ---------- formatering ----------
@@ -118,8 +119,23 @@ function renderaTopp() {
   const stopp = new Date(omgang.spelstopp);
   $("rubrik").textContent = `Stryktipset v. ${vecka(stopp)}`;
   const datum = datumFmt.format(stopp);
-  $("underrubrik").textContent =
-    `${datum.charAt(0).toUpperCase() + datum.slice(1)} · Spelstopp ${tidFmt.format(stopp)} · Omgång ${omgang.id}`;
+  $("underrubrik").textContent = `${datum.charAt(0).toUpperCase() + datum.slice(1)} · Omgång ${omgang.id}`;
+
+  const statusText = state.exempel ? "Exempel" : { oppen: "Öppen", stangd: "Stängd", avgjord: "Avgjord", installd: "Inställd" }[omgang.status];
+  const status = $("status");
+  status.textContent = statusText || "";
+  status.className = `status ${omgang.status === "oppen" && !state.exempel ? "oppen" : ""}`;
+  status.hidden = !statusText;
+
+  const ned = $("nedrakning");
+  const kvar = stopp - Date.now();
+  let nedText = `Spelstopp ${tidFmt.format(stopp)}`;
+  if (omgang.status === "oppen" && !state.exempel && kvar > 0) {
+    const min = Math.floor(kvar / 60000), dagar = Math.floor(min / 1440), tim = Math.floor((min % 1440) / 60);
+    nedText += ` · om ${dagar ? `${dagar} d ${tim} h` : tim ? `${tim} h ${min % 60} min` : `${min % 60} min`}`;
+  }
+  ned.textContent = `⏱ ${nedText}`;
+  ned.hidden = false;
   $("modellinfo").textContent = `Modell ${modell.version}: ${modell.beskrivning}. Uppdaterad ${
     new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, dateStyle: "short", timeStyle: "short" }).format(new Date(state.kupong.genererad))}.`;
 
@@ -445,10 +461,16 @@ function uppdatera() {
   for (const b of $("budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.budget));
   const fel = $("fel");
   if (state.resultat.ok) {
-    $("sammanfattning").textContent = sammanfattning(state.resultat, state.kupong.omgang.radpris || 1);
+    const text = sammanfattning(state.resultat, state.kupong.omgang.radpris || 1);
+    $("sammanfattning").textContent = text;
+    const [summa, delar] = text.split(" — ");
+    $("kort-summa").textContent = summa;
+    $("kort-delar").textContent = delar || "";
     fel.hidden = true;
   } else {
     $("sammanfattning").textContent = "";
+    $("kort-summa").textContent = "Går inte ihop";
+    $("kort-delar").textContent = "Ändra budget eller låsningar";
     fel.textContent = state.resultat.fel;
     fel.hidden = false;
   }
