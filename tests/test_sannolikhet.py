@@ -49,3 +49,18 @@ def test_oddsmodell_snittar_bolag_och_ignorerar_startodds():
     # Bara startodds → används som nödlösning
     assert m.prognos(Underlag(1, odds={"svenskaspel_start": (3.0, 3.0, 3.0)})) == pytest.approx((1/3, 1/3, 1/3))
     assert m.prognos(Underlag(1)) is None
+
+
+def test_odds_v2_vager_skarpa_bolag_tyngre():
+    from pipeline.model.modeller import OddsModellV2
+    m1, m2 = OddsModell(), OddsModellV2()
+    # Ett bolag: identiskt med odds-v1
+    u = Underlag(1, odds={"svenskaspel_start": (1.8, 3.6, 4.5)})
+    assert m2.prognos(u) == pytest.approx(m1.prognos(u))
+    # Pinnacle (vikt 3) mot ett vanligt bolag (vikt 1): 3/4 Pinnacle
+    u = Underlag(1, odds={"pinnacle": (2.0, 4.0, 4.0), "unibet_eu": (4.0, 4.0, 2.0)})
+    p = m2.prognos(u)
+    assert p == pytest.approx((0.75 * 0.5 + 0.25 * 0.25, 0.25, 0.75 * 0.25 + 0.25 * 0.5))
+    # Svenska Spel (vikt ½) mot Pinnacle (3)
+    u = Underlag(1, odds={"pinnacle": (2.0, 4.0, 4.0), "svenskaspel": (4.0, 4.0, 2.0)})
+    assert m2.prognos(u)[0] == pytest.approx((3 * 0.5 + 0.5 * 0.25) / 3.5)

@@ -6,8 +6,8 @@
    omgångar, så backtestet blir ärligt. Prognoserna sparas i prognoser, de senaste vikterna i
    modellvikter.
 3. Modellstatistik: Brier, log loss och träffprocent per modellversion och liga, på samma matcher.
-4. Modellval: ensemble-v1 blir aktiv bara om den har lägre log loss än odds-v1 på de senaste
-   JAMFOR_SENASTE matcherna. Fram till dess: bara odds.
+4. Modellval: ensemble-v1 blir aktiv bara om den har lägre log loss än basmodellen (odds-v2) på de
+   senaste JAMFOR_SENASTE matcherna. Fram till dess: bara odds. odds-v1 mäts också, som jämförelse.
 """
 from __future__ import annotations
 
@@ -132,7 +132,7 @@ def _prognoser(conn, version: str) -> Dict[int, tuple]:
 
 def modellstatistik(conn, data) -> Dict[str, Dict[str, float]]:
     """Mät alla versioner på matcher där samtliga har prognos. Returnerar totalen per version."""
-    versioner = [STANDARD_MODELL, EnsembleModell.version]
+    versioner = [STANDARD_MODELL, "odds-v1", EnsembleModell.version]
     prog = {v: _prognoser(conn, v) for v in versioner}
     versioner = [v for v in versioner if prog[v]]
     gemensamma = [r for r in data if all(r[2] in prog[v] for v in versioner)]

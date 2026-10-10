@@ -6,7 +6,7 @@
     python -m pipeline resultat             # resultat och utdelning för avslutade omgångar
     python -m pipeline backfill 4900 4973   # hämta historiska omgångar
     python -m pipeline tips                 # tipssajter → AI → tabellen tips (kräver GEMINI_API_KEY)
-    python -m pipeline prognos [--alla]     # räkna sannolikheter (odds-v1, och ensemble-v1 om vikter finns)
+    python -m pipeline prognos [--alla]     # räkna sannolikheter (odds-v2 och odds-v1, och ensemble-v1 om vikter finns)
     python -m pipeline statistik            # källstatistik, träning, backtest och modellval
     python -m pipeline kommentarer          # AI-kommentarer per match (kräver GEMINI_API_KEY)
     python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
@@ -29,7 +29,7 @@ from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
 from .model import statistik
-from .model.modeller import EnsembleModell, aktiv_modell, berakna_prognoser, ladda_modell
+from .model.modeller import MODELLER, EnsembleModell, aktiv_modell, berakna_prognoser, ladda_modell
 from .modeller import Match, ValideringsFel
 from .sources import oddsapi, svenskaspel
 from .tid import nu_utc, till_utc
@@ -133,6 +133,16 @@ def steg_resultat(conn) -> bool:
 
 
 def steg_prognos(conn, alla: bool = False) -> bool:
+    try:
+        # odds-v1 räknas vidare som jämförelse mot basmodellen odds-v2.
+        v1 = MODELLER["odds-v1"]
+        if alla:
+            berakna_prognoser(conn, v1)
+        else:
+            berakna_prognoser(conn, v1, [r[0] for r in conn.execute(
+                "SELECT id FROM omgangar WHERE spelstopp > ?", (_utc_om(-7 * 24),))])
+    except Exception as e:
+        log.exception("Prognos (odds-v1): misslyckades: %s", e)
     modell = aktiv_modell()
     try:
         if alla:

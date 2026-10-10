@@ -51,10 +51,39 @@ class OddsModell:
         return snitt(proportionell(*o) for o in bolag.values())
 
 
+# Hur mycket varje bolag väger i odds-v2. Skarpa bolag (låg marginal, stora insatser tillåtna) och
+# börser följer marknaden bäst; Svenska Spel har hög marginal och justerar långsamt.
+BOLAGSVIKTER = {
+    "pinnacle": 3.0,
+    "betfair_ex_eu": 2.0, "betfair_ex_uk": 2.0, "matchbook": 2.0, "smarkets": 2.0,
+    "svenskaspel": 0.5,
+}
+
+
+class OddsModellV2(OddsModell):
+    """odds-v2: som odds-v1 men viktat efter bolag (Pinnacle 3, börser 2, Svenska Spel ½, övriga 1).
+
+    Med bara ett bolag (t.ex. Svenska Spels startodds i historiken) blir resultatet identiskt med odds-v1."""
+    version = "odds-v2"
+    beskrivning = "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
+
+    def prognos(self, u: Underlag) -> Optional[Tripel]:
+        bolag = {b: o for b, o in u.odds.items() if b != BOLAG_START} or u.odds
+        if not bolag:
+            return None
+        vikter = {b: BOLAGSVIKTER.get(b, 1.0) for b in bolag}
+        tot = sum(vikter.values())
+        p = [0.0, 0.0, 0.0]
+        for b, o in bolag.items():
+            for i, x in enumerate(proportionell(*o)):
+                p[i] += vikter[b] * x / tot
+        return (p[0], p[1], p[2])
+
+
 def observation(u: Underlag) -> ensemble.Observation:
     """Underlaget som källor med sannolikheter, för ensemble-modellen och källstatistiken."""
     k: Dict[str, Tripel] = {}
-    po = OddsModell().prognos(u)
+    po = OddsModellV2().prognos(u)
     if po:
         k["odds"] = po
     if u.streck and sum(u.streck) > 0:
@@ -81,12 +110,12 @@ class EnsembleModell:
         return ensemble.prognos(self.vikter, o)
 
 
-MODELLER = {m.version: m for m in (OddsModell(), EnsembleModell())}
-STANDARD_MODELL = "odds-v1"
+MODELLER = {m.version: m for m in (OddsModell(), OddsModellV2(), EnsembleModell())}
+STANDARD_MODELL = "odds-v2"
 
 
 def aktiv_modell():
-    """Basmodellen som alltid räknas (odds-v1)."""
+    """Basmodellen som alltid räknas (odds-v2)."""
     return MODELLER[STANDARD_MODELL]
 
 

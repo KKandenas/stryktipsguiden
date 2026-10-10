@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011a";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011a";
+} from "./optimizer.js?v=20261011b";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -237,7 +237,7 @@ function detaljer(m) {
   return d;
 }
 
-const MODELLNAMN = { "odds-v1": "Modellen (odds)", "ensemble-v1": "Sammanvägd modell" };
+const MODELLNAMN = { "odds-v2": "Modellen (odds)", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell" };
 const pct = (x) => `${Math.round(x * 100)} %`;
 const dec = (x) => x.toFixed(3).replace(".", ",");
 

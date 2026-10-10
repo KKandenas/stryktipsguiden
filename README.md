@@ -119,7 +119,10 @@ med resten. Körningen markeras som misslyckad i Actions bara om Svenska Spel el
   inga senare odds finns.
 - **Värde per tecken** = vår sannolikhet − streckandelen. Positivt värde betyder understreckat, och
   ett sådant tecken ger högre utdelning om det går in.
-- **Versioner** (`modeller.py`): varje modell har en version (nu `odds-v1`). Prognoserna sparas per
+- **odds-v2** (basmodell sedan oktober 2026) väger bolagen efter hur skarpa de är: Pinnacle 3,
+  börser (Betfair, Matchbook, Smarkets) 2, Svenska Spels aktuella odds ½ och övriga 1. Med bara
+  ett bolag blir den identisk med `odds-v1`, som också räknas vidare för jämförelse.
+- **Versioner** (`modeller.py`): varje modell har en version (nu `odds-v2`). Prognoserna sparas per
   version i `prognoser`, så att versionerna kan jämföras i backtest. Ändra aldrig en befintlig version,
   skapa en ny.
 
@@ -272,6 +275,21 @@ historik kan ensemble-v1 ta över av sig själv.
 
 I appen visar avsnittet **"Så har modellen träffat"** tabellen ovan, träffsäkerhet per liga och hur
 många rätt modellens och folkets favorittecken fick de senaste tio omgångarna.
+
+### Försök: optimera mot förväntad utdelning (inte infört)
+
+Utdelningen kan förutsägas mycket väl från strecken på de rätta tecknen
+(`log utdelning ≈ a + b·Σ log streck`, R² 0,90 för 13 rätt och 0,97 för 12–10 rätt, med 15 kr som
+lägsta utbetalning). En optimerare som maximerade förväntad utdelning enligt den modellen testades
+i oktober 2026 och **gav sämre verkligt utfall** i backtestet än dagens metod. Den valde tecken där
+oddsen och strecken skiljer sig mest, och just där har sannolikheterna mest brus, som förstärks
+över 13 matcher. Att dra sannolikheterna mot strecken hjälpte inte heller. Backtestet
+(253 omgångar) är dessutom för brusigt för att finjustera λ: ett byte från 0,30 till 0,25 ändrar
+utfallet kraftigt beroende på enstaka 12-rättare. Därför behålls λ = 0,3. Försöket kan göras om
+när historiken har skarpare odds (odds-v2 med Pinnacle).
+
+Historiska stängningsodds från football-data.co.uk används inte, eftersom sajtens robots.txt
+uttryckligen spärrar AI-tjänster.
 
 ### Backtest: "Om du hade spelat varje vecka"
 

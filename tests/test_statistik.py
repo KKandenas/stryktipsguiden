@@ -81,7 +81,7 @@ def test_walk_forward_ar_arligt_och_odds_behalls_nar_de_ar_facit(conn):
     forsta = conn.execute("""SELECT MIN(m.omgang_id) FROM prognoser p JOIN matcher m ON m.id = p.match_id
                              WHERE p.modellversion = 'ensemble-v1'""").fetchone()[0]
     assert (forsta - 5000) * 13 >= statistik.MIN_TRANING
-    assert r["aktiv"] == "odds-v1" and vald_version(conn) == "odds-v1"
+    assert r["aktiv"] == "odds-v2" and vald_version(conn) == "odds-v2"
     assert conn.execute("SELECT COUNT(*) FROM modellstatistik WHERE liga = 'Alla'").fetchone()[0] == 2
     folket = conn.execute("""SELECT s.antal_matcher, s.traff FROM kallstatistik s JOIN kallor k ON k.id = s.kalla_id
                              WHERE k.namn = 'Svenska folket' AND s.liga = 'Alla'""").fetchone()
@@ -99,5 +99,5 @@ def test_ensemble_valjs_nar_strecken_vet_mer(conn, monkeypatch):
     assert k["modell"]["version"] == "ensemble-v1"
     st = k["statistik"]
     assert st["aktiv_modell"] == "ensemble-v1"
-    assert {m["version"] for m in st["modeller"]} == {"odds-v1", "ensemble-v1"}
+    assert {m["version"] for m in st["modeller"]} == {"odds-v2", "ensemble-v1"}
     assert len(st["senaste"]) == 10 and 0 <= st["senaste"][0]["modell_ratt"] <= 13

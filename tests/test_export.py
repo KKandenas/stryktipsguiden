@@ -88,7 +88,7 @@ def test_historik_tar_bara_avgjorda_omgangar_med_prognos(conn):
     assert export.bygg_historik(conn)["omgangar"] == []          # inte avgjord än
     lagring.spara_resultat(conn, tolka_resultat(las_fixture("svs_result_4973.json")["result"]))
     h = export.bygg_historik(conn)
-    assert h["modell"] == "odds-v1" and len(h["omgangar"]) == 1
+    assert h["modell"] == "odds-v2" and len(h["omgangar"]) == 1
     o = h["omgangar"][0]
     assert o["utdelning"] == [59266.0, 736.0, 49.0, 16.0]
     assert len(o["matcher"]) == 13
