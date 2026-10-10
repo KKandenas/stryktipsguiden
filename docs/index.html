@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="app.css">
-<script type="module" src="app.js"></script>
+<link rel="stylesheet" href="app.css?v=20261011a">
+<script type="module" src="app.js?v=20261011a"></script>
 </head>
 <body data-vy="kupong">
 <header class="banner-omr">
@@ -33,6 +33,7 @@
       </button>
       <ul id="meny-lista" class="meny-lista" hidden>
         <li><a href="#kupong" data-vy="kupong"><b>Kupongen</b><span>Radförslag för veckans omgång</span></a></li>
+        <li><a href="#rattning" data-vy="rattning"><b>Förra omgången</b><span>Rättning av senaste kupongen</span></a></li>
         <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
         <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
         <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
@@ -71,6 +72,27 @@
       <section class="atgarder">
         <button id="rensa" class="knapp" type="button" hidden>Rensa låsningar</button>
       </section>
+    </div>
+  </section>
+
+  <!-- ===== Förra omgången (rättning) ===== -->
+  <section class="vy" data-vy="rattning" hidden>
+    <div class="omgang">
+      <div class="omgang-inre">
+        <div class="topprad">
+          <h1 id="r-rubrik">Förra omgången</h1>
+          <span id="r-status" class="status" hidden></span>
+        </div>
+        <p id="r-underrubrik"></p>
+      </div>
+    </div>
+    <div class="innehall">
+      <section class="kort budget" aria-labelledby="r-budget-rubrik">
+        <h2 id="r-budget-rubrik" class="kort-rubrik">Så gick ditt system</h2>
+        <div id="r-budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader i rättningen"></div>
+        <div id="r-resultat" class="r-resultat" aria-live="polite"><p class="dampad">Laddar …</p></div>
+      </section>
+      <ol id="r-matcher" class="matcher" aria-label="Matcher i förra omgången"></ol>
     </div>
   </section>
 

@@ -141,6 +141,20 @@ Appen ligger i `docs/` och består av `index.html`, `app.css`, `app.js`, `optimi
 `kupong.json` och faller tillbaka på `exempel-kupong.json` om filen saknas. Vald budget och låsta
 tecken sparas i webbläsarens localStorage, per omgång.
 
+**Vyer** (menyn högst upp, adresser med `#` så att bakåtknappen fungerar):
+
+| Vy | Innehåll |
+|---|---|
+| `#kupong` | Veckans kupong med radförslag. Mellan spelstopp och måndag visas den stängda eller rättade omgången. |
+| `#rattning` | **Förra omgången**: senast stängda omgången (`senaste.json`) med resultat, vilka tecken som gick in och hur många rätt och kronor systemet gav. Använder den budget och de låsningar du hade den veckan, om de finns sparade. |
+| `#statistik` | Så har modellen träffat |
+| `#backtest` | Om du spelat varje vecka |
+| `#hjalp` | Så läser du kupongen |
+
+**Cache:** filerna laddas med versionsnummer (`app.js?v=…`) så att mobilen aldrig blandar gammal
+och ny kod efter en uppdatering. **Byt versionen överallt när appen ändras** (`index.html`,
+`app.js`, `backtest.js`). Testet `tests/test_appfiler.py` kontrollerar att de är lika.
+
 Lokalt (ES-moduler kräver en server, så det går inte att dubbelklicka på filen):
 ```bash
 python3 -m http.server 8765 -d docs
@@ -283,7 +297,8 @@ omgång (id, datum, spelstopp, status), och för varje match lag, liga, avspark,
 `varde` och `odds` (för 1/X/2), tips, kommentar och resultat. `statistik` innehåller det som visas
 under "Så har modellen träffat".
 `docs/exempel-kupong.json` är omgång 4974 visad som öppen, så att appen kan testas även när ingen
-omgång är öppen.
+omgång är öppen. `docs/senaste.json` har samma format och innehåller den senast stängda omgången
+(för rättningen), och `docs/historik.json` är underlaget för backtestet.
 
 ## Datakällor
 

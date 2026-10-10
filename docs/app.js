@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js";
-import { backtesta } from "./backtest.js";
+} from "./optimizer.js?v=20261011a";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -16,6 +16,9 @@ const state = {
   resultat: null,      // senaste optimeringen
   historik: null,      // historik.json, laddas först när backtestet öppnas
   btBudget: null,      // vald budget i backtestet
+  senaste: null,       // senaste.json – förra omgången, för rättning
+  rBudget: null,       // vald budget i rättningen
+  rOppna: new Set(),   // utfällda matcher i rättningen
 };
 
 // ---------- lagring (localStorage kan saknas eller kasta, t.ex. i privat läge) ----------
@@ -31,6 +34,9 @@ function sparaLagring() {
     const id = state.kupong.omgang.id;
     if (Object.keys(state.lasningar).length) d.lasningar[id] = state.lasningar;
     else delete d.lasningar[id];
+    d.budgetar = d.budgetar || {};
+    d.budgetar[id] = state.budget;           // så att rättningen kan visa det system du hade
+    for (const k of Object.keys(d.budgetar)) if (Number(k) < id - 5) delete d.budgetar[k];
     // Behåll bara de senaste omgångarnas låsningar
     for (const k of Object.keys(d.lasningar)) if (Number(k) < id - 5) delete d.lasningar[k];
     localStorage.setItem(LAGRING, JSON.stringify(d));
@@ -159,20 +165,25 @@ function renderaTopp() {
 }
 
 function renderaMatcher() {
-  const lista = $("matcher");
-  lista.replaceChildren();
-  const val = state.resultat?.ok ? Object.fromEntries(state.resultat.val.map((v) => [v.nr, v])) : {};
+  ritaMatcher($("matcher"), state.kupong, state.resultat, state.lasningar, state.oppna, true);
+}
 
-  for (const m of state.kupong.matcher) {
+/** Ritar kupongens matcher. interaktiv=false (rättningen): tecknen går inte att låsa. */
+function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
+  lista.replaceChildren();
+  const val = resultat?.ok ? Object.fromEntries(resultat.val.map((v) => [v.nr, v])) : {};
+
+  for (const m of kupong.matcher) {
     const v = val[m.nr];
-    const last = normaliseraLasning(state.lasningar[m.nr]) || "";
-    const oppen = state.oppna.has(m.nr);
+    const last = normaliseraLasning(lasningar[m.nr]) || "";
+    const oppen = oppna.has(m.nr);
+    const slut = m.resultat ? ` · Slut ${m.mal ? m.mal.replace("-", "–") : m.resultat}` : "";
 
     const huvud = el("button", { type: "button", class: "match-huvud", "data-nr": m.nr, "aria-expanded": String(oppen) },
       el("span", { class: "nr", text: String(m.nr) }),
       el("span", {},
         el("span", { class: "lag", text: `${m.hemmalag} – ${m.bortalag}` }),
-        el("span", { class: "liga", text: `${[m.liga, m.avspark && kortFmt.format(new Date(m.avspark))].filter(Boolean).join(" · ")}` }),
+        el("span", { class: "liga", text: `${[m.liga, !m.resultat && m.avspark && kortFmt.format(new Date(m.avspark))].filter(Boolean).join(" · ")}${slut}` }),
       ),
       v ? el("span", { class: `etikett ${v.typ}`, text: v.typ }) : null,
     );
@@ -187,8 +198,10 @@ function renderaMatcher() {
       const klasser = ["ruta", vald && "vald", arLast && "last", m.resultat === t && "utfall"].filter(Boolean).join(" ");
       const etikett = `${t}: chans ${chans ?? "okänd"} procent, streck ${streck ?? "okänt"} procent` +
         `${harVarde ? ", understreckat" : ""}${vald ? ", valt" : ""}${arLast ? ", låst" : ""}`;
-      rutor.append(el("button", { type: "button", class: klasser, "data-nr": m.nr, "data-tecken": t,
-        "aria-pressed": String(arLast), "aria-label": etikett },
+      const attr = interaktiv
+        ? { type: "button", class: klasser, "data-nr": m.nr, "data-tecken": t, "aria-pressed": String(arLast), "aria-label": etikett }
+        : { class: klasser, role: "img", "aria-label": etikett + (m.resultat === t ? ", rätt tecken" : "") };
+      rutor.append(el(interaktiv ? "button" : "div", attr,
         arLast ? el("span", { class: "las", text: "🔒", "aria-hidden": "true" }) : null,
         el("span", { class: "tecken", text: t }),
         el("span", { class: "siffror", text: `${chans ?? "–"} · ${streck ?? "–"}` }),
@@ -196,7 +209,8 @@ function renderaMatcher() {
       ));
     }
 
-    const li = el("li", { class: "match" }, huvud, rutor);
+    const traff = m.resultat && v ? (v.tecken.includes(m.resultat) ? "traff" : "miss") : "";
+    const li = el("li", { class: `match ${traff}` }, huvud, rutor);
     if (oppen) li.append(detaljer(m));
     lista.append(li);
   }
@@ -297,7 +311,7 @@ function renderaStatistik() {
 
 // ---------- meny och vyer ----------
 
-const VYER = { kupong: "Kupongen", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp" };
+const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp" };
 
 function initMeny() {
   const knapp = $("meny-knapp"), lista = $("meny-lista");
@@ -324,7 +338,80 @@ function visaVy() {
   }
   $("meny-aktuell").textContent = VYER[vy];
   if (vy === "backtest") oppnaBacktest();
+  if (vy === "rattning") oppnaRattning();
   if (vy !== "kupong" || namn) window.scrollTo(0, 0);
+}
+
+// ---------- förra omgången (rättning) ----------
+
+async function oppnaRattning() {
+  if (state.senaste) return;
+  try {
+    const r = await fetch("senaste.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error(String(r.status));
+    state.senaste = await r.json();
+    const lagrat = lasLagring();
+    const id = state.senaste.omgang.id;
+    const sparad = (lagrat.budgetar || {})[id];
+    state.rBudget = BUDGETAR.includes(sparad) ? sparad : state.budget;
+    $("r-budgetknappar").replaceChildren(...BUDGETAR.map((b) => {
+      const k = el("button", { type: "button", role: "radio", "data-budget": b, text: String(b) });
+      k.addEventListener("click", () => { state.rBudget = b; renderaRattning(); });
+      return k;
+    }));
+    $("r-matcher").addEventListener("click", (e) => {
+      const huvud = e.target.closest(".match-huvud");
+      if (!huvud) return;
+      const nr = Number(huvud.dataset.nr);
+      state.rOppna.has(nr) ? state.rOppna.delete(nr) : state.rOppna.add(nr);
+      renderaRattning();
+      document.querySelector(`#r-matcher .match-huvud[data-nr="${nr}"]`)?.focus();
+    });
+    renderaRattning();
+  } catch (e) {
+    $("r-resultat").replaceChildren(el("p", { class: "fel", text: "Förra omgången kunde inte laddas." }));
+    console.error(e);
+  }
+}
+
+function renderaRattning() {
+  const k = state.senaste;
+  const { omgang } = k;
+  const stopp = new Date(omgang.spelstopp);
+  const datum = datumFmt.format(stopp);
+  $("r-rubrik").textContent = `Stryktipset v. ${vecka(stopp)}`;
+  $("r-underrubrik").textContent = `${datum.charAt(0).toUpperCase() + datum.slice(1)} · Omgång ${omgang.id}`;
+  const status = $("r-status");
+  status.textContent = { avgjord: "Rättad", stangd: "Spelas", installd: "Inställd", oppen: "Öppen" }[omgang.status] || "";
+  status.hidden = !status.textContent;
+
+  for (const b of $("r-budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.rBudget));
+  const lasningar = (lasLagring().lasningar || {})[omgang.id] || {};
+  const res = optimera(k.matcher, state.rBudget, lasningar);
+  const box = $("r-resultat");
+  box.replaceChildren();
+
+  if (!res.ok) {
+    box.append(el("p", { class: "fel", text: res.fel }));
+  } else {
+    const facit = k.matcher.map((m) => m.resultat);
+    const klara = facit.filter(Boolean).length;
+    const fordelning = rattFordelning(res.val, facit.map((r) => r || "?"));
+    const basta = fordelning.reduce((b, n, i) => (n > 0 ? i : b), 0);
+    const utd = omgang.utdelning || {};
+    const vinst = [13, 12, 11, 10].reduce((sum, n) => sum + (fordelning[n] || 0) * (utd[String(n)] || 0), 0);
+    const avgjord = omgang.status === "avgjord";
+
+    box.append(el("div", { class: "r-stort" },
+      el("div", {}, el("b", { text: `${basta} rätt` }), el("span", { text: avgjord ? "bästa raden" : `av ${klara} spelade matcher` })),
+      el("div", {}, el("b", { text: avgjord ? kr(vinst) : "–" }), el("span", { text: `vinst · insats ${kr(state.rBudget * (omgang.radpris || 1))}` }))));
+    const rader = [13, 12, 11, 10].filter((n) => fordelning[n]).map((n) =>
+      `${n} rätt: ${fordelning[n]} ${fordelning[n] === 1 ? "rad" : "rader"}${avgjord && utd[String(n)] ? ` à ${kr(utd[String(n)])}` : ""}`);
+    box.append(el("p", { class: "dampad", text: rader.length ? rader.join(" · ") : "Ingen rad nådde 10 rätt." }));
+    box.append(el("p", { class: "dampad liten", text: (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
+      "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." }));
+  }
+  ritaMatcher($("r-matcher"), k, res, lasningar, state.rOppna, false);
 }
 
 // ---------- backtest ----------
@@ -534,4 +621,10 @@ function klickMatch(e) {
 }
 
 
-start();
+start().catch((e) => {
+  console.error(e);
+  $("rubrik").textContent = "Något gick fel";
+  $("underrubrik").replaceChildren("Prova att ladda om sidan. ",
+    el("button", { type: "button", class: "knapp", text: "Ladda om" }));
+  $("underrubrik").querySelector("button").addEventListener("click", () => location.reload());
+});

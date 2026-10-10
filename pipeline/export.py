@@ -252,6 +252,11 @@ def exportera(conn: sqlite3.Connection, omgang_id: Optional[int] = None, sokvag:
     else:
         log.info("Export: %s oförändrad", sokvag.name)
     if sokvag == config.DOCS_DIR / "kupong.json":
+        # Senast stängda omgången (för rättning i appen), även när en ny kupong har öppnat.
+        senaste = conn.execute("SELECT id FROM omgangar WHERE spelstopp <= ? AND installd = 0 "
+                               "ORDER BY spelstopp DESC LIMIT 1", (nu,)).fetchone()
+        if senaste and skriv(bygg_kupong(conn, senaste[0], nu), config.DOCS_DIR / "senaste.json"):
+            log.info("Export: senaste.json skriven (omgång %s)", senaste[0])
         historik = bygg_historik(conn)
         if skriv(historik, config.DOCS_DIR / "historik.json", kompakt=True):
             log.info("Export: historik.json skriven (%d omgångar)", len(historik["omgangar"]))
