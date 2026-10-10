@@ -182,7 +182,7 @@ systemspel när du är inloggad. Om Svenska Spel inte vill ha rubrikraden: ändr
 ### Tester
 
 ```bash
-node --test tests/js/
+node --test tests/js/*.test.mjs
 ```
 Körs automatiskt i GitHub Actions. Lokalt krävs Node 18 eller senare.
 
