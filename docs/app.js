@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011b";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011b";
+} from "./optimizer.js?v=20261011c";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011c";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -211,9 +211,33 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
 
     const traff = m.resultat && v ? (v.tecken.includes(m.resultat) ? "traff" : "miss") : "";
     const li = el("li", { class: `match ${traff}` }, huvud, rutor);
+    const tipsrad = tipsetiketter(m, v);
+    if (tipsrad) li.append(tipsrad);
     if (oppen) li.append(detaljer(m));
     lista.append(li);
   }
+}
+
+const KORTNAMN = { "Tio tidningars tips": "Tidningar", "speltips.se": "speltips", "sportsgambler.com": "sportsgambler" };
+
+/** Små etiketter med varje källas tips. "emot" = inget av tipsets tecken finns i systemet. */
+function tipsetiketter(m, v) {
+  const tips = (m.tips || []).filter((t) => t.tecken);
+  if (!tips.length) return null;
+  const rad = el("div", { class: "tipsetiketter", "aria-label": "Tips från analyser" });
+  for (const t of tips) {
+    const namn = KORTNAMN[t.kalla] || t.kalla;
+    const raknat = t.kalla === "Tio tidningars tips" && /^\d+-\d+-\d+/.test(t.text || "") ? t.text.split(" ")[0] : t.tecken;
+    const emot = v && ![...t.tecken].some((x) => v.tecken.includes(x));
+    const satt = m.resultat ? t.tecken.includes(m.resultat) : null;
+    const etikett = `${t.kalla} tippar ${t.tecken}` + (emot ? ", går emot förslaget" : "") +
+      (satt === true ? ", tipset satt" : satt === false ? ", tipset satt inte" : "");
+    rad.append(el("span", { class: `tipsetikett${emot ? " emot" : ""}${satt === true ? " satt" : ""}`,
+      title: t.text || "", "aria-label": etikett },
+      el("span", { class: "kalla", text: namn }), el("b", { text: raknat }),
+      satt === true ? el("span", { class: "bock", text: "✓", "aria-hidden": "true" }) : null));
+  }
+  return rad;
 }
 
 function detaljer(m) {

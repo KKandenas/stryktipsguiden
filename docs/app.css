@@ -200,6 +200,17 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .ruta:focus-visible, .match-huvud:focus-visible, .budgetknappar button:focus-visible, .knapp:focus-visible,
 .meny-knapp:focus-visible, summary:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
 
+/* tipsetiketter under rutorna */
+.tipsetiketter { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 12px; margin-top: -2px; }
+.tipsetikett {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 12px; line-height: 1;
+  padding: 5px 8px; border-radius: 999px; background: var(--ruta); border: 1px solid var(--ruta-kant); color: var(--dampad);
+}
+.tipsetikett b { color: var(--text); font-family: var(--rubrikfont); font-size: 14px; font-weight: 800; }
+.tipsetikett.emot { border-color: var(--fel); color: var(--fel); background: transparent; }
+.tipsetikett.emot b { color: var(--fel); }
+.tipsetikett .bock { color: var(--ratt); font-weight: 700; }
+
 /* rättning */
 .match.traff { box-shadow: var(--skugga), inset 4px 0 0 var(--ratt); }
 .match.miss { box-shadow: var(--skugga), inset 4px 0 0 var(--fel); }
