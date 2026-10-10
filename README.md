@@ -22,7 +22,7 @@ GitHub Actions (schema)                          GitHub Pages
 | Fas | Innehåll | Klar |
 |---|---|---|
 | 1 | Datainsamling: kupong, streck, odds, resultat, utdelning | ✅ |
-| 2 | Sannolikhetsmodell och export av `kupong.json` | |
+| 2 | Sannolikhetsmodell och export av `kupong.json` | ✅ |
 | 3 | Webbappen och radoptimering | |
 | 4 | Tipssajter och AI-kommentarer | |
 | 5 | Lärande från historik och backtest | |
@@ -47,6 +47,9 @@ Kommandon:
 | `python -m pipeline odds` | The Odds API för öppna omgångar (kräver `ODDS_API_KEY`) |
 | `python -m pipeline resultat` | Resultat och utdelning för omgångar efter spelstopp |
 | `python -m pipeline backfill 4700 4973` | Hämta historiska omgångar (1 s paus mellan anrop) |
+| `python -m pipeline prognos [--alla]` | Räkna sannolikheter med aktiv modellversion (`--alla` räknar om hela historiken) |
+| `python -m pipeline export` | Skriv `docs/kupong.json` (närmaste öppna omgång, annars den senaste) |
+| `python -m pipeline export --omgang 4974 --till docs/exempel-kupong.json --dolj-resultat` | Skapa exempelfilen |
 | `python -m pipeline migrera` | Kör bara databasmigreringarna |
 
 Lägg till `-v` för mer loggning. Miljövariabeln `STRYKTIPS_DB` styr vilken databasfil som används
@@ -103,6 +106,36 @@ Run workflow**, inklusive backfill.
 **Felhantering:** varje källa valideras innan något sparas (13 matcher, streck som summerar till
 cirka 100, odds över 1,0 och så vidare). En trasig källa loggas som fel, och pipelinen fortsätter
 med resten. Körningen markeras som misslyckad i Actions bara om Svenska Spel eller resultaten fallerar.
+
+## Sannolikhetsmodellen
+
+`pipeline/model/`:
+- **Odds till sannolikhet** (`sannolikhet.py`): 1/odds delas med summan, så att bookmakerns marginal
+  försvinner. Har vi odds från flera bolag används snittet. Svenska Spels startodds används bara om
+  inga senare odds finns.
+- **Värde per tecken** = vår sannolikhet − streckandelen. Positivt värde betyder understreckat, och
+  ett sådant tecken ger högre utdelning om det går in.
+- **Versioner** (`modeller.py`): varje modell har en version (nu `odds-v1`). Prognoserna sparas per
+  version i `prognoser`, så att versionerna kan jämföras i backtest. Ändra aldrig en befintlig version,
+  skapa en ny.
+
+Utvärdering på 3 245 matcher (2021–2026, Svenska Spels startodds). Lägre är bättre:
+
+| | Brier | Log loss |
+|---|---|---|
+| Odds, proportionell metod | 0,6081 | 1,0146 |
+| Odds, potensmetod | 0,6083 | 1,0147 |
+| Svenska folkets streck | 0,6188 | 1,0315 |
+
+Oddsen träffar tydligt bättre än strecken, och den skillnaden är vad värdet bygger på.
+
+## kupong.json
+
+Det enda appen läser. Formatet finns beskrivet i början av `pipeline/export.py`. Kort sammanfattat:
+omgång (id, datum, spelstopp, status), och för varje match lag, liga, avspark, `chans`, `streck`,
+`varde` och `odds` (för 1/X/2), tips, kommentar (från fas 4) och resultat.
+`docs/exempel-kupong.json` är omgång 4974 visad som öppen, så att appen kan testas även när ingen
+omgång är öppen.
 
 ## Datakällor
 

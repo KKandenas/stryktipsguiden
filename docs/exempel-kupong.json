@@ -1,0 +1,500 @@
+{
+ "formatversion": 1,
+ "genererad": "2026-10-10T18:00:53Z",
+ "modell": {
+  "version": "odds-v1",
+  "beskrivning": "Snitt av bookmakerodds med marginalen borträknad"
+ },
+ "omgang": {
+  "id": 4974,
+  "datum": "2026-10-10",
+  "spelstopp": "2026-10-10T13:59:00Z",
+  "status": "oppen",
+  "omsattning": 26061816.0,
+  "radpris": 1,
+  "utdelning": null
+ },
+ "matcher": [
+  {
+   "nr": 1,
+   "hemmalag": "Manchester United",
+   "bortalag": "Tottenham",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-10T16:30:00Z",
+   "chans": {
+    "1": 0.5745,
+    "X": 0.222,
+    "2": 0.2035
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 65.0,
+    "X": 20.0,
+    "2": 15.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.0755,
+    "X": 0.022,
+    "2": 0.0535
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 1.7,
+     "X": 4.4,
+     "2": 4.8
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 2,
+   "hemmalag": "Chelsea",
+   "bortalag": "Bournemouth",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.5484,
+    "X": 0.2297,
+    "2": 0.2219
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 68.0,
+    "X": 19.0,
+    "2": 13.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.1316,
+    "X": 0.0397,
+    "2": 0.0919
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 1.78,
+     "X": 4.25,
+     "2": 4.4
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 3,
+   "hemmalag": "Aston Villa",
+   "bortalag": "Brentford",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3668,
+    "X": 0.2663,
+    "2": 0.3668
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 40.0,
+    "X": 26.0,
+    "2": 34.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.0332,
+    "X": 0.0063,
+    "2": 0.0268
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.65,
+     "X": 3.65,
+     "2": 2.65
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 4,
+   "hemmalag": "Sunderland",
+   "bortalag": "Brighton",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3256,
+    "X": 0.264,
+    "2": 0.4104
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 22.0,
+    "X": 23.0,
+    "2": 55.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": 0.1056,
+    "X": 0.034,
+    "2": -0.1396
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 3.0,
+     "X": 3.7,
+     "2": 2.38
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 5,
+   "hemmalag": "Ipswich",
+   "bortalag": "Fulham",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3615,
+    "X": 0.2674,
+    "2": 0.3711
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 29.0,
+    "X": 26.0,
+    "2": 45.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": 0.0715,
+    "X": 0.0074,
+    "2": -0.0789
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.7,
+     "X": 3.65,
+     "2": 2.63
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 6,
+   "hemmalag": "Blackburn",
+   "bortalag": "Cardiff",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3573,
+    "X": 0.2643,
+    "2": 0.3783
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 42.0,
+    "X": 24.0,
+    "2": 34.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.0627,
+    "X": 0.0243,
+    "2": 0.0383
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.7,
+     "X": 3.65,
+     "2": 2.55
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 7,
+   "hemmalag": "Bolton",
+   "bortalag": "Stoke",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3765,
+    "X": 0.2743,
+    "2": 0.3491
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 36.0,
+    "X": 27.0,
+    "2": 37.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": 0.0165,
+    "X": 0.0043,
+    "2": -0.0209
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.55,
+     "X": 3.5,
+     "2": 2.75
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 8,
+   "hemmalag": "Derby",
+   "bortalag": "Wrexham",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3498,
+    "X": 0.2872,
+    "2": 0.363
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 26.0,
+    "X": 30.0,
+    "2": 44.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": 0.0898,
+    "X": -0.0128,
+    "2": -0.077
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.75,
+     "X": 3.35,
+     "2": 2.65
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 9,
+   "hemmalag": "Middlesbrough",
+   "bortalag": "Wolverhampton",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.4369,
+    "X": 0.253,
+    "2": 0.3101
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 53.0,
+    "X": 23.0,
+    "2": 24.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.0931,
+    "X": 0.023,
+    "2": 0.0701
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.2,
+     "X": 3.8,
+     "2": 3.1
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 10,
+   "hemmalag": "Preston",
+   "bortalag": "Millwall",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3559,
+    "X": 0.2745,
+    "2": 0.3696
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 23.0,
+    "X": 29.0,
+    "2": 48.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": 0.1259,
+    "X": -0.0155,
+    "2": -0.1104
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.7,
+     "X": 3.5,
+     "2": 2.6
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 11,
+   "hemmalag": "Sheffield U",
+   "bortalag": "Lincoln",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.4776,
+    "X": 0.2718,
+    "2": 0.2506
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 59.0,
+    "X": 21.0,
+    "2": 20.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.1124,
+    "X": 0.0618,
+    "2": 0.0506
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 2.02,
+     "X": 3.55,
+     "2": 3.85
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 12,
+   "hemmalag": "Watford",
+   "bortalag": "Burnley",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.3208,
+    "X": 0.2749,
+    "2": 0.4043
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 35.0,
+    "X": 26.0,
+    "2": 39.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.0292,
+    "X": 0.0149,
+    "2": 0.0143
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 3.0,
+     "X": 3.5,
+     "2": 2.38
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 13,
+   "hemmalag": "Huddersfield",
+   "bortalag": "Sheffield W",
+   "liga": "League One",
+   "land": "England",
+   "avspark": "2026-10-10T14:00:00Z",
+   "chans": {
+    "1": 0.5521,
+    "X": 0.2346,
+    "2": 0.2133
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 61.0,
+    "X": 23.0,
+    "2": 16.0
+   },
+   "streck_tid": "2026-10-10T14:00:01Z",
+   "varde": {
+    "1": -0.0579,
+    "X": 0.0046,
+    "2": 0.0533
+   },
+   "odds": {
+    "antal_bolag": 1,
+    "snitt": {
+     "1": 1.7,
+     "X": 4.0,
+     "2": 4.4
+    }
+   },
+   "tips": [],
+   "kommentar": null,
+   "resultat": null,
+   "mal": null
+  }
+ ]
+}

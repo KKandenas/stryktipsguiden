@@ -5,10 +5,12 @@
     python -m pipeline odds                 # The Odds API för öppna omgångar
     python -m pipeline resultat             # resultat och utdelning för avslutade omgångar
     python -m pipeline backfill 4900 4973   # hämta historiska omgångar
+    python -m pipeline prognos [--alla]     # räkna sannolikheter (aktiv modellversion)
+    python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
     python -m pipeline migrera
 
 Varje steg loggar tydligt och fortsätter med nästa om något går fel.
-Avslutningskoden är 1 om ett kritiskt steg (Svenska Spel eller resultat) misslyckades.
+Avslutningskoden är 1 om ett kritiskt steg (Svenska Spel, resultat eller export) misslyckades.
 """
 from __future__ import annotations
 
@@ -17,9 +19,11 @@ import logging
 import sys
 import time
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
-from . import config, db, lagring
+from . import config, db, export, lagring
 from .http import HamtningsFel
+from .model.modeller import aktiv_modell, berakna_prognoser
 from .modeller import Match, ValideringsFel
 from .sources import oddsapi, svenskaspel
 from .tid import nu_utc, till_utc
@@ -122,6 +126,33 @@ def steg_resultat(conn) -> bool:
     return ok
 
 
+def steg_prognos(conn, alla: bool = False) -> bool:
+    modell = aktiv_modell()
+    try:
+        if alla:
+            sparade, utan = berakna_prognoser(conn, modell)
+        else:
+            # Senaste veckans omgångar räknas alltid om (nya odds); äldre bara om de saknar prognos.
+            aktuella = [r[0] for r in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ?", (_utc_om(-7 * 24),))]
+            sparade, utan = berakna_prognoser(conn, modell, aktuella)
+            s2, u2 = berakna_prognoser(conn, modell, bara_saknade=True)
+            sparade, utan = sparade + s2, u2
+        log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", modell.version, sparade, utan)
+        return True
+    except Exception as e:
+        log.exception("Prognos: misslyckades: %s", e)
+        return False
+
+
+def steg_export(conn, omgang_id=None, till=None, dolj_resultat=False) -> bool:
+    try:
+        export.exportera(conn, omgang_id, Path(till) if till else None, dolj_resultat)
+        return True
+    except Exception as e:
+        log.exception("Export: misslyckades, kupong.json lämnas orörd: %s", e)
+        return False
+
+
 def backfill(conn, fran: int, till: int, paus: float = 1.0) -> bool:
     ok = True
     for n in range(fran, till + 1):
@@ -148,6 +179,12 @@ def main(argv=None) -> int:
     b = sub.add_parser("backfill")
     b.add_argument("fran", type=int)
     b.add_argument("till", type=int)
+    pr = sub.add_parser("prognos")
+    pr.add_argument("--alla", action="store_true", help="räkna om alla matcher, inte bara aktuella")
+    ex = sub.add_parser("export")
+    ex.add_argument("--omgang", type=int)
+    ex.add_argument("--till", help="filväg (standard docs/kupong.json)")
+    ex.add_argument("--dolj-resultat", action="store_true", help="visa omgången som om den vore öppen")
     args = p.parse_args(argv)
 
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
@@ -164,6 +201,8 @@ def main(argv=None) -> int:
         kritiskt_ok &= steg_svenskaspel(conn)
         steg_odds(conn)
         kritiskt_ok &= steg_resultat(conn)
+        steg_prognos(conn)
+        kritiskt_ok &= steg_export(conn)
     elif args.kommando == "svenskaspel":
         kritiskt_ok = steg_svenskaspel(conn)
     elif args.kommando == "odds":
@@ -172,6 +211,10 @@ def main(argv=None) -> int:
         kritiskt_ok = steg_resultat(conn)
     elif args.kommando == "backfill":
         kritiskt_ok = backfill(conn, args.fran, args.till)
+    elif args.kommando == "prognos":
+        kritiskt_ok = steg_prognos(conn, args.alla)
+    elif args.kommando == "export":
+        kritiskt_ok = steg_export(conn, args.omgang, args.till, args.dolj_resultat)
 
     conn.close()
     if not kritiskt_ok:
