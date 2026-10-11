@@ -300,14 +300,16 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .stapel span { color: var(--dampad); font-size: 12px; white-space: nowrap; }
 .forklaring-stat { color: var(--dampad); font-size: 13px; margin-top: 12px; }
 
-/* årsval */
-.arsknappar { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 14px; }
-.arsknappar button {
-  border: 1.5px solid var(--ruta-kant); background: var(--yta-2); border-radius: 999px; padding: 6px 12px;
-  font-size: 13px; font-weight: 700; cursor: pointer;
+/* årsval (rullgardin) */
+.arsval { display: inline-flex; align-items: center; gap: 8px; margin: 4px 0 14px; font-size: 14px; font-weight: 600; color: var(--dampad); }
+.arsval-lista {
+  appearance: none; -webkit-appearance: none; font: inherit; font-weight: 700; color: var(--text);
+  background: var(--yta-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231a56c4' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1.5px solid var(--ruta-kant); border-radius: 10px; padding: 8px 36px 8px 12px; cursor: pointer; min-height: 40px;
 }
-.arsknappar button[aria-checked="true"] { background: var(--primar); border-color: var(--primar); color: var(--vald-text); }
-.arsknappar button:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+.arsval-lista:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+.skillnad { margin-top: 6px; text-align: center; font-size: 13px; color: var(--dampad); }
+.liga .annat-forslag { color: var(--primar); font-weight: 700; }
 
 /* backtest */
 #backtest-innehall .budgetknappar { margin: 10px 0 12px; }

@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011o";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011o";
+} from "./optimizer.js?v=20261011p";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011p";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -25,20 +25,22 @@ const state = {
   btAr: "alla",        // valt startår i backtestet
 };
 
-/** Rad med knappar för startår. */
+/** Rullgardin för startår: "Alla" först, sedan senaste året överst. */
 function arsknappar(ar, valt, vid) {
-  const rad = el("div", { class: "arsknappar", role: "radiogroup", "aria-label": "Från år" });
-  for (const a of ar) {
-    const k = el("button", { type: "button", role: "radio", "aria-checked": String(a === valt), text: a === "alla" ? "Alla" : `Från ${a}` });
-    k.addEventListener("click", () => vid(a));
-    rad.append(k);
-  }
-  return rad;
+  const ordning = ["alla", ...ar.filter((a) => a !== "alla").sort().reverse()];
+  const val = el("select", { class: "arsval-lista", "aria-label": "Visa från år" },
+    ...ordning.map((a) => {
+      const o = el("option", { value: a, text: a === "alla" ? "Alla år" : `Från ${a}` });
+      o.selected = a === valt;
+      return o;
+    }));
+  val.addEventListener("change", () => vid(val.value));
+  return el("label", { class: "arsval" }, el("span", { text: "Visa" }), val);
 }
 
 /** Matcherna enligt valt förslag: med "tips" används tips-v1:s chans och värde där de finns. */
-function matcherEnligtKalla(kupong) {
-  if (state.kalla !== "tips") return kupong.matcher;
+function matcherEnligtKalla(kupong, kalla = state.kalla) {
+  if (kalla !== "tips") return kupong.matcher;
   return kupong.matcher.map((m) => (m.chans_tips
     ? { ...m, chans: m.chans_tips, varde: m.varde_tips, chans_modell: m.chans, varde_modell: m.varde } : m));
 }
@@ -203,11 +205,22 @@ function renderaTopp() {
 
 function renderaMatcher() {
   ritaMatcher($("matcher"), { ...state.kupong, matcher: matcherEnligtKalla(state.kupong) },
-    state.resultat, state.lasningar, state.oppna, true);
+    state.resultat, state.lasningar, state.oppna, true, state.skillnad);
+}
+
+/** Det andra förslaget (Modellen ↔ Tipsviktat) med samma budget och låsningar: matcher med andra tecken. */
+function skillnadMotAndra(kupong, resultat, budget, lasningar) {
+  if (!resultat?.ok || !harTips(kupong)) return null;
+  const andra = state.kalla === "tips" ? "modell" : "tips";
+  const r = optimera(matcherEnligtKalla(kupong, andra), budget, lasningar);
+  if (!r.ok) return null;
+  const skiljer = {};
+  r.val.forEach((v, i) => { if (v.tecken !== resultat.val[i].tecken) skiljer[v.nr] = v.tecken; });
+  return { namn: andra === "tips" ? "Tipsviktat" : "Modellen", skiljer };
 }
 
 /** Ritar kupongens matcher. interaktiv=false (rättningen): tecknen går inte att låsa. */
-function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
+function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skillnad = null) {
   lista.replaceChildren();
   const val = resultat?.ok ? Object.fromEntries(resultat.val.map((v) => [v.nr, v])) : {};
 
@@ -230,6 +243,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
           v ? el("span", { class: `typ ${v.typ}`, text: v.typ }) : null,
           m.osaker ? el("span", { class: "osaker", title: "Osäkrare: bara Svenska Spels odds", "aria-label": "osäkrare bedömning", text: " ⚠︎" }) : null,
           emot ? el("span", { class: "emot-mark", text: ` · ${emot} tips emot` }) : null,
+          skillnad?.skiljer[m.nr] ? el("span", { class: "annat-forslag", text: ` · ${skillnad.namn}: ${skillnad.skiljer[m.nr]}` }) : null,
           `${v ? " · " : ""}${m.resultat ? slut.replace(" · ", "") + " · " : ""}${[!m.resultat && m.avspark && kortFmt.format(new Date(m.avspark)), m.liga].filter(Boolean).join(" · ")}`),
       ),
     );
@@ -604,7 +618,8 @@ function renderaRattning() {
       "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." }));
   }
   renderaUtdelning(omgang, res.ok ? rattFordelning(res.val, k.matcher.map((m) => m.resultat || "?")) : null);
-  ritaMatcher($("r-matcher"), { ...k, matcher: rMatcher }, res, lasningar, state.rOppna, false);
+  ritaMatcher($("r-matcher"), { ...k, matcher: rMatcher }, res, lasningar, state.rOppna, false,
+    skillnadMotAndra(k, res, state.rBudget, lasningar));
 }
 
 /** Utdelningstabell för en avgjord omgång: kr per rad, antal vinnare och vad systemet vann per nivå. */
@@ -822,6 +837,13 @@ function arstabell(serier) {
 
 function uppdatera() {
   state.resultat = optimera(matcherEnligtKalla(state.kupong), state.budget, state.lasningar);
+  state.skillnad = skillnadMotAndra(state.kupong, state.resultat, state.budget, state.lasningar);
+  const sk = state.skillnad, skRad = $("skillnad");
+  const nr = sk ? Object.keys(sk.skiljer) : [];
+  skRad.hidden = !sk;
+  skRad.textContent = !sk ? "" : nr.length
+    ? `${sk.namn} skiljer sig på ${nr.length} ${nr.length === 1 ? "match" : "matcher"} (${nr.join(", ")}) – markerat på raderna.`
+    : `${sk.namn} ger samma rader.`;
   for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
 
   for (const b of $("budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.budget));
