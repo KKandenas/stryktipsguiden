@@ -163,50 +163,52 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .forklaring-inre li { margin-bottom: 8px; }
 .forklaring-exempel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 260px; }
 
-/* ---------- matcher (kupongen) ---------- */
+/* ---------- matcher (kupongen) – kompakt: lag till vänster, 1 X 2 till höger ---------- */
 .matcher { list-style: none; margin: 0; padding: 0; }
-.match { background: var(--yta); border-radius: var(--radie); margin-bottom: 10px; overflow: hidden; box-shadow: var(--skugga); }
+.match {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+  background: var(--yta); border-radius: 12px; margin-bottom: 6px; overflow: hidden; box-shadow: var(--skugga);
+}
 .match-huvud {
-  display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center;
-  width: 100%; padding: 12px 12px 10px; background: none; border: 0; text-align: left; cursor: pointer;
+  display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 8px; align-items: center;
+  width: 100%; padding: 8px 4px 8px 10px; background: none; border: 0; text-align: left; cursor: pointer; min-width: 0;
 }
 .nr {
-  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
-  background: var(--ruta); font-family: var(--rubrikfont); font-weight: 800; font-size: 16px;
+  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--ruta); font-family: var(--rubrikfont); font-weight: 800; font-size: 14px;
 }
-.lag { display: block; font-weight: 700; font-size: 16px; line-height: 1.2; overflow-wrap: anywhere; }
-.liga { display: block; font-size: 13px; color: var(--dampad); margin-top: 2px; }
-.etikett {
-  font-family: var(--rubrikfont); font-size: 13px; font-weight: 800; letter-spacing: .06em;
-  padding: 3px 9px; border-radius: 999px; white-space: nowrap; border: 1.5px solid var(--ruta-kant); color: var(--dampad);
-}
-.etikett.HALV { border-color: var(--primar); color: var(--primar); }
-.etikett.HEL { background: var(--primar); color: var(--vald-text); border-color: var(--primar); }
+.lagblock { min-width: 0; }
+.lag { display: block; font-weight: 700; font-size: 15px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.liga { display: block; font-size: 11.5px; color: var(--dampad); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.liga .typ { font-weight: 700; letter-spacing: .03em; }
+.liga .typ.HALV, .liga .typ.HEL { color: var(--primar); }
+.liga .emot-mark { color: var(--fel); font-weight: 700; }
 
-.rutor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 12px 12px; }
+.rutor { display: grid; grid-template-columns: repeat(3, 46px); gap: 5px; padding: 8px 8px 8px 0; }
 .ruta {
   position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 58px; border-radius: 12px; background: var(--yta-2); border: 1.5px solid var(--ruta-kant);
-  cursor: pointer; padding: 4px 2px; line-height: 1.1; transition: background .15s, border-color .15s, transform .1s;
+  height: 48px; border-radius: 9px; background: var(--yta-2); border: 1.5px solid var(--ruta-kant);
+  cursor: pointer; padding: 2px 1px; line-height: 1.05; transition: background .15s, border-color .15s, transform .1s;
 }
-.ruta:active { transform: scale(.97); }
-.ruta .tecken { font-family: var(--rubrikfont); font-weight: 800; font-size: 22px; }
-.ruta .siffror { font-size: 12px; color: var(--dampad); margin-top: 1px; }
+.ruta:active { transform: scale(.96); }
+.ruta .tecken { font-family: var(--rubrikfont); font-weight: 800; font-size: 19px; }
+.ruta .siffror { font-size: 9.5px; color: var(--dampad); margin-top: 1px; white-space: nowrap; letter-spacing: -.01em; }
 .ruta.vald { background: var(--primar); border-color: var(--primar); color: var(--vald-text); }
 .ruta.vald .siffror { color: var(--vald-text); opacity: .85; }
 .ruta.last { box-shadow: 0 0 0 2px var(--last); border-color: var(--last); }
-.ruta .las { position: absolute; top: 3px; left: 6px; font-size: 11px; }
+.ruta .las { position: absolute; top: 1px; left: 3px; font-size: 8px; }
 .ruta.utfall::after {
-  content: "✓"; position: absolute; bottom: -7px; right: -5px; width: 18px; height: 18px; border-radius: 50%;
-  background: var(--ratt); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center;
+  content: "✓"; position: absolute; bottom: -6px; right: -4px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--ratt); color: #fff; font-size: 10px; font-weight: 700; display: grid; place-items: center;
   box-shadow: 0 0 0 2px var(--yta);
 }
 .prick {
-  position: absolute; top: 6px; right: 6px; width: 10px; height: 10px; border-radius: 50%;
-  background: var(--orange); box-shadow: 0 0 0 2px var(--yta-2);
+  position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--orange); box-shadow: 0 0 0 1.5px var(--yta-2);
 }
-.ruta.vald .prick { box-shadow: 0 0 0 2px var(--primar); }
+.ruta.vald .prick { box-shadow: 0 0 0 1.5px var(--primar); }
 .prick.inline { position: static; display: inline-block; vertical-align: -1px; box-shadow: none; }
+.forklaring-exempel .ruta { width: auto; height: 52px; }
 .ruta:focus-visible, .match-huvud:focus-visible, .budgetknappar button:focus-visible, .knapp:focus-visible,
 .meny-knapp:focus-visible, summary:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
 
@@ -224,8 +226,8 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 /* rättning */
 .utdelningstabell td.tal, .utdelningstabell th.tal { width: auto; padding-left: 8px; }
 .utdelningstabell tr.har-vinst td { color: var(--ratt); font-weight: 700; }
-.match.traff { box-shadow: var(--skugga), inset 4px 0 0 var(--ratt); }
-.match.miss { box-shadow: var(--skugga), inset 4px 0 0 var(--fel); }
+.match.traff { box-shadow: var(--skugga), inset 3px 0 0 var(--ratt); }
+.match.miss { box-shadow: var(--skugga), inset 3px 0 0 var(--fel); }
 .r-resultat { margin-top: 12px; display: grid; gap: 6px; }
 .r-stort { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .r-stort > div { background: var(--yta-2); border: 1px solid var(--linje); border-radius: 12px; padding: 10px 12px; }
@@ -233,7 +235,9 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .r-stort span { font-size: 13px; color: var(--dampad); }
 #r-matcher .ruta { cursor: default; }
 
-.detaljer { border-top: 1px solid var(--linje); padding: 14px 12px 14px; font-size: 14px; background: var(--yta-2); }
+.detaljer { grid-column: 1 / -1; border-top: 1px solid var(--linje); padding: 14px 12px 14px; font-size: 14px; background: var(--yta-2); }
+.detaljer .tipsetiketter { padding: 0 0 12px; margin: 0; }
+.match.oppen { box-shadow: var(--skugga), 0 0 0 2px var(--primar); }
 .detaljer p + p { margin-top: 6px; }
 .kommentar {
   font-size: 15px; line-height: 1.5; background: var(--yta); border-radius: 12px; padding: 10px 12px;
@@ -334,7 +338,36 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .fot { padding: 8px 16px 24px; text-align: center; color: var(--dampad); font-size: 12px; }
 .fot p + p { margin-top: 4px; }
 
+/* ---------- dator: bredare sidor, kupongen i två kolumner ---------- */
+@media (min-width: 900px) {
+  .innehall, .omgang-inre, .meny-inre, .fot { max-width: 1080px; }
+  .vy-rubrik { margin-top: 28px; }
+  .vy.innehall:not(.tva-kolumner) { max-width: 860px; }
+  .om.vy.innehall { max-width: 760px; }
+  .tva-kolumner { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 24px; align-items: start; }
+  .sidopanel { position: sticky; top: 68px; margin-top: -44px; }
+  .sidopanel .budget { margin-top: 0; }
+  .tva-kolumner > .matcher { margin-top: 18px; }
+  .match-huvud { padding: 10px 6px 10px 14px; }
+  .lag { font-size: 16px; display: inline; }
+  .lagblock .lag:first-child::after { content: " – "; font-weight: 400; color: var(--dampad); }
+  .lagblock { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .liga { font-size: 12.5px; margin-top: 3px; }
+  .rutor { grid-template-columns: repeat(3, 64px); gap: 8px; padding: 9px 12px 9px 0; }
+  .ruta { height: 54px; }
+  .ruta .tecken { font-size: 21px; }
+  .ruta .siffror { font-size: 11px; }
+  .detaljtabell { font-size: 15px; }
+  .omgang { padding-bottom: 66px; }
+  .bt-diagram svg { max-height: 360px; }
+}
+@media (min-width: 900px) and (max-height: 640px) {
+  .sidopanel { position: static; }
+}
+
 @media (max-width: 380px) {
+  .rutor { grid-template-columns: repeat(3, 42px); gap: 4px; }
+  .ruta .siffror { font-size: 8.5px; }
   .budgetknappar { gap: 4px; }
   .budgetknappar button { font-size: 16px; }
   h1 { font-size: 30px; }

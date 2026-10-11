@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="app.css?v=20261011l">
-<script type="module" src="app.js?v=20261011l"></script>
+<link rel="stylesheet" href="app.css?v=20261011m">
+<script type="module" src="app.js?v=20261011m"></script>
 </head>
 <body data-vy="kupong">
 <header class="banner-omr">
@@ -57,7 +57,8 @@
       </div>
     </div>
 
-    <div class="innehall">
+    <div class="innehall tva-kolumner">
+      <div class="sidopanel">
       <section class="kort budget" aria-labelledby="budget-rubrik">
         <div class="forslag" role="radiogroup" aria-label="Vilket förslag">
           <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Modellen</b><span>Odds och streck</span></button>
@@ -70,13 +71,13 @@
       </section>
 
       <div id="banner" class="banner" hidden></div>
-      <p class="tips-rad">Tryck på ett tecken för att låsa det 🔒 · tryck på matchen för kommentar · <a href="#hjalp">Så läser du kupongen</a></p>
-
-      <ol id="matcher" class="matcher" aria-label="Matcher"></ol>
-
+      <p class="tips-rad">Tryck på ett tecken för att låsa det 🔒 · tryck på matchen för detaljer · <a href="#hjalp">Så läser du kupongen</a></p>
       <section class="atgarder">
         <button id="rensa" class="knapp" type="button" hidden>Rensa låsningar</button>
       </section>
+      </div>
+
+      <ol id="matcher" class="matcher" aria-label="Matcher"></ol>
     </div>
   </section>
 
@@ -91,7 +92,8 @@
         <p id="r-underrubrik"></p>
       </div>
     </div>
-    <div class="innehall">
+    <div class="innehall tva-kolumner">
+      <div class="sidopanel">
       <section class="kort budget" aria-labelledby="r-budget-rubrik">
         <div class="forslag" role="radiogroup" aria-label="Vilket förslag i rättningen">
           <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Modellen</b><span>Odds och streck</span></button>
@@ -105,6 +107,7 @@
         <h2 id="r-utdelning-rubrik" class="kort-rubrik">Utdelning</h2>
         <div id="r-utdelning-innehall"></div>
       </section>
+      </div>
       <ol id="r-matcher" class="matcher" aria-label="Matcher i förra omgången"></ol>
     </div>
   </section>
@@ -136,7 +139,7 @@
       </div>
       <ul>
         <li>Under varje tecken står <b>chans · streck</b> i procent. Chansen kommer från bookmakerodds, strecken visar hur svenska folket spelat.</li>
-        <li><i class="prick inline"></i> Orange prick = <b>understreckat</b>. Chansen är minst 3 procentenheter högre än strecken (5 för matcher märkta <i>osäkrare</i>, där bara Svenska Spels odds finns). Går tecknet in delar färre på potten.</li>
+        <li><i class="prick inline"></i> Orange prick = <b>understreckat</b>. Chansen är minst 3 procentenheter högre än strecken (5 för matcher märkta ⚠︎ <i>osäkrare</i>, där bara Svenska Spels odds finns). Går tecknet in delar färre på potten.</li>
         <li>Blå rutor är tecknen i ditt system. <b>SPIK</b> = ett tecken, <b>HALV</b> = två, <b>HEL</b> = alla tre.</li>
         <li>Under rutorna står <b>tipsen</b> från analyserna, t.ex. <span class="tipsetikett"><span class="kalla">speltips</span><b>1</b></span>. En <span class="tipsetikett emot"><span class="kalla">röd</span><b>2</b></span> etikett betyder att tipset går emot förslaget – vill du följa det kan du låsa tecknet.</li>
         <li><b>Modellen / Tipsviktat</b> högst upp väljer vilket förslag du ser. <i>Modellen</i> bygger på bookmakerodds. <i>Tipsviktat</i> väger dessutom in tipsarna efter hur ofta de haft rätt – vikterna lärs om varje söndag och syns under <a href="#statistik">Så har modellen träffat</a>.</li>

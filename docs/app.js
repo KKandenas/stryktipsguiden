@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011l";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011l";
+} from "./optimizer.js?v=20261011m";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011m";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -203,15 +203,21 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
     const oppen = oppna.has(m.nr);
     const slut = m.resultat ? ` · Slut ${m.mal ? m.mal.replace("-", "–") : m.resultat}` : "";
 
-    const huvud = el("button", { type: "button", class: "match-huvud", "data-nr": m.nr, "aria-expanded": String(oppen) },
+    // Tips som går emot förslaget (inget av tipsets tecken finns i systemet) markeras på raden
+    const emot = v ? (m.tips || []).filter((t) => t.tecken && ![...t.tecken].some((x) => v.tecken.includes(x))).length : 0;
+    const huvud = el("button", { type: "button", class: "match-huvud", "data-nr": m.nr, "aria-expanded": String(oppen),
+      "aria-label": `Match ${m.nr}: ${m.hemmalag} mot ${m.bortalag}. ${oppen ? "Dölj" : "Visa"} detaljer.` },
       el("span", { class: "nr", text: String(m.nr) }),
-      el("span", {},
-        el("span", { class: "lag", text: `${m.hemmalag} – ${m.bortalag}` }),
+      el("span", { class: "lagblock" },
+        el("span", { class: "lag", text: m.hemmalag }),
+        el("span", { class: "lag", text: m.bortalag }),
+        // Viktigast först (typ, osäkerhet, tips emot) – tid och liga får klippas på smala skärmar
         el("span", { class: "liga" },
-          `${[m.liga, !m.resultat && m.avspark && kortFmt.format(new Date(m.avspark))].filter(Boolean).join(" · ")}${slut}`,
-          m.osaker ? el("span", { class: "osaker", title: "Bara Svenska Spels odds – osäkrare bedömning", text: " · osäkrare" }) : null),
+          v ? el("span", { class: `typ ${v.typ}`, text: v.typ }) : null,
+          m.osaker ? el("span", { class: "osaker", title: "Osäkrare: bara Svenska Spels odds", "aria-label": "osäkrare bedömning", text: " ⚠︎" }) : null,
+          emot ? el("span", { class: "emot-mark", text: ` · ${emot} tips emot` }) : null,
+          `${v ? " · " : ""}${m.resultat ? slut.replace(" · ", "") + " · " : ""}${[!m.resultat && m.avspark && kortFmt.format(new Date(m.avspark)), m.liga].filter(Boolean).join(" · ")}`),
       ),
-      v ? el("span", { class: `etikett ${v.typ}`, text: v.typ }) : null,
     );
 
     const rutor = el("div", { class: "rutor" });
@@ -236,10 +242,8 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
     }
 
     const traff = m.resultat && v ? (v.tecken.includes(m.resultat) ? "traff" : "miss") : "";
-    const li = el("li", { class: `match ${traff}` }, huvud, rutor);
-    const tipsrad = tipsetiketter(m, v);
-    if (tipsrad) li.append(tipsrad);
-    if (oppen) li.append(detaljer(m));
+    const li = el("li", { class: `match ${traff}${oppen ? " oppen" : ""}` }, huvud, rutor);
+    if (oppen) li.append(detaljer(m, v));
     lista.append(li);
   }
 }
@@ -277,9 +281,11 @@ const BOLAGSNAMN = {
 const decOdds = (x) => x.toFixed(2).replace(".", ",");
 
 /** Utfälld match: kommentar och en tabell "Spelstatistik inför match" med kolumnerna 1 · X · 2. */
-function detaljer(m) {
+function detaljer(m, v) {
   const d = el("div", { class: "detaljer" });
   if (m.kommentar) d.append(el("p", { class: "kommentar", text: m.kommentar }));
+  const tipsrad = tipsetiketter(m, v);
+  if (tipsrad) d.append(tipsrad);
 
   const tabell = el("table", { class: "detaljtabell" });
   tabell.append(el("thead", {}, el("tr", {}, el("th", { text: "Inför match" }),
