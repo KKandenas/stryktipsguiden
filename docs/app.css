@@ -64,28 +64,38 @@ body {
   font-variant-numeric: tabular-nums;
   padding-bottom: env(safe-area-inset-bottom);
 }
-.innehall, .omgang-inre, .meny-inre, .fot { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+.innehall, .omgang-inre, .fot { max-width: 560px; margin: 0 auto; padding: 0 16px; }
 h1, h2, h3, p { margin: 0; }
 button { font: inherit; color: inherit; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .dampad { color: var(--dampad); }
 .liten { font-size: 13px; }
 
-/* ---------- banner och meny ---------- */
-.banner-omr { background: #050b1d; line-height: 0; }
-.banner-bild { display: block; width: 100%; max-width: 1100px; height: auto; margin: 0 auto; }
-.meny { position: sticky; top: 0; z-index: 20; background: var(--meny); color: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, .25); }
-.meny-inre { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; }
-.meny-namn {
-  display: inline-flex; align-items: center; gap: 8px; color: #fff; text-decoration: none;
-  font-family: var(--rubrikfont); font-weight: 800; font-size: 19px; letter-spacing: .02em; text-transform: uppercase;
+/* ---------- header: taktiktavla med ordmärke till vänster och meny till höger ---------- */
+.topp {
+  position: sticky; top: 0; z-index: 20; color: #fff;
+  background: #0c1614 url("bilder/tavla-mobil.webp") right center / cover no-repeat;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+  padding-top: env(safe-area-inset-top);
 }
-.meny-namn img { border-radius: 6px; }
-.meny-val { position: relative; }
+.topp-inre { max-width: 560px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 68px; }
+.varumarke { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; min-width: 0; }
+.varumarke-ikon { width: 40px; height: 40px; border-radius: 10px; flex: none; box-shadow: 0 1px 4px rgba(0, 0, 0, .4); }
+.varumarke-text { display: flex; flex-direction: column; min-width: 0; line-height: 1; }
+.ordmarke {
+  font-family: var(--rubrikfont); font-weight: 800; font-style: italic; font-size: 24px; letter-spacing: .01em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+}
+.ordmarke span { color: var(--gul); }
+.undertitel {
+  font-family: "Caveat", "Segoe Print", cursive; font-weight: 600; font-size: 17px; color: #f2efe6;
+  opacity: .92; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.meny-val { position: relative; flex: none; }
 .meny-knapp {
   display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px; border-radius: 999px;
-  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .22); color: #fff;
-  font-weight: 700; font-size: 14px; cursor: pointer;
+  background: rgba(12, 22, 20, .55); border: 1px solid rgba(255, 255, 255, .28); color: #fff;
+  font-weight: 700; font-size: 14px; cursor: pointer; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
 }
 .meny-knapp .pil { color: var(--gul); transition: transform .15s; }
 .meny-knapp[aria-expanded="true"] .pil { transform: rotate(180deg); }
@@ -102,8 +112,9 @@ button { font: inherit; color: inherit; }
 
 /* ---------- omgångshuvud ---------- */
 .omgang {
-  background: radial-gradient(120% 140% at 85% 0%, #1d3f8f 0%, transparent 55%),
-              linear-gradient(170deg, var(--navy-1) 0%, var(--navy-2) 100%);
+  /* Samma mörka tavelton som headern, med en svag blå glöd uppe till höger */
+  background: radial-gradient(120% 140% at 90% 0%, rgba(26, 86, 196, .28) 0%, transparent 55%),
+              linear-gradient(175deg, #172824 0%, #0c1614 100%);
   color: #fff; padding: 18px 0 62px; position: relative; overflow: hidden;
 }
 .omgang::before {        /* gul/blå diagonal, som i loggan */
@@ -379,12 +390,17 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 
 /* ---------- dator: bredare sidor, kupongen i två kolumner ---------- */
 @media (min-width: 900px) {
-  .innehall, .omgang-inre, .meny-inre, .fot { max-width: 1080px; }
+  .innehall, .omgang-inre, .topp-inre, .fot { max-width: 1080px; }
+  .topp { background-image: url("bilder/tavla.webp"); }
+  .topp-inre { min-height: 84px; }
+  .varumarke-ikon { width: 48px; height: 48px; border-radius: 12px; }
+  .ordmarke { font-size: 30px; }
+  .undertitel { font-size: 21px; }
   .vy-rubrik { margin-top: 28px; }
   .vy.innehall:not(.tva-kolumner) { max-width: 860px; }
   .om.vy.innehall { max-width: 760px; }
   .tva-kolumner { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 24px; align-items: start; }
-  .sidopanel { position: sticky; top: 68px; margin-top: -44px; }
+  .sidopanel { position: sticky; top: 100px; margin-top: -44px; }
   .sidopanel .budget { margin-top: 0; }
   .tva-kolumner > .matcher { margin-top: 18px; }
   .match-huvud { padding: 10px 6px 10px 14px; }
@@ -410,7 +426,9 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
   .budgetknappar { gap: 4px; }
   .budgetknappar button { font-size: 16px; }
   h1 { font-size: 30px; }
-  .meny-namn { font-size: 16px; }
+  .ordmarke { font-size: 21px; }
+  .undertitel { font-size: 15px; }
+  .varumarke-ikon { width: 34px; height: 34px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

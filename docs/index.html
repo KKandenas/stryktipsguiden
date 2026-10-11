@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b1a40">
+<meta name="theme-color" content="#0c1614">
 <meta name="description" content="Stryktipsguiden – radförslag till Stryktipset med odds, streck, värde och AI-kommentarer.">
 <title>Stryktipsguiden</title>
 <link rel="icon" type="image/png" sizes="32x32" href="bilder/ikon-32.png">
@@ -12,22 +12,23 @@
 <meta name="apple-mobile-web-app-title" content="Stryktipsguiden">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="app.css?v=20261011r">
-<script type="module" src="app.js?v=20261011r"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
+<link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
+<link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
+<link rel="stylesheet" href="app.css?v=20261011s">
+<script type="module" src="app.js?v=20261011s"></script>
 </head>
 <body data-vy="kupong">
-<header class="banner-omr">
-  <picture>
-    <source media="(max-width: 700px)" srcset="bilder/banner-768.jpg">
-    <img class="banner-bild" src="bilder/banner.jpg" width="1536" height="362" alt="Stryktipsguiden – analyser, tips, vinnare">
-  </picture>
-</header>
-
-<nav class="meny" aria-label="Huvudmeny">
-  <div class="meny-inre">
-    <a class="meny-namn" href="#kupong"><img src="bilder/ikon-32.png" width="24" height="24" alt="">Stryktipsguiden</a>
-    <div class="meny-val">
+<header class="topp">
+  <div class="topp-inre">
+    <a class="varumarke" href="#kupong" aria-label="Stryktipsguiden – till kupongen">
+      <img class="varumarke-ikon" src="bilder/ikon-64.png" width="40" height="40" alt="">
+      <span class="varumarke-text">
+        <span class="ordmarke">STRYKTIPS<span>GUIDEN</span></span>
+        <span class="undertitel">Kristians taktik inför lördagen</span>
+      </span>
+    </a>
+    <nav class="meny-val" aria-label="Huvudmeny">
       <button id="meny-knapp" class="meny-knapp" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="meny-lista">
         <span id="meny-aktuell">Kupongen</span><span class="pil" aria-hidden="true">▾</span>
       </button>
@@ -39,9 +40,9 @@
         <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
         <li><a href="#om" data-vy="om"><b>Så funkar Stryktipsguiden</b><span>Syfte, källor och hur raderna räknas fram</span></a></li>
       </ul>
-    </div>
+    </nav>
   </div>
-</nav>
+</header>
 
 <main>
   <!-- ===== Kupongen ===== -->

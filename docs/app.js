@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011r";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011r";
+} from "./optimizer.js?v=20261011s";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011s";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
