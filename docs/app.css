@@ -80,7 +80,7 @@ button { font: inherit; color: inherit; }
 }
 .topp-inre { max-width: 560px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 68px; }
 .varumarke { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; min-width: 0; }
-.varumarke-ikon { width: 40px; height: 40px; border-radius: 10px; flex: none; box-shadow: 0 1px 4px rgba(0, 0, 0, .4); }
+.varumarke-ikon { width: 40px; height: 40px; border-radius: 10px; flex: none; box-shadow: 0 0 0 1px rgba(255, 255, 255, .22), 0 1px 6px rgba(0, 0, 0, .5); }
 .varumarke-text { display: flex; flex-direction: column; min-width: 0; line-height: 1; }
 .ordmarke {
   font-family: var(--rubrikfont); font-weight: 800; font-style: italic; font-size: 24px; letter-spacing: .01em;
