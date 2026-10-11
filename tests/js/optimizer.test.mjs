@@ -19,7 +19,8 @@ test("faktorisera alla budgetar", () => {
   assert.deepEqual(faktorisera(96), { halv: 5, hel: 1 });
   assert.deepEqual(faktorisera(128), { halv: 7, hel: 0 });
   assert.deepEqual(faktorisera(192), { halv: 6, hel: 1 });
-  assert.deepEqual(faktorisera(432), { halv: 4, hel: 3 });
+  assert.deepEqual(faktorisera(256), { halv: 8, hel: 0 });
+  assert.deepEqual(faktorisera(432), { halv: 4, hel: 3 });   // går fortfarande att bygga, men är inte ett val i appen
   assert.equal(faktorisera(100), null);
   assert.equal(faktorisera(0), null);
 });

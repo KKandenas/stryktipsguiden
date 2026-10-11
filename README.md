@@ -171,14 +171,16 @@ python3 -m http.server 8765 -d docs
 
 Antalet rader bestämmer garderingarna exakt (2^halv · 3^hel = rader):
 
-| Rader | 1 | 32 | 64 | 96 | 128 | 192 | 432 |
+| Rader | 1 | 32 | 64 | 96 | 128 | 192 | 256 |
 |---|---|---|---|---|---|---|---|
-| Fördelning | 13 spik | 5 halv | 6 halv | 5 halv + 1 hel | 7 halv | 6 halv + 1 hel | 4 halv + 3 hel |
+| Fördelning | 13 spik | 5 halv | 6 halv | 5 halv + 1 hel | 7 halv | 6 halv + 1 hel | 8 halv |
 
 För varje match och teckenval S räknas en poäng ut:
 `(1 − λ)·log(Σ chans) + λ·log(Σ chans/streck)`. Första delen är träffchansen, och den andra är
 förväntad utdelning, där understreckade tecken betalar mer. Dynamisk programmering över
 (match, antal halv, antal hel) hittar den kombination som ger högst total poäng. Låsta tecken blir tvingade val.
+
+(Fram till oktober 2026 fanns 432 rader = 4 halv + 3 hel i stället för 256; tabellen nedan är från då.)
 
 **Risknivån λ = 0,3** valdes efter backtest på 252 avgjorda omgångar med riktiga utdelningar för 10–13 rätt:
 
@@ -342,7 +344,7 @@ Pipelinen skriver `docs/historik.json` (cirka 160 kB), med chans, streck, result
 filen först när avsnittet öppnas och kör varje omgång genom **samma `optimizer.js`** som tar fram
 dina rader, så backtestet räknar exakt som appen. Logiken finns i `docs/backtest.js`.
 
-- Du väljer antal rader per vecka (1–432) och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
+- Du väljer antal rader per vecka (1–256) och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
   saldot vecka för vecka, utfallet per år och de största vinsterna.
 - Som jämförelse visas "Folket": samma antal rader, men valda efter strecken i stället för modellens chans.
 - Utdelningen räknas som om dina rader inte hade påverkat potten. Vissa veckor ger 10 eller 11 rätt

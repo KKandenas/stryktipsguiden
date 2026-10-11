@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011k";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011k";
+} from "./optimizer.js?v=20261011l";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011l";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -156,7 +156,9 @@ function renderaTopp() {
 
   const ned = $("nedrakning");
   const kvar = stopp - Date.now();
-  let nedText = `Spelstopp ${tidFmt.format(stopp)}`;
+  const dag = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, weekday: "long", day: "numeric", month: "short" })
+    .format(stopp).replace(".", "");
+  let nedText = `Spelstopp ${dag} ${tidFmt.format(stopp)}`;
   if (omgang.status === "oppen" && !state.exempel && kvar > 0) {
     const min = Math.floor(kvar / 60000), dagar = Math.floor(min / 1440), tim = Math.floor((min % 1440) / 60);
     nedText += ` · om ${dagar ? `${dagar} d ${tim} h` : tim ? `${tim} h ${min % 60} min` : `${min % 60} min`}`;
@@ -348,7 +350,6 @@ function detaljer(m) {
   if (tips.length > 3) {
     d.append(el("p", { class: "dampad liten", text: `Även tippat: ${tips.slice(3).map((t) => `${KORTNAMN[t.kalla] || t.kalla} ${t.tecken}`).join(" · ")}` }));
   }
-  if (m.resultat) d.append(el("p", { class: "resultatrad", text: `Resultat: ${m.mal ? m.mal.replace("-", "–") + " · " : ""}${m.resultat}` }));
   return d;
 }
 
