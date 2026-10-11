@@ -53,6 +53,8 @@ class Tips:
     px: Optional[float] = None
     p2: Optional[float] = None
     sammanfattning: Optional[str] = None
+    system: Optional[str] = None            # tecknen i skribentens system/kupong, t.ex. "1X"
+    system_rader: Optional[int] = None      # systemets storlek (antal rader)
 
 
 @dataclass

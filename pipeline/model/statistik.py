@@ -62,6 +62,10 @@ def kallstatistik(conn, data) -> int:
             summor[(namn, liga)].append(varde)
             summor[(namn, "Alla")].append(varde)
     ids = {r[0]: r[1] for r in conn.execute("SELECT namn, id FROM kallor")}
+    from .. import lagring
+    for namn, _ in summor:          # systemkällor ("speltips.se (system)") skapas när de först dyker upp
+        if namn not in ids and namn.endswith(ensemble.SYSTEM_SUFFIX):
+            ids[namn] = lagring.kalla_id(conn, namn)
     nu, andrade = nu_utc(), 0
     with conn:
         for (namn, liga), v in summor.items():

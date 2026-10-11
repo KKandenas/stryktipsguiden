@@ -17,8 +17,11 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 Tripel = Tuple[float, float, float]
 
-KALLOR = ["odds", "streck", "Tio tidningars tips", "speltips.se", "hurbra.se", "bettingstugan.se", "tippat.se",
-          "gamblingcabin.se", "sportsgambler.com", "sportsmole.co.uk", "footballpredictions.com"]
+TIPSSAJTER = ["speltips.se", "hurbra.se", "bettingstugan.se", "tippat.se", "gamblingcabin.se", "sportsgambler.com",
+              "sportsmole.co.uk", "footballpredictions.com"]
+SYSTEM_SUFFIX = " (system)"          # experternas system räknas som en egen källa per sajt
+SYSTEMKALLOR = [k + SYSTEM_SUFFIX for k in TIPSSAJTER]
+KALLOR = ["odds", "streck", "Tio tidningars tips", *TIPSSAJTER, *SYSTEMKALLOR]
 UTFALL = {"1": 0, "X": 1, "2": 2}
 GOLV = 0.02          # lägsta sannolikhet per tecken innan log
 TECKEN_EPS = 0.2     # tips med bara tecken: 80 % fördelas på valda tecken, 20 % på övriga

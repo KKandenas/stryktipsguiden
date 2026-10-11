@@ -297,3 +297,31 @@ def test_footballpredictions_lankar_med_datum():
     matcher = [Match(6, "Blackburn", "Cardiff", "Championship", "England", "2026-10-10T14:00:00Z")]
     a = para_ihop(matcher, lankar, bas="https://footballpredictions.com")
     assert len(a) == 1 and a[0].url.endswith("blackburn-rovers-vs-cardiff-prediction-10-10-2026/")
+
+
+# ---------- experternas system ----------
+
+def test_system_tolkas_och_sparas_som_egen_kalla(conn, monkeypatch):
+    from pipeline.model.modeller import las_underlag
+    from pipeline.model.ensemble import SYSTEM_SUFFIX
+    fyll(conn)
+    monkeypatch.setattr(tipsinsamling, "hamta_sida", lambda url, **k: "<p>System 384 kr: 1. Manchester United–Tottenham 1X</p>")
+    claude = FalskClaude({"system_rader": 384, "tips": [
+        {"matchnr": 1, "tecken": "1", "p1": None, "px": None, "p2": None, "sammanfattning": "Etta.", "system": "x1"},
+        {"matchnr": 2, "tecken": None, "p1": None, "px": None, "p2": None, "sammanfattning": "", "system": "2"}]})
+    tipsinsamling.samla(conn, claude, [FalskSajt()], nu=NU)
+    rader = {r[0]: (r[1], r[2], r[3]) for r in conn.execute(
+        "SELECT m.matchnr, t.tecken, t.system, t.system_rader FROM tips t JOIN matcher m ON m.id = t.match_id")}
+    assert rader[1] == ("1", "1X", 384)            # systemets tecken normaliseras till 1X
+    assert rader[2] == (None, "2", 384)            # bara system, inget huvudtips
+    mid = conn.execute("SELECT id FROM matcher WHERE matchnr = 1").fetchone()[0]
+    u = las_underlag(conn, mid, "2026-10-10T13:00:00Z")
+    assert u.tips["testsajt.se"] == pytest.approx((0.8, 0.1, 0.1))
+    assert u.tips["testsajt.se" + SYSTEM_SUFFIX] == pytest.approx((0.4, 0.4, 0.2))
+
+
+def test_system_utan_storlek_och_ogiltigt_system():
+    svar = {"system_rader": "många", "tips": [
+        {"matchnr": 1, "tecken": "1", "p1": None, "px": None, "p2": None, "sammanfattning": "", "system": "Q"}]}
+    t = validera(svar, [1], "x", NU)[0]
+    assert t.system is None and t.system_rader is None

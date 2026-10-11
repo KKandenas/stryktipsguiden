@@ -21,6 +21,9 @@ För varje match i listan som artikeln faktiskt tar ställning till:
 - tecken: skribentens rekommendation som 1 (hemmaseger), X (oavgjort), 2 (bortaseger) eller en gardering (1X, 12, X2, 1X2). Utgå från matchresultatet: ett tips om exakt resultat (t.ex. 2-1) motsvarar ett tecken; tips om antal mål, hörnor eller spelare säger inget om tecknet. Använd null om artikeln inte ger något tips om vem som vinner.
 - p1, px, p2: bara om artikeln anger sannolikheter i procent eller andelar för 1/X/2 – annars null. Hitta aldrig på sannolikheter, och räkna inte om odds till sannolikheter.
 - sammanfattning: högst två korta meningar på svenska om skribentens huvudargument (form, skador, inbördes möten). Bara sådant som står i artikeln.
+- system: om artikeln innehåller ett system, en kupong eller ett radförslag med tecken per match (t.ex. en lista "1. Lag A–Lag B 1X" under ett system, eller markeringar som [VALT 1]), ange tecknen för den här matchen i systemet (1, X, 2, 1X, 12, X2 eller 1X2). Finns flera system i olika storlekar: använd det minsta. Annars null.
+
+Ange också system_rader: antalet rader i systemet du använde (t.ex. 384 för "systemet kostar 384 kronor" när en rad kostar 1 kr), eller null om det inte framgår.
 
 Om texten innehåller markeringar som [VALT 1] är det tecknen skribenten valt på sin kupong för den matchen (flera markeringar = gardering).
 
@@ -41,15 +44,17 @@ SCHEMA = {
                     "px": {"type": ["number", "null"]},
                     "p2": {"type": ["number", "null"]},
                     "sammanfattning": {"type": "string"},
+                    "system": {"type": ["string", "null"], "description": "1, X, 2, 1X, 12, X2, 1X2 eller null"},
                 },
-                "required": ["matchnr", "tecken", "p1", "px", "p2", "sammanfattning"],
+                "required": ["matchnr", "tecken", "p1", "px", "p2", "sammanfattning", "system"],
                 "additionalProperties": False,
             },
         }
     },
-    "required": ["tips"],
+    "required": ["tips", "system_rader"],
     "additionalProperties": False,
 }
+SCHEMA["properties"]["system_rader"] = {"type": ["integer", "null"]}
 
 
 def bygg_fraga(matcher: List[Match], titel: str, text: str) -> str:
@@ -76,6 +81,8 @@ def validera(svar: Dict[str, Any], tillatna: List[int], kalla: str, tidpunkt: st
     """Gör om modellens svar till Tips. Ogiltiga poster loggas och hoppas över."""
     if not isinstance(svar, dict) or not isinstance(svar.get("tips"), list):
         raise AiFel(f"Oväntat svar: {json.dumps(svar)[:200]}")
+    rader = svar.get("system_rader")
+    rader = rader if isinstance(rader, int) and 1 <= rader <= 1_600_000 else None
     tips, sedda = [], set()
     for t in svar["tips"]:
         nr = t.get("matchnr")
@@ -88,10 +95,14 @@ def validera(svar: Dict[str, Any], tillatna: List[int], kalla: str, tidpunkt: st
             continue
         p = _sannolikheter(t)
         sammanfattning = (t.get("sammanfattning") or "").strip()[:400] or None
-        if tecken is None and p is None and not sammanfattning:
+        system = t.get("system")
+        system = "".join(x for x in "1X2" if x in system.upper()) if isinstance(system, str) else None
+        system = system or None
+        if tecken is None and p is None and not sammanfattning and not system:
             continue
         sedda.add(nr)
-        tips.append(Tips(nr, kalla, tidpunkt, tecken, *(p or (None, None, None)), sammanfattning))
+        tips.append(Tips(nr, kalla, tidpunkt, tecken, *(p or (None, None, None)), sammanfattning,
+                         system, rader if system else None))
     return tips
 
 

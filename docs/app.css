@@ -222,6 +222,8 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .tipsetikett.emot { border-color: var(--fel); color: var(--fel); background: transparent; }
 .tipsetikett.emot b { color: var(--fel); }
 .tipsetikett .bock { color: var(--ratt); font-weight: 700; }
+.tipsetikett .sys { font-size: 11px; color: var(--dampad); border-left: 1px solid var(--ruta-kant); padding-left: 5px; }
+.tipsmark.system { color: var(--primar); opacity: .8; }
 
 /* rättning */
 .utdelningstabell td.tal, .utdelningstabell th.tal { width: auto; padding-left: 8px; }

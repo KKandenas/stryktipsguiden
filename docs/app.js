@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011n";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011n";
+} from "./optimizer.js?v=20261011o";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011o";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -265,22 +265,26 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv) {
 const KORTNAMN = { "Tio tidningars tips": "Tidningar", "speltips.se": "speltips", "hurbra.se": "hurbra",
   "bettingstugan.se": "Bettingstugan", "tippat.se": "Tippat", "gamblingcabin.se": "Gamblingcabin",
   "sportsgambler.com": "sportsgambler", "sportsmole.co.uk": "Sports Mole", "footballpredictions.com": "FootballPredictions" };
+for (const [k, v] of Object.entries({ ...KORTNAMN })) if (k !== "Tio tidningars tips") KORTNAMN[`${k} (system)`] = `${v} (system)`;
 
 /** Små etiketter med varje källas tips. "emot" = inget av tipsets tecken finns i systemet. */
 function tipsetiketter(m, v) {
-  const tips = (m.tips || []).filter((t) => t.tecken);
+  const tips = (m.tips || []).filter((t) => t.tecken || t.system);
   if (!tips.length) return null;
   const rad = el("div", { class: "tipsetiketter", "aria-label": "Tips från analyser" });
   for (const t of tips) {
     const namn = KORTNAMN[t.kalla] || t.kalla;
-    const raknat = t.kalla === "Tio tidningars tips" && /^\d+-\d+-\d+/.test(t.text || "") ? t.text.split(" ")[0] : t.tecken;
-    const emot = v && ![...t.tecken].some((x) => v.tecken.includes(x));
-    const satt = m.resultat ? t.tecken.includes(m.resultat) : null;
-    const etikett = `${t.kalla} tippar ${t.tecken}` + (emot ? ", går emot förslaget" : "") +
+    const huvud = t.tecken || t.system;
+    const raknat = t.kalla === "Tio tidningars tips" && /^\d+-\d+-\d+/.test(t.text || "") ? t.text.split(" ")[0] : huvud;
+    const emot = v && ![...huvud].some((x) => v.tecken.includes(x));
+    const satt = m.resultat ? huvud.includes(m.resultat) : null;
+    const sys = t.system && t.tecken && t.system !== t.tecken ? t.system : null;
+    const etikett = `${t.kalla} tippar ${huvud}` + (sys ? `, systemet har ${sys}` : "") + (emot ? ", går emot förslaget" : "") +
       (satt === true ? ", tipset satt" : satt === false ? ", tipset satt inte" : "");
     rad.append(el("span", { class: `tipsetikett${emot ? " emot" : ""}${satt === true ? " satt" : ""}`,
       title: t.text || "", "aria-label": etikett },
       el("span", { class: "kalla", text: namn }), el("b", { text: raknat }),
+      sys ? el("span", { class: "sys", text: `sys ${sys}` }) : null,
       satt === true ? el("span", { class: "bock", text: "✓", "aria-hidden": "true" }) : null));
   }
   return rad;
@@ -346,19 +350,23 @@ function detaljer(m, v) {
     const alla = form.find((x) => x.namn === namn && (x.grupp === "alla" || x.grupp === undefined));
     return alla && alla.antal >= 10 ? { ...alla, i: "alla ligor" } : null;
   };
-  const tips = (m.tips || []).filter((t) => t.tecken)
-    .map((t) => ({ ...t, f: formFor(t.kalla) }))
+  const tips = (m.tips || []).filter((t) => t.tecken || t.system)
+    .map((t) => ({ ...t, tecken: t.tecken || t.system, f: formFor(t.kalla) }))
     .sort((a, b) => (b.f ? b.f.poang : -1) - (a.f ? a.f.poang : -1));
   const topp = tips.slice(0, 3);
   if (topp.length) {
-    rubrik(tips.length > 3 ? "Experter – de tre bästa senaste tiden" : "Experter");
+    rubrik(tips.length > 3 ? "Experter – de tre bästa senaste tiden (● tips, ○ bara i systemet)" : "Experter (● tips, ○ bara i systemet)");
     for (const t of topp) {
       const under = t.f
         ? `${Math.round(t.f.poang * 100)} % träff, ${t.f.i}${t.f.period === "8v" ? " senaste 8 v." : ""} (${t.f.antal})`
         : "för lite historik ännu";
+      const sys = t.system && t.system !== t.tecken ? t.system : null;
       rad(KORTNAMN[t.kalla] || t.kalla, TECKEN.map((x) => (t.tecken.includes(x)
-        ? el("span", { class: `tipsmark${m.resultat === x ? " satt" : ""}`, "aria-label": `tippar ${x}`, text: "●" }) : "")),
-        "", under);
+        ? el("span", { class: `tipsmark${m.resultat === x ? " satt" : ""}`, "aria-label": `tippar ${x}`, text: "●" })
+        : sys && sys.includes(x)
+          ? el("span", { class: `tipsmark system${m.resultat === x ? " satt" : ""}`, "aria-label": `${x} i systemet`, text: "○" })
+          : "")),
+        "", under + (t.system ? ` · system ${t.system}${t.system_rader ? ` (${t.system_rader} r.)` : ""}` : ""));
     }
   }
   tabell.append(kropp);

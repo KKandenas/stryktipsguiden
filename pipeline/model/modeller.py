@@ -112,8 +112,7 @@ class EnsembleModell:
 
 # Tipsarna som tips-v1 väger in. En ny tipsare börjar på STARTVIKT_TIPS och vikten lärs sedan
 # från resultaten (med straff mot startvikten, så att lite data bara flyttar den lite).
-TIPSKALLOR = ["Tio tidningars tips", "speltips.se", "hurbra.se", "bettingstugan.se", "tippat.se", "gamblingcabin.se",
-              "sportsgambler.com", "sportsmole.co.uk", "footballpredictions.com"]
+TIPSKALLOR = ["Tio tidningars tips", *ensemble.TIPSSAJTER, *ensemble.SYSTEMKALLOR]
 STARTVIKT_TIPS = 0.1
 
 
@@ -181,12 +180,14 @@ def las_underlag(conn: sqlite3.Connection, match_id: int, fore: str) -> Underlag
     if s:
         u.streck = (s[0], s[1], s[2])
         u.streck_tid = s[3]
-    for r in conn.execute("SELECT k.namn, t.p1, t.px, t.p2, t.tecken FROM tips t JOIN kallor k ON k.id = t.kalla_id "
-                          "WHERE t.match_id = ?", (match_id,)):
+    for r in conn.execute("SELECT k.namn, t.p1, t.px, t.p2, t.tecken, t.system FROM tips t "
+                          "JOIN kallor k ON k.id = t.kalla_id WHERE t.match_id = ?", (match_id,)):
         if r[1] is not None:
             u.tips[r[0]] = (r[1], r[2], r[3])
         elif r[4]:
             u.tips[r[0]] = ensemble.pseudosannolikhet(r[4])
+        if r[5]:   # skribentens system: egen källa, spik/halv/hel → sannolikheter
+            u.tips[r[0] + ensemble.SYSTEM_SUFFIX] = ensemble.pseudosannolikhet(r[5])
     return u
 
 

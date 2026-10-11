@@ -108,15 +108,18 @@ def _spara_tips(conn, ids: Dict[int, int], tips: Iterable[Tips]) -> int:
     for t in tips:
         kid = kalla_id(conn, t.kalla)
         cur = conn.execute(
-            """INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken, p1, px, p2, sammanfattning)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken, p1, px, p2, sammanfattning, system, system_rader)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                ON CONFLICT(match_id, kalla_id) DO UPDATE SET
                    tidpunkt = excluded.tidpunkt, tecken = excluded.tecken, p1 = excluded.p1,
-                   px = excluded.px, p2 = excluded.p2, sammanfattning = excluded.sammanfattning
+                   px = excluded.px, p2 = excluded.p2, sammanfattning = excluded.sammanfattning,
+                   system = excluded.system, system_rader = excluded.system_rader
                WHERE tips.tecken IS NOT excluded.tecken OR tips.p1 IS NOT excluded.p1
                   OR tips.px IS NOT excluded.px OR tips.p2 IS NOT excluded.p2
-                  OR tips.sammanfattning IS NOT excluded.sammanfattning""",
-            (ids[t.matchnr], kid, t.tidpunkt, t.tecken, t.p1, t.px, t.p2, t.sammanfattning))
+                  OR tips.sammanfattning IS NOT excluded.sammanfattning
+                  OR tips.system IS NOT excluded.system OR tips.system_rader IS NOT excluded.system_rader""",
+            (ids[t.matchnr], kid, t.tidpunkt, t.tecken, t.p1, t.px, t.p2, t.sammanfattning,
+             getattr(t, "system", None), getattr(t, "system_rader", None)))
         andrade += cur.rowcount
     return andrade
 

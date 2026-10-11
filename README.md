@@ -317,6 +317,11 @@ men utan strecken:
 - Vikterna tränas om varje söndag. Historiken backtestas walk-forward precis som ensemble-v1, och
   `tips-v1` mäts i modellstatistiken bredvid odds-v2.
 - Tips som bara anger tecken räknas om till sannolikheter (80 % på valda tecken).
+- **Experternas system:** AI-tolkningen plockar också ut tecknen i skribentens system eller kupong per
+  match (`tips.system`) och systemets storlek (`tips.system_rader`, migrering 008). Varje sajts system
+  är en egen källa, "namn (system)", med egen startvikt och inlärd vikt, och räknas om med samma
+  spik/halv/hel-regel. Olika stora system hanteras bara genom den inlärda vikten. Finns flera system i
+  en artikel används det minsta.
 - Appen visar varje tipsares träffprocent, antal matcher och vikt under *Så har modellen träffat*.
 
 Läget i oktober 2026: Tio tidningars tips har vikt 0,016 (3 692 matcher, tillför nästan inget utöver

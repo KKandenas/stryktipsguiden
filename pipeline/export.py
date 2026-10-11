@@ -18,7 +18,8 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
       "chans_tips", "varde_tips": samma sak enligt tips-v1 (odds + tipsare viktade efter träffsäkerhet) | null,
       "odds":   {"antal_bolag": 3, "snitt": {"1": 1.75, "X": 4.3, "2": 4.7},
                  "bolag": [{"bolag": "pinnacle", "1": 1.78, "X": 4.2, "2": 4.75}, …]} | null,
-      "tips":   [{"kalla": "Tio tidningars tips", "tecken": "1", "text": "5-1-4 av 10 tidningar"}],
+      "tips":   [{"kalla": "Tio tidningars tips", "tecken": "1", "text": "5-1-4 av 10 tidningar",
+                  "system": "1X" | null, "system_rader": 384 | null}],
       "kommentar": null,
       "resultat": "1" | null, "mal": "2-1" | null
   }]
@@ -129,8 +130,9 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
                     "snitt": _tripel(tuple(sum(t[i] for t in bolag.values()) / n for i in range(3)), 2),
                     "bolag": [{"bolag": b, **_tripel(bolag[b], 2)} for b in ordning[:MAX_BOLAG]]}
 
-        tips = [{"kalla": r["namn"], "tecken": r["tecken"], "text": r["sammanfattning"]}
-                for r in conn.execute("SELECT k.namn, t.tecken, t.sammanfattning FROM tips t "
+        tips = [{"kalla": r["namn"], "tecken": r["tecken"], "text": r["sammanfattning"],
+                 "system": r["system"], "system_rader": r["system_rader"]}
+                for r in conn.execute("SELECT k.namn, t.tecken, t.sammanfattning, t.system, t.system_rader FROM tips t "
                                       "JOIN kallor k ON k.id = t.kalla_id WHERE t.match_id = ? ORDER BY k.namn",
                                       (m["id"],))]
 
@@ -186,18 +188,24 @@ def tipsare_form(conn: sqlite3.Connection, nu: str) -> list:
     där används hela historiken (period "alla"). Poäng per tips: rätt spik = 1, rätt halvgardering = ½,
     rätt helgardering = ⅓, fel = 0 – så att garderingar inte ger gratis träffar. Sorterat bäst först."""
     grans = (parse_iso(nu) - timedelta(days=FORM_DAGAR)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    from .model.ensemble import SYSTEM_SUFFIX
     rader = conn.execute(
-        """SELECT k.namn, t.tecken, m.resultat, m.avspark, m.land FROM tips t JOIN kallor k ON k.id = t.kalla_id
-           JOIN matcher m ON m.id = t.match_id WHERE m.resultat IS NOT NULL AND t.tecken IS NOT NULL""").fetchall()
+        """SELECT k.namn, t.tecken, t.system, m.resultat, m.avspark, m.land FROM tips t JOIN kallor k ON k.id = t.kalla_id
+           JOIN matcher m ON m.id = t.match_id
+           WHERE m.resultat IS NOT NULL AND (t.tecken IS NOT NULL OR t.system IS NOT NULL)""").fetchall()
     per: dict = {}
-    for namn, tecken, res, avspark, land in rader:
-        p = 1 / len(tecken) if res in tecken else 0.0
+    for namn, tecken, system, res, avspark, land in rader:
         ny_ = avspark is not None and avspark >= grans
-        for grupp in ("alla", landsgrupp(land)):
-            d = per.setdefault((namn, grupp), {"alla": [], "8v": []})
-            d["alla"].append(p)
-            if ny_:
-                d["8v"].append(p)
+        # Huvudtipset och skribentens system räknas var för sig ("speltips.se (system)")
+        for kalla, tk in ((namn, tecken), (namn + SYSTEM_SUFFIX, system)):
+            if not tk:
+                continue
+            p = 1 / len(tk) if res in tk else 0.0
+            for grupp in ("alla", landsgrupp(land)):
+                d = per.setdefault((kalla, grupp), {"alla": [], "8v": []})
+                d["alla"].append(p)
+                if ny_:
+                    d["8v"].append(p)
     ut = []
     for (namn, grupp), d in per.items():
         p, period = (d["8v"], "8v") if len(d["8v"]) >= FORM_MIN else (d["alla"], "alla")

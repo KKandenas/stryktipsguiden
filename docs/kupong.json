@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-11T07:20:12Z",
+ "genererad": "2026-10-11T07:52:51Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -971,6 +971,62 @@
    },
    {
     "namn": "footballpredictions.com",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "speltips.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "hurbra.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "bettingstugan.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "tippat.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "gamblingcabin.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "sportsgambler.com (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "sportsmole.co.uk (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "footballpredictions.com (system)",
     "vikt": 0.1,
     "skattad": false,
     "traff": null,
