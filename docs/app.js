@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011j";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011j";
+} from "./optimizer.js?v=20261011k";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011k";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -570,7 +570,37 @@ function renderaRattning() {
       (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
       "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." }));
   }
+  renderaUtdelning(omgang, res.ok ? rattFordelning(res.val, k.matcher.map((m) => m.resultat || "?")) : null);
   ritaMatcher($("r-matcher"), { ...k, matcher: rMatcher }, res, lasningar, state.rOppna, false);
+}
+
+/** Utdelningstabell för en avgjord omgång: kr per rad, antal vinnare och vad systemet vann per nivå. */
+function renderaUtdelning(omgang, fordelning) {
+  const sektion = $("r-utdelning");
+  const utd = omgang.utdelning;
+  sektion.hidden = !utd;
+  if (!utd) return;
+  const vinn = omgang.vinnare || {};
+  const t = el("table", { class: "stat-tabell utdelningstabell" },
+    el("thead", {}, el("tr", {}, el("th", { text: "Rätt" }), el("th", { class: "tal", text: "Per rad" }),
+      el("th", { class: "tal", text: "Vinnare" }), el("th", { class: "tal", text: "Ditt system" }))));
+  const b = el("tbody");
+  let tot = 0;
+  for (const n of ["13", "12", "11", "10"]) {
+    const rader = fordelning ? fordelning[Number(n)] || 0 : 0;
+    const vinst = rader * (utd[n] || 0);
+    tot += vinst;
+    b.append(el("tr", { class: rader ? "har-vinst" : "" },
+      el("td", { text: `${n} rätt` }),
+      el("td", { class: "tal", text: utd[n] ? kr(utd[n]) : (n === "13" ? "ingen vinnare" : "ingen utdelning") }),
+      el("td", { class: "tal", text: vinn[n] != null ? Number(vinn[n]).toLocaleString("sv-SE") : "–" }),
+      el("td", { class: "tal", text: rader ? `${rader} st · ${kr(vinst)}` : "–" })));
+  }
+  t.append(b);
+  const box = $("r-utdelning-innehall");
+  box.replaceChildren(t, el("p", { class: "dampad liten", text:
+    `Omsättning ${kr(omgang.omsattning || 0)}. Under 15 kr per rad betalas ingen utdelning ut.` +
+    (tot ? ` Ditt system vann totalt ${kr(tot)}.` : "") }));
 }
 
 // ---------- backtest ----------

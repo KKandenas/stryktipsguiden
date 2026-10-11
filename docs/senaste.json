@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-10T22:53:04Z",
+ "genererad": "2026-10-11T07:04:46Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -17,6 +17,12 @@
    "12": 827.0,
    "11": 67.0,
    "10": 23.0
+  },
+  "vinnare": {
+   "13": 145,
+   "12": 3070,
+   "11": 30271,
+   "10": 179248
   }
  },
  "matcher": [

@@ -7,7 +7,8 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
   "genererad": "2026-10-10T13:00:00Z",
   "modell": {"version": "odds-v1", "beskrivning": "..."},
   "omgang": {"id": 4974, "datum": "2026-10-10", "spelstopp": "...Z", "status": "oppen",
-             "omsattning": 26061816.0, "radpris": 1, "utdelning": {"13": 59266.0, ...} | null},
+             "omsattning": 26061816.0, "radpris": 1, "utdelning": {"13": 59266.0, ...} | null,
+             "vinnare": {"13": 77, ...} | null},
   "matcher": [{
       "nr": 1, "hemmalag": "...", "bortalag": "...", "liga": "...", "land": "...", "avspark": "...Z",
       "chans":  {"1": 0.55, "X": 0.24, "2": 0.21} | null,
@@ -165,6 +166,7 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "id": o["id"], "datum": o["datum"], "spelstopp": o["spelstopp"], "status": status,
             "omsattning": o["omsattning"], "radpris": 1,
             "utdelning": ({str(n): o[f"utdelning_{n}"] for n in (13, 12, 11, 10)} if visa_resultat else None),
+            "vinnare": ({str(n): o[f"vinnare_{n}"] for n in (13, 12, 11, 10)} if visa_resultat else None),
         },
         "matcher": matcher,
         "statistik": bygg_statistik(conn, modell.version),

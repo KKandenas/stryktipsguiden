@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="app.css?v=20261011j">
-<script type="module" src="app.js?v=20261011j"></script>
+<link rel="stylesheet" href="app.css?v=20261011k">
+<script type="module" src="app.js?v=20261011k"></script>
 </head>
 <body data-vy="kupong">
 <header class="banner-omr">
@@ -93,9 +93,17 @@
     </div>
     <div class="innehall">
       <section class="kort budget" aria-labelledby="r-budget-rubrik">
+        <div class="forslag" role="radiogroup" aria-label="Vilket förslag i rättningen">
+          <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Modellen</b><span>Odds och streck</span></button>
+          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Tipsviktat</b><span>Odds + tipsare som brukar ha rätt</span></button>
+        </div>
         <h2 id="r-budget-rubrik" class="kort-rubrik">Så gick ditt system</h2>
         <div id="r-budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader i rättningen"></div>
         <div id="r-resultat" class="r-resultat" aria-live="polite"><p class="dampad">Laddar …</p></div>
+      </section>
+      <section id="r-utdelning" class="kort" aria-labelledby="r-utdelning-rubrik" hidden>
+        <h2 id="r-utdelning-rubrik" class="kort-rubrik">Utdelning</h2>
+        <div id="r-utdelning-innehall"></div>
       </section>
       <ol id="r-matcher" class="matcher" aria-label="Matcher i förra omgången"></ol>
     </div>

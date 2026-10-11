@@ -222,6 +222,8 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .tipsetikett .bock { color: var(--ratt); font-weight: 700; }
 
 /* rättning */
+.utdelningstabell td.tal, .utdelningstabell th.tal { width: auto; padding-left: 8px; }
+.utdelningstabell tr.har-vinst td { color: var(--ratt); font-weight: 700; }
 .match.traff { box-shadow: var(--skugga), inset 4px 0 0 var(--ratt); }
 .match.miss { box-shadow: var(--skugga), inset 4px 0 0 var(--fel); }
 .r-resultat { margin-top: 12px; display: grid; gap: 6px; }
