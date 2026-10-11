@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011q";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011q";
+} from "./optimizer.js?v=20261011r";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011r";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -208,7 +208,7 @@ function renderaMatcher() {
     state.resultat, state.lasningar, state.oppna, true, state.skillnad);
 }
 
-/** Det andra förslaget (Modellen ↔ Tipsviktat) med samma budget och låsningar: matcher med andra tecken. */
+/** Det andra förslaget (Oddsen ↔ Med experter) med samma budget och låsningar: matcher med andra tecken. */
 function skillnadMotAndra(kupong, resultat, budget, lasningar) {
   if (!resultat?.ok || !harTips(kupong)) return null;
   const andra = state.kalla === "tips" ? "modell" : "tips";
@@ -216,7 +216,7 @@ function skillnadMotAndra(kupong, resultat, budget, lasningar) {
   if (!r.ok) return null;
   const skiljer = {};
   r.val.forEach((v, i) => { if (v.tecken !== resultat.val[i].tecken) skiljer[v.nr] = v.tecken; });
-  return { namn: andra === "tips" ? "Tipsviktat" : "Modellen", skiljer };
+  return { namn: andra === "tips" ? "Med experter" : "Oddsen", skiljer };
 }
 
 /** Ritar kupongens matcher. interaktiv=false (rättningen): tecknen går inte att låsa. */
@@ -330,8 +330,8 @@ function detaljer(m, v) {
   const proc = (c) => TECKEN.map((t) => (c ? `${procent(c[t])} %` : null));
 
   const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
-  if (modell) rad("Modellen", proc(modell), state.kalla === "modell" ? "markerad" : "", "chans enligt oddsen");
-  if (m.chans_tips) rad("Tipsviktat", proc(m.chans_tips), state.kalla === "tips" ? "markerad" : "", "odds + tipsare");
+  if (modell) rad("Oddsen", proc(modell), state.kalla === "modell" ? "markerad" : "", "chans enligt spelbolagen");
+  if (m.chans_tips) rad("Med experter", proc(m.chans_tips), state.kalla === "tips" ? "markerad" : "", "odds + tipsare");
   if (m.streck) rad("Svenska folket", TECKEN.map((t) => `${Math.round(m.streck[t])} %`), "", "streck");
   if (m.varde) {
     rad("Värde", TECKEN.map((t) => {
@@ -395,8 +395,8 @@ function detaljer(m, v) {
   return d;
 }
 
-const MODELLNAMN = { "odds-v2": "Modellen (odds)", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell",
-  "tips-v1": "Tipsviktat" };
+const MODELLNAMN = { "odds-v2": "Oddsen", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell",
+  "tips-v1": "Med experter" };
 const pct = (x) => `${Math.round(x * 100)} %`;
 const dec = (x) => x.toFixed(3).replace(".", ",");
 
@@ -434,7 +434,7 @@ function renderaStatistik() {
   const folket = blk.kallor.find((k) => k.namn === "Svenska folket");
 
   box.append(el("p", { text:
-    `Mätt på ${aktiv.antal.toLocaleString("sv-SE")} avgjorda matcher. Modellens mest sannolika tecken gick in i ${pct(aktiv.traff)}` +
+    `Mätt på ${aktiv.antal.toLocaleString("sv-SE")} avgjorda matcher. Oddsens mest sannolika tecken gick in i ${pct(aktiv.traff)}` +
     (folket ? ` av matcherna, folkets i ${pct(folket.traff)}.` : ".") +
     " Det viktiga är att sannolikheterna stämmer – det är dem värdet bygger på." }));
 
@@ -457,7 +457,7 @@ function renderaStatistik() {
   box.append(tabell);
 
   if (st.tipsare?.length) {
-    box.append(el("h3", { text: "Tipsarnas vikt i det tipsviktade förslaget" }));
+    box.append(el("h3", { text: "Tipsarnas vikt i förslaget Med experter" }));
     const t = el("table", { class: "stat-tabell" },
       el("thead", {}, el("tr", {}, el("th", { text: "Tipsare" }), el("th", { class: "tal", text: "Träff" }),
         el("th", { class: "tal", text: "Matcher" }), el("th", { class: "tal", text: "Vikt" }))));
@@ -479,7 +479,7 @@ function renderaStatistik() {
   }
 
   if (blk.ligor?.length) {
-    box.append(el("h3", { text: "Per liga (modellen)" }));
+    box.append(el("h3", { text: "Per liga (oddsen)" }));
     const t = el("table", { class: "stat-tabell" });
     const b = el("tbody");
     for (const l of blk.ligor) {
@@ -494,19 +494,19 @@ function renderaStatistik() {
     box.append(el("h3", { text: "Senaste omgångarna – en rad med favorittecknet på alla 13" }));
     const snitt = (f) => (st.senaste.reduce((a, o) => a + o[f], 0) / st.senaste.length).toFixed(1).replace(".", ",");
     box.append(el("p", { class: "omg-sammanfattning" },
-      el("span", {}, el("i", { class: "nyckel s1", "aria-hidden": "true" }), ` Modellen ${snitt("modell_ratt")} rätt i snitt`),
+      el("span", {}, el("i", { class: "nyckel s1", "aria-hidden": "true" }), ` Oddsen ${snitt("modell_ratt")} rätt i snitt`),
       el("span", {}, el("i", { class: "nyckel s2", "aria-hidden": "true" }), ` Folket ${snitt("folket_ratt")} rätt i snitt`)));
     const stapel = (n, klass) => el("div", { class: "omg-stapel" },
       el("span", { class: "omg-spar", "aria-hidden": "true" }, el("i", { class: klass, style: `width:${(n / 13) * 100}%` })),
       el("b", { text: String(n) }));
     const t = el("table", { class: "omg-tabell" },
-      el("thead", {}, el("tr", {}, el("th", { text: "Omgång" }), el("th", { text: "Modellen" }), el("th", { text: "Folket" }),
+      el("thead", {}, el("tr", {}, el("th", { text: "Omgång" }), el("th", { text: "Oddsen" }), el("th", { text: "Folket" }),
         el("th", { class: "tal", text: "" }))));
     const b = el("tbody");
     for (const o of st.senaste) {
       const d = new Date(o.datum + "T12:00:00Z");
       const diff = o.modell_ratt - o.folket_ratt;
-      b.append(el("tr", { "aria-label": `Vecka ${vecka(d)}: modellen ${o.modell_ratt} rätt, folket ${o.folket_ratt} rätt` },
+      b.append(el("tr", { "aria-label": `Vecka ${vecka(d)}: oddsen ${o.modell_ratt} rätt, folket ${o.folket_ratt} rätt` },
         el("td", { class: "omg-namn" }, el("b", { text: `v. ${vecka(d)}` }), el("span", { text: `${d.getUTCDate()}/${d.getUTCMonth() + 1}` })),
         el("td", {}, stapel(o.modell_ratt, "s1")),
         el("td", {}, stapel(o.folket_ratt, "s2")),
@@ -516,8 +516,8 @@ function renderaStatistik() {
     t.append(b);
     box.append(t);
     box.append(el("p", { class: "forklaring-stat", text:
-      "Staplarna visar antal rätt av 13 om man spelat en enda rad med det mest sannolika tecknet (modellen) " +
-      "respektive det mest streckade (folket). Kolumnen längst till höger är modellens antal rätt minus folkets." }));
+      "Staplarna visar antal rätt av 13 om man spelat en enda rad med det mest sannolika tecknet (oddsen) " +
+      "respektive det mest streckade (folket). Kolumnen längst till höger är oddsens antal rätt minus folkets." }));
   }
 
   box.append(el("p", { class: "forklaring-stat", text:
@@ -629,7 +629,7 @@ function renderaRattning() {
     const rader = [13, 12, 11, 10].filter((n) => fordelning[n]).map((n) =>
       `${n} rätt: ${fordelning[n]} ${fordelning[n] === 1 ? "rad" : "rader"}${avgjord && utd[String(n)] ? ` à ${kr(utd[String(n)])}` : ""}`);
     box.append(el("p", { class: "dampad", text: rader.length ? rader.join(" · ") : "Ingen rad nådde 10 rätt." }));
-    box.append(el("p", { class: "dampad liten", text: (state.kalla === "tips" ? "Tipsviktat förslag. " : "") +
+    box.append(el("p", { class: "dampad liten", text: (state.kalla === "tips" ? "Förslaget Med experter. " : "") +
       (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
       "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." }));
   }
@@ -699,7 +699,7 @@ function renderaBacktest() {
   const harTipsHist = urval.omgangar.some((o) => o.matcher.some((m) => m[7]));
 
   const vaxel = el("div", { class: "forslag", role: "radiogroup", "aria-label": "Vilket förslag i backtestet" });
-  for (const [k, namn, under] of [["modell", "Modellen", "Odds och streck"], ["tips", "Tipsviktat", "Odds + tipsare"]]) {
+  for (const [k, namn, under] of [["modell", "Oddsen", "Spelbolagens bedömning"], ["tips", "Med experter", "Odds + tipsare"]]) {
     const b = el("button", { type: "button", role: "radio", "data-kalla": k, "aria-checked": String(state.kalla === k),
       disabled: k === "tips" && !harTipsHist }, el("b", { text: namn }), el("span", { text: under }));
     b.addEventListener("click", () => {
@@ -715,7 +715,7 @@ function renderaBacktest() {
 
   const forsta = urval.omgangar[0].datum, sista = urval.omgangar.at(-1).datum;
   box.append(el("p", { class: "dampad", text:
-    `${state.kalla === "tips" ? "Det tipsviktade förslaget" : "Appens förslag"} spelat varje vecka i ${urval.omgangar.length} omgångar ` +
+    `${state.kalla === "tips" ? "Förslaget Med experter" : "Oddsförslaget"} spelat varje vecka i ${urval.omgangar.length} omgångar ` +
     `(${forsta} – ${sista}), jämfört med att spela samma antal rader efter folkets streck. Riktig utdelning för 13–10 rätt.` }));
 
   const knappar = el("div", { class: "budgetknappar", role: "radiogroup", "aria-label": "Rader per vecka" });
@@ -727,7 +727,7 @@ function renderaBacktest() {
   box.append(knappar);
 
   const serier = [
-    { namn: state.kalla === "tips" ? "Tipsviktat" : "Modellen", klass: "s1", farg: "var(--serie-1)",
+    { namn: state.kalla === "tips" ? "Med experter" : "Oddsen", klass: "s1", farg: "var(--serie-1)",
       res: backtesta(urval, state.btBudget, state.kalla === "tips" ? "tips" : "modell") },
     { namn: "Folket", klass: "s2", farg: "var(--serie-2)", res: backtesta(urval, state.btBudget, "folket") },
   ];

@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="app.css?v=20261011q">
-<script type="module" src="app.js?v=20261011q"></script>
+<link rel="stylesheet" href="app.css?v=20261011r">
+<script type="module" src="app.js?v=20261011r"></script>
 </head>
 <body data-vy="kupong">
 <header class="banner-omr">
@@ -61,8 +61,8 @@
       <div class="sidopanel">
       <section class="kort budget" aria-labelledby="budget-rubrik">
         <div class="forslag" role="radiogroup" aria-label="Vilket förslag">
-          <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Modellen</b><span>Odds och streck</span></button>
-          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Tipsviktat</b><span>Odds + tipsare som brukar ha rätt</span></button>
+          <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Oddsen</b><span>Spelbolagens bedömning</span></button>
+          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Med experter</b><span>Odds + tipsare som brukar ha rätt</span></button>
         </div>
         <h2 id="budget-rubrik" class="kort-rubrik">Hur många rader?</h2>
         <div id="budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader"></div>
@@ -97,8 +97,8 @@
       <div class="sidopanel">
       <section class="kort budget" aria-labelledby="r-budget-rubrik">
         <div class="forslag" role="radiogroup" aria-label="Vilket förslag i rättningen">
-          <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Modellen</b><span>Odds och streck</span></button>
-          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Tipsviktat</b><span>Odds + tipsare som brukar ha rätt</span></button>
+          <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Oddsen</b><span>Spelbolagens bedömning</span></button>
+          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Med experter</b><span>Odds + tipsare som brukar ha rätt</span></button>
         </div>
         <h2 id="r-budget-rubrik" class="kort-rubrik">Så gick ditt system</h2>
         <div id="r-budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader i rättningen"></div>
@@ -144,7 +144,7 @@
         <li>Blå rutor är tecknen i ditt system. <b>SPIK</b> = ett tecken, <b>HALV</b> = två, <b>HEL</b> = alla tre.</li>
         <li>Under rutorna står <b>tipsen</b> från analyserna, t.ex. <span class="tipsetikett"><span class="kalla">speltips</span><b>1</b></span>. En <span class="tipsetikett emot"><span class="kalla">röd</span><b>2</b></span> etikett betyder att tipset går emot förslaget – vill du följa det kan du låsa tecknet.</li>
         <li>I matchens detaljer visar ● experternas tips och ○ tecken som bara finns i deras system (t.ex. en halvgardering i systemet när tipset är en etta).</li>
-        <li><b>Modellen / Tipsviktat</b> högst upp väljer vilket förslag du ser. <i>Modellen</i> bygger på bookmakerodds. <i>Tipsviktat</i> väger dessutom in tipsarna efter hur ofta de haft rätt – vikterna lärs om varje söndag och syns under <a href="#statistik">Så har modellen träffat</a>.</li>
+        <li><b>Oddsen / Med experter</b> högst upp väljer vilket förslag du ser. <i>Oddsen</i> bygger på spelbolagens odds. <i>Med experter</i> väger dessutom in tipsarna efter hur ofta de haft rätt – vikterna lärs om varje söndag och syns under <a href="#statistik">Så har modellen träffat</a>.</li>
         <li><b>Tryck på ett tecken</b> för att låsa det 🔒. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren, oddsen och tipsen.</li>
       </ul>
       <p><a class="knapp primar" href="#kupong">Till kupongen</a></p>
@@ -227,8 +227,8 @@
     </section>
 
     <section class="kort">
-      <h2>Tipsviktat förslag och experterna</h2>
-      <p>Växeln <b>Modellen / Tipsviktat</b> ger ett alternativt förslag där tipsarna vägs in. Varje söndag mäts
+      <h2>Förslaget Med experter</h2>
+      <p>Växeln <b>Oddsen / Med experter</b> ger ett alternativt förslag där tipsarna vägs in. Varje söndag mäts
         hur ofta varje tipsare haft rätt, och en statistisk modell (logistisk regression) räknar fram hur mycket
         de ska få påverka sannolikheterna utöver oddsen. Nya tipsare börjar med en liten vikt och får en egen
         först när de har minst 30 avgjorda matcher.</p>
@@ -272,8 +272,8 @@
         <p>Krysset är nästan aldrig det mest sannolika utfallet i en match – därför spikas det aldrig. I en
           halvgardering täcker <b>12</b> oftast mer än 1X eller X2: i en jämn match är 1 och 2 tillsammans värda
           70–75 % medan 1X eller X2 ofta landar under 65 %. Kryss kommer med i helgarderingarna.</p>
-        <p>Historiken (oktober 2026) talar för valet: modellens halvgarderingar satt i 73 % av fallen, mot 70 % om
-          man i stället valt favoriten + X. Modellen räknar med kryss i 25,3 % av matcherna, precis som utfallet –
+        <p>Historiken (oktober 2026) talar för valet: oddsförslagets halvgarderingar satt i 73 % av fallen, mot 70 % om
+          man i stället valt favoriten + X. Oddsen räknar med kryss i 25,3 % av matcherna, precis som utfallet –
           den underskattar alltså inte kryssen.</p>
       </details>
       <details>
@@ -284,15 +284,15 @@
           av systemet räknas om runt ditt val.</p>
       </details>
       <details>
-        <summary>Varför skiljer sig Modellen och Tipsviktat så lite?</summary>
-        <p>Det tipsviktade förslaget lyssnar bara på tipsarna i den mån de historiskt har haft rätt <i>utöver</i>
+        <summary>Varför skiljer sig Oddsen och Med experter så lite?</summary>
+        <p>Förslaget Med experter lyssnar bara på tipsarna i den mån de historiskt har haft rätt <i>utöver</i>
           vad oddsen redan säger. Den enda tipsaren med lång historik, Tio tidningars tips, har hittills inte
           tillfört något, och de nya sajterna och deras system har för lite historik. Skillnaden växer om och när
           någon tipsare visar sig träffa bättre än oddsen – då blir det också fler kryss om deras 1X och X2 sitter.</p>
       </details>
       <details>
-        <summary>Ska jag följa modellen eller experterna?</summary>
-        <p>Historiken talar än så länge för modellen, eftersom spelbolagens odds är den mest träffsäkra bedömning
+        <summary>Ska jag följa Oddsen eller Med experter?</summary>
+        <p>Historiken talar än så länge för Oddsen, eftersom spelbolagens odds är den mest träffsäkra bedömning
           som finns. Under <a href="#statistik">Så har modellen träffat</a> ser du hur varje tipsare träffar, och på
           kupongen ser du var förslagen skiljer sig och var tipsare går emot förslaget.</p>
       </details>
@@ -321,7 +321,7 @@
       <ul>
         <li><b>Ingen garanti.</b> Svenska Spel behåller ungefär en tredjedel av insatserna, så de flesta förlorar på
           sikt – även med bra rader. Guiden hjälper dig att spela smartare, inte att vinna säkert.</li>
-        <li>Modellen är minst pålitlig i lägre svenska serier, där bara Svenska Spels odds finns.</li>
+        <li>Bedömningen är minst pålitlig i lägre svenska serier, där bara Svenska Spels odds finns.</li>
         <li>Stryktipsguiden är ett fristående hobbyprojekt och inte kopplat till eller godkänt av Svenska Spel.
           Källkoden är öppen på <a href="https://github.com/KKandenas/stryktipsguiden" rel="noopener" target="_blank">GitHub</a>.</li>
         <li>Spela ansvarsfullt. Behöver du stöd: <a href="https://www.stodlinjen.se" rel="noopener" target="_blank">Stödlinjen</a>, 020-81 91 00. 18 år.</li>

@@ -305,9 +305,10 @@ räknar då om modellernas, källornas och ligornas träffsäkerhet från det å
 (`export.statistik_per_ar`). Modellerna jämförs alltid på samma matcher. I appen visar avsnittet tabellen ovan, träffsäkerhet per liga och hur
 många rätt modellens och folkets favorittecken fick de senaste tio omgångarna.
 
-### Tipsviktat förslag (tips-v1)
+### Förslaget "Med experter" (tips-v1)
 
-Ett parallellt förslag som väljs med växeln **Modellen / Tipsviktat** högst upp på kupongen.
+I appen heter förslagen **Oddsen** (basmodellen `odds-v2`) och **Med experter** (`tips-v1`).
+Med experter är ett parallellt förslag som väljs med växeln **Oddsen / Med experter** högst upp på kupongen.
 Det väljs aldrig automatiskt. `tips-v1` väger ihop bookmakerodds (odds-v2) och tipsarna (Tio
 tidningars tips, speltips.se, sportsgambler.com) med samma logistiska regression som ensemble-v1,
 men utan strecken:
