@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011p";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011p";
+} from "./optimizer.js?v=20261011q";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011q";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -491,17 +491,33 @@ function renderaStatistik() {
   }
 
   if (st.senaste?.length) {
-    box.append(el("h3", { text: "Senaste omgångarna – favorittecknet på alla 13" }));
+    box.append(el("h3", { text: "Senaste omgångarna – en rad med favorittecknet på alla 13" }));
+    const snitt = (f) => (st.senaste.reduce((a, o) => a + o[f], 0) / st.senaste.length).toFixed(1).replace(".", ",");
+    box.append(el("p", { class: "omg-sammanfattning" },
+      el("span", {}, el("i", { class: "nyckel s1", "aria-hidden": "true" }), ` Modellen ${snitt("modell_ratt")} rätt i snitt`),
+      el("span", {}, el("i", { class: "nyckel s2", "aria-hidden": "true" }), ` Folket ${snitt("folket_ratt")} rätt i snitt`)));
+    const stapel = (n, klass) => el("div", { class: "omg-stapel" },
+      el("span", { class: "omg-spar", "aria-hidden": "true" }, el("i", { class: klass, style: `width:${(n / 13) * 100}%` })),
+      el("b", { text: String(n) }));
+    const t = el("table", { class: "omg-tabell" },
+      el("thead", {}, el("tr", {}, el("th", { text: "Omgång" }), el("th", { text: "Modellen" }), el("th", { text: "Folket" }),
+        el("th", { class: "tal", text: "" }))));
+    const b = el("tbody");
     for (const o of st.senaste) {
       const d = new Date(o.datum + "T12:00:00Z");
-      box.append(el("div", { class: "omgangsrad" },
-        el("span", { text: `v. ${vecka(d)} · ${d.getUTCDate()}/${d.getUTCMonth() + 1}` }),
-        el("div", { class: "staplar" },
-          el("div", { class: "stapel" }, el("i", { style: `width:${(o.modell_ratt / 13) * 100}%` }),
-            el("span", { text: `Modellen ${o.modell_ratt}` })),
-          el("div", { class: "stapel folket" }, el("i", { style: `width:${(o.folket_ratt / 13) * 100}%` }),
-            el("span", { text: `Folket ${o.folket_ratt}` })))));
+      const diff = o.modell_ratt - o.folket_ratt;
+      b.append(el("tr", { "aria-label": `Vecka ${vecka(d)}: modellen ${o.modell_ratt} rätt, folket ${o.folket_ratt} rätt` },
+        el("td", { class: "omg-namn" }, el("b", { text: `v. ${vecka(d)}` }), el("span", { text: `${d.getUTCDate()}/${d.getUTCMonth() + 1}` })),
+        el("td", {}, stapel(o.modell_ratt, "s1")),
+        el("td", {}, stapel(o.folket_ratt, "s2")),
+        el("td", { class: `tal omg-diff ${diff > 0 ? "plus" : diff < 0 ? "minus" : ""}`,
+          text: diff > 0 ? `+${diff}` : diff < 0 ? `−${-diff}` : "lika" })));
     }
+    t.append(b);
+    box.append(t);
+    box.append(el("p", { class: "forklaring-stat", text:
+      "Staplarna visar antal rätt av 13 om man spelat en enda rad med det mest sannolika tecknet (modellen) " +
+      "respektive det mest streckade (folket). Kolumnen längst till höger är modellens antal rätt minus folkets." }));
   }
 
   box.append(el("p", { class: "forklaring-stat", text:
