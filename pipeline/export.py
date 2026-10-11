@@ -209,24 +209,94 @@ def _argmax_ratt(p, resultat) -> bool:
     return p is not None and resultat is not None and p["1X2".index(resultat)] >= max(p) - 1e-9
 
 
+def _traffar(p, res) -> bool:
+    return p[TECKEN.index(res)] >= max(p) - 1e-9
+
+
+def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
+    """Träffsäkerhet för modeller, källor och ligor – för hela historiken ("alla") och från varje
+    startår ("2023" = från 1 januari 2023). Modellerna jämförs på samma matcher."""
+    from .model.ensemble import logloss, pseudosannolikhet
+    from .model.sannolikhet import brier
+
+    matcher = conn.execute("""SELECT m.id, o.datum, COALESCE(m.liga, 'Okänd'), m.resultat FROM matcher m
+                              JOIN omgangar o ON o.id = m.omgang_id
+                              WHERE m.resultat IS NOT NULL AND o.installd = 0""").fetchall()
+    prog: dict = {}
+    for mid, v, p1, px, p2 in conn.execute("SELECT match_id, modellversion, p1, px, p2 FROM prognoser"):
+        if v in MODELLER:
+            prog.setdefault(mid, {})[v] = (p1, px, p2)
+    streck = {r[0]: (r[1], r[2], r[3]) for r in conn.execute(
+        "SELECT match_id, p1, px, p2, MAX(tidpunkt) FROM streck GROUP BY match_id")}
+    tips: dict = {}
+    for mid, namn, p1, px, p2, tecken in conn.execute(
+            "SELECT t.match_id, k.namn, t.p1, t.px, t.p2, t.tecken FROM tips t JOIN kallor k ON k.id = t.kalla_id"):
+        if p1 is not None:
+            tips.setdefault(mid, {})[namn] = (p1, px, p2)
+        elif tecken:
+            tips.setdefault(mid, {})[namn] = pseudosannolikhet(tecken)
+
+    def block(fran: Optional[str]) -> Optional[dict]:
+        urval = [m for m in matcher if fran is None or m[1] >= fran]
+        min_n = 100 if fran is None else 30
+        # Modeller: versioner med tillräckligt många prognoser, jämförda på gemensamma matcher
+        antal = {}
+        for mid, *_ in urval:
+            for v in prog.get(mid, {}):
+                antal[v] = antal.get(v, 0) + 1
+        versioner = [v for v, n in antal.items() if n >= min_n]
+        gemensamma = [m for m in urval if all(v in prog.get(m[0], {}) for v in versioner)]
+        if not versioner or len(gemensamma) < min_n:
+            return None
+        modeller = []
+        for v in versioner:
+            b = ll = tr = 0.0
+            for mid, _, _, res in gemensamma:
+                p = prog[mid][v]
+                b += brier(p, res); ll += logloss(p, res); tr += _traffar(p, res)
+            n = len(gemensamma)
+            modeller.append({"version": v, "beskrivning": MODELLER[v].beskrivning, "brier": round(b / n, 4),
+                             "logloss": round(ll / n, 4), "traff": round(tr / n, 3), "antal": n})
+        modeller.sort(key=lambda x: (x["logloss"], x["version"] != STANDARD_MODELL))
+        # Källor: Svenska folket och tipsarna, var och en på sina egna matcher
+        summor: dict = {}
+        for mid, _, _, res in urval:
+            kallor_m = dict(tips.get(mid, {}))
+            if mid in streck and sum(streck[mid]) > 0:
+                t = sum(streck[mid])
+                kallor_m["Svenska folket"] = tuple(x / t for x in streck[mid])
+            for namn, p in kallor_m.items():
+                s_ = summor.setdefault(namn, [0.0, 0, 0])
+                s_[0] += brier(p, res); s_[1] += _traffar(p, res); s_[2] += 1
+        kallor = sorted(({"namn": k, "brier": round(v[0] / v[2], 4), "traff": round(v[1] / v[2], 3), "antal": v[2]}
+                         for k, v in summor.items() if v[2] >= (50 if fran is None else 20)), key=lambda x: x["brier"])
+        # Ligor: vald modell (eller basmodellen) per liga
+        per_liga: dict = {}
+        for mid, _, liga, res in urval:
+            p = prog.get(mid, {}).get(version) or prog.get(mid, {}).get(STANDARD_MODELL)
+            if p:
+                l_ = per_liga.setdefault(liga, [0.0, 0, 0])
+                l_[0] += brier(p, res); l_[1] += _traffar(p, res); l_[2] += 1
+        ligor = sorted(({"liga": k, "brier": round(v[0] / v[2], 4), "traff": round(v[1] / v[2], 3), "antal": v[2]}
+                        for k, v in per_liga.items() if v[2] >= min_n), key=lambda x: -x["antal"])[:6]
+        return {"modeller": modeller, "kallor": kallor, "ligor": ligor}
+
+    ar = sorted({m[1][:4] for m in matcher if any(m[0] in prog and v in prog[m[0]] for v in (STANDARD_MODELL,))})
+    per_ar = {"alla": block(None)}
+    for a in ar:
+        b = block(f"{a}-01-01")
+        # Hoppa över år som ger samma modellunderlag som "alla" (t.ex. första året med odds)
+        if b and per_ar["alla"] and b["modeller"][0]["antal"] != per_ar["alla"]["modeller"][0]["antal"]:
+            per_ar[a] = b
+    return {k: v for k, v in per_ar.items() if v}
+
+
 def bygg_statistik(conn: sqlite3.Connection, version: str, antal_omgangar: int = 10) -> Optional[dict]:
-    """Hur bra modellen och källorna har träffat historiskt (från statistiksteget)."""
-    modeller = [{"version": r["modellversion"], "beskrivning": MODELLER[r["modellversion"]].beskrivning,
-                 "brier": round(r["brier"], 4), "logloss": round(r["logloss"], 4),
-                 "traff": round(r["traff"], 3), "antal": r["antal"]}
-                for r in conn.execute("SELECT * FROM modellstatistik WHERE liga = 'Alla' ORDER BY logloss")
-                if r["modellversion"] in MODELLER]
-    if not modeller:
+    """Hur bra modellen och källorna har träffat historiskt, totalt och från varje startår."""
+    per_ar = statistik_per_ar(conn, version)
+    if "alla" not in per_ar:
         return None
-    kallor = [{"namn": r[0], "brier": round(r[1], 4), "traff": round(r[2], 3) if r[2] is not None else None,
-               "antal": r[3]}
-              for r in conn.execute("""SELECT k.namn, s.brier, s.traff, s.antal_matcher FROM kallstatistik s
-                                       JOIN kallor k ON k.id = s.kalla_id WHERE s.liga = 'Alla' AND s.antal_matcher >= 50
-                                       ORDER BY s.brier""")]
-    ligor = [{"liga": r[0], "brier": round(r[1], 4), "traff": round(r[2], 3), "antal": r[3]}
-             for r in conn.execute("""SELECT liga, brier, traff, antal FROM modellstatistik
-                                      WHERE modellversion = ? AND liga != 'Alla' AND antal >= 100
-                                      ORDER BY antal DESC LIMIT 6""", (version,))]
+    modeller, kallor, ligor = per_ar["alla"]["modeller"], per_ar["alla"]["kallor"], per_ar["alla"]["ligor"]
 
     senaste = []
     for o in conn.execute("""SELECT id, datum FROM omgangar WHERE utdelning_13 IS NOT NULL AND installd = 0
@@ -257,7 +327,7 @@ def bygg_statistik(conn: sqlite3.Connection, version: str, antal_omgangar: int =
     oddsvikt = round(v.w.get("odds", 1.0), 3) if v else 1.0
 
     return {"aktiv_modell": version, "modeller": modeller, "kallor": kallor, "ligor": ligor, "senaste": senaste,
-            "tipsare": tipsare, "tips_oddsvikt": oddsvikt}
+            "tipsare": tipsare, "tips_oddsvikt": oddsvikt, "per_ar": per_ar}
 
 
 def skriv(kupong: dict, sokvag: Path, kompakt: bool = False) -> bool:
@@ -285,7 +355,8 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
     {"formatversion": 1, "genererad": "...", "modell": "odds-v1",
      "omgangar": [{"id": 4973, "datum": "2026-10-03",
                    "utdelning": [13 rätt, 12, 11, 10],          # kr per rad
-                   "matcher": [[chans1, chansX, chans2, streck1, streckX, streck2, "resultat"], ...]}]}
+                   "matcher": [[chans1, chansX, chans2, streck1, streckX, streck2, "resultat",
+                                [tipsviktad chans 1, X, 2] | null], ...]}]}
     """
     version = vald_version(conn)
     omgangar = []
@@ -297,13 +368,16 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
                           (SELECT json_array(p1, px, p2) FROM prognoser WHERE match_id = m.id
                              AND modellversion IN (?, ?) ORDER BY modellversion = ? DESC LIMIT 1),
                           (SELECT json_array(p1, px, p2) FROM streck WHERE match_id = m.id
-                             ORDER BY tidpunkt DESC LIMIT 1)
+                             ORDER BY tidpunkt DESC LIMIT 1),
+                          (SELECT json_array(p1, px, p2) FROM prognoser WHERE match_id = m.id
+                             AND modellversion = 'tips-v1')
                    FROM matcher m WHERE m.omgang_id = ? ORDER BY m.matchnr""",
                 (version, STANDARD_MODELL, version, o["id"])):
             if not m[0] or not m[1] or not m[2]:
                 break
             chans, streck = json.loads(m[1]), json.loads(m[2])
-            matcher.append([round(x, 4) for x in chans] + [round(x, 1) for x in streck] + [m[0]])
+            tips = [round(x, 4) for x in json.loads(m[3])] if m[3] else None
+            matcher.append([round(x, 4) for x in chans] + [round(x, 1) for x in streck] + [m[0], tips])
         if len(matcher) == 13:
             omgangar.append({"id": o["id"], "datum": o["datum"],
                              "utdelning": [o["utdelning_13"], o["utdelning_12"], o["utdelning_11"], o["utdelning_10"]],

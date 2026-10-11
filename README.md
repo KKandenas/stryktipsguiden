@@ -300,7 +300,9 @@ vet, så **appen använder bara odds**, precis som det är tänkt tills något b
 Valet görs om varje vecka: när tipssajterna och bookmakeroddsen från The Odds API har samlat
 historik kan ensemble-v1 ta över av sig själv.
 
-I appen visar avsnittet **"Så har modellen träffat"** tabellen ovan, träffsäkerhet per liga och hur
+Under **"Så har modellen träffat"** kan man välja startår (Alla eller från 2023, 2024 osv.). Exporten
+räknar då om modellernas, källornas och ligornas träffsäkerhet från det året
+(`export.statistik_per_ar`). Modellerna jämförs alltid på samma matcher. I appen visar avsnittet tabellen ovan, träffsäkerhet per liga och hur
 många rätt modellens och folkets favorittecken fick de senaste tio omgångarna.
 
 ### Tipsviktat förslag (tips-v1)
@@ -344,7 +346,8 @@ Pipelinen skriver `docs/historik.json` (cirka 160 kB), med chans, streck, result
 filen först när avsnittet öppnas och kör varje omgång genom **samma `optimizer.js`** som tar fram
 dina rader, så backtestet räknar exakt som appen. Logiken finns i `docs/backtest.js`.
 
-- Du väljer antal rader per vecka (1–256) och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
+- Du väljer startår och förslag (Modellen eller Tipsviktat; `historik.json` har den tipsviktade chansen
+  som åttonde fält per match), antal rader per vecka (1–256), och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
   saldot vecka för vecka, utfallet per år och de största vinsterna.
 - Som jämförelse visas "Folket": samma antal rader, men valda efter strecken i stället för modellens chans.
 - Utdelningen räknas som om dina rader inte hade påverkat potten. Vissa veckor ger 10 eller 11 rätt

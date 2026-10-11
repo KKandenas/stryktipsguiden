@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-11T07:04:46Z",
+ "genererad": "2026-10-11T07:20:12Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -772,19 +772,19 @@
   "aktiv_modell": "odds-v2",
   "modeller": [
    {
-    "version": "odds-v1",
-    "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-    "brier": 0.6079,
-    "logloss": 1.0141,
-    "traff": 0.49,
-    "antal": 2782
-   },
-   {
     "version": "odds-v2",
     "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
     "brier": 0.6079,
     "logloss": 1.0141,
-    "traff": 0.49,
+    "traff": 0.491,
+    "antal": 2782
+   },
+   {
+    "version": "odds-v1",
+    "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+    "brier": 0.6079,
+    "logloss": 1.0141,
+    "traff": 0.491,
     "antal": 2782
    },
    {
@@ -807,9 +807,9 @@
   "kallor": [
    {
     "namn": "Svenska folket",
-    "brier": 0.6146,
-    "traff": 0.498,
-    "antal": 3926
+    "brier": 0.6135,
+    "traff": 0.499,
+    "antal": 3965
    },
    {
     "namn": "Tio tidningars tips",
@@ -821,21 +821,33 @@
   "ligor": [
    {
     "liga": "Championship",
-    "brier": 0.6331,
-    "traff": 0.454,
-    "antal": 897
+    "brier": 0.6318,
+    "traff": 0.456,
+    "antal": 1070
    },
    {
     "liga": "Premier League",
-    "brier": 0.5866,
-    "traff": 0.524,
-    "antal": 706
+    "brier": 0.5832,
+    "traff": 0.528,
+    "antal": 822
    },
    {
     "liga": "League One",
-    "brier": 0.6319,
-    "traff": 0.464,
-    "antal": 224
+    "brier": 0.6326,
+    "traff": 0.463,
+    "antal": 242
+   },
+   {
+    "liga": "Allsvenskan",
+    "brier": 0.5841,
+    "traff": 0.53,
+    "antal": 134
+   },
+   {
+    "liga": "FA Cup",
+    "brier": 0.5873,
+    "traff": 0.53,
+    "antal": 100
    }
   ],
   "senaste": [
@@ -965,7 +977,425 @@
     "antal": 0
    }
   ],
-  "tips_oddsvikt": 0.939
+  "tips_oddsvikt": 0.939,
+  "per_ar": {
+   "alla": {
+    "modeller": [
+     {
+      "version": "odds-v2",
+      "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
+      "brier": 0.6079,
+      "logloss": 1.0141,
+      "traff": 0.491,
+      "antal": 2782
+     },
+     {
+      "version": "odds-v1",
+      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+      "brier": 0.6079,
+      "logloss": 1.0141,
+      "traff": 0.491,
+      "antal": 2782
+     },
+     {
+      "version": "tips-v1",
+      "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
+      "brier": 0.609,
+      "logloss": 1.0158,
+      "traff": 0.489,
+      "antal": 2782
+     },
+     {
+      "version": "ensemble-v1",
+      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+      "brier": 0.6091,
+      "logloss": 1.0161,
+      "traff": 0.488,
+      "antal": 2782
+     }
+    ],
+    "kallor": [
+     {
+      "namn": "Svenska folket",
+      "brier": 0.6135,
+      "traff": 0.499,
+      "antal": 3965
+     },
+     {
+      "namn": "Tio tidningars tips",
+      "brier": 0.8207,
+      "traff": 0.504,
+      "antal": 3692
+     }
+    ],
+    "ligor": [
+     {
+      "liga": "Championship",
+      "brier": 0.6318,
+      "traff": 0.456,
+      "antal": 1070
+     },
+     {
+      "liga": "Premier League",
+      "brier": 0.5832,
+      "traff": 0.528,
+      "antal": 822
+     },
+     {
+      "liga": "League One",
+      "brier": 0.6326,
+      "traff": 0.463,
+      "antal": 242
+     },
+     {
+      "liga": "Allsvenskan",
+      "brier": 0.5841,
+      "traff": 0.53,
+      "antal": 134
+     },
+     {
+      "liga": "FA Cup",
+      "brier": 0.5873,
+      "traff": 0.53,
+      "antal": 100
+     }
+    ]
+   },
+   "2023": {
+    "modeller": [
+     {
+      "version": "odds-v2",
+      "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
+      "brier": 0.6073,
+      "logloss": 1.0132,
+      "traff": 0.491,
+      "antal": 2587
+     },
+     {
+      "version": "odds-v1",
+      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+      "brier": 0.6073,
+      "logloss": 1.0132,
+      "traff": 0.491,
+      "antal": 2587
+     },
+     {
+      "version": "tips-v1",
+      "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
+      "brier": 0.6081,
+      "logloss": 1.0145,
+      "traff": 0.489,
+      "antal": 2587
+     },
+     {
+      "version": "ensemble-v1",
+      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+      "brier": 0.6082,
+      "logloss": 1.0148,
+      "traff": 0.488,
+      "antal": 2587
+     }
+    ],
+    "kallor": [
+     {
+      "namn": "Svenska folket",
+      "brier": 0.6164,
+      "traff": 0.499,
+      "antal": 2587
+     },
+     {
+      "namn": "Tio tidningars tips",
+      "brier": 0.8088,
+      "traff": 0.504,
+      "antal": 2327
+     }
+    ],
+    "ligor": [
+     {
+      "liga": "Championship",
+      "brier": 0.6318,
+      "traff": 0.461,
+      "antal": 815
+     },
+     {
+      "liga": "Premier League",
+      "brier": 0.5872,
+      "traff": 0.521,
+      "antal": 658
+     },
+     {
+      "liga": "League One",
+      "brier": 0.6305,
+      "traff": 0.468,
+      "antal": 203
+     },
+     {
+      "liga": "Allsvenskan",
+      "brier": 0.5771,
+      "traff": 0.536,
+      "antal": 97
+     },
+     {
+      "liga": "FA Cup",
+      "brier": 0.5904,
+      "traff": 0.533,
+      "antal": 92
+     },
+     {
+      "liga": "League Two",
+      "brier": 0.6432,
+      "traff": 0.417,
+      "antal": 84
+     }
+    ]
+   },
+   "2024": {
+    "modeller": [
+     {
+      "version": "odds-v2",
+      "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
+      "brier": 0.6084,
+      "logloss": 1.0146,
+      "traff": 0.487,
+      "antal": 1898
+     },
+     {
+      "version": "odds-v1",
+      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+      "brier": 0.6084,
+      "logloss": 1.0146,
+      "traff": 0.487,
+      "antal": 1898
+     },
+     {
+      "version": "tips-v1",
+      "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
+      "brier": 0.6092,
+      "logloss": 1.016,
+      "traff": 0.484,
+      "antal": 1898
+     },
+     {
+      "version": "ensemble-v1",
+      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+      "brier": 0.6096,
+      "logloss": 1.0166,
+      "traff": 0.483,
+      "antal": 1898
+     }
+    ],
+    "kallor": [
+     {
+      "namn": "Svenska folket",
+      "brier": 0.6188,
+      "traff": 0.496,
+      "antal": 1898
+     },
+     {
+      "namn": "Tio tidningars tips",
+      "brier": 0.8086,
+      "traff": 0.502,
+      "antal": 1638
+     }
+    ],
+    "ligor": [
+     {
+      "liga": "Championship",
+      "brier": 0.6373,
+      "traff": 0.461,
+      "antal": 568
+     },
+     {
+      "liga": "Premier League",
+      "brier": 0.5888,
+      "traff": 0.51,
+      "antal": 459
+     },
+     {
+      "liga": "League One",
+      "brier": 0.635,
+      "traff": 0.463,
+      "antal": 188
+     },
+     {
+      "liga": "Allsvenskan",
+      "brier": 0.567,
+      "traff": 0.56,
+      "antal": 75
+     },
+     {
+      "liga": "FA Cup",
+      "brier": 0.5759,
+      "traff": 0.544,
+      "antal": 68
+     },
+     {
+      "liga": "League Two",
+      "brier": 0.6537,
+      "traff": 0.412,
+      "antal": 68
+     }
+    ]
+   },
+   "2025": {
+    "modeller": [
+     {
+      "version": "odds-v2",
+      "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
+      "brier": 0.6151,
+      "logloss": 1.0238,
+      "traff": 0.48,
+      "antal": 1209
+     },
+     {
+      "version": "odds-v1",
+      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+      "brier": 0.6151,
+      "logloss": 1.0238,
+      "traff": 0.48,
+      "antal": 1209
+     },
+     {
+      "version": "tips-v1",
+      "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
+      "brier": 0.6155,
+      "logloss": 1.0244,
+      "traff": 0.476,
+      "antal": 1209
+     },
+     {
+      "version": "ensemble-v1",
+      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+      "brier": 0.6158,
+      "logloss": 1.025,
+      "traff": 0.477,
+      "antal": 1209
+     }
+    ],
+    "kallor": [
+     {
+      "namn": "Svenska folket",
+      "brier": 0.6267,
+      "traff": 0.489,
+      "antal": 1209
+     },
+     {
+      "namn": "Tio tidningars tips",
+      "brier": 0.8199,
+      "traff": 0.493,
+      "antal": 949
+     }
+    ],
+    "ligor": [
+     {
+      "liga": "Championship",
+      "brier": 0.6465,
+      "traff": 0.442,
+      "antal": 346
+     },
+     {
+      "liga": "Premier League",
+      "brier": 0.6007,
+      "traff": 0.507,
+      "antal": 274
+     },
+     {
+      "liga": "League One",
+      "brier": 0.6307,
+      "traff": 0.468,
+      "antal": 141
+     },
+     {
+      "liga": "Allsvenskan",
+      "brier": 0.5579,
+      "traff": 0.542,
+      "antal": 59
+     },
+     {
+      "liga": "League Two",
+      "brier": 0.6706,
+      "traff": 0.36,
+      "antal": 50
+     },
+     {
+      "liga": "FA Cup",
+      "brier": 0.6182,
+      "traff": 0.489,
+      "antal": 45
+     }
+    ]
+   },
+   "2026": {
+    "modeller": [
+     {
+      "version": "odds-v2",
+      "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
+      "brier": 0.6234,
+      "logloss": 1.0356,
+      "traff": 0.462,
+      "antal": 533
+     },
+     {
+      "version": "odds-v1",
+      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+      "brier": 0.6234,
+      "logloss": 1.0356,
+      "traff": 0.462,
+      "antal": 533
+     },
+     {
+      "version": "tips-v1",
+      "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
+      "brier": 0.6243,
+      "logloss": 1.0368,
+      "traff": 0.458,
+      "antal": 533
+     },
+     {
+      "version": "ensemble-v1",
+      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+      "brier": 0.6244,
+      "logloss": 1.037,
+      "traff": 0.462,
+      "antal": 533
+     }
+    ],
+    "kallor": [
+     {
+      "namn": "Svenska folket",
+      "brier": 0.6332,
+      "traff": 0.475,
+      "antal": 533
+     },
+     {
+      "namn": "Tio tidningars tips",
+      "brier": 0.8646,
+      "traff": 0.462,
+      "antal": 273
+     }
+    ],
+    "ligor": [
+     {
+      "liga": "Championship",
+      "brier": 0.6652,
+      "traff": 0.385,
+      "antal": 135
+     },
+     {
+      "liga": "Premier League",
+      "brier": 0.6461,
+      "traff": 0.425,
+      "antal": 106
+     },
+     {
+      "liga": "League One",
+      "brier": 0.6354,
+      "traff": 0.449,
+      "antal": 69
+     }
+    ]
+   }
+  }
  },
  "tipsare_form": [
   {

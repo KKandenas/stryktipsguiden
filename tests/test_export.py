@@ -93,7 +93,8 @@ def test_historik_tar_bara_avgjorda_omgangar_med_prognos(conn):
     assert o["utdelning"] == [59266.0, 736.0, 49.0, 16.0]
     assert len(o["matcher"]) == 13
     m1 = o["matcher"][0]
-    assert len(m1) == 7 and m1[6] == "2" and m1[3:6] == [65.0, 20.0, 15.0]
+    assert len(m1) == 8 and m1[6] == "2" and m1[3:6] == [65.0, 20.0, 15.0]
+    assert m1[7] is None            # ingen tips-v1-prognos i testet
     assert abs(sum(m1[:3]) - 1) < 1e-3
 
 
@@ -129,3 +130,17 @@ def test_osaker_nar_bara_svenska_spels_odds_finns(conn):
     assert k["matcher"][0]["odds"]["bara_svenskaspel"] is False
     assert k["matcher"][1]["osaker"] is True
     assert k["matcher"][1]["odds"]["bara_svenskaspel"] is True
+
+
+
+def test_statistik_per_startar(conn):
+    from tests.test_statistik import fyll_syntetiskt
+    from pipeline.model import statistik
+    fyll_syntetiskt(conn, n_omgangar=60, facit="odds")
+    statistik.kor(conn)
+    pa = export.statistik_per_ar(conn, "odds-v2")
+    assert "alla" in pa
+    ar = [a for a in pa if a != "alla"]
+    for a in ar:   # varje startår har färre (eller lika många) matcher än totalen
+        assert pa[a]["modeller"][0]["antal"] < pa["alla"]["modeller"][0]["antal"]
+    assert pa["alla"]["modeller"][0]["version"] in ("odds-v2", "ensemble-v1", "tips-v1")

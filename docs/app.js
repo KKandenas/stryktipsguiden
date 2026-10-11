@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011m";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011m";
+} from "./optimizer.js?v=20261011n";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011n";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -21,7 +21,20 @@ const state = {
   rOppna: new Set(),   // utfällda matcher i rättningen
   kalla: "modell",     // "modell" eller "tips" – vilket förslag som visas
   formRang: [],        // tipsarnas form (kupong.json → tipsare_form), bäst först
+  statAr: "alla",      // valt startår i "Så har modellen träffat"
+  btAr: "alla",        // valt startår i backtestet
 };
+
+/** Rad med knappar för startår. */
+function arsknappar(ar, valt, vid) {
+  const rad = el("div", { class: "arsknappar", role: "radiogroup", "aria-label": "Från år" });
+  for (const a of ar) {
+    const k = el("button", { type: "button", role: "radio", "aria-checked": String(a === valt), text: a === "alla" ? "Alla" : `Från ${a}` });
+    k.addEventListener("click", () => vid(a));
+    rad.append(k);
+  }
+  return rad;
+}
 
 /** Matcherna enligt valt förslag: med "tips" används tips-v1:s chans och värde där de finns. */
 function matcherEnligtKalla(kupong) {
@@ -93,6 +106,7 @@ async function start() {
       state.kalla = b.dataset.kalla;
       if (state.senaste) renderaRattning();
       uppdatera();
+      if (state.historik) renderaBacktest();
     });
   }
   state.lasningar = (lagrat.lasningar || {})[state.kupong.omgang.id] || {};
@@ -390,8 +404,12 @@ function renderaStatistik() {
     box.append(el("p", { class: "dampad", text: "Statistiken räknas fram när det finns avgjorda omgångar." }));
     return;
   }
-  const aktiv = st.modeller.find((m) => m.version === st.aktiv_modell) || st.modeller[0];
-  const folket = st.kallor.find((k) => k.namn === "Svenska folket");
+  const arLista = st.per_ar ? ["alla", ...Object.keys(st.per_ar).filter((a) => a !== "alla").sort()] : ["alla"];
+  if (!arLista.includes(state.statAr)) state.statAr = "alla";
+  const blk = st.per_ar?.[state.statAr] || { modeller: st.modeller, kallor: st.kallor, ligor: st.ligor };
+  if (arLista.length > 1) box.append(arsknappar(arLista, state.statAr, (a) => { state.statAr = a; renderaStatistik(); }));
+  const aktiv = blk.modeller.find((m) => m.version === st.aktiv_modell) || blk.modeller[0];
+  const folket = blk.kallor.find((k) => k.namn === "Svenska folket");
 
   box.append(el("p", { text:
     `Mätt på ${aktiv.antal.toLocaleString("sv-SE")} avgjorda matcher. Modellens mest sannolika tecken gick in i ${pct(aktiv.traff)}` +
@@ -403,13 +421,13 @@ function renderaStatistik() {
     el("thead", {}, el("tr", {}, el("th", { text: "Källa" }), el("th", { class: "tal", text: "Träff" }),
       el("th", { class: "tal", text: "Brier" }))));
   const kropp = el("tbody");
-  for (const m of st.modeller) {
+  for (const m of blk.modeller) {
     const namn = el("td", {}, MODELLNAMN[m.version] || m.version,
       m.version === st.aktiv_modell ? el("span", { class: "markor", text: "används" }) : null);
     kropp.append(el("tr", { class: m.version === st.aktiv_modell ? "aktiv" : "" },
       namn, el("td", { class: "tal", text: pct(m.traff) }), el("td", { class: "tal", text: dec(m.brier) })));
   }
-  for (const k of st.kallor) {
+  for (const k of blk.kallor) {
     kropp.append(el("tr", {}, el("td", { text: k.namn }),
       el("td", { class: "tal", text: k.traff != null ? pct(k.traff) : "–" }), el("td", { class: "tal", text: dec(k.brier) })));
   }
@@ -438,11 +456,11 @@ function renderaStatistik() {
       "Vikterna lärs om varje söndag – tipsare som ofta har rätt där oddsen har fel får mer att säga till om." }));
   }
 
-  if (st.ligor?.length) {
+  if (blk.ligor?.length) {
     box.append(el("h3", { text: "Per liga (modellen)" }));
     const t = el("table", { class: "stat-tabell" });
     const b = el("tbody");
-    for (const l of st.ligor) {
+    for (const l of blk.ligor) {
       b.append(el("tr", {}, el("td", { text: `${l.liga} (${l.antal})` }), el("td", { class: "tal", text: pct(l.traff) }),
         el("td", { class: "tal", text: dec(l.brier) })));
     }
@@ -635,10 +653,31 @@ function renderaBacktest() {
   box.replaceChildren();
   if (!h?.omgangar?.length) { box.append(el("p", { class: "dampad", text: "Ingen historik ännu." })); return; }
 
-  const forsta = h.omgangar[0].datum, sista = h.omgangar.at(-1).datum;
+  const arLista = ["alla", ...[...new Set(h.omgangar.map((o) => o.datum.slice(0, 4)))]
+    .filter((a) => h.omgangar.filter((o) => o.datum.startsWith(a)).length >= 10).slice(1)];
+  if (!arLista.includes(state.btAr)) state.btAr = "alla";
+  const urval = franAr(h, state.btAr);
+  const harTipsHist = urval.omgangar.some((o) => o.matcher.some((m) => m[7]));
+
+  const vaxel = el("div", { class: "forslag", role: "radiogroup", "aria-label": "Vilket förslag i backtestet" });
+  for (const [k, namn, under] of [["modell", "Modellen", "Odds och streck"], ["tips", "Tipsviktat", "Odds + tipsare"]]) {
+    const b = el("button", { type: "button", role: "radio", "data-kalla": k, "aria-checked": String(state.kalla === k),
+      disabled: k === "tips" && !harTipsHist }, el("b", { text: namn }), el("span", { text: under }));
+    b.addEventListener("click", () => {
+      state.kalla = k;
+      for (const x of document.querySelectorAll(".forslag button")) x.setAttribute("aria-checked", String(x.dataset.kalla === k));
+      if (state.kupong) uppdatera();
+      renderaBacktest();
+    });
+    vaxel.append(b);
+  }
+  box.append(vaxel);
+  box.append(arsknappar(arLista, state.btAr, (a) => { state.btAr = a; renderaBacktest(); }));
+
+  const forsta = urval.omgangar[0].datum, sista = urval.omgangar.at(-1).datum;
   box.append(el("p", { class: "dampad", text:
-    `Appens förslag spelat varje vecka i ${h.omgangar.length} omgångar (${forsta} – ${sista}), jämfört med att ` +
-    "spela samma antal rader efter folkets streck. Riktig utdelning för 13–10 rätt." }));
+    `${state.kalla === "tips" ? "Det tipsviktade förslaget" : "Appens förslag"} spelat varje vecka i ${urval.omgangar.length} omgångar ` +
+    `(${forsta} – ${sista}), jämfört med att spela samma antal rader efter folkets streck. Riktig utdelning för 13–10 rätt.` }));
 
   const knappar = el("div", { class: "budgetknappar", role: "radiogroup", "aria-label": "Rader per vecka" });
   for (const b of BUDGETAR) {
@@ -649,8 +688,9 @@ function renderaBacktest() {
   box.append(knappar);
 
   const serier = [
-    { namn: "Modellen", klass: "s1", farg: "var(--serie-1)", res: backtesta(h, state.btBudget, "modell") },
-    { namn: "Folket", klass: "s2", farg: "var(--serie-2)", res: backtesta(h, state.btBudget, "folket") },
+    { namn: state.kalla === "tips" ? "Tipsviktat" : "Modellen", klass: "s1", farg: "var(--serie-1)",
+      res: backtesta(urval, state.btBudget, state.kalla === "tips" ? "tips" : "modell") },
+    { namn: "Folket", klass: "s2", farg: "var(--serie-2)", res: backtesta(urval, state.btBudget, "folket") },
   ];
 
   const kort = el("div", { class: "bt-kort" });
@@ -669,7 +709,7 @@ function renderaBacktest() {
 
   const storsta = serier[0].res.omgangar.filter((o) => o.vinst > 0).sort((a, b) => b.vinst - a.vinst).slice(0, 3);
   if (storsta.length) {
-    box.append(el("h3", { text: "Modellens största vinster" }));
+    box.append(el("h3", { text: `Största vinsterna (${serier[0].namn})` }));
     for (const o of storsta) {
       box.append(el("p", { text: `${o.datum} · ${o.basta} rätt · ${kr(o.vinst)}` }));
     }

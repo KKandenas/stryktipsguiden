@@ -4,19 +4,25 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera } from "./optimizer.js?v=20261011m";
+import { allaRader, optimera } from "./optimizer.js?v=20261011n";
 
 /** Matcher i optimerarens format. kalla "modell": modellens chans och folkets streck.
+ *  kalla "tips": den tipsviktade chansen (fält 8) där den finns, annars modellens.
  *  kalla "folket": strecken används som chans – då väljs rent efter vad folket tror. */
 export function matcherFor(omgang, kalla = "modell") {
   return omgang.matcher.map((m, i) => {
     const streck = { 1: m[3], X: m[4], 2: m[5] };
     const summa = m[3] + m[4] + m[5] || 1;
-    const chans = kalla === "folket"
-      ? { 1: m[3] / summa, X: m[4] / summa, 2: m[5] / summa }
-      : { 1: m[0], X: m[1], 2: m[2] };
+    let chans = { 1: m[0], X: m[1], 2: m[2] };
+    if (kalla === "folket") chans = { 1: m[3] / summa, X: m[4] / summa, 2: m[5] / summa };
+    else if (kalla === "tips" && m[7]) chans = { 1: m[7][0], X: m[7][1], 2: m[7][2] };
     return { nr: i + 1, chans, streck };
   });
+}
+
+/** Historiken från och med ett startår ("alla" = allt). */
+export function franAr(historik, ar) {
+  return ar === "alla" ? historik : { ...historik, omgangar: historik.omgangar.filter((o) => o.datum >= `${ar}-01-01`) };
 }
 
 /** Antal rader i systemet med k rätt, k = 0..13 (utan att räkna upp alla rader). */
