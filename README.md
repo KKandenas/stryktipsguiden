@@ -155,6 +155,7 @@ tecken sparas i webbläsarens localStorage, per omgång.
 | `#statistik` | Så har modellen träffat |
 | `#backtest` | Om du spelat varje vecka |
 | `#hjalp` | Så läser du kupongen |
+| `#om` | Så funkar Stryktipsguiden: syfte, källor, hur chans, värde och rader räknas fram, uppdateringar |
 
 **Cache:** filerna laddas med versionsnummer (`app.js?v=…`) så att mobilen aldrig blandar gammal
 och ny kod efter en uppdatering. **Byt versionen överallt när appen ändras** (`index.html`,

@@ -315,6 +315,19 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .bt-not { color: var(--dampad); font-size: 12px; margin-top: 10px; }
 #backtest-innehall .stat-tabell td.tal, #backtest-innehall .stat-tabell th.tal { width: auto; padding-left: 8px; }
 
+/* ---------- om-sidan ---------- */
+.om h2 { font-family: var(--rubrikfont); font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.om h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--dampad); margin: 14px 0 4px; }
+.om p { font-size: 15px; line-height: 1.55; }
+.om p + p { margin-top: 10px; }
+.om ul, .om ol { margin: 10px 0; padding-left: 20px; font-size: 15px; line-height: 1.5; }
+.om li { margin-bottom: 6px; }
+.om a { color: var(--primar); font-weight: 600; }
+.om .kallista { list-style: none; padding-left: 0; }
+.om .kallista li { padding: 6px 0; border-top: 1px solid var(--linje); margin: 0; }
+.om .stat-tabell td:first-child { font-weight: 600; white-space: nowrap; padding-right: 12px; }
+.fot a { color: inherit; font-weight: 600; }
+
 /* ---------- fot ---------- */
 .fot { padding: 8px 16px 24px; text-align: center; color: var(--dampad); font-size: 12px; }
 .fot p + p { margin-top: 4px; }

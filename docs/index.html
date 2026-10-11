@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="app.css?v=20261011i">
-<script type="module" src="app.js?v=20261011i"></script>
+<link rel="stylesheet" href="app.css?v=20261011j">
+<script type="module" src="app.js?v=20261011j"></script>
 </head>
 <body data-vy="kupong">
 <header class="banner-omr">
@@ -37,6 +37,7 @@
         <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
         <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
         <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
+        <li><a href="#om" data-vy="om"><b>Så funkar Stryktipsguiden</b><span>Syfte, källor och hur raderna räknas fram</span></a></li>
       </ul>
     </div>
   </div>
@@ -136,9 +137,132 @@
       <p><a class="knapp primar" href="#kupong">Till kupongen</a></p>
     </section>
   </section>
+
+  <!-- ===== Om ===== -->
+  <section class="vy innehall om" data-vy="om" hidden>
+    <h1 class="vy-rubrik">Så funkar Stryktipsguiden</h1>
+
+    <section class="kort">
+      <h2>Varför finns den här sidan?</h2>
+      <p>Stryktipset är ett poolspel: du spelar mot andra spelare, inte mot ett spelbolag. Potten delas av alla
+        som har rätt. Det betyder att det inte räcker att tippa rätt – det lönar sig att tippa rätt <i>där andra
+        tippar fel</i>. Stryktipsguiden jämför därför två saker för varje match:</p>
+      <ul>
+        <li><b>Hur troligt är varje utfall?</b> Det räknas fram från spelbolagens odds, som är den mest träffsäkra
+          bedömning som finns att tillgå.</li>
+        <li><b>Hur har svenska folket streckat?</b> Det visar hur många som delar på potten om tecknet går in.</li>
+      </ul>
+      <p>När chansen är högre än strecken är tecknet <b>understreckat</b> – det har värde. Guiden bygger rader
+        som tar tillvara på det, och förklarar varför.</p>
+    </section>
+
+    <section class="kort">
+      <h2>Var kommer datan ifrån?</h2>
+      <h3>Kupongen och strecken</h3>
+      <p>Kupongen, svenska folkets streck, Svenska Spels egna odds, Tio tidningars tips, resultat och utdelning
+        hämtas från Svenska Spel. Historiken går tillbaka till december 2020, <span data-om="historik">omkring 300</span> omgångar.</p>
+      <h3>Odds från spelbolag</h3>
+      <p>Via tjänsten The Odds API hämtas odds från bland annat Pinnacle, Unibet, Betsson, NordicBet och
+        Betfair för de engelska ligorna, Allsvenskan, Superettan och flera europeiska ligor. För lägre svenska
+        serier finns bara Svenska Spels odds – de matcherna märks <i>osäkrare</i>.</p>
+      <h3>Tipssajter</h3>
+      <p>Förhandsanalyser läses från sajter som tillåter det i sina villkor (robots.txt). Sajter som spärrar
+        automatisk läsning eller AI-tjänster används inte.</p>
+      <ul class="kallista">
+        <li><a href="https://speltips.se" rel="noopener" target="_blank">speltips.se</a> – svensk analys av hela kupongen</li>
+        <li><a href="https://hurbra.se" rel="noopener" target="_blank">hurbra.se</a> – svensk analys med tips per match</li>
+        <li><a href="https://bettingstugan.se/stryktipset" rel="noopener" target="_blank">Bettingstugan</a> – svensk expertanalys</li>
+        <li><a href="https://tippat.se/sparkaochspring/" rel="noopener" target="_blank">Tippat.se</a> – expertens kupong (Sparka &amp; Spring)</li>
+        <li><a href="https://gamblingcabin.se/speltips/" rel="noopener" target="_blank">Gamblingcabin</a> – panelens spikar och drag</li>
+        <li><a href="https://www.sportsgambler.com" rel="noopener" target="_blank">sportsgambler.com</a> – engelska förhandsartiklar</li>
+        <li><a href="https://www.sportsmole.co.uk" rel="noopener" target="_blank">Sports Mole</a> – engelska förhandsartiklar</li>
+        <li><a href="https://footballpredictions.com" rel="noopener" target="_blank">footballpredictions.com</a> – engelska förhandsartiklar</li>
+        <li>Tio tidningars tips – hur tio svenska tidningar tippar, via Svenska Spel</li>
+      </ul>
+      <p class="dampad liten">Artiklarna läses av en AI-modell (Google Gemini) som plockar ut varje skribents tecken
+        och huvudargument. Själva artiklarna sparas inte, och tips läses aldrig in efter att en match har börjat.</p>
+    </section>
+
+    <section class="kort">
+      <h2>Så räknas chansen ut</h2>
+      <ol>
+        <li><b>Marginalen tas bort.</b> Ett spelbolags odds innehåller en marginal (1/1,70 + 1/4,40 + 1/4,80 blir
+          mer än 100 %). Sannolikheterna skalas ner så att de summerar till 100 %.</li>
+        <li><b>Bolagen vägs ihop.</b> Skarpa bolag väger tyngst: Pinnacle ×3, spelbörser som Betfair ×2, övriga ×1
+          och Svenska Spel ×½ (högre marginal, uppdateras mer sällan).</li>
+        <li><b>Värde</b> = chans − streck. Är chansen 30 % och strecken 22 % är värdet +8 procentenheter. En orange
+          prick visas från +3 (+5 för osäkrare matcher).</li>
+      </ol>
+      <p>Varför odds och inte en egen modell? Historiken visar att oddsen träffar bättre än både folket och
+        tidningarna: <span data-om="brier">Brier 0,61 för oddsen mot 0,62 för folket och 0,82 för Tio tidningars tips</span>
+        (lägre är bättre).</p>
+    </section>
+
+    <section class="kort">
+      <h2>Så väljs raderna</h2>
+      <p>Antalet rader avgör exakt hur många garderingar systemet får: 96 rader = 1 helgardering, 5 halvgarderingar
+        och 7 spikar (2⁵ × 3 = 96). Guiden provar alla sätt att fördela dem och väljer den kombination som ger bäst
+        balans mellan <b>chansen att få många rätt</b> och <b>vad raderna betalar om de går in</b>. I praktiken:</p>
+      <ul>
+        <li>de jämnaste matcherna helgarderas,</li>
+        <li>halvgarderingarna läggs där ett tecken är understreckat,</li>
+        <li>säkra favoriter spikas – men inte om de är kraftigt överstreckade.</li>
+      </ul>
+      <p>Balansen (risknivån) valdes genom att testa mot historiken. Ett försök att optimera rakt mot förväntad
+        vinst i kronor gav sämre verkligt utfall och används därför inte. Låser du egna tecken räknas resten om
+        runt dina val.</p>
+    </section>
+
+    <section class="kort">
+      <h2>Tipsviktat förslag och experterna</h2>
+      <p>Växeln <b>Modellen / Tipsviktat</b> ger ett alternativt förslag där tipsarna vägs in. Varje söndag mäts
+        hur ofta varje tipsare haft rätt, och en statistisk modell (logistisk regression) räknar fram hur mycket
+        de ska få påverka sannolikheterna utöver oddsen. Nya tipsare börjar med en liten vikt och får en egen
+        först när de har minst 30 avgjorda matcher.</p>
+      <p>I matchvyn visas de tre tipsare som träffat bäst de senaste 8 veckorna på matcher från samma land.
+        En rätt spik ger 1 poäng, en rätt halvgardering ½ och en helgardering ⅓ – så att den som alltid garderar
+        inte hamnar överst.</p>
+      <p><a href="#statistik">Se tipsarnas vikter och träffsäkerhet →</a></p>
+    </section>
+
+    <section class="kort">
+      <h2>Den lär sig varje vecka</h2>
+      <p>När en omgång är avgjord räknas allt om: träffsäkerhet per källa och liga, tipsarnas vikter och en
+        sammanvägd modell (odds + streck + tips). Den sammanvägda modellen tas i bruk automatiskt först om den
+        träffar bättre än oddsen på de senaste cirka 40 omgångarna – <span data-om="aktiv">i dag används oddsmodellen</span>.
+        Allt testas utan att titta framåt: varje historisk omgång förutsägs bara med det som var känt före den.</p>
+      <p><a href="#backtest">Se vad det hade gett att spela varje vecka →</a></p>
+    </section>
+
+    <section class="kort">
+      <h2>Uppdateringar</h2>
+      <table class="stat-tabell">
+        <tbody>
+          <tr><td>Måndag förmiddag</td><td>Ny kupong, odds, tips och AI-kommentarer</td></tr>
+          <tr><td>Onsdag och torsdag kväll</td><td>Uppdaterade streck, odds och tips</td></tr>
+          <tr><td>Lördag före spelstopp</td><td>Sista streck och odds</td></tr>
+          <tr><td>Söndag</td><td>Resultat, utdelning, statistik och omträning</td></tr>
+        </tbody>
+      </table>
+      <p class="dampad liten" data-om="uppdaterad"></p>
+    </section>
+
+    <section class="kort">
+      <h2>Bra att veta</h2>
+      <ul>
+        <li><b>Ingen garanti.</b> Svenska Spel behåller ungefär en tredjedel av insatserna, så de flesta förlorar på
+          sikt – även med bra rader. Guiden hjälper dig att spela smartare, inte att vinna säkert.</li>
+        <li>Modellen är minst pålitlig i lägre svenska serier, där bara Svenska Spels odds finns.</li>
+        <li>Stryktipsguiden är ett fristående hobbyprojekt och inte kopplat till eller godkänt av Svenska Spel.
+          Källkoden är öppen på <a href="https://github.com/KKandenas/stryktipsguiden" rel="noopener" target="_blank">GitHub</a>.</li>
+        <li>Spela ansvarsfullt. Behöver du stöd: <a href="https://www.stodlinjen.se" rel="noopener" target="_blank">Stödlinjen</a>, 020-81 91 00. 18 år.</li>
+      </ul>
+    </section>
+  </section>
 </main>
 
 <footer class="fot">
+  <p><a href="#om">Så funkar Stryktipsguiden</a></p>
   <p id="modellinfo"></p>
   <p>Fristående hobbyprojekt – inte kopplat till eller godkänt av Svenska Spel.</p>
   <p>Spela ansvarsfullt. Stödlinjen: 020-81 91 00. 18 år.</p>

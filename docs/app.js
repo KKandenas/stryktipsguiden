@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011i";
-import { backtesta, rattFordelning } from "./backtest.js?v=20261011i";
+} from "./optimizer.js?v=20261011j";
+import { backtesta, rattFordelning } from "./backtest.js?v=20261011j";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -357,6 +357,24 @@ const MODELLNAMN = { "odds-v2": "Modellen (odds)", "odds-v1": "Odds, oviktat sni
 const pct = (x) => `${Math.round(x * 100)} %`;
 const dec = (x) => x.toFixed(3).replace(".", ",");
 
+/** Aktuella siffror på sidan "Så funkar Stryktipsguiden" (resten av texten är fast). */
+function renderaOm() {
+  const k = state.kupong;
+  if (!k) return;
+  const satt = (namn, text) => { const e = document.querySelector(`[data-om="${namn}"]`); if (e && text) e.textContent = text; };
+  const st = k.statistik;
+  if (st?.modeller?.length) {
+    const odds = st.modeller.find((m) => m.version === "odds-v2") || st.modeller[0];
+    const folket = st.kallor?.find((x) => x.namn === "Svenska folket");
+    const ttt = st.kallor?.find((x) => x.namn === "Tio tidningars tips");
+    satt("brier", `Brier ${dec(odds.brier)} för oddsen mot ${folket ? dec(folket.brier) : "–"} för folket` +
+      (ttt ? ` och ${dec(ttt.brier)} för Tio tidningars tips` : "") + `, mätt på ${odds.antal.toLocaleString("sv-SE")} matcher`);
+    satt("aktiv", `i dag används ${MODELLNAMN[st.aktiv_modell]?.toLowerCase() || st.aktiv_modell}`);
+  }
+  satt("uppdaterad", `Senast uppdaterad ${new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, dateStyle: "long", timeStyle: "short" })
+    .format(new Date(k.genererad))}.`);
+}
+
 function renderaStatistik() {
   const st = state.kupong.statistik;
   const box = $("statistik-innehall");
@@ -449,7 +467,8 @@ function renderaStatistik() {
 
 // ---------- meny och vyer ----------
 
-const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp" };
+const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp",
+  om: "Om guiden" };
 
 function initMeny() {
   const knapp = $("meny-knapp"), lista = $("meny-lista");
@@ -735,6 +754,7 @@ function uppdatera() {
   renderaTopp();
   renderaMatcher();
   renderaStatistik();
+  renderaOm();
   sparaLagring();
 }
 
