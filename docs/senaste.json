@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-12T18:03:29Z",
+ "genererad": "2026-10-12T18:53:15Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -82,6 +82,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 13,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 1,
+     "oavgjorda": 3,
+     "forlorade": 2,
+     "gjorda": 9,
+     "inslappta": 9,
+     "poang": 6,
+     "form": "DDLDWL"
+    },
+    "borta": {
+     "plats": 18,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 0,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 3,
+     "inslappta": 9,
+     "poang": 3,
+     "form": "DLDDLL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "X",
    "mal": "1-1"
   },
@@ -140,6 +167,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 6,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 3,
+     "oavgjorda": 1,
+     "forlorade": 2,
+     "gjorda": 15,
+     "inslappta": 13,
+     "poang": 10,
+     "form": "WLDLWW"
+    },
+    "borta": {
+     "plats": 17,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 0,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 7,
+     "inslappta": 13,
+     "poang": 3,
+     "form": "LLDDDL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "1",
    "mal": "5-1"
   },
@@ -198,6 +252,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 15,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 1,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 6,
+     "inslappta": 11,
+     "poang": 5,
+     "form": "DWLDLL"
+    },
+    "borta": {
+     "plats": 4,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 2,
+     "oavgjorda": 4,
+     "forlorade": 0,
+     "gjorda": 12,
+     "inslappta": 6,
+     "poang": 10,
+     "form": "DWDDDW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "X",
    "mal": "2-2"
   },
@@ -256,6 +337,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 16,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 1,
+     "oavgjorda": 1,
+     "forlorade": 4,
+     "gjorda": 6,
+     "inslappta": 12,
+     "poang": 4,
+     "form": "LLLDWL"
+    },
+    "borta": {
+     "plats": 3,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 4,
+     "oavgjorda": 1,
+     "forlorade": 1,
+     "gjorda": 18,
+     "inslappta": 5,
+     "poang": 13,
+     "form": "WWWDLW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "2",
    "mal": "0-2"
   },
@@ -314,6 +422,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 10,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 3,
+     "oavgjorda": 0,
+     "forlorade": 3,
+     "gjorda": 9,
+     "inslappta": 12,
+     "poang": 9,
+     "form": "WLWLLW"
+    },
+    "borta": {
+     "plats": 20,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 0,
+     "oavgjorda": 2,
+     "forlorade": 4,
+     "gjorda": 6,
+     "inslappta": 10,
+     "poang": 2,
+     "form": "LDDLLL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "1",
    "mal": "2-1"
   },
@@ -372,6 +507,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 13,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 14,
+     "inslappta": 13,
+     "poang": 12,
+     "form": "WDWLLD"
+    },
+    "borta": {
+     "plats": 21,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 1,
+     "oavgjorda": 4,
+     "forlorade": 4,
+     "gjorda": 11,
+     "inslappta": 14,
+     "poang": 7,
+     "form": "LWLDLL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "1",
    "mal": "2-1"
   },
@@ -430,6 +592,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 17,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 1,
+     "forlorade": 5,
+     "gjorda": 12,
+     "inslappta": 17,
+     "poang": 10,
+     "form": "LWWLLL"
+    },
+    "borta": {
+     "plats": 4,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 5,
+     "oavgjorda": 1,
+     "forlorade": 3,
+     "gjorda": 15,
+     "inslappta": 13,
+     "poang": 16,
+     "form": "WWWDWW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "2",
    "mal": "1-2"
   },
@@ -488,6 +677,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 23,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 1,
+     "oavgjorda": 3,
+     "forlorade": 5,
+     "gjorda": 8,
+     "inslappta": 15,
+     "poang": 6,
+     "form": "DDLLLW"
+    },
+    "borta": {
+     "plats": 15,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 2,
+     "oavgjorda": 5,
+     "forlorade": 2,
+     "gjorda": 10,
+     "inslappta": 13,
+     "poang": 11,
+     "form": "DWLDDW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "X",
    "mal": "1-1"
   },
@@ -546,6 +762,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 2,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 5,
+     "oavgjorda": 3,
+     "forlorade": 1,
+     "gjorda": 17,
+     "inslappta": 12,
+     "poang": 18,
+     "form": "WDDWWD"
+    },
+    "borta": {
+     "plats": 5,
+     "antal_lag": 24,
+     "spelade": 8,
+     "vunna": 4,
+     "oavgjorda": 2,
+     "forlorade": 2,
+     "gjorda": 15,
+     "inslappta": 11,
+     "poang": 14,
+     "form": "LWWDLW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "1",
    "mal": "1-0"
   },
@@ -604,6 +847,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 24,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 1,
+     "oavgjorda": 1,
+     "forlorade": 7,
+     "gjorda": 8,
+     "inslappta": 16,
+     "poang": 4,
+     "form": "LDLLWL"
+    },
+    "borta": {
+     "plats": 8,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 4,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 16,
+     "inslappta": 15,
+     "poang": 14,
+     "form": "WDDLWL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "2",
    "mal": "0-1"
   },
@@ -662,6 +932,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 14,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 12,
+     "inslappta": 11,
+     "poang": 12,
+     "form": "WLLWLW"
+    },
+    "borta": {
+     "plats": 16,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 2,
+     "forlorade": 4,
+     "gjorda": 7,
+     "inslappta": 11,
+     "poang": 11,
+     "form": "LLWWDD"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "1",
    "mal": "3-0"
   },
@@ -720,6 +1017,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 20,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 2,
+     "oavgjorda": 2,
+     "forlorade": 5,
+     "gjorda": 7,
+     "inslappta": 14,
+     "poang": 8,
+     "form": "LLLWLL"
+    },
+    "borta": {
+     "plats": 22,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 1,
+     "oavgjorda": 4,
+     "forlorade": 4,
+     "gjorda": 13,
+     "inslappta": 17,
+     "poang": 7,
+     "form": "WDLDLD"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "2",
    "mal": "0-4"
   },
@@ -778,6 +1102,33 @@
    "tips": [],
    "kommentar": null,
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 4,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 4,
+     "oavgjorda": 4,
+     "forlorade": 1,
+     "gjorda": 16,
+     "inslappta": 9,
+     "poang": 16,
+     "form": "DWLDDW"
+    },
+    "borta": {
+     "plats": 7,
+     "antal_lag": 24,
+     "spelade": 8,
+     "vunna": 4,
+     "oavgjorda": 3,
+     "forlorade": 1,
+     "gjorda": 15,
+     "inslappta": 8,
+     "poang": 15,
+     "form": "DDDWWW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": "X",
    "mal": "2-2"
   }
@@ -1160,6 +1511,14 @@
       "slutsats": "sämre"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1187,7 +1546,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 651,
+     "omgangar": 253,
+     "traff": 0.29,
+     "chans": 0.266,
+     "folket": 0.193
+    }
    },
    "2023": {
     "modeller": [
@@ -1306,6 +1672,14 @@
       "slutsats": "sämre"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1333,7 +1707,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 498,
+     "omgangar": 199,
+     "traff": 0.289,
+     "chans": 0.265,
+     "folket": 0.193
+    }
    },
    "2024": {
     "modeller": [
@@ -1452,6 +1833,14 @@
       "slutsats": "sämre"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1479,7 +1868,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 357,
+     "omgangar": 146,
+     "traff": 0.308,
+     "chans": 0.265,
+     "folket": 0.193
+    }
    },
    "2025": {
     "modeller": [
@@ -1598,6 +1994,14 @@
       "slutsats": "ingen säker skillnad"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1625,7 +2029,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 233,
+     "omgangar": 93,
+     "traff": 0.335,
+     "chans": 0.262,
+     "folket": 0.191
+    }
    },
    "2026": {
     "modeller": [
@@ -1726,6 +2137,14 @@
       "slutsats": "ingen säker skillnad"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1753,7 +2172,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 104,
+     "omgangar": 41,
+     "traff": 0.288,
+     "chans": 0.263,
+     "folket": 0.191
+    }
    }
   }
  },

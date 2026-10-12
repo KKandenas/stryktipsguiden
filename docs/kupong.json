@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-12T18:27:57Z",
+ "genererad": "2026-10-12T18:53:15Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -104,6 +104,33 @@
    ],
    "kommentar": "Newcastle är oddsfavorit (45 %) men överstreckas på 52 %. Värdet finns på X och 2. Tipsaren förutspår 1–1 och lyfter X2.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 11,
+     "antal_lag": 20,
+     "spelade": 5,
+     "vunna": 2,
+     "oavgjorda": 2,
+     "forlorade": 1,
+     "gjorda": 9,
+     "inslappta": 9,
+     "poang": 8,
+     "form": "WLDWD"
+    },
+    "borta": {
+     "plats": 15,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 1,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 6,
+     "inslappta": 11,
+     "poang": 5,
+     "form": "DWLDLL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -194,6 +221,33 @@
    ],
    "kommentar": "Jämn oddsbild där Brentford har 39 % och Liverpool 36 %. Svenska folket överstreckar hemmalaget kraftigt, vilket ger fint värde på tvåan. Tipset landar på 2–2.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 4,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 2,
+     "oavgjorda": 4,
+     "forlorade": 0,
+     "gjorda": 12,
+     "inslappta": 6,
+     "poang": 10,
+     "form": "DWDDDW"
+    },
+    "borta": {
+     "plats": 9,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 2,
+     "oavgjorda": 3,
+     "forlorade": 1,
+     "gjorda": 7,
+     "inslappta": 7,
+     "poang": 9,
+     "form": "LWDWDD"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -284,6 +338,33 @@
    ],
    "kommentar": "Manchester City är storfavorit med 77 % vinstchans enligt oddsen. Folket har bara streckat ettan till 45 %, vilket ger enormt spelvärde på 1. Tipset är 3–1.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 1,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 6,
+     "oavgjorda": 0,
+     "forlorade": 0,
+     "gjorda": 16,
+     "inslappta": 5,
+     "poang": 18,
+     "form": "WWWWWW"
+    },
+    "borta": {
+     "plats": 10,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 3,
+     "oavgjorda": 0,
+     "forlorade": 3,
+     "gjorda": 9,
+     "inslappta": 12,
+     "poang": 9,
+     "form": "WLWLLW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -374,6 +455,33 @@
    ],
    "kommentar": "Fulham bär favoritskapet (56 %) och är understreckad med fint spelvärde på ettan mot folkets 47 %. Tipset spår en 1–0-seger till hemmalaget.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 20,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 0,
+     "oavgjorda": 2,
+     "forlorade": 4,
+     "gjorda": 6,
+     "inslappta": 10,
+     "poang": 2,
+     "form": "LDDLLL"
+    },
+    "borta": {
+     "plats": 8,
+     "antal_lag": 20,
+     "spelade": 6,
+     "vunna": 2,
+     "oavgjorda": 3,
+     "forlorade": 1,
+     "gjorda": 8,
+     "inslappta": 6,
+     "poang": 9,
+     "form": "DLDDWW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -464,6 +572,33 @@
    ],
    "kommentar": "Birmingham är favorit till 47 % och erbjuder visst värde då ettan bara är streckad till 43 %. Tipset spår också en 1–0-seger för hemmalaget.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 7,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 5,
+     "forlorade": 1,
+     "gjorda": 13,
+     "inslappta": 11,
+     "poang": 14,
+     "form": "WDWLDD"
+    },
+    "borta": {
+     "plats": 6,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 5,
+     "forlorade": 1,
+     "gjorda": 11,
+     "inslappta": 8,
+     "poang": 14,
+     "form": "DDDDLW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -554,6 +689,33 @@
    ],
    "kommentar": "Bristol City är knapp favorit med 42 % vinstchans mot ett överstreckat 1. Litet värde syns på krysset (27 % chans), vilket även tipset landar i (1–1).",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 10,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 4,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 12,
+     "inslappta": 13,
+     "poang": 14,
+     "form": "DWLLWW"
+    },
+    "borta": {
+     "plats": 14,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 12,
+     "inslappta": 11,
+     "poang": 12,
+     "form": "WLLWLW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -636,6 +798,33 @@
    "tips": [],
    "kommentar": "Derby är knapp favorit med 38 % chans men överstreckas till 43 %. Både krysset och tvåan erbjuder spelvärde gentemot oddsen.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 23,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 1,
+     "oavgjorda": 3,
+     "forlorade": 5,
+     "gjorda": 8,
+     "inslappta": 15,
+     "poang": 6,
+     "form": "DDLLLW"
+    },
+    "borta": {
+     "plats": 4,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 5,
+     "oavgjorda": 1,
+     "forlorade": 3,
+     "gjorda": 15,
+     "inslappta": 13,
+     "poang": 16,
+     "form": "WWWDWW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -726,6 +915,33 @@
    ],
    "kommentar": "Norwich är tydlig favorit (55 %) och streckas bara till 45 %, vilket skapar ett bra värde på ettan. Tvåan är samtidigt klart överstreckad.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 18,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 0,
+     "forlorade": 6,
+     "gjorda": 17,
+     "inslappta": 19,
+     "poang": 9,
+     "form": "LLLWWL"
+    },
+    "borta": {
+     "plats": 19,
+     "antal_lag": 24,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 2,
+     "forlorade": 4,
+     "gjorda": 9,
+     "inslappta": 11,
+     "poang": 8,
+     "form": "LDDWLL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -808,6 +1024,33 @@
    "tips": [],
    "kommentar": "Southampton har hela 64 % vinstchans enligt oddsen men är endast streckad till 44 %. Ett massivt värde landar därmed på ettan då bortalaget överstreckas.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 11,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 5,
+     "oavgjorda": 2,
+     "forlorade": 2,
+     "gjorda": 20,
+     "inslappta": 10,
+     "poang": 13,
+     "form": "WLWWDD"
+    },
+    "borta": {
+     "plats": 17,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 1,
+     "forlorade": 5,
+     "gjorda": 12,
+     "inslappta": 17,
+     "poang": 10,
+     "form": "LWWLLL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -890,6 +1133,33 @@
    "tips": [],
    "kommentar": "West Ham är favorit till 48 % men är grovt understreckad till bara 29 %. Folket streckar Swansea hårt (44 %), så spelvärdet ligger helt på tvåan.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 1,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 6,
+     "oavgjorda": 2,
+     "forlorade": 1,
+     "gjorda": 15,
+     "inslappta": 7,
+     "poang": 20,
+     "form": "WWWLDW"
+    },
+    "borta": {
+     "plats": 3,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 4,
+     "oavgjorda": 4,
+     "forlorade": 1,
+     "gjorda": 23,
+     "inslappta": 12,
+     "poang": 16,
+     "form": "DDWWWW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -972,6 +1242,33 @@
    "tips": [],
    "kommentar": "West Bromwich är favorit med 53 % vinstchans och har fint värde på ettan, som bara streckats till 44 %. Bortalaget är i stället överstreckat.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 9,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 4,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 10,
+     "inslappta": 9,
+     "poang": 14,
+     "form": "LLDWWD"
+    },
+    "borta": {
+     "plats": 13,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 3,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 14,
+     "inslappta": 13,
+     "poang": 12,
+     "form": "WDWLLD"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -1054,6 +1351,33 @@
    "tips": [],
    "kommentar": "Wrexham har 53 % segerchans enligt oddsen men streckas till 45 %. Det ger ett fint värde på ettan medan tvåan lockar för många streck.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 15,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 2,
+     "oavgjorda": 5,
+     "forlorade": 2,
+     "gjorda": 10,
+     "inslappta": 13,
+     "poang": 11,
+     "form": "DWLDDW"
+    },
+    "borta": {
+     "plats": 24,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 1,
+     "oavgjorda": 1,
+     "forlorade": 7,
+     "gjorda": 8,
+     "inslappta": 16,
+     "poang": 4,
+     "form": "LDLLWL"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   },
@@ -1136,6 +1460,33 @@
    "tips": [],
    "kommentar": "Huddersfield är knapp oddsfavorit (38 %) men har bara streckats till 28 %. Det ger högt värde på tvåan då hemmalaget är kraftigt överstreckat.",
    "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 1,
+     "antal_lag": 24,
+     "spelade": 10,
+     "vunna": 6,
+     "oavgjorda": 1,
+     "forlorade": 3,
+     "gjorda": 18,
+     "inslappta": 12,
+     "poang": 19,
+     "form": "WWLWWW"
+    },
+    "borta": {
+     "plats": 4,
+     "antal_lag": 24,
+     "spelade": 9,
+     "vunna": 4,
+     "oavgjorda": 4,
+     "forlorade": 1,
+     "gjorda": 16,
+     "inslappta": 9,
+     "poang": 16,
+     "form": "DWLDDW"
+    },
+    "kalla": "BBC Sport"
+   },
    "resultat": null,
    "mal": null
   }
@@ -1518,6 +1869,14 @@
       "slutsats": "sämre"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1545,7 +1904,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 651,
+     "omgangar": 253,
+     "traff": 0.29,
+     "chans": 0.266,
+     "folket": 0.193
+    }
    },
    "2023": {
     "modeller": [
@@ -1664,6 +2030,14 @@
       "slutsats": "sämre"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1691,7 +2065,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 498,
+     "omgangar": 199,
+     "traff": 0.289,
+     "chans": 0.265,
+     "folket": 0.193
+    }
    },
    "2024": {
     "modeller": [
@@ -1810,6 +2191,14 @@
       "slutsats": "sämre"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1837,7 +2226,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 357,
+     "omgangar": 146,
+     "traff": 0.308,
+     "chans": 0.265,
+     "folket": 0.193
+    }
    },
    "2025": {
     "modeller": [
@@ -1956,6 +2352,14 @@
       "slutsats": "ingen säker skillnad"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -1983,7 +2387,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 233,
+     "omgangar": 93,
+     "traff": 0.335,
+     "chans": 0.262,
+     "folket": 0.191
+    }
    },
    "2026": {
     "modeller": [
@@ -2084,6 +2495,14 @@
       "slutsats": "ingen säker skillnad"
      },
      {
+      "version": "lagkoll-v1",
+      "namn": "Lagkoll",
+      "roll": "skugga",
+      "framat": true,
+      "antal": 0,
+      "slutsats": "för lite data"
+     },
+     {
       "version": "Svenska folket",
       "namn": "Svenska folket",
       "roll": "referens",
@@ -2111,7 +2530,14 @@
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
      }
-    ]
+    ],
+    "skrall": {
+     "antal": 104,
+     "omgangar": 41,
+     "traff": 0.288,
+     "chans": 0.263,
+     "folket": 0.191
+    }
    }
   }
  },
