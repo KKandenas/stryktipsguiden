@@ -84,9 +84,28 @@ def steg_svenskaspel(conn) -> bool:
     return ok
 
 
+MIN_ODDSKREDITER = 30   # färre kvar än så: spara resten till månadsskiftet
+
+
+def _installning(conn, nyckel):
+    r = conn.execute("SELECT varde, uppdaterad FROM installningar WHERE nyckel = ?", (nyckel,)).fetchone()
+    return (r[0], r[1]) if r else (None, None)
+
+
+def _satt_installning(conn, nyckel, varde):
+    with conn:
+        conn.execute("""INSERT INTO installningar (nyckel, varde, uppdaterad) VALUES (?, ?, ?)
+                        ON CONFLICT(nyckel) DO UPDATE SET varde = excluded.varde, uppdaterad = excluded.uppdaterad""",
+                     (nyckel, str(varde), nu_utc()))
+
+
 def steg_odds(conn) -> bool:
     if not config.ODDS_API_KEY:
         log.info("The Odds API: ODDS_API_KEY saknas – hoppar över (valfri källa)")
+        return True
+    kvar, nar = _installning(conn, "oddsapi_krediter_kvar")
+    if kvar is not None and int(kvar) < MIN_ODDSKREDITER and nar and nar[:7] == nu_utc()[:7]:
+        log.warning("The Odds API: bara %s krediter kvar den här månaden – hoppar över till månadsskiftet", kvar)
         return True
     oppna = [r[0] for r in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ?", (nu_utc(),))]
     if not oppna:
@@ -95,11 +114,14 @@ def steg_odds(conn) -> bool:
         matcher = [Match(r["matchnr"], r["hemmalag"], r["bortalag"], r["liga"], r["land"], r["avspark"])
                    for r in conn.execute("SELECT * FROM matcher WHERE omgang_id = ? ORDER BY matchnr",
                                          (omgang_id,))]
+        krediter: dict = {}
         try:
-            odds, varningar = oddsapi.hamta_odds(matcher)
+            odds, varningar = oddsapi.hamta_odds(matcher, krediter)
         except Exception as e:  # en valfri källa får aldrig stoppa pipelinen
             log.error("The Odds API: oväntat fel: %s", e)
             continue
+        if "kvar" in krediter:
+            _satt_installning(conn, "oddsapi_krediter_kvar", krediter["kvar"])
         for v in varningar:
             log.warning("The Odds API: %s", v)
         nya = lagring.spara_odds(conn, omgang_id, odds)

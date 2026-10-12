@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261011t">
-<script type="module" src="app.js?v=20261011t"></script>
+<link rel="stylesheet" href="app.css?v=20261012a">
+<script type="module" src="app.js?v=20261012a"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -256,12 +256,16 @@
       <h2>Uppdateringar</h2>
       <table class="stat-tabell">
         <tbody>
-          <tr><td>Måndag förmiddag</td><td>Ny kupong, odds, tips och AI-kommentarer</td></tr>
-          <tr><td>Onsdag och torsdag kväll</td><td>Uppdaterade streck, odds och tips</td></tr>
-          <tr><td>Lördag före spelstopp</td><td>Sista streck och odds</td></tr>
+          <tr><td>Måndag 10</td><td>Ny kupong, odds, tips och AI-kommentarer</td></tr>
+          <tr><td>Onsdag, torsdag och fredag 19</td><td>Uppdaterade streck, odds, tips och kommentarer</td></tr>
+          <tr><td>Lördag 10:30, 11:30 och 12:30</td><td>Förmiddagsuppdateringar – i god tid innan du spelar</td></tr>
+          <tr><td>Lördag 14, 15 och 15:25</td><td>Sista streck och odds före spelstopp 15:59</td></tr>
           <tr><td>Söndag</td><td>Resultat, utdelning, statistik och omträning</td></tr>
         </tbody>
       </table>
+      <p class="dampad liten">Tider gäller sommartid; under vintertid (från sista söndagen i oktober) körs
+        allt en timme tidigare, utom på måndag. GitHub kan ibland vara 5–30 minuter sen. Vid varje körning läses
+        tipssajterna på nytt och AI-kommentarerna skrivs om när ny information kommit in.</p>
       <p class="dampad liten" data-om="uppdaterad"></p>
     </section>
 
@@ -296,6 +300,20 @@
         <p>Historiken talar än så länge för Oddsen, eftersom spelbolagens odds är den mest träffsäkra bedömning
           som finns. Under <a href="#statistik">Så har modellen träffat</a> ser du hur varje tipsare träffar, och på
           kupongen ser du var förslagen skiljer sig och var tipsare går emot förslaget.</p>
+      </details>
+      <details>
+        <summary>När låses raderna?</summary>
+        <p>Förslaget uppdateras vid varje körning fram till spelstopp. Efter spelstopp fryses det som det såg ut vid
+          <b>sista körningen före spelstopp</b> (normalt lördag 15:25, under vintertid 14:25). Slutstrecken och sista
+          oddsen ändrar alltså inte förslaget i efterhand, och rättningen under <a href="#rattning">Förra omgången</a>
+          gäller samma rader. Har du spelat tidigare på lördagen kan förslaget ha ändrats något efter det – spelar
+          du runt lunch hinner minst två förmiddagskörningar gå innan dess.</p>
+      </details>
+      <details>
+        <summary>Uppdateras tips och AI-kommentarer under veckan?</summary>
+        <p>Ja. Många tipssajter publicerar sent i veckan. Vid varje körning läses de på nytt, nya tips tolkas och
+          kommentarerna skrivs om när underlaget ändrats. Nya spelbolags odds påverkar förslaget direkt, och nya
+          experter påverkar <i>Med experter</i> direkt med en liten startvikt som sedan lärs om varje söndag.</p>
       </details>
       <details>
         <summary>Kan man vinna pengar med guiden?</summary>

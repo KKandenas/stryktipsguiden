@@ -36,6 +36,10 @@ matcher[].osaker: true om bedömningen bara bygger på Svenska Spels odds (eller
   (träff = andel matcher där mest sannolika tecknet gick in; modell_ratt = antal rätt för en
    enkelrad med modellens favorittecken, folket_ratt = samma med mest streckade tecknet)
 
+omgang.frusen: tidpunkt (UTC) för den ögonblicksbild som visas efter spelstopp, eller null. Efter spelstopp
+  visas chans, streck, värde, odds, tips och kommentarer som vid sista körningen före spelstopp, så att
+  förslaget inte ändras när slutstrecken kommer in.
+
 status: "oppen" (före spelstopp), "stangd" (väntar på resultat), "avgjord", "installd".
 chans_kalla "streck" betyder att odds saknades och att strecken används som nödlösning (inget värde räknas då).
 """
@@ -59,6 +63,10 @@ log = logging.getLogger(__name__)
 
 FORMATVERSION = 1
 TECKEN = ("1", "X", "2")
+
+# Fält per match som fryses vid sista körningen före spelstopp (resultat och mål läggs alltid till färskt)
+FRYSTA_FALT = ("chans", "chans_kalla", "streck", "streck_tid", "varde", "osaker", "chans_tips", "varde_tips",
+               "odds", "tips", "kommentar")
 
 # Bolag som visas i appen, i den här ordningen (övriga i bokstavsordning efter), högst MAX_BOLAG.
 BOLAGSORDNING = ["pinnacle", "svenskaspel", "svenskaspel_start", "unibet_eu", "betsson", "nordicbet", "bet365",
@@ -160,12 +168,24 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
     if len(matcher) != 13:
         raise ExportFel(f"Omgång {omgang_id} har {len(matcher)} matcher, väntade 13")
 
+    # Efter spelstopp: visa förslaget som det såg ut vid sista körningen före spelstopp
+    frusen = None
+    if status != "oppen":
+        rad = conn.execute("SELECT kupong, frusen FROM frysta_kuponger WHERE omgang_id = ?", (omgang_id,)).fetchone()
+        if rad:
+            snap = json.loads(rad[0]).get("matcher", {})
+            for m in matcher:
+                fryst = snap.get(str(m["nr"]))
+                if fryst:
+                    m.update({k: fryst.get(k) for k in FRYSTA_FALT if k in fryst})
+            frusen = rad[1]
+
     return {
         "formatversion": FORMATVERSION,
         "genererad": nu,
         "modell": {"version": modell.version, "beskrivning": modell.beskrivning},
         "omgang": {
-            "id": o["id"], "datum": o["datum"], "spelstopp": o["spelstopp"], "status": status,
+            "id": o["id"], "datum": o["datum"], "spelstopp": o["spelstopp"], "status": status, "frusen": frusen,
             "omsattning": o["omsattning"], "radpris": 1,
             "utdelning": ({str(n): o[f"utdelning_{n}"] for n in (13, 12, 11, 10)} if visa_resultat else None),
             "vinnare": ({str(n): o[f"vinnare_{n}"] for n in (13, 12, 11, 10)} if visa_resultat else None),
@@ -393,6 +413,17 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
     return {"formatversion": 1, "genererad": nu or nu_utc(), "modell": version, "omgangar": omgangar}
 
 
+def frys(conn: sqlite3.Connection, kupong: dict, nu: str) -> None:
+    """Spara en ögonblicksbild av en öppen omgång. Den senaste före spelstopp är den som gäller sedan."""
+    if kupong["omgang"]["status"] != "oppen" or kupong["omgang"]["spelstopp"] <= nu:
+        return
+    snap = {"matcher": {str(m["nr"]): {k: m.get(k) for k in FRYSTA_FALT} for m in kupong["matcher"]}}
+    with conn:
+        conn.execute("""INSERT INTO frysta_kuponger (omgang_id, kupong, frusen) VALUES (?, ?, ?)
+                        ON CONFLICT(omgang_id) DO UPDATE SET kupong = excluded.kupong, frusen = excluded.frusen""",
+                     (kupong["omgang"]["id"], json.dumps(snap, ensure_ascii=False, sort_keys=True), nu))
+
+
 def exportera(conn: sqlite3.Connection, omgang_id: Optional[int] = None, sokvag: Optional[Path] = None,
               dolj_resultat: bool = False) -> Optional[int]:
     nu = nu_utc()
@@ -402,6 +433,8 @@ def exportera(conn: sqlite3.Connection, omgang_id: Optional[int] = None, sokvag:
         return None
     sokvag = sokvag or config.DOCS_DIR / "kupong.json"
     kupong = bygg_kupong(conn, omgang_id, nu, dolj_resultat)
+    if not dolj_resultat:
+        frys(conn, kupong, nu)
     saknar = [m["nr"] for m in kupong["matcher"] if m["chans_kalla"] != "modell"]
     if saknar:
         log.warning("Export: omgång %s – modellprognos saknas för match %s", omgang_id, saknar)

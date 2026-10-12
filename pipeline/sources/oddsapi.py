@@ -83,8 +83,9 @@ def matcha(matcher: List[Match], events: List[OddsEvent]) -> Dict[int, OddsEvent
     return resultat
 
 
-def hamta_odds(matcher: List[Match]) -> Tuple[List[Odds], List[str]]:
-    """Hämta odds för kupongens matcher. Returnerar (odds, varningar)."""
+def hamta_odds(matcher: List[Match], krediter: Optional[dict] = None) -> Tuple[List[Odds], List[str]]:
+    """Hämta odds för kupongens matcher. Returnerar (odds, varningar).
+    krediter: dict som fylls med {"kvar": n} från svarshuvudet x-requests-remaining."""
     if not config.ODDS_API_KEY:
         return [], ["ODDS_API_KEY saknas – hoppar över The Odds API"]
 
@@ -107,6 +108,11 @@ def hamta_odds(matcher: List[Match]) -> Tuple[List[Odds], List[str]]:
             kvar = resp.headers.get("x-requests-remaining")
             if kvar is not None:
                 log.info("The Odds API: %s krediter kvar", kvar)
+                if krediter is not None:
+                    try:
+                        krediter["kvar"] = int(float(kvar))
+                    except ValueError:
+                        pass
             events = tolka_events(data)
         except HamtningsFel as e:
             # Nyckeln får inte hamna i loggen.

@@ -144,3 +144,28 @@ def test_statistik_per_startar(conn):
     for a in ar:   # varje startår har färre (eller lika många) matcher än totalen
         assert pa[a]["modeller"][0]["antal"] < pa["alla"]["modeller"][0]["antal"]
     assert pa["alla"]["modeller"][0]["version"] in ("odds-v2", "ensemble-v1", "tips-v1")
+
+
+def test_forslaget_fryses_vid_sista_korningen_fore_spelstopp(conn):
+    fyll(conn)
+    berakna_prognoser(conn)
+    fore = export.bygg_kupong(conn, 4974, nu=INNAN)              # 13:30Z, före spelstopp 13:59Z
+    export.frys(conn, fore, INNAN)
+    # Efter spelstopp kommer slutstrecken in och skiljer sig kraftigt
+    mid = conn.execute("SELECT id FROM matcher WHERE matchnr = 1").fetchone()[0]
+    conn.execute("INSERT INTO streck VALUES (?, '2026-10-10T14:30:00Z', 40, 30, 30)", (mid,))
+    conn.commit()
+    efter = export.bygg_kupong(conn, 4974, nu="2026-10-10T15:00:00Z")
+    assert efter["omgang"]["status"] == "stangd"
+    assert efter["omgang"]["frusen"] == INNAN
+    assert efter["matcher"][0]["streck"] == fore["matcher"][0]["streck"] == {"1": 65.0, "X": 20.0, "2": 15.0}
+    assert efter["matcher"][0]["chans"] == fore["matcher"][0]["chans"]
+    # Frysning görs bara medan omgången är öppen
+    export.frys(conn, efter, "2026-10-10T15:00:00Z")
+    assert conn.execute("SELECT frusen FROM frysta_kuponger").fetchone()[0] == INNAN
+
+
+def test_utan_frysning_visas_slutdatan(conn):
+    fyll(conn)
+    efter = export.bygg_kupong(conn, 4974, nu="2026-10-10T15:00:00Z")
+    assert efter["omgang"]["frusen"] is None

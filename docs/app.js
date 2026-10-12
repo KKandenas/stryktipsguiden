@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261011t";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261011t";
+} from "./optimizer.js?v=20261012a";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261012a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -189,7 +189,7 @@ function renderaTopp() {
   if (state.exempel) {
     text = "Exempeldata: ingen riktig kupong finns ännu, så en tidigare omgång visas som om den vore öppen.";
   } else if (omgang.status === "stangd") {
-    text = "Spelstopp har passerat. Resultaten kommer efter att matcherna spelats.";
+    text = `Spelstopp har passerat. Resultaten kommer efter att matcherna spelats. ${fryst(omgang)}`.trim();
   } else if (omgang.status === "installd") {
     text = "Omgången är inställd av Svenska Spel.";
   } else if (omgang.status === "avgjord" && state.resultat?.ok) {
@@ -197,7 +197,7 @@ function renderaTopp() {
     const n = antalRatt(state.resultat.val, facit);
     const utd = omgang.utdelning?.[String(n)];
     text = `Omgången är avgjord. Ditt system hade ${n} rätt` +
-      (utd ? ` – utdelning ${Math.round(utd).toLocaleString("sv-SE")} kr.` : ".");
+      (utd ? ` – utdelning ${Math.round(utd).toLocaleString("sv-SE")} kr.` : ".") + (omgang.frusen ? ` ${fryst(omgang)}` : "");
   }
   banner.hidden = !text;
   banner.textContent = text || "";
@@ -631,7 +631,8 @@ function renderaRattning() {
     box.append(el("p", { class: "dampad", text: rader.length ? rader.join(" · ") : "Ingen rad nådde 10 rätt." }));
     box.append(el("p", { class: "dampad liten", text: (state.kalla === "tips" ? "Förslaget Med experter. " : "") +
       (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
-      "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." }));
+      "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." +
+      (omgang.frusen ? ` ${fryst(omgang)}` : "") }));
   }
   renderaUtdelning(omgang, res.ok ? rattFordelning(res.val, k.matcher.map((m) => m.resultat || "?")) : null);
   ritaMatcher($("r-matcher"), { ...k, matcher: rMatcher }, res, lasningar, state.rOppna, false,
