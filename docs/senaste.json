@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-12T12:36:49Z",
+ "genererad": "2026-10-12T14:07:13Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -1116,6 +1116,64 @@
       "traff": 0.53,
       "antal": 100
      }
+    ],
+    "jamforelse": [
+     {
+      "version": "tips-v1",
+      "namn": "Med experter",
+      "roll": "alternativ",
+      "framat": false,
+      "antal": 2782,
+      "traff": 0.489,
+      "traff_odds": 0.491,
+      "brier": 0.609,
+      "brier_odds": 0.6079,
+      "skillnad": -0.0017,
+      "felmarginal": 0.0009,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "ensemble-v1",
+      "namn": "Sammanvägd modell",
+      "roll": "skugga",
+      "framat": false,
+      "antal": 2782,
+      "traff": 0.488,
+      "traff_odds": 0.491,
+      "brier": 0.6091,
+      "brier_odds": 0.6079,
+      "skillnad": -0.002,
+      "felmarginal": 0.0013,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "Svenska folket",
+      "namn": "Svenska folket",
+      "roll": "referens",
+      "framat": false,
+      "antal": 3289,
+      "traff": 0.495,
+      "traff_odds": 0.488,
+      "brier": 0.6185,
+      "brier_odds": 0.608,
+      "skillnad": -0.0164,
+      "felmarginal": 0.0069,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "odds-v1",
+      "namn": "Odds, oviktat snitt",
+      "roll": "arkiv",
+      "framat": false,
+      "antal": 3289,
+      "traff": 0.488,
+      "traff_odds": 0.488,
+      "brier": 0.608,
+      "brier_odds": 0.608,
+      "skillnad": 0.0,
+      "felmarginal": 0.0,
+      "slutsats": "ingen säker skillnad"
+     }
     ]
    },
    "2023": {
@@ -1203,6 +1261,64 @@
       "brier": 0.6432,
       "traff": 0.417,
       "antal": 84
+     }
+    ],
+    "jamforelse": [
+     {
+      "version": "tips-v1",
+      "namn": "Med experter",
+      "roll": "alternativ",
+      "framat": false,
+      "antal": 2587,
+      "traff": 0.489,
+      "traff_odds": 0.491,
+      "brier": 0.6081,
+      "brier_odds": 0.6073,
+      "skillnad": -0.0013,
+      "felmarginal": 0.0008,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "ensemble-v1",
+      "namn": "Sammanvägd modell",
+      "roll": "skugga",
+      "framat": false,
+      "antal": 2587,
+      "traff": 0.488,
+      "traff_odds": 0.491,
+      "brier": 0.6082,
+      "brier_odds": 0.6073,
+      "skillnad": -0.0015,
+      "felmarginal": 0.0012,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "Svenska folket",
+      "namn": "Svenska folket",
+      "roll": "referens",
+      "framat": false,
+      "antal": 2587,
+      "traff": 0.499,
+      "traff_odds": 0.491,
+      "brier": 0.6164,
+      "brier_odds": 0.6073,
+      "skillnad": -0.014,
+      "felmarginal": 0.0076,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "odds-v1",
+      "namn": "Odds, oviktat snitt",
+      "roll": "arkiv",
+      "framat": false,
+      "antal": 2587,
+      "traff": 0.491,
+      "traff_odds": 0.491,
+      "brier": 0.6073,
+      "brier_odds": 0.6073,
+      "skillnad": 0.0,
+      "felmarginal": 0.0,
+      "slutsats": "ingen säker skillnad"
      }
     ]
    },
@@ -1292,6 +1408,64 @@
       "traff": 0.412,
       "antal": 68
      }
+    ],
+    "jamforelse": [
+     {
+      "version": "tips-v1",
+      "namn": "Med experter",
+      "roll": "alternativ",
+      "framat": false,
+      "antal": 1898,
+      "traff": 0.484,
+      "traff_odds": 0.487,
+      "brier": 0.6092,
+      "brier_odds": 0.6084,
+      "skillnad": -0.0014,
+      "felmarginal": 0.0007,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "ensemble-v1",
+      "namn": "Sammanvägd modell",
+      "roll": "skugga",
+      "framat": false,
+      "antal": 1898,
+      "traff": 0.483,
+      "traff_odds": 0.487,
+      "brier": 0.6096,
+      "brier_odds": 0.6084,
+      "skillnad": -0.002,
+      "felmarginal": 0.0013,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "Svenska folket",
+      "namn": "Svenska folket",
+      "roll": "referens",
+      "framat": false,
+      "antal": 1898,
+      "traff": 0.496,
+      "traff_odds": 0.487,
+      "brier": 0.6188,
+      "brier_odds": 0.6084,
+      "skillnad": -0.0163,
+      "felmarginal": 0.0089,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "odds-v1",
+      "namn": "Odds, oviktat snitt",
+      "roll": "arkiv",
+      "framat": false,
+      "antal": 1898,
+      "traff": 0.487,
+      "traff_odds": 0.487,
+      "brier": 0.6084,
+      "brier_odds": 0.6084,
+      "skillnad": 0.0,
+      "felmarginal": 0.0,
+      "slutsats": "ingen säker skillnad"
+     }
     ]
    },
    "2025": {
@@ -1380,6 +1554,64 @@
       "traff": 0.489,
       "antal": 45
      }
+    ],
+    "jamforelse": [
+     {
+      "version": "tips-v1",
+      "namn": "Med experter",
+      "roll": "alternativ",
+      "framat": false,
+      "antal": 1209,
+      "traff": 0.476,
+      "traff_odds": 0.48,
+      "brier": 0.6155,
+      "brier_odds": 0.6151,
+      "skillnad": -0.0006,
+      "felmarginal": 0.0007,
+      "slutsats": "ingen säker skillnad"
+     },
+     {
+      "version": "ensemble-v1",
+      "namn": "Sammanvägd modell",
+      "roll": "skugga",
+      "framat": false,
+      "antal": 1209,
+      "traff": 0.477,
+      "traff_odds": 0.48,
+      "brier": 0.6158,
+      "brier_odds": 0.6151,
+      "skillnad": -0.0012,
+      "felmarginal": 0.0015,
+      "slutsats": "ingen säker skillnad"
+     },
+     {
+      "version": "Svenska folket",
+      "namn": "Svenska folket",
+      "roll": "referens",
+      "framat": false,
+      "antal": 1209,
+      "traff": 0.489,
+      "traff_odds": 0.48,
+      "brier": 0.6267,
+      "brier_odds": 0.6151,
+      "skillnad": -0.0189,
+      "felmarginal": 0.0113,
+      "slutsats": "sämre"
+     },
+     {
+      "version": "odds-v1",
+      "namn": "Odds, oviktat snitt",
+      "roll": "arkiv",
+      "framat": false,
+      "antal": 1209,
+      "traff": 0.48,
+      "traff_odds": 0.48,
+      "brier": 0.6151,
+      "brier_odds": 0.6151,
+      "skillnad": 0.0,
+      "felmarginal": 0.0,
+      "slutsats": "ingen säker skillnad"
+     }
     ]
    },
    "2026": {
@@ -1449,6 +1681,64 @@
       "brier": 0.6354,
       "traff": 0.449,
       "antal": 69
+     }
+    ],
+    "jamforelse": [
+     {
+      "version": "tips-v1",
+      "namn": "Med experter",
+      "roll": "alternativ",
+      "framat": false,
+      "antal": 533,
+      "traff": 0.458,
+      "traff_odds": 0.462,
+      "brier": 0.6243,
+      "brier_odds": 0.6234,
+      "skillnad": -0.0011,
+      "felmarginal": 0.0014,
+      "slutsats": "ingen säker skillnad"
+     },
+     {
+      "version": "ensemble-v1",
+      "namn": "Sammanvägd modell",
+      "roll": "skugga",
+      "framat": false,
+      "antal": 533,
+      "traff": 0.462,
+      "traff_odds": 0.462,
+      "brier": 0.6244,
+      "brier_odds": 0.6234,
+      "skillnad": -0.0013,
+      "felmarginal": 0.0022,
+      "slutsats": "ingen säker skillnad"
+     },
+     {
+      "version": "Svenska folket",
+      "namn": "Svenska folket",
+      "roll": "referens",
+      "framat": false,
+      "antal": 533,
+      "traff": 0.475,
+      "traff_odds": 0.462,
+      "brier": 0.6332,
+      "brier_odds": 0.6234,
+      "skillnad": -0.0153,
+      "felmarginal": 0.0167,
+      "slutsats": "ingen säker skillnad"
+     },
+     {
+      "version": "odds-v1",
+      "namn": "Odds, oviktat snitt",
+      "roll": "arkiv",
+      "framat": false,
+      "antal": 533,
+      "traff": 0.462,
+      "traff_odds": 0.462,
+      "brier": 0.6234,
+      "brier_odds": 0.6234,
+      "skillnad": 0.0,
+      "felmarginal": 0.0,
+      "slutsats": "ingen säker skillnad"
      }
     ]
    }
