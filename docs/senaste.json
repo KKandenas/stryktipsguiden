@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-11T07:52:51Z",
+ "genererad": "2026-10-12T12:36:49Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -10,6 +10,7 @@
   "datum": "2026-10-10",
   "spelstopp": "2026-10-10T13:59:00Z",
   "status": "avgjord",
+  "frusen": null,
   "omsattning": 26061816.0,
   "radpris": 1,
   "utdelning": {
