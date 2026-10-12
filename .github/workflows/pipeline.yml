@@ -25,7 +25,7 @@ on:
         description: "Vad ska köras?"
         type: choice
         default: auto
-        options: [auto, svenskaspel, odds, resultat, tips, kommentarer, lagkoll, backfill]
+        options: [auto, svenskaspel, odds, resultat, tips, kommentarer, lagkoll, tabeller, backfill]
       fran:
         description: "backfill: första omgång (t.ex. 4900)"
         required: false

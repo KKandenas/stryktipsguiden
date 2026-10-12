@@ -9,6 +9,7 @@
     python -m pipeline prognos [--alla]     # räkna sannolikheter (odds-v2 och odds-v1, och ensemble-v1 om vikter finns)
     python -m pipeline statistik            # källstatistik, träning, backtest och modellval
     python -m pipeline kommentarer          # AI-kommentarer per match (kräver GEMINI_API_KEY)
+    python -m pipeline tabeller             # ligatabeller med form + export (ingen AI, inga oddskrediter)
     python -m pipeline lagkoll              # Lagkoll: tabeller + AI-analys av lagen nu, oavsett tid till spelstopp
     python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
     python -m pipeline migrera
@@ -307,7 +308,8 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipsguidens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "lagkoll", "statistik", "migrera"):
+    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "lagkoll", "tabeller", "statistik",
+                 "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
     b.add_argument("fran", type=int)
@@ -353,6 +355,9 @@ def main(argv=None) -> int:
         steg_tips(conn)
     elif args.kommando == "kommentarer":
         steg_kommentarer(conn)
+    elif args.kommando == "tabeller":
+        steg_tabeller(conn)
+        kritiskt_ok = steg_export(conn)
     elif args.kommando == "lagkoll":
         steg_lagkoll(conn, tvinga=True)
     elif args.kommando == "statistik":
