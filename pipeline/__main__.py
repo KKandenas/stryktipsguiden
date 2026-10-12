@@ -20,6 +20,7 @@ Avslutningskoden är 1 om ett kritiskt steg (Svenska Spel, resultat eller export
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
 import time
@@ -100,6 +101,16 @@ def _satt_installning(conn, nyckel, varde):
         conn.execute("""INSERT INTO installningar (nyckel, varde, uppdaterad) VALUES (?, ?, ?)
                         ON CONFLICT(nyckel) DO UPDATE SET varde = excluded.varde, uppdaterad = excluded.uppdaterad""",
                      (nyckel, str(varde), nu_utc()))
+
+
+def spara_ai_status(conn) -> None:
+    """Hur AI-anropen gick i den här körningen (för driftstatusen i appen). Sparas bara om AI användes."""
+    k = ai_klient.KORNING
+    ok, orsak = ai_klient.tillganglig()
+    if not ok:
+        _satt_installning(conn, "ai_status", json.dumps({"konfigurerad": False, "orsak": orsak}, ensure_ascii=False))
+    elif k["lyckade"] or k["misslyckade"] or k["stoppad"]:
+        _satt_installning(conn, "ai_status", json.dumps({"konfigurerad": True, **k}, ensure_ascii=False))
 
 
 def steg_odds(conn) -> bool:
@@ -342,6 +353,7 @@ def main(argv=None) -> int:
         steg_kommentarer(conn)
         steg_tabeller(conn)
         steg_lagkoll(conn)
+        spara_ai_status(conn)
         kritiskt_ok &= steg_export(conn)
     elif args.kommando == "svenskaspel":
         kritiskt_ok = steg_svenskaspel(conn)

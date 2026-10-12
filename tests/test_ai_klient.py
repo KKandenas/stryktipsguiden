@@ -161,3 +161,25 @@ def test_gemini_klienten_byggs_utan_egna_omforsok(monkeypatch):
         klient._anropa_gemini("s", "u", {}, 10)
     opt = fangad["klient"]._api_client._http_options
     assert opt.retry_options.attempts == 1 and opt.retry_options.http_status_codes == [408]
+
+
+def test_ai_status_sparas_och_exporteras(conn, monkeypatch):
+    import json
+    from pipeline import __main__ as cli, export
+    monkeypatch.setattr(klient, "KORNING", {"lyckade": 3, "misslyckade": 1, "modeller": {"gemini-3.7-flash": 3},
+                                            "stoppad": None})
+    monkeypatch.setattr(klient, "tillganglig", lambda: (True, ""))
+    cli.spara_ai_status(conn)
+    cli._satt_installning(conn, "oddsapi_krediter_kvar", 458)
+    d = export.bygg_drift(conn)
+    assert d["ai"]["lyckade"] == 3 and d["ai"]["modeller"] == {"gemini-3.7-flash": 3} and d["ai"]["tid"]
+    assert d["odds"]["kvar"] == 458
+    # Ingen AI använd i körningen → förra statusen ligger kvar
+    monkeypatch.setattr(klient, "KORNING", {"lyckade": 0, "misslyckade": 0, "modeller": {}, "stoppad": None})
+    cli.spara_ai_status(conn)
+    assert export.bygg_drift(conn)["ai"]["lyckade"] == 3
+    monkeypatch.setattr(klient, "tillganglig", lambda: (False, "ingen AI-nyckel"))
+    cli.spara_ai_status(conn)
+    assert export.bygg_drift(conn)["ai"] == {"konfigurerad": False, "orsak": "ingen AI-nyckel",
+                                             "tid": export.bygg_drift(conn)["ai"]["tid"]}
+    assert json.dumps(export.bygg_drift(conn))

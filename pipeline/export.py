@@ -40,6 +40,9 @@ matcher[].osaker: true om bedömningen bara bygger på Svenska Spels odds (eller
   (träff = andel matcher där mest sannolika tecknet gick in; modell_ratt = antal rätt för en
    enkelrad med modellens favorittecken, folket_ratt = samma med mest streckade tecknet)
 
+"drift": {"ai": {"konfigurerad", "lyckade", "misslyckade", "modeller": {modell: antal}, "stoppad", "tid"} | null,
+          "odds": {"kvar": krediter, "tid"} | null}
+
 omgang.frusen: tidpunkt (UTC) för den ögonblicksbild som visas efter spelstopp, eller null. Efter spelstopp
   visas chans, streck, värde, odds, tips och kommentarer som vid sista körningen före spelstopp, så att
   förslaget inte ändras när slutstrecken kommer in.
@@ -198,8 +201,20 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
         },
         "matcher": matcher,
         "statistik": bygg_statistik(conn, modell.version),
+        "drift": bygg_drift(conn),
         "tipsare_form": tipsare_form(conn, nu),
     }
+
+
+def bygg_drift(conn: sqlite3.Connection) -> dict:
+    """Driftstatus för Om-sidan: hur AI-anropen gick senast och hur många oddskrediter som är kvar."""
+    def installning(nyckel):
+        r = conn.execute("SELECT varde, uppdaterad FROM installningar WHERE nyckel = ?", (nyckel,)).fetchone()
+        return (r[0], r[1]) if r else (None, None)
+    ai, ai_tid = installning("ai_status")
+    kvar, odds_tid = installning("oddsapi_krediter_kvar")
+    return {"ai": {**json.loads(ai), "tid": ai_tid} if ai else None,
+            "odds": {"kvar": int(kvar), "tid": odds_tid} if kvar is not None else None}
 
 
 def landsgrupp(land: Optional[str]) -> str:

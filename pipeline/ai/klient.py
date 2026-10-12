@@ -35,6 +35,8 @@ MAX_FEL_I_RAD = 3                  # så många misslyckade anrop i rad → AI h
 
 _start: Optional[float] = None
 _fel_i_rad = 0
+# Hur AI-anropen gick under körningen – sparas för driftstatusen i appen (se __main__.spara_ai_status).
+KORNING: Dict[str, Any] = {"lyckade": 0, "misslyckade": 0, "modeller": {}, "stoppad": None}
 _ordning: List[str] = []           # modellkedjan; en modell som just svarat dåligt flyttas sist
 _ur_spel: set = set()              # modeller som inte finns
 
@@ -182,6 +184,7 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
                          getattr(usage, "total_output_tokens", "?"), modell)
             if svar.status != "completed":
                 raise AiFel(f"Gemini ({modell}) avslutade med status {svar.status}")
+            KORNING["modeller"][modell] = KORNING["modeller"].get(modell, 0) + 1
             return _tolka_json(svar.output_text)
     raise AiFel(senaste_fel)
 
@@ -228,15 +231,19 @@ def anropa_json(system: str, anvandare: str, schema: Dict[str, Any], max_tokens:
     if lev is None:
         raise AiFel("ingen AI-nyckel är satt")
     if _fel_i_rad >= MAX_FEL_I_RAD:
+        KORNING["stoppad"] = "flera misslyckade anrop i rad"
         raise AiFel(f"{_fel_i_rad} misslyckade anrop i rad – hoppar över AI resten av körningen")
     if _start is None:
         _start = time.monotonic()
     elif time.monotonic() - _start > AI_TIDSBUDGET:
+        KORNING["stoppad"] = f"tidsbudgeten ({AI_TIDSBUDGET // 60} min) tog slut"
         raise AiFel(f"tidsbudgeten för AI ({AI_TIDSBUDGET // 60} min) är slut – resten tas nästa körning")
     try:
         svar = (_anropa_gemini if lev == "gemini" else _anropa_claude)(system, anvandare, schema, max_tokens)
     except AiFel:
         _fel_i_rad += 1
+        KORNING["misslyckade"] += 1
         raise
     _fel_i_rad = 0
+    KORNING["lyckade"] += 1
     return svar

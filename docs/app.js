@@ -1,8 +1,8 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013e";
-import { backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013e";
+} from "./optimizer.js?v=20261013f";
+import { backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013f";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -597,6 +597,69 @@ function renderaJamforelse(box, rader) {
   box.append(lista);
 }
 
+const driftFmt = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const timmarSedan = (iso) => (Date.now() - new Date(iso).getTime()) / 3_600_000;
+
+/** Driftstatus på Om-sidan: en rad per del av pipelinen, med ✓ / ⚠ / ✕ och text (aldrig bara färg). */
+function renderaDrift(k) {
+  const lista = $("drift");
+  if (!lista) return;
+  const rader = [];
+  const rad = (niva, rubrik, text) => rader.push(el("li", { class: `drift-${niva}` },
+    el("span", { class: "drift-ikon", "aria-hidden": "true", text: { ok: "✓", varning: "!", fel: "✕", info: "–" }[niva] }),
+    el("div", {}, el("b", { text: rubrik }), el("span", { class: "sr-only", text: { ok: " (fungerar)", varning: " (varning)", fel: " (fel)", info: "" }[niva] }),
+      el("p", { text }))));
+  const nar = (iso) => driftFmt.format(new Date(iso));
+
+  // Senaste körning: schemat har som längst ~57 h mellan körningarna (måndag → onsdag)
+  const h = timmarSedan(k.genererad);
+  rad(h > 60 ? "fel" : "ok", "Senaste uppdatering", `${nar(k.genererad)}${h > 60 ? " – längre sedan än schemat säger. Pipelinen kan ha stannat." : ""}`);
+
+  const o = k.drift?.odds;
+  if (o) {
+    const niva = o.kvar < 30 ? "fel" : o.kvar < 100 ? "varning" : "ok";
+    rad(niva, "Odds från spelbolagen", `${o.kvar} av 500 krediter kvar den här månaden (${nar(o.tid)}).` +
+      (o.kvar < 30 ? " Hämtningen är pausad till månadsskiftet – förslagen bygger då på Svenska Spels odds." : ""));
+  } else {
+    rad("info", "Odds från spelbolagen", "Ingen uppgift än.");
+  }
+
+  const ai = k.drift?.ai;
+  if (!ai) {
+    rad("info", "AI (tips, kommentarer, Lagkoll)", "Ingen körning med AI registrerad än.");
+  } else if (!ai.konfigurerad) {
+    rad("fel", "AI (tips, kommentarer, Lagkoll)", `Inte igång: ${ai.orsak}.`);
+  } else {
+    const tot = ai.lyckade + ai.misslyckade;
+    const modeller = Object.entries(ai.modeller || {}).map(([m, n]) => `${m} ${n}`).join(", ");
+    const niva = ai.lyckade === 0 ? "fel" : ai.misslyckade || ai.stoppad ? "varning" : "ok";
+    rad(niva, "AI (tips, kommentarer, Lagkoll)",
+      `${ai.lyckade} av ${tot} anrop lyckades ${nar(ai.tid)}${modeller ? ` (${modeller})` : ""}.` +
+      (ai.stoppad ? ` Avbröts: ${ai.stoppad} – resten tas vid nästa körning.` : "") +
+      (ai.lyckade === 0 ? " Googles AI svarade inte – försöker igen vid nästa körning." : ""));
+  }
+
+  const m = k.matcher || [];
+  const tips = m.flatMap((x) => (x.tips || []).filter((t) => t.kalla !== "Tio tidningars tips"));
+  const kallor = new Set(tips.map((t) => t.kalla));
+  rad(tips.length ? "ok" : "info", "Tips från tipssajter",
+    tips.length ? `${tips.length} tips från ${kallor.size} ${kallor.size === 1 ? "sajt" : "sajter"} på veckans kupong.`
+      : "Inga än – de flesta sajter publicerar torsdag–lördag.");
+
+  const komm = m.filter((x) => x.kommentar).length;
+  rad(komm === 13 ? "ok" : komm ? "varning" : "info", "AI-kommentarer", `${komm} av 13 matcher har en kommentar.`);
+
+  const lk = m.filter((x) => x.lagkoll).length;
+  const timmarKvar = (new Date(k.omgang.spelstopp).getTime() - Date.now()) / 3_600_000;
+  rad(lk ? "ok" : "info", "Lagkoll", lk ? `Har analyserat ${lk} av 13 matcher.`
+    : timmarKvar > 36 ? "Analyserar från fredag kväll, när lagnyheterna kommit." : "Inga analyser än – det saknas lagnyheter i artiklarna.");
+
+  const tab = m.filter((x) => x.tabell).length;
+  rad(tab ? "ok" : "info", "Tabeller och form", `${tab} av 13 matcher har tabell${tab < 13 ? " (cuper och vissa ligor saknas)" : ""}.`);
+
+  lista.replaceChildren(...rader);
+}
+
 /** Aktuella siffror på sidan "Så funkar Stryktipsguiden" (resten av texten är fast). */
 function renderaOm() {
   const k = state.kupong;
@@ -611,6 +674,7 @@ function renderaOm() {
       (ttt ? ` och ${dec(ttt.brier)} för Tio tidningars tips` : "") + `, mätt på ${odds.antal.toLocaleString("sv-SE")} matcher`);
     satt("aktiv", `i dag används ${MODELLNAMN[st.aktiv_modell]?.toLowerCase() || st.aktiv_modell}`);
   }
+  renderaDrift(k);
   satt("uppdaterad", `Senast uppdaterad ${new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, dateStyle: "long", timeStyle: "short" })
     .format(new Date(k.genererad))}.`);
 }

@@ -482,3 +482,14 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .tabell-lag b { font-size: 14px; }
 .tabell-lag p { margin: 2px 0 4px; font-size: 13px; }
 .tabellblock > p { margin-top: 6px; }
+
+/* driftstatus */
+.om .driftlista, .driftlista { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; }
+.driftlista li { display: flex; gap: 10px; align-items: flex-start; }
+.driftlista b { font-size: 14px; }
+.driftlista p { margin: 1px 0 0; font-size: 13px; color: var(--dampad); }
+.drift-ikon { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; background: var(--dampad); margin-top: 1px; }
+.drift-ok .drift-ikon { background: var(--ratt); }
+.drift-varning .drift-ikon { background: var(--orange); }
+.drift-fel .drift-ikon { background: var(--fel); }
+.drift-info .drift-ikon { background: var(--ruta-kant); color: var(--dampad); }
