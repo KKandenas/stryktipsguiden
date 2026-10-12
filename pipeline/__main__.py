@@ -9,6 +9,7 @@
     python -m pipeline prognos [--alla]     # räkna sannolikheter (odds-v2 och odds-v1, och ensemble-v1 om vikter finns)
     python -m pipeline statistik            # källstatistik, träning, backtest och modellval
     python -m pipeline kommentarer          # AI-kommentarer per match (kräver GEMINI_API_KEY)
+    python -m pipeline lagkoll              # Lagkoll: tabeller + AI-analys av lagen nu, oavsett tid till spelstopp
     python -m pipeline export [--omgang N] [--till fil] [--dolj-resultat]
     python -m pipeline migrera
 
@@ -24,7 +25,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, export, lagring, tipsinsamling
+from . import config, db, export, lagkoll, lagring, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
@@ -228,6 +229,23 @@ def steg_kommentarer(conn) -> bool:
     return True
 
 
+def steg_lagkoll(conn, tvinga: bool = False) -> bool:
+    """Skuggmodellen Lagkoll: analys när spelstoppet är nära, sedan prognoser för lagkoll-v1."""
+    if not _ai_redo("Lagkoll"):
+        return True
+    try:
+        stat = lagkoll.analysera(conn, ai_klient.anropa_json, tvinga=tvinga)
+        log.info("Lagkoll: %(analyserade)d analyserade, %(oforandrade)d oförändrade, "
+                 "%(utan_underlag)d utan underlag, %(fel)d fel", stat)
+        oppna = [r[0] for r in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ?", (nu_utc(),))]
+        s, _ = berakna_prognoser(conn, ladda_modell(conn, "lagkoll-v1"), oppna)
+        if s:
+            log.info("Prognos (lagkoll-v1, skugga): %d nya/ändrade", s)
+    except Exception as e:  # skuggmodell – får aldrig stoppa pipelinen
+        log.exception("Lagkoll: oväntat fel: %s", e)
+    return True
+
+
 def steg_statistik(conn, tvinga: bool = False) -> bool:
     if not tvinga and not statistik.behover_koras(conn):
         log.info("Statistik: inga nya resultat sedan senaste körningen")
@@ -278,7 +296,7 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipsguidens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "statistik", "migrera"):
+    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "lagkoll", "statistik", "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
     b.add_argument("fran", type=int)
@@ -309,6 +327,7 @@ def main(argv=None) -> int:
         steg_prognos(conn)
         steg_statistik(conn)
         steg_kommentarer(conn)
+        steg_lagkoll(conn)
         kritiskt_ok &= steg_export(conn)
     elif args.kommando == "svenskaspel":
         kritiskt_ok = steg_svenskaspel(conn)
@@ -322,6 +341,8 @@ def main(argv=None) -> int:
         steg_tips(conn)
     elif args.kommando == "kommentarer":
         steg_kommentarer(conn)
+    elif args.kommando == "lagkoll":
+        steg_lagkoll(conn, tvinga=True)
     elif args.kommando == "statistik":
         kritiskt_ok = steg_statistik(conn, tvinga=True)
     elif args.kommando == "prognos":

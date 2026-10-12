@@ -21,6 +21,8 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
       "tips":   [{"kalla": "Tio tidningars tips", "tecken": "1", "text": "5-1-4 av 10 tidningar",
                   "system": "1X" | null, "system_rader": 384 | null}],
       "kommentar": null,
+      "lagkoll": {"chans": {"1", "X", "2"}, "skrallrisk": "låg" | "medel" | "hög", "motivering", "faktorer": [...],
+                  "tid", "hemma"/"borta": {"tabell", "form", "franvaro": [...], "tranarbyte", "kallor"}} | null,
       "resultat": "1" | null, "mal": "2-1" | null
   }]
 }
@@ -51,7 +53,7 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 
-from . import config
+from . import config, lagkoll
 from .model.modeller import (BOLAG_START, MODELLER, STANDARD_MODELL, STARTVIKT_TIPS, TIPSKALLOR, las_underlag,
                              las_vikter, vald_version)
 from .model.sannolikhet import varde
@@ -66,7 +68,7 @@ TECKEN = ("1", "X", "2")
 
 # Fält per match som fryses vid sista körningen före spelstopp (resultat och mål läggs alltid till färskt)
 FRYSTA_FALT = ("chans", "chans_kalla", "streck", "streck_tid", "varde", "osaker", "chans_tips", "varde_tips",
-               "odds", "tips", "kommentar")
+               "odds", "tips", "kommentar", "lagkoll")
 
 # Bolag som visas i appen, i den här ordningen (övriga i bokstavsordning efter), högst MAX_BOLAG.
 BOLAGSORDNING = ["pinnacle", "svenskaspel", "svenskaspel_start", "unibet_eu", "betsson", "nordicbet", "bet365",
@@ -160,6 +162,7 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "chans_tips": _tripel(chans_tips),
             "varde_tips": _tripel(varde(chans_tips, u.streck)) if chans_tips and u.streck else None,
             "odds": odds, "tips": tips, "kommentar": kommentar[0] if kommentar else None,
+            "lagkoll": lagkoll.for_export(conn, m["id"]),
             "resultat": m["resultat"] if visa_resultat else None,
             "mal": (f"{m['mal_hemma']}-{m['mal_borta']}"
                     if visa_resultat and m["mal_hemma"] is not None else None),

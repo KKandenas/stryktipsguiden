@@ -2,6 +2,7 @@
 ger inga dubbletter. Ögonblicksbilder (streck, odds) sparas bara när värdena faktiskt ändrats."""
 from __future__ import annotations
 
+import json
 import logging
 import sqlite3
 from typing import Dict, Iterable, List
@@ -127,6 +128,22 @@ def _spara_tips(conn, ids: Dict[int, int], tips: Iterable[Tips]) -> int:
 def spara_tips(conn: sqlite3.Connection, omgang_id: int, tips: List[Tips]) -> int:
     with conn:
         return _spara_tips(conn, _match_ids(conn, omgang_id), tips)
+
+
+def spara_lagfakta(conn: sqlite3.Connection, omgang_id: int, kalla_id: int, tidpunkt: str, lagfakta) -> int:
+    """Lagfakta [(matchnr, sida, data)] från en källa; ersätter källans tidigare fakta för samma lag."""
+    ids = _match_ids(conn, omgang_id)
+    n = 0
+    with conn:
+        for nr, sida, data in lagfakta:
+            if nr not in ids:
+                continue
+            conn.execute("""INSERT INTO lagfakta (match_id, sida, kalla_id, tidpunkt, data) VALUES (?, ?, ?, ?, ?)
+                            ON CONFLICT(match_id, sida, kalla_id) DO UPDATE SET tidpunkt = excluded.tidpunkt,
+                                data = excluded.data""",
+                         (ids[nr], sida, kalla_id, tidpunkt, json.dumps(data, ensure_ascii=False, sort_keys=True)))
+            n += 1
+    return n
 
 
 def spara_resultat(conn: sqlite3.Connection, r: Resultat) -> None:

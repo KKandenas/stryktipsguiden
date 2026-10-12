@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
-} from "./optimizer.js?v=20261013a";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261013a";
+} from "./optimizer.js?v=20261013b";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261013b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -341,6 +341,7 @@ function detaljer(m, v, skrall = null) {
   const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
   if (modell) rad("Oddsen", proc(modell), state.kalla === "modell" ? "markerad" : "", "chans enligt spelbolagen");
   if (m.chans_tips) rad("Med experter", proc(m.chans_tips), state.kalla === "tips" ? "markerad" : "", "odds + tipsare");
+  if (m.lagkoll) rad("Lagkoll", proc(m.lagkoll.chans), "skugga-rad", "skuggmodell");
   if (m.streck) rad("Svenska folket", TECKEN.map((t) => `${Math.round(m.streck[t])} %`), "", "streck");
   if (m.varde) {
     rad("Värde", TECKEN.map((t) => {
@@ -401,9 +402,54 @@ function detaljer(m, v, skrall = null) {
   if (tips.length > 3) {
     d.append(el("p", { class: "dampad liten", text: `Även tippat: ${tips.slice(3).map((t) => `${KORTNAMN[t.kalla] || t.kalla} ${t.tecken}`).join(" · ")}` }));
   }
+  if (m.lagkoll) d.append(lagkollPanel(m));
   const serie = serietabell(m.land, m.liga);
   if (serie) d.append(el("p", { class: "tabellank" }, extern(serie.url, `Serietabell: ${serie.namn}`)));
   return d;
+}
+
+// ---------- Lagkoll (skuggmodell) ----------
+
+const RISKTEXT = { "låg": "Låg skrällrisk", medel: "Viss skrällrisk", "hög": "Hög skrällrisk" };
+const FORMTEXT = { W: "vinst", D: "oavgjort", L: "förlust" };
+
+function lagkollPanel(m) {
+  const lk = m.lagkoll;
+  const panel = el("section", { class: "lagkoll", "aria-label": "Lagkoll" });
+  panel.append(el("div", { class: "lagkoll-huvud" },
+    el("b", { text: "Lagkoll" }),
+    el("span", { class: "lagkoll-etikett", text: "skuggmodell · påverkar inte raderna" })));
+  panel.append(el("p", { class: `lagkoll-risk risk-${lk.skrallrisk === "hög" ? "hog" : lk.skrallrisk === "medel" ? "medel" : "lag"}` },
+    el("span", { class: "jamf-markor", "aria-hidden": "true" }), RISKTEXT[lk.skrallrisk] || lk.skrallrisk));
+  if (lk.motivering) panel.append(el("p", { class: "lagkoll-text", text: lk.motivering }));
+  if (lk.faktorer?.length) panel.append(el("ul", { class: "lagkoll-faktorer" }, ...lk.faktorer.map((f) => el("li", { text: f }))));
+
+  const lag = (namn, p) => {
+    const kol = el("div", { class: "lagkoll-lag" }, el("b", { text: namn }));
+    const t = p.tabell;
+    if (t?.plats) {
+      kol.append(el("p", { text: `Plats ${t.plats}${t.antal_lag ? ` av ${t.antal_lag}` : ""}` +
+        (t.poang != null ? ` · ${t.poang} p på ${t.spelade} matcher` : "") }));
+    }
+    if (p.form) {
+      kol.append(el("p", { class: "form", "aria-label": `Form, senaste först: ${[...p.form].map((c) => FORMTEXT[c]).join(", ")}` },
+        ...[...p.form].map((c) => el("span", { class: `formruta f${c}`, "aria-hidden": "true", text: c === "W" ? "V" : c === "D" ? "O" : "F" }))));
+    }
+    for (const x of p.franvaro || []) {
+      kol.append(el("p", { class: `franvaro ${x.status}` },
+        `${x.status === "borta" ? "Saknas" : "Osäker"}: `, el(x.nyckelspelare ? "b" : "span", { text: x.spelare }),
+        x.orsak ? el("span", { class: "dampad", text: ` (${x.orsak})` }) : null));
+    }
+    if (p.tranarbyte) kol.append(el("p", { text: `Ny tränare: ${p.tranarbyte.tilltradande} (${p.tranarbyte.tilltradde})` }));
+    if (kol.children.length === 1) kol.append(el("p", { class: "dampad", text: "Inga uppgifter" }));
+    return kol;
+  };
+  panel.append(el("div", { class: "lagkoll-lagen" }, lag(m.hemmalag, lk.hemma), lag(m.bortalag, lk.borta)));
+  const kallor = [...new Set([...(lk.hemma.kallor || []), ...(lk.borta.kallor || [])])];
+  panel.append(el("p", { class: "dampad liten", text:
+    `Analyserad ${kortFmt.format(new Date(lk.tid))}${kallor.length ? ` · källor: ${kallor.join(", ")}` : ""}. ` +
+    "Lagkoll utgår från oddsen och justerar efter lagnyheterna. Den mäts mot Oddsen på statistiksidan." }));
+  return panel;
 }
 
 // ---------- serietabeller (externa länkar, öppnas i nytt fönster) ----------

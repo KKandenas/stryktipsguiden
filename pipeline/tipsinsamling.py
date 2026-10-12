@@ -11,7 +11,7 @@ from datetime import timedelta
 from typing import List, Optional
 
 from . import lagring
-from .ai.extraktion import extrahera
+from .ai.extraktion import extrahera_allt
 from .ai.klient import AiFel, Anropare
 from .http import HamtningsFel
 from .modeller import Match
@@ -81,12 +81,13 @@ def samla(conn: sqlite3.Connection, anropa: Anropare, sajter: Optional[List[Tips
                     if parse_iso(nu) - parse_iso(rad["extraherad"]) < timedelta(hours=OMTOLKA_EFTER_H):
                         continue
                 try:
-                    tips = extrahera(anropa, ms, a.titel, text, sajt.namn, nu)
+                    tips, lagfakta = extrahera_allt(anropa, ms, a.titel, text, sajt.namn, nu)
                 except AiFel as e:
                     log.error("Tips: AI-modellen kunde inte tolka %s: %s", a.url, e)
                     stat["fel"] += 1
                     continue
                 andrade = lagring.spara_tips(conn, omgang_id, tips)
+                lagring.spara_lagfakta(conn, omgang_id, kid, nu, lagfakta)
                 with conn:
                     conn.execute("UPDATE artiklar SET extraherad = ?, extraherad_hash = ?, antal_tips = ? WHERE url = ?",
                                  (nu, h, len(tips), a.url))

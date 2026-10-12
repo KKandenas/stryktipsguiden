@@ -1,9 +1,10 @@
-"""Låt AI-modellen läsa en tipsartikel och plocka ut tips (tecken, ev. sannolikheter, kort sammanfattning)."""
+"""Låt AI-modellen läsa en tipsartikel och plocka ut tips (tecken, ev. sannolikheter, kort sammanfattning)
+och lagfakta för Lagkoll (frånvarande spelare, form, tabellplats, sammanhang) – i samma anrop."""
 from __future__ import annotations
 
 import json
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from ..modeller import Match, Tips
 from .klient import AiFel, Anropare
@@ -27,7 +28,14 @@ Ange också system_rader: antalet rader i systemet du använde (t.ex. 384 för "
 
 Om texten innehåller markeringar som [VALT 1] är det tecknen skribenten valt på sin kupong för den matchen (flera markeringar = gardering).
 
-Ta bara med matcher som artikeln handlar om, med matchnumret från listan. Om artikeln inte handlar om någon av matcherna: returnera en tom lista."""
+Ta bara med matcher som artikeln handlar om, med matchnumret från listan. Om artikeln inte handlar om någon av matcherna: returnera en tom lista.
+
+Lagfakta (lagfakta-listan): för varje lag i matcherna ovan som artikeln säger något konkret om – en post per lag, sida "hemma" eller "borta":
+- franvaro: spelare som saknas eller är osäkra (skada, avstängning, sjukdom, landslagsuppdrag). status "borta" eller "osaker". nyckelspelare true om artikeln beskriver spelaren som viktig (t.ex. lagkapten, skyttekung, ordinarie i startelvan), annars false. Bara spelare som nämns i artikeln.
+- form: lagets senaste resultat som bokstäver, senaste matchen först, t.ex. "WWLDW" (W = vinst, D = oavgjort, L = förlust), högst 6. null om artikeln inte anger formen.
+- tabellplats: placering i ligan om artikeln anger den, annars null.
+- sammanhang: högst en kort mening på svenska om annat som påverkar laget, t.ex. tränarbyte, tät matchning, motivation, inbördes möten. Annars null.
+Hitta aldrig på något – utelämna laget om artikeln inte säger något konkret om det."""
 
 SCHEMA = {
     "type": "object",
@@ -51,10 +59,39 @@ SCHEMA = {
             },
         }
     },
-    "required": ["tips", "system_rader"],
+    "required": ["tips", "system_rader", "lagfakta"],
     "additionalProperties": False,
 }
 SCHEMA["properties"]["system_rader"] = {"type": ["integer", "null"]}
+SCHEMA["properties"]["lagfakta"] = {
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "matchnr": {"type": "integer"},
+            "sida": {"type": "string", "enum": ["hemma", "borta"]},
+            "franvaro": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "spelare": {"type": "string"},
+                        "orsak": {"type": "string"},
+                        "status": {"type": "string", "enum": ["borta", "osaker"]},
+                        "nyckelspelare": {"type": "boolean"},
+                    },
+                    "required": ["spelare", "orsak", "status", "nyckelspelare"],
+                    "additionalProperties": False,
+                },
+            },
+            "form": {"type": ["string", "null"]},
+            "tabellplats": {"type": ["integer", "null"]},
+            "sammanhang": {"type": ["string", "null"]},
+        },
+        "required": ["matchnr", "sida", "franvaro", "form", "tabellplats", "sammanhang"],
+        "additionalProperties": False,
+    },
+}
 
 
 def bygg_fraga(matcher: List[Match], titel: str, text: str) -> str:
@@ -106,7 +143,42 @@ def validera(svar: Dict[str, Any], tillatna: List[int], kalla: str, tidpunkt: st
     return tips
 
 
+def validera_lagfakta(svar: Dict[str, Any], tillatna: List[int]) -> List[Tuple[int, str, dict]]:
+    """[(matchnr, sida, data)] ur svaret. Saknas listan (äldre svar, tester) blir det en tom lista."""
+    ut, sedda = [], set()
+    for f in svar.get("lagfakta") or []:
+        if not isinstance(f, dict):
+            continue
+        nr, sida = f.get("matchnr"), f.get("sida")
+        if nr not in tillatna or sida not in ("hemma", "borta") or (nr, sida) in sedda:
+            continue
+        franvaro = []
+        for x in f.get("franvaro") or []:
+            if isinstance(x, dict) and isinstance(x.get("spelare"), str) and x["spelare"].strip():
+                franvaro.append({"spelare": x["spelare"].strip()[:60], "orsak": str(x.get("orsak") or "").strip()[:60],
+                                 "status": "osaker" if x.get("status") == "osaker" else "borta",
+                                 "nyckelspelare": bool(x.get("nyckelspelare"))})
+        form = f.get("form")
+        form = "".join(c for c in form.upper() if c in "WDL")[:6] if isinstance(form, str) else ""
+        plats = f.get("tabellplats")
+        plats = plats if isinstance(plats, int) and 1 <= plats <= 30 else None
+        sammanhang = (f.get("sammanhang") or "").strip()[:200] if isinstance(f.get("sammanhang"), str) else ""
+        data = {"franvaro": franvaro[:15], "form": form or None, "tabellplats": plats, "sammanhang": sammanhang or None}
+        if not franvaro and not form and plats is None and not sammanhang:
+            continue
+        sedda.add((nr, sida))
+        ut.append((nr, sida, data))
+    return ut
+
+
+def extrahera_allt(anropa: Anropare, matcher: List[Match], titel: str, text: str, kalla: str,
+                   tidpunkt: str) -> Tuple[List[Tips], List[Tuple[int, str, dict]]]:
+    """(tips, lagfakta) ur en artikel – ett AI-anrop."""
+    svar = anropa(SYSTEM, bygg_fraga(matcher, titel, text), SCHEMA, 12000)
+    tillatna = [m.matchnr for m in matcher]
+    return validera(svar, tillatna, kalla, tidpunkt), validera_lagfakta(svar, tillatna)
+
+
 def extrahera(anropa: Anropare, matcher: List[Match], titel: str, text: str, kalla: str,
               tidpunkt: str) -> List[Tips]:
-    svar = anropa(SYSTEM, bygg_fraga(matcher, titel, text), SCHEMA, 8000)
-    return validera(svar, [m.matchnr for m in matcher], kalla, tidpunkt)
+    return extrahera_allt(anropa, matcher, titel, text, kalla, tidpunkt)[0]

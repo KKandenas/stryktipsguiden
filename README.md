@@ -358,6 +358,30 @@ medelskillnaden är större än två standardfel och modellen har minst 100 matc
 "ingen säker skillnad" eller "för lite data". Med 13 matcher i veckan tar det i regel ett halvår eller
 mer innan små skillnader går att se.
 
+### Lagkoll (lagkoll-v1, skuggmodell)
+
+Ett "minne" per lag och en AI-jämförelse av lagen före varje omgång (`pipeline/lagkoll.py`).
+
+**Underlag**
+- **Lagfakta ur förhandsartiklarna** som tipsinsamlingen redan läser: frånvarande spelare (med status
+  och om de är nyckelspelare), form, tabellplats och sammanhang. Det tas fram i samma AI-anrop som tipsen,
+  så det kostar inga extra anrop. Tabell `lagfakta`, en rad per match, lag och källa.
+- **Ligatabell och tränarbyten** från Wikipedias säsongsartikel (`sources/wikipedia.py`), högst var
+  sjätte timme. Bara vanliga `/wiki/`-sidor används, eftersom `/w/` och `/api/` är spärrade i robots.txt.
+  Tabellerna heter `ligatabeller` och `ligakallor`.
+- Fantasy Premier League används inte. Sajten har ingen giltig robots.txt, och vår kontroll räknar det
+  som en spärr.
+
+**Analys:** när spelstoppet är högst 36 timmar bort, alltså vid fredagskvällens och lördagens körningar,
+får AI-modellen oddsens sannolikheter och båda lagens profiler. Den justerar sannolikheterna, med högst
+12 procentenheter per tecken, och anger skrällrisk, motivering och faktorer. Analysen görs bara om
+underlaget ändrats (`underlag_hash`). Tabellen ensam räcker inte som underlag, eftersom den redan finns
+i oddsen. Det krävs fakta ur artiklar eller ett tränarbyte från de senaste 60 dagarna.
+
+Resultatet sparas i `lagkoll` och blir prognoser för `lagkoll-v1` (`framat = True`, roll `skugga`). Appen
+visar analysen i matchdetaljen, märkt "skuggmodell · påverkar inte raderna", och statistiksidan mäter den
+mot oddsen. Manuellt: `python -m pipeline lagkoll`, som analyserar direkt oavsett tid till spelstopp.
+
 ### Skrällar: vad historiken säger (oktober 2026)
 
 Testat mot 3 289 avgjorda matcher sedan 2021, med oddsens chans (Svenska Spels startodds i historiken)

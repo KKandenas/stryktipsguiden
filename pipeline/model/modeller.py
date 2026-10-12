@@ -153,7 +153,28 @@ class TipsModell:
         return ensemble.prognos(self.vikter, o, {k: STARTVIKT_TIPS for k in TIPSKALLOR})
 
 
-MODELLER = {m.version: m for m in (OddsModell(), OddsModellV2(), EnsembleModell(), TipsModell())}
+class LagkollModell:
+    """lagkoll-v1: oddsen justerade av AI utifrån lagfakta (frånvaro, form, tabell, tränarbyten).
+
+    Analysen görs i pipeline/lagkoll.py och sparas i tabellen lagkoll; här läses den bara upp.
+    Skuggmodell som bara kan räknas framåt – den påverkar inga rader."""
+    version = "lagkoll-v1"
+    namn = "Lagkoll"
+    roll = "skugga"
+    framat = True
+    beskrivning = "Oddsen justerade av AI utifrån skador, form, tabell och tränarbyten"
+
+    def __init__(self, conn: Optional[sqlite3.Connection] = None):
+        self.conn = conn
+
+    def prognos(self, u: Underlag) -> Optional[Tripel]:
+        if self.conn is None:
+            return None
+        r = self.conn.execute("SELECT p1, px, p2 FROM lagkoll WHERE match_id = ?", (u.match_id,)).fetchone()
+        return (r[0], r[1], r[2]) if r else None
+
+
+MODELLER = {m.version: m for m in (OddsModell(), OddsModellV2(), EnsembleModell(), TipsModell(), LagkollModell())}
 STANDARD_MODELL = "odds-v2"
 
 
@@ -177,6 +198,8 @@ def ladda_modell(conn: sqlite3.Connection, version: str):
         return EnsembleModell(las_vikter(conn, version))
     if version == TipsModell.version:
         return TipsModell(las_vikter(conn, version))
+    if version == LagkollModell.version:
+        return LagkollModell(conn)
     return MODELLER[version]
 
 
