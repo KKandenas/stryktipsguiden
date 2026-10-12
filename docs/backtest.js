@@ -4,10 +4,11 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera } from "./optimizer.js?v=20261013b";
+import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261013d";
 
-/** Matcher i optimerarens format. kalla "modell": modellens chans och folkets streck.
+/** Matcher i optimerarens format. kalla "modell" (och "skrall"): modellens chans och folkets streck.
  *  kalla "tips": den tipsviktade chansen (fält 8) där den finns, annars modellens.
+ *  kalla "lagkoll": Lagkolls chans (fält 9) där den finns, annars modellens.
  *  kalla "folket": strecken används som chans – då väljs rent efter vad folket tror. */
 export function matcherFor(omgang, kalla = "modell") {
   return omgang.matcher.map((m, i) => {
@@ -16,8 +17,14 @@ export function matcherFor(omgang, kalla = "modell") {
     let chans = { 1: m[0], X: m[1], 2: m[2] };
     if (kalla === "folket") chans = { 1: m[3] / summa, X: m[4] / summa, 2: m[5] / summa };
     else if (kalla === "tips" && m[7]) chans = { 1: m[7][0], X: m[7][1], 2: m[7][2] };
+    else if (kalla === "lagkoll" && m[8]) chans = { 1: m[8][0], X: m[8][1], 2: m[8][2] };
     return { nr: i + 1, chans, streck };
   });
+}
+
+/** Omgångar där Lagkoll har analyserat minst en match. */
+export function medLagkoll(historik) {
+  return { ...historik, omgangar: historik.omgangar.filter((o) => o.matcher.some((m) => m[8])) };
 }
 
 /** Historiken från och med ett startår ("alla" = allt). */
@@ -41,13 +48,14 @@ export function rattFordelning(val, facit) {
 /**
  * @param historik  innehållet i historik.json
  * @param rader     budget per vecka, t.ex. 64
- * @param kalla     "modell" eller "folket"
+ * @param kalla     "modell", "tips", "lagkoll", "skrall" (Oddsen + 1–2 skrällar) eller "folket"
  * @returns {omgangar: [{id, datum, insats, vinst, basta, antal}], insats, vinst, antal: {13,12,11,10}}
  */
 export function backtesta(historik, rader, kalla = "modell") {
   const ut = { omgangar: [], insats: 0, vinst: 0, antal: { 13: 0, 12: 0, 11: 0, 10: 0 } };
   for (const o of historik.omgangar) {
-    const res = optimera(matcherFor(o, kalla), rader);
+    const matcher = matcherFor(o, kalla);
+    const res = optimera(matcher, rader, {}, undefined, kalla === "skrall" ? skrallKrav(matcher, rader) : {});
     if (!res.ok) continue;
     const facit = o.matcher.map((m) => m[6]);
     const fordelning = rattFordelning(res.val, facit);

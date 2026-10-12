@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261013b">
-<script type="module" src="app.js?v=20261013b"></script>
+<link rel="stylesheet" href="app.css?v=20261013d">
+<script type="module" src="app.js?v=20261013d"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -64,11 +64,14 @@
       <section class="kort budget" aria-labelledby="budget-rubrik">
         <div class="forslag" role="radiogroup" aria-label="Vilket förslag">
           <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Oddsen</b><span>Spelbolagens bedömning</span></button>
-          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Med experter</b><span>Odds + tipsare som brukar ha rätt</span></button>
+          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Med experter</b><span>Odds + tipsare</span></button>
+          <button type="button" role="radio" data-kalla="lagkoll" aria-checked="false"><b>Lagkoll</b><span>Odds + lagnyheter · test</span></button>
+          <button type="button" role="radio" data-kalla="skrall" aria-checked="false"><b>Skrällchans</b><span>Oddsen + 1–2 skrällar</span></button>
         </div>
         <h2 id="budget-rubrik" class="kort-rubrik">Hur många rader?</h2>
         <div id="budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader"></div>
         <p id="sammanfattning" class="sammanfattning" aria-live="polite"></p>
+        <p id="forslag-info" class="skillnad" aria-live="polite" hidden></p>
         <p id="skillnad" class="skillnad" aria-live="polite" hidden></p>
         <p id="fel" class="fel" role="alert" hidden></p>
       </section>
@@ -100,7 +103,9 @@
       <section class="kort budget" aria-labelledby="r-budget-rubrik">
         <div class="forslag" role="radiogroup" aria-label="Vilket förslag i rättningen">
           <button type="button" role="radio" data-kalla="modell" aria-checked="true"><b>Oddsen</b><span>Spelbolagens bedömning</span></button>
-          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Med experter</b><span>Odds + tipsare som brukar ha rätt</span></button>
+          <button type="button" role="radio" data-kalla="tips" aria-checked="false"><b>Med experter</b><span>Odds + tipsare</span></button>
+          <button type="button" role="radio" data-kalla="lagkoll" aria-checked="false"><b>Lagkoll</b><span>Odds + lagnyheter · test</span></button>
+          <button type="button" role="radio" data-kalla="skrall" aria-checked="false"><b>Skrällchans</b><span>Oddsen + 1–2 skrällar</span></button>
         </div>
         <h2 id="r-budget-rubrik" class="kort-rubrik">Så gick ditt system</h2>
         <div id="r-budgetknappar" class="budgetknappar" role="radiogroup" aria-label="Antal rader i rättningen"></div>
@@ -146,7 +151,7 @@
         <li>Blå rutor är tecknen i ditt system. <b>SPIK</b> = ett tecken, <b>HALV</b> = två, <b>HEL</b> = alla tre.</li>
         <li>Under rutorna står <b>tipsen</b> från analyserna, t.ex. <span class="tipsetikett"><span class="kalla">speltips</span><b>1</b></span>. En <span class="tipsetikett emot"><span class="kalla">röd</span><b>2</b></span> etikett betyder att tipset går emot förslaget – vill du följa det kan du låsa tecknet.</li>
         <li>I matchens detaljer visar ● experternas tips och ○ tecken som bara finns i deras system (t.ex. en halvgardering i systemet när tipset är en etta).</li>
-        <li><b>Oddsen / Med experter</b> högst upp väljer vilket förslag du ser. <i>Oddsen</i> bygger på spelbolagens odds. <i>Med experter</i> väger dessutom in tipsarna efter hur ofta de haft rätt – vikterna lärs om varje söndag och syns under <a href="#statistik">Så har modellen träffat</a>.</li>
+        <li><b>Oddsen / Med experter / Lagkoll / Skrällchans</b> högst upp väljer vilket förslag du ser. <i>Lagkoll</i> justerar oddsen efter lagnyheterna (under test) och <i>Skrällchans</i> tar med 1–2 skrällar. <i>Oddsen</i> bygger på spelbolagens odds. <i>Med experter</i> väger dessutom in tipsarna efter hur ofta de haft rätt – vikterna lärs om varje söndag och syns under <a href="#statistik">Så har modellen träffat</a>.</li>
         <li><b>Tryck på ett tecken</b> för att låsa det 🔒. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren, oddsen och tipsen.</li>
       </ul>
       <p><a class="knapp primar" href="#kupong">Till kupongen</a></p>
@@ -333,10 +338,13 @@
           i alla grupper gick tecknen in ungefär så ofta som oddsen sa. Skrällar går alltså inte att förutsäga
           bättre än marknaden.</p>
         <p>Det som skiljer är <b>utdelningen</b>. Ett tecken som inte är favorit, har minst 20 % chans och är
-          tydligt understreckat (chansen minst 1,25 gånger strecken) går in lika ofta som oddsen säger – men
-          betalar i snitt 1,44 gånger mer per träff än folkets val. Guiden markerar högst tre sådana per omgång med
-          <b>Skrällchans</b>. Radförslagen tar redan hänsyn till det här, men markeringen hjälper dig om du vill
-          låsa egna tecken.</p>
+          tydligt men inte extremt understreckat (chansen 1,25–1,5 gånger strecken) gick in något oftare än oddsen sa
+          – och betalar bra eftersom folket inte tror på det. Var tecknet <i>ännu</i> mer understreckat gick det in
+          klart mer sällan än oddsen sa: då visste folket ofta något som oddsen inte tagit in. Guiden markerar högst
+          tre skrällchanser per omgång.</p>
+        <p>Förslaget <b>Skrällchans</b> är Oddsens förslag, men raderna måste innehålla de bästa skrällarna: 1 på
+          system upp till 64 rader och 2 på större. I backtestet gav det mindre tillbaka än Oddsen på små system,
+          men mer på 128 rader och uppåt – både med och utan den 13-rättare det fick i december 2025.</p>
         <p>En signal fanns: när högst 4 av Tio tidningars tips höll på oddsfavoriten vann den i 32 % av matcherna,
           mot 39 % enligt oddsen. Tidningarnas tips vägs därför redan in i <i>Med experter</i>. Hur odds och streck
           rör sig under veckan går inte att testa bakåt – den datan sparas nu och analyseras när den räcker.</p>
@@ -347,9 +355,9 @@
           skadade och avstängda spelare, form, tabelläge och tränarbyten. Fakta kommer från förhandsartiklarna
           guiden ändå läser och från Wikipedia. På fredagskvällen och lördagen jämför AI:n lagen och justerar
           oddsens sannolikheter något om det finns skäl, till exempel när en nyckelspelare saknas.</p>
-        <p>Bedömningen visas under varje match men <b>påverkar inte raderna</b>. Statistiksidan jämför den med
-          Oddsen när resultaten kommit in. Om den efter ett halvår eller så visar sig träffa bättre kan den
-          få en roll i förslagen.</p>
+        <p>Bedömningen visas under varje match, och du kan välja förslaget <b>Lagkoll</b> högst upp. Där Lagkoll
+          inte har analyserat en match används Oddsen. Statistiksidan jämför Lagkoll med Oddsen när resultaten
+          kommit in, men räkna med ungefär ett halvår innan jämförelsen säger något.</p>
       </details>
       <details>
         <summary>Kan man vinna pengar med guiden?</summary>

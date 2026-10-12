@@ -1,7 +1,7 @@
 // Körs med: node --test tests/js/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { backtesta, matcherFor, rattFordelning, rattaRader } from "../../docs/backtest.js";
+import { backtesta, matcherFor, medLagkoll, rattFordelning, rattaRader } from "../../docs/backtest.js";
 import { optimera } from "../../docs/optimizer.js";
 
 // Syntetisk omgång: [chans1, chansX, chans2, streck1, streckX, streck2, resultat]
@@ -52,4 +52,22 @@ test("matcherFor: folket använder strecken som chans", () => {
   assert.ok(Math.abs(m.chans[1] - 0.7) < 1e-9);
   assert.deepEqual(m.streck, { 1: 70, X: 20, 2: 10 });
   assert.equal(matcherFor(o, "modell")[0].chans[1], 0.6);
+});
+
+
+test("backtest av Skrällchans och Lagkoll", () => {
+  const facit = ["1", "X", "2", "1", "1", "2", "X", "1", "2", "1", "X", "2", "1"];
+  const o = omgang(1, facit);
+  // Match 2: understreckat kryss → skrällchans
+  o.matcher[1] = [0.5, 0.28, 0.22, 66, 20, 14, "X"];
+  const h = { omgangar: [o] };
+  const skrall = backtesta(h, 32, "skrall");
+  assert.equal(skrall.omgangar.length, 1);
+  // Lagkoll: inga analyser → inga omgångar; med analys används fält 9
+  assert.equal(medLagkoll(h).omgangar.length, 0);
+  o.matcher[0] = [...o.matcher[0].slice(0, 7), null, [0.2, 0.3, 0.5]];
+  assert.equal(medLagkoll(h).omgangar.length, 1);
+  assert.deepEqual(matcherFor(o, "lagkoll")[0].chans, { 1: 0.2, X: 0.3, 2: 0.5 });
+  assert.deepEqual(matcherFor(o, "lagkoll")[1].chans, { 1: 0.5, X: 0.28, 2: 0.22 });
+  assert.equal(skrall.omgangar[0].insats, 32);
 });

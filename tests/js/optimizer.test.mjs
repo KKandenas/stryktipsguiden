@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, sammanfattning, skrallchanser,
+  skrallKrav, skrallarForBudget,
 } from "../../docs/optimizer.js";
 
 const exempel = JSON.parse(readFileSync(new URL("../../docs/exempel-kupong.json", import.meta.url), "utf8"));
@@ -104,20 +105,47 @@ test("antal rätt", () => {
 });
 
 
-test("skrällchanser: bara understreckade icke-favoriter med minst 20 % chans, högst tre", () => {
+test("skrällchanser: understreckade icke-favoriter med minst 20 % chans och kvot 1,25–1,5, högst tre", () => {
   const m = (nr, chans, streck) => ({ nr, chans: { 1: chans[0], X: chans[1], 2: chans[2] }, streck: { 1: streck[0], X: streck[1], 2: streck[2] } });
   const matcher = [
-    m(1, [0.5, 0.25, 0.25], [70, 15, 15]),    // både X och 2: kvot 1,67 – en per match, X vinner lika-läget först
+    m(1, [0.5, 0.25, 0.25], [70, 15, 15]),    // kvot 1,67 – för extremt, räknas inte
     m(2, [0.6, 0.25, 0.15], [60, 25, 15]),    // inget understreckat
-    m(3, [0.45, 0.3, 0.25], [40, 20, 40]),    // X: kvot 1,5
+    m(3, [0.45, 0.3, 0.25], [38, 21, 41]),    // X: kvot 1,43
     m(4, [0.7, 0.19, 0.11], [85, 5, 10]),     // X under 20 % chans – räknas inte
     m(5, [0.4, 0.3, 0.3], [30, 22, 48]),      // X: kvot 1,36
     m(6, [0.4, 0.28, 0.32], [33, 24, 43]),    // X: kvot 1,17 – under gränsen
     m(7, [0.5, 0.26, 0.24], [62, 18, 20]),    // X: 1,44
+    m(8, [0.5, 0.26, 0.24], [60, 20, 20]),    // X: 1,30
   ];
   const s = skrallchanser(matcher);
-  assert.deepEqual(Object.keys(s).map(Number).sort((a, b) => a - b), [1, 3, 7]);
+  assert.deepEqual(Object.keys(s).map(Number).sort((a, b) => a - b), [3, 5, 7]);
   assert.equal(s[3].tecken, "X");
-  assert.ok(Math.abs(s[3].kvot - 1.5) < 1e-9);
-  assert.ok(!skrallchanser([m(4, [0.7, 0.19, 0.11], [85, 5, 10])])[4]);
+  assert.ok(Math.abs(s[3].kvot - 0.3 / 0.21) < 1e-9);
+  assert.ok(!skrallchanser([m(1, [0.5, 0.25, 0.25], [70, 15, 15])])[1]);
+});
+
+test("förslaget Skrällchans: 1 skräll upp till 64 rader, 2 däröver, och raderna innehåller dem", () => {
+  assert.equal(skrallarForBudget(1), 1);
+  assert.equal(skrallarForBudget(64), 1);
+  assert.equal(skrallarForBudget(96), 2);
+  // Gör två matcher i exemplet till tydliga skrällchanser
+  const matcher = exempel.matcher.map((m) => ({ ...m }));
+  matcher[0] = { ...matcher[0], chans: { 1: 0.5, X: 0.25, 2: 0.25 }, streck: { 1: 68, X: 18, 2: 14 } };   // X 1,39
+  matcher[5] = { ...matcher[5], chans: { 1: 0.55, X: 0.24, 2: 0.21 }, streck: { 1: 70, X: 15, 2: 15 } };   // 2 1,40
+  const ett = skrallKrav(matcher, 32);
+  assert.equal(Object.keys(ett).length, 1);
+  const tva = skrallKrav(matcher, 192);
+  assert.equal(Object.keys(tva).length, 2);
+  for (const [budget, krav] of [[1, ett], [32, ett], [192, tva]]) {
+    const r = optimera(matcher, budget, {}, undefined, krav);
+    assert.ok(r.ok);
+    for (const [nr, t] of Object.entries(krav)) {
+      const v = r.val.find((x) => x.nr === Number(nr));
+      assert.ok(v.tecken.includes(t), `match ${nr} ska innehålla ${t} vid ${budget} rader`);
+      assert.equal(v.skrall, t);
+    }
+  }
+  // En låst match får inget skrällkrav – låsningen gäller
+  const nr = Number(Object.keys(ett)[0]);
+  assert.ok(!skrallKrav(matcher, 32, { [nr]: "1" })[nr]);
 });

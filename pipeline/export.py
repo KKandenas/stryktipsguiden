@@ -245,6 +245,8 @@ def _traffar(p, res) -> bool:
 
 
 FOLKET = "Svenska folket"
+# Skrällchans – samma regel som skrallchanser() i docs/optimizer.js
+SKRALL_MIN_CHANS, SKRALL_MIN_KVOT, SKRALL_MAX_KVOT, SKRALL_MAX = 0.2, 1.25, 1.5, 3
 MIN_JAMFORELSE = 100     # matcher innan en slutsats dras om en modell är bättre eller sämre än oddsen
 
 
@@ -282,6 +284,29 @@ def parvis(version: str, par: list) -> dict:
             "slutsats": slutsats}
 
 
+def skrallchanser(omgang: list) -> list:
+    """Omgångens skrällchanser [(match_id, teckenindex, chans, streckandel)], högst SKRALL_MAX, mest understreckade först.
+    omgang = [(match_id, chans, streck)]."""
+    kandidater = []
+    for mid, p, s in omgang:
+        summa = sum(s)
+        if summa <= 0:
+            continue
+        favorit = max(range(3), key=lambda i: p[i])
+        bast = None
+        for i in range(3):
+            if i == favorit or p[i] < SKRALL_MIN_CHANS:
+                continue
+            andel = s[i] / summa
+            kvot = p[i] / max(andel, 0.01)
+            if SKRALL_MIN_KVOT <= kvot < SKRALL_MAX_KVOT and (bast is None or kvot > bast[4]):
+                bast = (mid, i, p[i], andel, kvot)
+        if bast:
+            kandidater.append(bast)
+    kandidater.sort(key=lambda k: -k[4])
+    return [k[:4] for k in kandidater[:SKRALL_MAX]]
+
+
 def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
     """Träffsäkerhet för modeller, källor och ligor – för hela historiken ("alla") och från varje
     startår ("2023" = från 1 januari 2023). Modellerna jämförs på samma matcher."""
@@ -297,6 +322,7 @@ def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
             prog.setdefault(mid, {})[v] = (p1, px, p2)
     streck = {r[0]: (r[1], r[2], r[3]) for r in conn.execute(
         "SELECT match_id, p1, px, p2, MAX(tidpunkt) FROM streck GROUP BY match_id")}
+    omgang_for = {r[0]: r[1] for r in conn.execute("SELECT id, omgang_id FROM matcher")}
     tips: dict = {}
     for mid, namn, p1, px, p2, tecken in conn.execute(
             "SELECT t.match_id, k.namn, t.p1, t.px, t.p2, t.tecken FROM tips t JOIN kallor k ON k.id = t.kalla_id"):
@@ -350,7 +376,29 @@ def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
                 l_[0] += brier(p, res); l_[1] += _traffar(p, res); l_[2] += 1
         ligor = sorted(({"liga": k, "brier": round(v[0] / v[2], 4), "traff": round(v[1] / v[2], 3), "antal": v[2]}
                         for k, v in per_liga.items() if v[2] >= min_n), key=lambda x: -x["antal"])[:6]
-        return {"modeller": modeller, "kallor": kallor, "ligor": ligor, "jamforelse": jamforelse(urval)}
+        return {"modeller": modeller, "kallor": kallor, "ligor": ligor, "jamforelse": jamforelse(urval),
+                "skrall": skrallstatistik(urval)}
+
+    def skrallstatistik(urval) -> Optional[dict]:
+        """Hur skrällchanserna har gått: andel som gick in mot vad oddsen och folket trodde."""
+        per_omgang: dict = {}
+        for mid, _, _, res in urval:
+            p = prog.get(mid, {}).get(STANDARD_MODELL)
+            if p and mid in streck:
+                per_omgang.setdefault(omgang_for[mid], []).append((mid, p, streck[mid], res))
+        antal = traff = 0
+        chans = folket = 0.0
+        for rader in per_omgang.values():
+            facit = {mid: res for mid, _, _, res in rader}
+            for mid, i, p, andel in skrallchanser([(mid, p, s) for mid, p, s, _ in rader]):
+                antal += 1
+                traff += facit[mid] == TECKEN[i]
+                chans += p
+                folket += andel
+        if antal < 20:
+            return None
+        return {"antal": antal, "omgangar": len(per_omgang), "traff": round(traff / antal, 3),
+                "chans": round(chans / antal, 3), "folket": round(folket / antal, 3)}
 
     def jamforelse(urval) -> list:
         """Varje modell (och Svenska folket) parvis mot oddsen, på de matcher där båda har prognos."""
@@ -361,9 +409,13 @@ def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
         for v, hamta in kandidater.items():
             par = [(prog[mid][STANDARD_MODELL], p, res) for mid, _, _, res in urval
                    if STANDARD_MODELL in prog.get(mid, {}) and (p := hamta(mid)) is not None]
-            if not par:
-                continue
-            ut.append(parvis(v, par))
+            if par:
+                ut.append(parvis(v, par))
+            elif v in MODELLER and MODELLER[v].roll in ("alternativ", "skugga"):
+                # Nya modeller syns direkt, även innan de har några avgjorda matcher
+                m = MODELLER[v]
+                ut.append({"version": v, "namn": m.namn, "roll": m.roll, "framat": bool(m.framat), "antal": 0,
+                           "slutsats": "för lite data"})
         ordning = {"alternativ": 0, "skugga": 1, "referens": 2, "arkiv": 3}
         ut.sort(key=lambda x: (ordning.get(x["roll"], 9), -x["antal"]))
         return ut
@@ -443,7 +495,7 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
      "omgangar": [{"id": 4973, "datum": "2026-10-03",
                    "utdelning": [13 rätt, 12, 11, 10],          # kr per rad
                    "matcher": [[chans1, chansX, chans2, streck1, streckX, streck2, "resultat",
-                                [tipsviktad chans 1, X, 2] | null], ...]}]}
+                                [tipsviktad chans 1, X, 2] | null, [Lagkolls chans 1, X, 2] | null], ...]}]}
     """
     version = vald_version(conn)
     omgangar = []
@@ -457,14 +509,17 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
                           (SELECT json_array(p1, px, p2) FROM streck WHERE match_id = m.id
                              ORDER BY tidpunkt DESC LIMIT 1),
                           (SELECT json_array(p1, px, p2) FROM prognoser WHERE match_id = m.id
-                             AND modellversion = 'tips-v1')
+                             AND modellversion = 'tips-v1'),
+                          (SELECT json_array(p1, px, p2) FROM prognoser WHERE match_id = m.id
+                             AND modellversion = 'lagkoll-v1')
                    FROM matcher m WHERE m.omgang_id = ? ORDER BY m.matchnr""",
                 (version, STANDARD_MODELL, version, o["id"])):
             if not m[0] or not m[1] or not m[2]:
                 break
             chans, streck = json.loads(m[1]), json.loads(m[2])
             tips = [round(x, 4) for x in json.loads(m[3])] if m[3] else None
-            matcher.append([round(x, 4) for x in chans] + [round(x, 1) for x in streck] + [m[0], tips])
+            lk = [round(x, 4) for x in json.loads(m[4])] if m[4] else None
+            matcher.append([round(x, 4) for x in chans] + [round(x, 1) for x in streck] + [m[0], tips, lk])
         if len(matcher) == 13:
             omgangar.append({"id": o["id"], "datum": o["datum"],
                              "utdelning": [o["utdelning_13"], o["utdelning_12"], o["utdelning_11"], o["utdelning_10"]],

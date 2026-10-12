@@ -1,7 +1,8 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
-} from "./optimizer.js?v=20261013b";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261013b";
+  skrallKrav,
+} from "./optimizer.js?v=20261013d";
+import { backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013d";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -19,7 +20,7 @@ const state = {
   senaste: null,       // senaste.json – förra omgången, för rättning
   rBudget: null,       // vald budget i rättningen
   rOppna: new Set(),   // utfällda matcher i rättningen
-  kalla: "modell",     // "modell" eller "tips" – vilket förslag som visas
+  kalla: "modell",     // vilket förslag som visas, se FORSLAG
   formRang: [],        // tipsarnas form (kupong.json → tipsare_form), bäst först
   statAr: "alla",      // valt startår i "Så har modellen träffat"
   btAr: "alla",        // valt startår i backtestet
@@ -38,13 +39,56 @@ function arsknappar(ar, valt, vid) {
   return el("label", { class: "arsval" }, el("span", { text: "Visa" }), val);
 }
 
-/** Matcherna enligt valt förslag: med "tips" används tips-v1:s chans och värde där de finns. */
+// Förslagen man kan välja mellan. Skrällchans = Oddsens chans, men raderna måste ha med omgångens bästa
+// skrällar (1 på små system, 2 på stora – se optimizer.skrallKrav). Lagkoll är en skuggmodell under test.
+const FORSLAG = {
+  modell: { namn: "Oddsen", under: "Spelbolagens bedömning" },
+  tips: { namn: "Med experter", under: "Odds + tipsare" },
+  lagkoll: { namn: "Lagkoll", under: "Odds + lagnyheter · test" },
+  skrall: { namn: "Skrällchans", under: "Oddsen + 1–2 skrällar" },
+};
+
+const vardeMot = (chans, streck) => {
+  if (!chans || !streck) return null;
+  const summa = TECKEN.reduce((a, t) => a + streck[t], 0) || 1;
+  return Object.fromEntries(TECKEN.map((t) => [t, chans[t] - streck[t] / summa]));
+};
+
+/** Matcherna enligt valt förslag: "tips" och "lagkoll" byter chans och värde där de finns. */
 function matcherEnligtKalla(kupong, kalla = state.kalla) {
-  if (kalla !== "tips") return kupong.matcher;
-  return kupong.matcher.map((m) => (m.chans_tips
-    ? { ...m, chans: m.chans_tips, varde: m.varde_tips, chans_modell: m.chans, varde_modell: m.varde } : m));
+  if (kalla === "tips") {
+    return kupong.matcher.map((m) => (m.chans_tips
+      ? { ...m, chans: m.chans_tips, varde: m.varde_tips, chans_modell: m.chans, varde_modell: m.varde } : m));
+  }
+  if (kalla === "lagkoll") {
+    return kupong.matcher.map((m) => (m.lagkoll
+      ? { ...m, chans: m.lagkoll.chans, varde: vardeMot(m.lagkoll.chans, m.streck), chans_modell: m.chans, varde_modell: m.varde }
+      : m));
+  }
+  return kupong.matcher;
 }
 const harTips = (kupong) => kupong.matcher.some((m) => m.chans_tips);
+
+/** Optimera enligt ett förslag (med skrällkrav för "skrall"). */
+function optimeraForslag(kupong, kalla, budget, lasningar) {
+  const matcher = matcherEnligtKalla(kupong, kalla);
+  return optimera(matcher, budget, lasningar, undefined, kalla === "skrall" ? skrallKrav(matcher, budget, lasningar) : {});
+}
+
+/** Kort förklaring under sammanfattningen för förslag som bara delvis skiljer sig från Oddsen. */
+function forslagInfo(kupong, kalla, resultat) {
+  if (kalla === "lagkoll") {
+    const n = kupong.matcher.filter((m) => m.lagkoll).length;
+    return n ? `Lagkoll har analyserat ${n} av 13 matcher – övriga följer Oddsen.`
+      : "Lagkoll har inte analyserat omgången än (görs fredag kväll och lördag) – förslaget är samma som Oddsen.";
+  }
+  if (kalla === "skrall" && resultat?.ok) {
+    const s = resultat.val.filter((v) => v.skrall);
+    return s.length ? `Skrällar i raderna: ${s.map((v) => `${v.skrall} på match ${v.nr}`).join(" och ")}.`
+      : "Inga skrällchanser i omgången just nu – förslaget är samma som Oddsen.";
+  }
+  return "";
+}
 
 // ---------- lagring (localStorage kan saknas eller kasta, t.ex. i privat läge) ----------
 
@@ -102,7 +146,7 @@ async function start() {
   state.formRang = state.kupong.tipsare_form || [];
   const lagrat = lasLagring();
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
-  if (lagrat.kalla === "tips" && harTips(state.kupong)) state.kalla = "tips";
+  if (FORSLAG[lagrat.kalla] && (lagrat.kalla !== "tips" || harTips(state.kupong))) state.kalla = lagrat.kalla;
   for (const b of document.querySelectorAll(".forslag button")) {
     b.disabled = b.dataset.kalla === "tips" && !harTips(state.kupong);
     b.addEventListener("click", () => {
@@ -209,15 +253,16 @@ function renderaMatcher() {
     state.resultat, state.lasningar, state.oppna, true, state.skillnad);
 }
 
-/** Det andra förslaget (Oddsen ↔ Med experter) med samma budget och låsningar: matcher med andra tecken. */
+/** Jämförelseförslaget med samma budget och låsningar: matcher med andra tecken. Oddsen jämförs med
+ *  Med experter, alla andra förslag med Oddsen. */
 function skillnadMotAndra(kupong, resultat, budget, lasningar) {
-  if (!resultat?.ok || !harTips(kupong)) return null;
-  const andra = state.kalla === "tips" ? "modell" : "tips";
-  const r = optimera(matcherEnligtKalla(kupong, andra), budget, lasningar);
+  const andra = state.kalla === "modell" ? "tips" : "modell";
+  if (!resultat?.ok || (andra === "tips" && !harTips(kupong))) return null;
+  const r = optimeraForslag(kupong, andra, budget, lasningar);
   if (!r.ok) return null;
   const skiljer = {};
   r.val.forEach((v, i) => { if (v.tecken !== resultat.val[i].tecken) skiljer[v.nr] = v.tecken; });
-  return { namn: andra === "tips" ? "Med experter" : "Oddsen", skiljer };
+  return { namn: FORSLAG[andra].namn, skiljer };
 }
 
 /** Ritar kupongens matcher. interaktiv=false (rättningen): tecknen går inte att låsa. */
@@ -339,9 +384,9 @@ function detaljer(m, v, skrall = null) {
   const proc = (c) => TECKEN.map((t) => (c ? `${procent(c[t])} %` : null));
 
   const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
-  if (modell) rad("Oddsen", proc(modell), state.kalla === "modell" ? "markerad" : "", "chans enligt spelbolagen");
+  if (modell) rad("Oddsen", proc(modell), ["modell", "skrall"].includes(state.kalla) ? "markerad" : "", "chans enligt spelbolagen");
   if (m.chans_tips) rad("Med experter", proc(m.chans_tips), state.kalla === "tips" ? "markerad" : "", "odds + tipsare");
-  if (m.lagkoll) rad("Lagkoll", proc(m.lagkoll.chans), "skugga-rad", "skuggmodell");
+  if (m.lagkoll) rad("Lagkoll", proc(m.lagkoll.chans), state.kalla === "lagkoll" ? "markerad" : "skugga-rad", "odds + lagnyheter · test");
   if (m.streck) rad("Svenska folket", TECKEN.map((t) => `${Math.round(m.streck[t])} %`), "", "streck");
   if (m.varde) {
     rad("Värde", TECKEN.map((t) => {
@@ -418,7 +463,7 @@ function lagkollPanel(m) {
   const panel = el("section", { class: "lagkoll", "aria-label": "Lagkoll" });
   panel.append(el("div", { class: "lagkoll-huvud" },
     el("b", { text: "Lagkoll" }),
-    el("span", { class: "lagkoll-etikett", text: "skuggmodell · påverkar inte raderna" })));
+    el("span", { class: "lagkoll-etikett", text: "test · styr bara förslaget Lagkoll" })));
   panel.append(el("p", { class: `lagkoll-risk risk-${lk.skrallrisk === "hög" ? "hog" : lk.skrallrisk === "medel" ? "medel" : "lag"}` },
     el("span", { class: "jamf-markor", "aria-hidden": "true" }), RISKTEXT[lk.skrallrisk] || lk.skrallrisk));
   if (lk.motivering) panel.append(el("p", { class: "lagkoll-text", text: lk.motivering }));
@@ -520,7 +565,8 @@ function renderaJamforelse(box, rader) {
   const lista = el("ul", { class: "jamforelse" });
   for (const r of rader) {
     const text = r.slutsats === "bättre" ? "Bättre än Oddsen" : r.slutsats === "sämre" ? "Sämre än Oddsen"
-      : r.slutsats === "för lite data" ? `För lite data än (${r.antal} av 100 matcher)` : "Ingen säker skillnad";
+      : r.antal === 0 ? "Inga avgjorda matcher än" : r.slutsats === "för lite data" ? `För lite data än (${r.antal} av 100 matcher)`
+        : "Ingen säker skillnad";
     const tal = r.slutsats === "för lite data" || r.felmarginal == null ? ""
       : ` · ${r.skillnad > 0 ? "+" : ""}${procent2(r.skillnad)} ± ${procent2(r.felmarginal)}`;
     lista.append(el("li", { class: `jamf ${r.slutsats.replaceAll(" ", "-")}` },
@@ -528,9 +574,10 @@ function renderaJamforelse(box, rader) {
         el("span", { class: "jamf-roll", text: ROLLNAMN[r.roll] || r.roll })),
       el("p", { class: "jamf-slutsats" }, el("span", { class: "jamf-markor", "aria-hidden": "true" }), text,
         el("span", { class: "dampad", text: tal })),
-      el("p", { class: "dampad liten", text:
-        `${r.antal.toLocaleString("sv-SE")} matcher${r.framat ? " sedan start" : ""} · favoriten rätt ${pct(r.traff)} ` +
-        `(Oddsen ${pct(r.traff_odds)}) · Brier ${dec(r.brier)} (Oddsen ${dec(r.brier_odds)})` })));
+      el("p", { class: "dampad liten", text: r.antal === 0
+        ? "Mäts automatiskt när matcherna den analyserat är spelade. Räkna med ett halvår innan det säger något."
+        : `${r.antal.toLocaleString("sv-SE")} matcher${r.framat ? " sedan start" : ""} · favoriten rätt ${pct(r.traff)} ` +
+          `(Oddsen ${pct(r.traff_odds)}) · Brier ${dec(r.brier)} (Oddsen ${dec(r.brier_odds)})` })));
   }
   box.append(lista);
 }
@@ -592,6 +639,17 @@ function renderaStatistik() {
   box.append(tabell);
 
   if (blk.jamforelse?.length) renderaJamforelse(box, blk.jamforelse);
+  if (blk.skrall) {
+    const sk = blk.skrall;
+    box.append(el("h3", { text: "Skrällchanserna" }));
+    box.append(el("p", { text:
+      `${sk.antal.toLocaleString("sv-SE")} skrällchanser i ${sk.omgangar} omgångar. De gick in i ${pct(sk.traff)} av fallen – ` +
+      `oddsen sa ${pct(sk.chans)} och folket trodde bara ${pct(sk.folket)}. Därför betalar de bra när de går in.` }));
+    box.append(el("p", { class: "forklaring-stat", text:
+      "Skrällchans = ett tecken som inte är favorit, har minst 20 % chans och är understreckat (chansen 1,25–1,5 " +
+      "gånger strecken). Högst tre per omgång. Förslaget Skrällchans tar med 1 av dem på system upp till 64 rader " +
+      "och 2 på större – backtestet under Om du spelat varje vecka visar hur det hade gått." }));
+  }
 
   if (st.tipsare?.length) {
     box.append(el("h3", { text: "Tipsarnas vikt i förslaget Med experter" }));
@@ -745,8 +803,7 @@ function renderaRattning() {
 
   for (const b of $("r-budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.rBudget));
   const lasningar = (lasLagring().lasningar || {})[omgang.id] || {};
-  const rMatcher = matcherEnligtKalla(k);
-  const res = optimera(rMatcher, state.rBudget, lasningar);
+  const res = optimeraForslag(k, state.kalla, state.rBudget, lasningar);
   const box = $("r-resultat");
   box.replaceChildren();
 
@@ -767,13 +824,13 @@ function renderaRattning() {
     const rader = [13, 12, 11, 10].filter((n) => fordelning[n]).map((n) =>
       `${n} rätt: ${fordelning[n]} ${fordelning[n] === 1 ? "rad" : "rader"}${avgjord && utd[String(n)] ? ` à ${kr(utd[String(n)])}` : ""}`);
     box.append(el("p", { class: "dampad", text: rader.length ? rader.join(" · ") : "Ingen rad nådde 10 rätt." }));
-    box.append(el("p", { class: "dampad liten", text: (state.kalla === "tips" ? "Förslaget Med experter. " : "") +
+    box.append(el("p", { class: "dampad liten", text: (state.kalla !== "modell" ? `Förslaget ${FORSLAG[state.kalla].namn}. ` : "") +
       (Object.keys(lasningar).length ? "Med dina låsningar. " : "") +
       "Rättningen gäller systemet som appen föreslog – vi vet inte vad du faktiskt lämnade in." +
       (omgang.frusen ? ` ${fryst(omgang)}` : "") }));
   }
   renderaUtdelning(omgang, res.ok ? rattFordelning(res.val, k.matcher.map((m) => m.resultat || "?")) : null);
-  ritaMatcher($("r-matcher"), { ...k, matcher: rMatcher }, res, lasningar, state.rOppna, false,
+  ritaMatcher($("r-matcher"), { ...k, matcher: matcherEnligtKalla(k) }, res, lasningar, state.rOppna, false,
     skillnadMotAndra(k, res, state.rBudget, lasningar));
 }
 
@@ -834,11 +891,13 @@ function renderaBacktest() {
   const arLista = ["alla", ...[...new Set(h.omgangar.map((o) => o.datum.slice(0, 4)))]
     .filter((a) => h.omgangar.filter((o) => o.datum.startsWith(a)).length >= 10).slice(1)];
   if (!arLista.includes(state.btAr)) state.btAr = "alla";
-  const urval = franAr(h, state.btAr);
-  const harTipsHist = urval.omgangar.some((o) => o.matcher.some((m) => m[7]));
+  const allaAr = franAr(h, state.btAr);
+  const harTipsHist = allaAr.omgangar.some((o) => o.matcher.some((m) => m[7]));
+  // Lagkoll: bara omgångar där Lagkoll faktiskt analyserat något – annars vore det samma som Oddsen
+  const urval = state.kalla === "lagkoll" ? medLagkoll(allaAr) : allaAr;
 
   const vaxel = el("div", { class: "forslag", role: "radiogroup", "aria-label": "Vilket förslag i backtestet" });
-  for (const [k, namn, under] of [["modell", "Oddsen", "Spelbolagens bedömning"], ["tips", "Med experter", "Odds + tipsare"]]) {
+  for (const [k, { namn, under }] of Object.entries(FORSLAG)) {
     const b = el("button", { type: "button", role: "radio", "data-kalla": k, "aria-checked": String(state.kalla === k),
       disabled: k === "tips" && !harTipsHist }, el("b", { text: namn }), el("span", { text: under }));
     b.addEventListener("click", () => {
@@ -851,10 +910,16 @@ function renderaBacktest() {
   }
   box.append(vaxel);
   box.append(arsknappar(arLista, state.btAr, (a) => { state.btAr = a; renderaBacktest(); }));
+  if (!urval.omgangar.length) {
+    box.append(el("p", { class: "dampad", text:
+      "Lagkoll har inga avgjorda omgångar än. Den analyserar från fredagen före spelstopp, och backtestet fylls på " +
+      "vecka för vecka när resultaten kommer in." }));
+    return;
+  }
 
   const forsta = urval.omgangar[0].datum, sista = urval.omgangar.at(-1).datum;
   box.append(el("p", { class: "dampad", text:
-    `${state.kalla === "tips" ? "Förslaget Med experter" : "Oddsförslaget"} spelat varje vecka i ${urval.omgangar.length} omgångar ` +
+    `Förslaget ${FORSLAG[state.kalla].namn} spelat varje vecka i ${urval.omgangar.length} omgångar ` +
     `(${forsta} – ${sista}), jämfört med att spela samma antal rader efter folkets streck. Riktig utdelning för 13–10 rätt.` }));
 
   const knappar = el("div", { class: "budgetknappar", role: "radiogroup", "aria-label": "Rader per vecka" });
@@ -866,8 +931,8 @@ function renderaBacktest() {
   box.append(knappar);
 
   const serier = [
-    { namn: state.kalla === "tips" ? "Med experter" : "Oddsen", klass: "s1", farg: "var(--serie-1)",
-      res: backtesta(urval, state.btBudget, state.kalla === "tips" ? "tips" : "modell") },
+    { namn: FORSLAG[state.kalla].namn, klass: "s1", farg: "var(--serie-1)",
+      res: backtesta(urval, state.btBudget, state.kalla) },
     { namn: "Folket", klass: "s2", farg: "var(--serie-2)", res: backtesta(urval, state.btBudget, "folket") },
   ];
 
@@ -991,11 +1056,14 @@ function arstabell(serier) {
 }
 
 function uppdatera() {
-  state.resultat = optimera(matcherEnligtKalla(state.kupong), state.budget, state.lasningar);
+  state.resultat = optimeraForslag(state.kupong, state.kalla, state.budget, state.lasningar);
+  const info = forslagInfo(state.kupong, state.kalla, state.resultat);
+  $("forslag-info").hidden = !info;
+  $("forslag-info").textContent = info;
   state.skillnad = skillnadMotAndra(state.kupong, state.resultat, state.budget, state.lasningar);
   const sk = state.skillnad, skRad = $("skillnad");
   const nr = sk ? Object.keys(sk.skiljer) : [];
-  skRad.hidden = !sk;
+  skRad.hidden = !sk || (Boolean(info) && !nr.length);   // "samma som Oddsen" står redan i infon
   skRad.textContent = !sk ? "" : nr.length
     ? `${sk.namn} skiljer sig på ${nr.length} ${nr.length === 1 ? "match" : "matcher"} (${nr.join(", ")}) – markerat på raderna.`
     : `${sk.namn} ger samma rader.`;

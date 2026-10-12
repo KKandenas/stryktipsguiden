@@ -15,12 +15,16 @@ export const LAMBDA = 0.3;          // risknivå: 0 = bara träffchans, 1 = bara
 export const VARDE_GRANS = 0.03;    // orange prick från 3 procentenheter understreckat
 export const VARDE_GRANS_OSAKER = 0.05;   // …och från 5 när bedömningen bara bygger på Svenska Spels odds
 export const TECKEN = ["1", "X", "2"];
-// Skrällchans: ett tecken som inte är favorit, har minst 20 % chans och är tydligt understreckat
-// (chans/streck ≥ 1,25). Historiskt går de in exakt så ofta som oddsen säger, men betalar i snitt
-// 1,44 gånger mer per träff än folkets val. Högst tre per omgång, de mest understreckade. Se README.
+// Skrällchans: ett tecken som inte är favorit, har minst 20 % chans och är tydligt men inte extremt
+// understreckat (chans/streck 1,25–1,5). Historiskt gick de in något oftare än oddsen sa och betalade i snitt
+// 1,5 gånger mer per träff än folkets val. Över 1,5 gick de in klart mer sällan än oddsen sa – där vet
+// folket ofta något som oddsen inte tagit in. Högst tre per omgång, de mest understreckade. Se README.
 export const SKRALL_MIN_CHANS = 0.2;
 export const SKRALL_MIN_KVOT = 1.25;
+export const SKRALL_MAX_KVOT = 1.5;
 export const SKRALL_MAX = 3;
+// Förslaget "Skrällchans": så många skrällar måste finnas med i raderna.
+export const skrallarForBudget = (rader) => (rader <= 64 ? 1 : 2);
 
 const MIN_STRECK = 0.01;            // skydd mot division med ~0 för nästan ostreckade tecken
 const ALLA_VAL = ["1", "X", "2", "1X", "12", "X2", "1X2"];
@@ -39,12 +43,22 @@ export function skrallchanser(matcher) {
       if (t === favorit || m.chans[t] < SKRALL_MIN_CHANS) continue;
       const streck = m.streck[t] / summa;
       const kvot = m.chans[t] / Math.max(streck, 0.01);
-      if (kvot >= SKRALL_MIN_KVOT && (!bast || kvot > bast.kvot)) bast = { nr: m.nr, tecken: t, chans: m.chans[t], streck, kvot };
+      if (kvot >= SKRALL_MIN_KVOT && kvot < SKRALL_MAX_KVOT && (!bast || kvot > bast.kvot)) bast = { nr: m.nr, tecken: t, chans: m.chans[t], streck, kvot };
     }
     if (bast) kandidater.push(bast);
   }
   kandidater.sort((a, b) => b.kvot - a.kvot);
   return Object.fromEntries(kandidater.slice(0, SKRALL_MAX).map((k) => [k.nr, k]));
+}
+
+/** Krav för förslaget Skrällchans: {matchnr: tecken} för omgångens bästa skrällar (1 eller 2 beroende på
+ *  budget). Matcher som användaren låst får inget krav – låsningen gäller. */
+export function skrallKrav(matcher, rader, lasningar = {}) {
+  const lista = Object.values(skrallchanser(matcher))
+    .filter((s) => !normaliseraLasning(lasningar[s.nr]))
+    .sort((a, b) => b.kvot - a.kvot)
+    .slice(0, skrallarForBudget(rader));
+  return Object.fromEntries(lista.map((s) => [s.nr, s.tecken]));
 }
 
 export function faktorisera(rader) {
@@ -96,10 +110,11 @@ export function normaliseraLasning(s) {
  * @param matcher   13 matcher från kupong.json ({nr, chans, streck})
  * @param rader     budget, t.ex. 96
  * @param lasningar {matchnr: "1X"} – tecken som användaren låst
+ * @param krav      {matchnr: "2"} – tecken som måste finnas med (förslaget Skrällchans); låsningar går före
  * @returns {ok: true, val: [{nr, tecken, typ, last}], halv, hel, spik, rader}
  *        | {ok: false, fel: "text"}
  */
-export function optimera(matcher, rader, lasningar = {}, lambda = LAMBDA) {
+export function optimera(matcher, rader, lasningar = {}, lambda = LAMBDA, krav = {}) {
   const mal = faktorisera(rader);
   if (!mal) return { ok: false, fel: `${rader} rader går inte att bygga med halv- och helgarderingar.` };
   if (matcher.length !== 13) return { ok: false, fel: `Kupongen har ${matcher.length} matcher, väntade 13.` };
@@ -113,7 +128,8 @@ export function optimera(matcher, rader, lasningar = {}, lambda = LAMBDA) {
 
   matcher.forEach((m) => {
     const last = normaliseraLasning(lasningar[m.nr]);
-    const alternativ = (last ? [last] : ALLA_VAL).map((t) => ({
+    const maste = !last && krav[m.nr];
+    const alternativ = (last ? [last] : maste ? ALLA_VAL.filter((t) => t.includes(maste)) : ALLA_VAL).map((t) => ({
       t, dh: t.length === 2 ? 1 : 0, df: t.length === 3 ? 1 : 0, p: poang(m, t, lambda),
     }));
     const ny = Array.from({ length: H + 1 }, () => new Array(F + 1).fill(NEG));
@@ -140,7 +156,8 @@ export function optimera(matcher, rader, lasningar = {}, lambda = LAMBDA) {
   for (let i = matcher.length - 1; i >= 0; i--) {
     const s = spar[i][h][f];
     const m = matcher[i];
-    val[i] = { nr: m.nr, tecken: s.t, typ: typ(s.t), last: Boolean(normaliseraLasning(lasningar[m.nr])) };
+    val[i] = { nr: m.nr, tecken: s.t, typ: typ(s.t), last: Boolean(normaliseraLasning(lasningar[m.nr])),
+      skrall: !normaliseraLasning(lasningar[m.nr]) && krav[m.nr] ? krav[m.nr] : null };
     h = s.fh; f = s.ff;
   }
   return { ok: true, val, halv: H, hel: F, spik: 13 - H - F, rader };

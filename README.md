@@ -385,8 +385,9 @@ underlaget ändrats (`underlag_hash`). Tabellen ensam räcker inte som underlag,
 i oddsen. Det krävs fakta ur artiklar eller ett tränarbyte från de senaste 60 dagarna.
 
 Resultatet sparas i `lagkoll` och blir prognoser för `lagkoll-v1` (`framat = True`, roll `skugga`). Appen
-visar analysen i matchdetaljen, märkt "skuggmodell · påverkar inte raderna", och statistiksidan mäter den
-mot oddsen. Manuellt: `python -m pipeline lagkoll`, som analyserar direkt oavsett tid till spelstopp.
+visar analysen i matchdetaljen. Lagkoll kan också väljas som förslag, och då används Lagkolls chans där en
+analys finns, annars Oddsens. Statistiksidan mäter den mot oddsen, och backtestet tar med omgångar där
+Lagkoll analyserat något (fält 9 i historik.json). Manuellt: `python -m pipeline lagkoll`, som analyserar direkt oavsett tid till spelstopp.
 
 ### Skrällar: vad historiken säger (oktober 2026)
 
@@ -403,11 +404,31 @@ i repot, men tabellerna går att återskapa med prognoser (odds-v2), streck och 
 | Liga | Ingen liga avviker säkert. FA-cupen 0,91 och League Two 0,93, men med få matcher. |
 | Tio tidningars tips emot favoriten (≤ 4/10 på favoriten) | **Signal:** favoriten vann 32 % mot 39 % enligt oddsen (kvot 0,82 ± 0,15). Troligen för att tidningarna tippar senare än startoddsen. Ingår redan i tips-v1. |
 
-Slutsatsen är att skrällar inte går att förutsäga bättre än oddsen. Värdet ligger i utdelningen: tecken som
-inte är favorit, har chans ≥ 20 % och kvot chans/streck ≥ 1,25 gick in exakt så ofta som oddsen sa (26,4 %), men
-gav i snitt 1,44 gånger mer per träff i förhållande till strecken (övriga icke-favoriter 1,07). Appen markerar
-högst tre sådana per omgång som **Skrällchans** (`skrallchanser` i `docs/optimizer.js`). Optimeraren väger
-redan in samma sak genom utdelningsdelen av poängen.
+Slutsatsen är att skrällar i stort inte går att förutsäga bättre än oddsen. Värdet ligger i utdelningen.
+För omgångens tre mest understreckade icke-favoriter med chans ≥ 20 % spelar graden av understreckning roll:
+
+| Kvot chans/streck | Antal | Gick in | Oddsen sa | Utfall/streck |
+|---|---|---|---|---|
+| 1,25–1,5 (topp 3 per omgång) | 651 | 29,0 % | 26,6 % | 1,53 |
+| över 1,5 | 419 | 20,0 % | 25,6 % | 1,28 |
+
+Över 1,5 visste folket ofta något som startoddsen inte tagit in. **Skrällchans** är därför kvot 1,25–1,5,
+högst tre per omgång (`skrallchanser` i `docs/optimizer.js`, samma regel i `export.skrallchanser`).
+
+**Förslaget Skrällchans** (`skrallKrav`) är Oddsens förslag med kravet att raderna innehåller de bästa
+skrällarna: 1 upp till 64 rader och 2 på större system. Låsta matcher får inget krav. Backtest 2021–2026
+(återbetalning, med och utan 13 rätt):
+
+| Rader | Oddsen | Skrällchans | Oddsen utan 13 rätt | Skrällchans utan 13 rätt |
+|---|---|---|---|---|
+| 64 | 46 % | 34 % | 46 % | 34 % |
+| 96 | 40 % | 24 % | 40 % | 24 % |
+| 128 | 49 % | 394 % | 39 % | 54 % |
+| 256 | 38 % | 217 % | 33 % | 47 % |
+| 576 | 38 % | 120 % | 33 % | 44 % |
+
+De höga totalerna kommer från en enda 13-rättare (december 2025). Utan den ger Skrällchans ändå mer
+tillbaka än Oddsen från 128 rader och uppåt, men mindre på små system.
 
 Odds- och streckrörelser under veckan går inte att testa bakåt, eftersom Svenska Spels API bara har startodds
 och slutstreck för gamla omgångar. Pipelinen sparar ögonblicksbilder vid varje körning sedan oktober 2026, så
