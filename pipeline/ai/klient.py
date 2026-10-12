@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import threading
 import time
 from typing import Any, Callable, Dict, Optional
 
@@ -24,6 +25,12 @@ CLAUDE_EFFORT = "medium"
 
 MAX_FORSOK = 4                     # gratisnivån har låga gränser per minut och är ibland överbelastad
 TILLFALLIGA_FEL = {429, 500, 502, 503, 504}
+ANROP_TIDSGRANS = 120              # sekunder per enskilt anrop; SDK:t kan annars hänga i det oändliga
+AI_TIDSBUDGET = 15 * 60            # sekunder AI totalt per körning, så att körningen hinner spara sin data
+MAX_FEL_I_RAD = 3                  # så många misslyckade anrop i rad → AI hoppas över resten av körningen
+
+_start: Optional[float] = None
+_fel_i_rad = 0
 
 # Signaturen som resten av koden använder; tester skickar in en egen funktion med samma form.
 Anropare = Callable[[str, str, Dict[str, Any], int], Dict[str, Any]]
@@ -79,6 +86,26 @@ def _tolka_json(text: Optional[str]) -> Dict[str, Any]:
 _gemini = None
 
 
+def _med_tidsgrans(fn: Callable[[], Any], sekunder: float) -> Any:
+    """Kör fn i en daemon-tråd och ge upp efter `sekunder`. En hängande tråd stoppar inte processen."""
+    ut: Dict[str, Any] = {}
+
+    def kor() -> None:
+        try:
+            ut["svar"] = fn()
+        except BaseException as e:  # skickas vidare till anroparen nedan
+            ut["fel"] = e
+
+    t = threading.Thread(target=kor, daemon=True)
+    t.start()
+    t.join(sekunder)
+    if t.is_alive():
+        raise AiFel(f"inget svar inom {sekunder:.0f} s")
+    if "fel" in ut:
+        raise ut["fel"]
+    return ut["svar"]
+
+
 def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_tokens: int) -> Dict[str, Any]:
     global _gemini
     from google import genai
@@ -87,7 +114,7 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
         _gemini = genai.Client()  # läser GEMINI_API_KEY
     for forsok in range(1, MAX_FORSOK + 1):
         try:
-            svar = _gemini.interactions.create(
+            svar = _med_tidsgrans(lambda: _gemini.interactions.create(
                 model=GEMINI_MODELL,
                 system_instruction=system,
                 input=anvandare,
@@ -95,8 +122,10 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
                 response_format={"type": "text", "mime_type": "application/json", "schema": schema},
                 generation_config={"thinking_level": GEMINI_TANKANDE, "max_output_tokens": max_tokens},
                 store=False,
-            )
+            ), ANROP_TIDSGRANS)
             break
+        except AiFel:
+            raise
         except Exception as e:  # interactions-API:t har egna feltyper; titta bara på statuskoden
             kod = getattr(e, "code", None) or getattr(e, "status_code", None)
             if kod in TILLFALLIGA_FEL and forsok < MAX_FORSOK:
@@ -151,9 +180,20 @@ def _anropa_claude(system: str, anvandare: str, schema: Dict[str, Any], max_toke
 
 def anropa_json(system: str, anvandare: str, schema: Dict[str, Any], max_tokens: int = 16000) -> Dict[str, Any]:
     """Ett anrop med strikt JSON-schema för svaret. Kastar AiFel vid avslag, avbrott eller API-fel."""
+    global _start, _fel_i_rad
     lev = leverantor()
-    if lev == "gemini":
-        return _anropa_gemini(system, anvandare, schema, max_tokens)
-    if lev == "claude":
-        return _anropa_claude(system, anvandare, schema, max_tokens)
-    raise AiFel("ingen AI-nyckel är satt")
+    if lev is None:
+        raise AiFel("ingen AI-nyckel är satt")
+    if _fel_i_rad >= MAX_FEL_I_RAD:
+        raise AiFel(f"{_fel_i_rad} misslyckade anrop i rad – hoppar över AI resten av körningen")
+    if _start is None:
+        _start = time.monotonic()
+    elif time.monotonic() - _start > AI_TIDSBUDGET:
+        raise AiFel(f"tidsbudgeten för AI ({AI_TIDSBUDGET // 60} min) är slut – resten tas nästa körning")
+    try:
+        svar = (_anropa_gemini if lev == "gemini" else _anropa_claude)(system, anvandare, schema, max_tokens)
+    except AiFel:
+        _fel_i_rad += 1
+        raise
+    _fel_i_rad = 0
+    return svar

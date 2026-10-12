@@ -261,8 +261,10 @@ och tipsen. En kommentar skrivs om bara när underlaget ändrats märkbart (avru
 
 **Inställningar** i `pipeline/ai/klient.py`: modell (`GEMINI_MODELL`, standard `gemini-3.8-flash`).
 Den kan bytas utan kodändring via repo-variabeln `GEMINI_MODELL` under Settings → Secrets and
-variables → Actions → fliken Variables, t.ex. `gemini-2.5-flash`. Dessutom: tänkande (`GEMINI_TANKANDE = "low"`) och omförsök vid 429 (gratisnivån har låga
-gränser per minut). En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
+variables → Actions → fliken Variables, t.ex. `gemini-2.5-flash`. Dessutom: tänkande (`GEMINI_TANKANDE = "low"`) och omförsök vid 429 och 5xx (gratisnivån har låga
+gränser per minut och är ibland överbelastad). Spärrar så att en körning alltid hinner spara sin data:
+högst 2 min per anrop, 3 misslyckade anrop i rad stänger av AI resten av körningen, och högst 15 min AI
+per körning. Det som inte hanns med tas vid nästa körning. En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
 
 **Kostnad:** Geminis gratisnivå räcker för det här. Observera att Google får använda innehåll som
 skickas på gratisnivån för att förbättra sina produkter. Här är det bara publika artiklar och
