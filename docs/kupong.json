@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-12T18:03:29Z",
+ "genererad": "2026-10-12T18:27:57Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -11,7 +11,7 @@
   "spelstopp": "2026-10-17T13:59:00Z",
   "status": "oppen",
   "frusen": null,
-  "omsattning": 647835.0,
+  "omsattning": 648432.0,
   "radpris": 1,
   "utdelning": null,
   "vinnare": null
@@ -27,7 +27,7 @@
    "chans": {
     "1": 0.4489,
     "X": 0.2525,
-    "2": 0.2985
+    "2": 0.2987
    },
    "chans_kalla": "modell",
    "streck": {
@@ -39,18 +39,18 @@
    "varde": {
     "1": -0.0611,
     "X": 0.0125,
-    "2": 0.0485
+    "2": 0.0487
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.416,
-    "X": 0.2992,
-    "2": 0.2849
+    "1": 0.4159,
+    "X": 0.2991,
+    "2": 0.285
    },
    "varde_tips": {
-    "1": -0.094,
-    "X": 0.0592,
-    "2": 0.0349
+    "1": -0.0941,
+    "X": 0.0591,
+    "2": 0.035
    },
    "odds": {
     "antal_bolag": 43,
@@ -205,9 +205,9 @@
    "land": "England",
    "avspark": "2026-10-17T14:00:00Z",
    "chans": {
-    "1": 0.7806,
-    "X": 0.1353,
-    "2": 0.0841
+    "1": 0.7804,
+    "X": 0.1355,
+    "2": 0.084
    },
    "chans_kalla": "modell",
    "streck": {
@@ -217,19 +217,19 @@
    },
    "streck_tid": "2026-10-12T17:15:35Z",
    "varde": {
-    "1": 0.1906,
-    "X": -0.0547,
-    "2": -0.1359
+    "1": 0.1904,
+    "X": -0.0545,
+    "2": -0.136
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7951,
-    "X": 0.1249,
+    "1": 0.7949,
+    "X": 0.1251,
     "2": 0.08
    },
    "varde_tips": {
-    "1": 0.2051,
-    "X": -0.0651,
+    "1": 0.2049,
+    "X": -0.0649,
     "2": -0.14
    },
    "odds": {
@@ -237,7 +237,7 @@
     "bara_svenskaspel": false,
     "snitt": {
      "1": 1.22,
-     "X": 6.95,
+     "X": 6.94,
      "2": 11.27
     },
     "bolag": [
@@ -268,7 +268,7 @@
      {
       "bolag": "betfair_ex_eu",
       "1": 1.23,
-      "X": 8.2,
+      "X": 8.0,
       "2": 13.5
      }
     ]
@@ -277,7 +277,7 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Manchester City tippas vinna med 3–1. Laget har vunnit båda tidigare inbördes möten och har 80 procent segrar på de tio senaste matcherna.",
+     "text": "Skribenten tippar att Manchester City vinner matchen med 3–1.",
      "system": null,
      "system_rader": null
     }
@@ -295,9 +295,9 @@
    "land": "England",
    "avspark": "2026-10-17T14:00:00Z",
    "chans": {
-    "1": 0.5641,
-    "X": 0.2367,
-    "2": 0.1992
+    "1": 0.5635,
+    "X": 0.2366,
+    "2": 0.1998
    },
    "chans_kalla": "modell",
    "streck": {
@@ -307,20 +307,20 @@
    },
    "streck_tid": "2026-10-12T12:28:10Z",
    "varde": {
-    "1": 0.0841,
-    "X": -0.0233,
-    "2": -0.0608
+    "1": 0.0835,
+    "X": -0.0234,
+    "2": -0.0602
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.5997,
+    "1": 0.5992,
     "X": 0.2161,
-    "2": 0.1841
+    "2": 0.1847
    },
    "varde_tips": {
-    "1": 0.1197,
+    "1": 0.1192,
     "X": -0.0439,
-    "2": -0.0759
+    "2": -0.0753
    },
    "odds": {
     "antal_bolag": 44,
@@ -328,7 +328,7 @@
     "snitt": {
      "1": 1.68,
      "X": 4.01,
-     "2": 4.75
+     "2": 4.74
     },
     "bolag": [
      {
@@ -357,9 +357,9 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.76,
+      "1": 1.77,
       "X": 4.1,
-      "2": 5.0
+      "2": 4.9
      }
     ]
    },
@@ -367,7 +367,7 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten förutspår en 1–0-seger för Fulham. Utöver resultatförutsägelsen och statistik saknas djupare analys i texten.",
+     "text": "Skribenten förutspår en 1-0-seger för Fulham. Fulham har vunnit de fyra senaste inbördes mötena mot Hull City.",
      "system": null,
      "system_rader": null
     }
