@@ -2,7 +2,8 @@
 
 Underlag per lag:
 - lagfakta ur förhandsartiklarna som tipsinsamlingen redan läser (frånvarande spelare, form, sammanhang),
-- ligatabell och tränarbyten från Wikipedias säsongsartikel (sources/wikipedia.py).
+- ligatabell med form från BBC Sport (sources/bbc.py), annars från Wikipedia, och tränarbyten från
+  Wikipedias säsongsartikel (sources/wikipedia.py).
 
 Analysen utgår från oddsens sannolikheter och låter AI-modellen justera dem utifrån lagfakta. Den görs
 bara när spelstoppet är nära (fredagskväll och lördag) och bara om underlaget ändrats sedan förra
@@ -22,7 +23,7 @@ from .ai.klient import AiFel, Anropare
 from .http import HamtningsFel
 from .lagnamn import likhet, normalisera
 from .model.modeller import OddsModellV2, las_underlag
-from .sources import wikipedia
+from .sources import bbc, wikipedia
 from .tid import nu_utc, parse_iso
 from .webb import text_hash
 
@@ -63,39 +64,76 @@ SCHEMA = {
 # ---------- ligatabeller ----------
 
 def uppdatera_tabeller(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = None) -> int:
-    """Hämta tabell och tränarbyten för omgångens ligor (högst var sjätte timme). Returnerar antal ligor."""
+    """Hämta tabell (med form) och tränarbyten för omgångens ligor, högst var sjätte timme.
+    Tabellen tas från BBC Sport där ligan finns, annars från Wikipedia. Returnerar antal ligor."""
     nu = nu or nu_utc()
     ligor = conn.execute("SELECT DISTINCT land, liga FROM matcher WHERE omgang_id = ? AND land IS NOT NULL",
                          (omgang_id,)).fetchall()
     n = 0
     for land, liga in ligor:
-        if (land, liga) not in wikipedia.SIDOR:
+        har_wiki, bbc_url = (land, liga) in wikipedia.SIDOR, bbc.url(land, liga)
+        if not har_wiki and not bbc_url:
             continue
         r = conn.execute("SELECT hamtad FROM ligakallor WHERE land = ? AND liga = ?", (land, liga)).fetchone()
         if r and parse_iso(nu) - parse_iso(r[0]) < timedelta(hours=TABELL_MAX_ALDER_H):
             continue
-        try:
-            url, tabell, byten = wikipedia.hamta_liga(land, liga, parse_iso(nu))
-        except HamtningsFel as e:
-            log.warning("Lagkoll: tabellen för %s %s gick inte att hämta: %s", land, liga, e)
-            continue
+        url, tabell, byten = None, [], []
+        if har_wiki:
+            try:
+                url, tabell, byten = wikipedia.hamta_liga(land, liga, parse_iso(nu))
+            except HamtningsFel as e:
+                log.warning("Lagkoll: Wikipedia för %s %s gick inte att hämta: %s", land, liga, e)
+        if bbc_url:
+            try:
+                _, t = bbc.hamta_tabell(land, liga)
+                if len(t) >= 8:
+                    url, tabell = bbc_url, t
+            except HamtningsFel as e:
+                log.warning("Lagkoll: BBC-tabellen för %s %s gick inte att hämta: %s", land, liga, e)
         if len(tabell) < 8:
-            log.warning("Lagkoll: hittade ingen tabell för %s %s på %s", land, liga, url)
+            log.warning("Lagkoll: hittade ingen tabell för %s %s", land, liga)
             continue
         with conn:
             conn.execute("DELETE FROM ligatabeller WHERE land = ? AND liga = ?", (land, liga))
             conn.executemany(
                 """INSERT INTO ligatabeller (land, liga, lag, plats, spelade, vunna, oavgjorda, forlorade, gjorda,
-                       inslappta, poang) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                       inslappta, poang, form) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 [(land, liga, t["lag"], t["plats"], t["spelade"], t["vunna"], t["oavgjorda"], t["forlorade"],
-                  t["gjorda"], t["inslappta"], t["poang"]) for t in tabell])
+                  t["gjorda"], t["inslappta"], t["poang"], t.get("form")) for t in tabell])
             conn.execute("""INSERT INTO ligakallor (land, liga, url, hamtad, tranarbyten) VALUES (?, ?, ?, ?, ?)
                             ON CONFLICT(land, liga) DO UPDATE SET url = excluded.url, hamtad = excluded.hamtad,
                                 tranarbyten = excluded.tranarbyten""",
                          (land, liga, url, nu, json.dumps(byten, ensure_ascii=False)))
-        log.info("Lagkoll: tabell för %s %s – %d lag, %d tränarbyten", land, liga, len(tabell), len(byten))
+        log.info("Lagkoll: tabell för %s %s – %d lag (%s), %d tränarbyten", land, liga, len(tabell),
+                 "BBC" if url == bbc_url else "Wikipedia", len(byten))
         n += 1
     return n
+
+
+def tabellkalla(url: Optional[str]) -> str:
+    return "BBC Sport" if url and "bbc." in url else "Wikipedia"
+
+
+def tabellrad(conn: sqlite3.Connection, land: Optional[str], liga: Optional[str], lag: str) -> Optional[dict]:
+    """Lagets rad i senaste ligatabellen, med form (senaste först) om källan har den."""
+    rader = {r["lag"]: r for r in conn.execute("SELECT * FROM ligatabeller WHERE land = ? AND liga = ?", (land, liga))}
+    namn = _basta(lag, list(rader))
+    if not namn:
+        return None
+    r = rader[namn]
+    return {"plats": r["plats"], "antal_lag": len(rader), "spelade": r["spelade"], "vunna": r["vunna"],
+            "oavgjorda": r["oavgjorda"], "forlorade": r["forlorade"], "gjorda": r["gjorda"],
+            "inslappta": r["inslappta"], "poang": r["poang"], "form": r["form"]}
+
+
+def for_matchdetalj(conn: sqlite3.Connection, match: sqlite3.Row) -> Optional[dict]:
+    """Tabellplats och form för båda lagen (visas i matchdetaljen hela veckan)."""
+    hemma = tabellrad(conn, match["land"], match["liga"], match["hemmalag"])
+    borta = tabellrad(conn, match["land"], match["liga"], match["bortalag"])
+    if not hemma and not borta:
+        return None
+    k = conn.execute("SELECT url FROM ligakallor WHERE land = ? AND liga = ?", (match["land"], match["liga"])).fetchone()
+    return {"hemma": hemma, "borta": borta, "kalla": tabellkalla(k[0] if k else None)}
 
 
 # ---------- lagprofil ----------
@@ -121,15 +159,14 @@ def profil(conn: sqlite3.Connection, match: sqlite3.Row, sida: str, nu: Optional
     p: dict = {"lag": lag, "tabell": None, "form": None, "franvaro": [], "sammanhang": [], "tranarbyten": [],
                "kallor": []}
 
-    rader = {r["lag"]: r for r in conn.execute("SELECT * FROM ligatabeller WHERE land = ? AND liga = ?",
-                                                 (match["land"], match["liga"]))}
-    namn = _basta(lag, list(rader))
-    if namn:
-        r = rader[namn]
-        p["tabell"] = {"plats": r["plats"], "antal_lag": len(rader), "spelade": r["spelade"], "vunna": r["vunna"],
-                       "oavgjorda": r["oavgjorda"], "forlorade": r["forlorade"], "gjorda": r["gjorda"],
-                       "inslappta": r["inslappta"], "poang": r["poang"]}
-        p["kallor"].append("Wikipedia")
+    t = tabellrad(conn, match["land"], match["liga"], lag)
+    if t:
+        kalla = conn.execute("SELECT url FROM ligakallor WHERE land = ? AND liga = ?",
+                             (match["land"], match["liga"])).fetchone()
+        p["tabell"] = {k: v for k, v in t.items() if k != "form"}
+        p["kallor"].append(tabellkalla(kalla[0] if kalla else None))
+        if t["form"]:
+            p["form"] = {"form": t["form"][:6], "kalla": p["kallor"][-1]}
     k = conn.execute("SELECT tranarbyten FROM ligakallor WHERE land = ? AND liga = ?",
                      (match["land"], match["liga"])).fetchone()
     if k:
@@ -162,8 +199,10 @@ def profil(conn: sqlite3.Connection, match: sqlite3.Row, sida: str, nu: Optional
 
 
 def har_underlag(p: dict) -> bool:
-    """Något som oddsen kanske inte redan vet: fakta ur artiklar eller ett tränarbyte. Tabellen ensam räcker inte."""
-    return bool(p["form"] or p["franvaro"] or p["sammanhang"] or p["tranarbyten"])
+    """Något som oddsen kanske inte redan vet: fakta ur artiklar eller ett tränarbyte. Tabell och form ur
+    tabellen räcker inte – dem känner marknaden redan till."""
+    form_ur_artikel = p["form"] and p["form"]["kalla"] not in ("BBC Sport", "Wikipedia")
+    return bool(form_ur_artikel or p["franvaro"] or p["sammanhang"] or p["tranarbyten"])
 
 
 # ---------- analys ----------

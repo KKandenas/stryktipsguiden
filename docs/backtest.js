@@ -4,7 +4,7 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261013d";
+import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261013e";
 
 /** Matcher i optimerarens format. kalla "modell" (och "skrall"): modellens chans och folkets streck.
  *  kalla "tips": den tipsviktade chansen (fält 8) där den finns, annars modellens.

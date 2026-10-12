@@ -1,8 +1,8 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013d";
-import { backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013d";
+} from "./optimizer.js?v=20261013e";
+import { backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013e";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -372,6 +372,7 @@ function detaljer(m, v, skrall = null) {
   }
   const tipsrad = tipsetiketter(m, v);
   if (tipsrad) d.append(tipsrad);
+  if (m.tabell) d.append(tabellBlock(m));
 
   const tabell = el("table", { class: "detaljtabell" });
   tabell.append(el("thead", {}, el("tr", {}, el("th", { text: "Inför match" }),
@@ -453,6 +454,29 @@ function detaljer(m, v, skrall = null) {
   return d;
 }
 
+// ---------- tabell och form ----------
+
+const ordningstal = (n) => `${n}:${[1, 2].includes(n % 10) && ![11, 12].includes(n % 100) ? "a" : "e"}`;
+
+/** Formrutor, äldst till vänster och senaste matchen längst till höger. form = "WWLDW" (senaste först). */
+function formrutor(form, antal = 5) {
+  const f = [...form.slice(0, antal)].reverse();
+  return el("span", { class: "form", role: "img",
+    "aria-label": `Senaste ${f.length} matcherna, äldst först: ${f.map((c) => FORMTEXT[c]).join(", ")}` },
+    ...f.map((c) => el("span", { class: `formruta f${c}`, "aria-hidden": "true", text: c === "W" ? "V" : c === "D" ? "O" : "F" })));
+}
+
+function tabellBlock(m) {
+  const t = m.tabell;
+  const lag = (namn, r) => el("div", { class: "tabell-lag" },
+    el("b", { text: namn }),
+    r ? el("p", { text: `${ordningstal(r.plats)} av ${r.antal_lag} · ${r.poang} p på ${r.spelade}` }) : el("p", { class: "dampad", text: "Finns inte i tabellen" }),
+    r?.form ? formrutor(r.form) : null);
+  return el("section", { class: "tabellblock", "aria-label": "Tabell och form" },
+    el("div", { class: "tabellblock-lagen" }, lag(m.hemmalag, t.hemma), lag(m.bortalag, t.borta)),
+    el("p", { class: "dampad liten", text: `Tabell${t.hemma?.form || t.borta?.form ? " och form (senaste matchen längst till höger)" : ""}: ${t.kalla}.` }));
+}
+
 // ---------- Lagkoll (skuggmodell) ----------
 
 const RISKTEXT = { "låg": "Låg skrällrisk", medel: "Viss skrällrisk", "hög": "Hög skrällrisk" };
@@ -471,22 +495,13 @@ function lagkollPanel(m) {
 
   const lag = (namn, p) => {
     const kol = el("div", { class: "lagkoll-lag" }, el("b", { text: namn }));
-    const t = p.tabell;
-    if (t?.plats) {
-      kol.append(el("p", { text: `Plats ${t.plats}${t.antal_lag ? ` av ${t.antal_lag}` : ""}` +
-        (t.poang != null ? ` · ${t.poang} p på ${t.spelade} matcher` : "") }));
-    }
-    if (p.form) {
-      kol.append(el("p", { class: "form", "aria-label": `Form, senaste först: ${[...p.form].map((c) => FORMTEXT[c]).join(", ")}` },
-        ...[...p.form].map((c) => el("span", { class: `formruta f${c}`, "aria-hidden": "true", text: c === "W" ? "V" : c === "D" ? "O" : "F" }))));
-    }
     for (const x of p.franvaro || []) {
       kol.append(el("p", { class: `franvaro ${x.status}` },
         `${x.status === "borta" ? "Saknas" : "Osäker"}: `, el(x.nyckelspelare ? "b" : "span", { text: x.spelare }),
         x.orsak ? el("span", { class: "dampad", text: ` (${x.orsak})` }) : null));
     }
     if (p.tranarbyte) kol.append(el("p", { text: `Ny tränare: ${p.tranarbyte.tilltradande} (${p.tranarbyte.tilltradde})` }));
-    if (kol.children.length === 1) kol.append(el("p", { class: "dampad", text: "Inga uppgifter" }));
+    if (kol.children.length === 1) kol.append(el("p", { class: "dampad", text: "Inga lagnyheter" }));
     return kol;
   };
   panel.append(el("div", { class: "lagkoll-lagen" }, lag(m.hemmalag, lk.hemma), lag(m.bortalag, lk.borta)));

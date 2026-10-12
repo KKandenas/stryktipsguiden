@@ -375,9 +375,12 @@ Ett "minne" per lag och en AI-jämförelse av lagen före varje omgång (`pipeli
 - **Lagfakta ur förhandsartiklarna** som tipsinsamlingen redan läser: frånvarande spelare (med status
   och om de är nyckelspelare), form, tabellplats och sammanhang. Det tas fram i samma AI-anrop som tipsen,
   så det kostar inga extra anrop. Tabell `lagfakta`, en rad per match, lag och källa.
-- **Ligatabell och tränarbyten** från Wikipedias säsongsartikel (`sources/wikipedia.py`), högst var
-  sjätte timme. Bara vanliga `/wiki/`-sidor används, eftersom `/w/` och `/api/` är spärrade i robots.txt.
-  Tabellerna heter `ligatabeller` och `ligakallor`.
+- **Ligatabell med form** från BBC Sports tabellsidor (`sources/bbc.py`, tillåtna i robots.txt), med
+  formen i de sex senaste matcherna. Ligor som BBC saknar, som Superettan och Eliteserien, tas från
+  Wikipedia utan form. **Tränarbyten** kommer från Wikipedias säsongsartikel (`sources/wikipedia.py`). Bara
+  vanliga `/wiki/`-sidor används, eftersom `/w/` och `/api/` är spärrade i robots.txt. Allt hämtas högst var
+  sjätte timme, vid varje körning (`steg_tabeller`), och sparas i `ligatabeller` och `ligakallor`.
+  Matchdetaljen visar placering och de fem senaste matcherna för båda lagen hela veckan.
 - Fantasy Premier League används inte. Sajten har ingen giltig robots.txt, och vår kontroll räknar det
   som en spärr.
 

@@ -229,6 +229,17 @@ def steg_kommentarer(conn) -> bool:
     return True
 
 
+def steg_tabeller(conn) -> bool:
+    """Ligatabeller med form för öppna omgångar (matchdetaljen visar dem hela veckan)."""
+    try:
+        for (omgang_id,) in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ? AND installd = 0",
+                                         (nu_utc(),)).fetchall():
+            lagkoll.uppdatera_tabeller(conn, omgang_id)
+    except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
+        log.exception("Tabeller: oväntat fel: %s", e)
+    return True
+
+
 def steg_lagkoll(conn, tvinga: bool = False) -> bool:
     """Skuggmodellen Lagkoll: analys när spelstoppet är nära, sedan prognoser för lagkoll-v1."""
     if not _ai_redo("Lagkoll"):
@@ -327,6 +338,7 @@ def main(argv=None) -> int:
         steg_prognos(conn)
         steg_statistik(conn)
         steg_kommentarer(conn)
+        steg_tabeller(conn)
         steg_lagkoll(conn)
         kritiskt_ok &= steg_export(conn)
     elif args.kommando == "svenskaspel":

@@ -469,9 +469,16 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .lagkoll-faktorer { margin: 4px 0 8px; padding-left: 18px; }
 .lagkoll-lagen { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
 .lagkoll-lag p { margin: 3px 0; font-size: 13px; }
-.lagkoll-lag .form { display: flex; gap: 3px; }
+.form { display: inline-flex; gap: 3px; }
 .formruta { width: 18px; height: 18px; border-radius: 4px; display: inline-grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff; }
 .formruta.fW { background: var(--ratt); }
 .formruta.fD { background: var(--dampad); }
 .formruta.fL { background: var(--fel); }
 .franvaro.osaker { color: var(--dampad); }
+
+/* tabell och form i matchdetaljen */
+.tabellblock { margin-top: 10px; }
+.tabellblock-lagen { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tabell-lag b { font-size: 14px; }
+.tabell-lag p { margin: 2px 0 4px; font-size: 13px; }
+.tabellblock > p { margin-top: 6px; }

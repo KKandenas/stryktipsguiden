@@ -57,7 +57,9 @@ def test_lagfakta_valideras():
 
 
 def _forbered(conn, monkeypatch):
+    from pipeline.sources import bbc
     fyll(conn)
+    monkeypatch.setattr(bbc, "hamta_tabell", lambda land, liga: (bbc.url(land, liga), []))   # inget nätverk
     monkeypatch.setattr(wikipedia, "hamta_liga", lambda land, liga, datum: (
         "https://en.wikipedia.org/wiki/x", wikipedia.tolka_tabell(TABELL_HTML), wikipedia.tolka_tranarbyten(TABELL_HTML)))
     kid = lagring.kalla_id(conn, "sportsmole.co.uk")
@@ -113,3 +115,43 @@ def test_ai_fel_stoppar_inte_analysen(conn, monkeypatch):
     def trasig(*a):
         raise AiFel("503")
     assert lagkoll.analysera(conn, trasig, nu=INNAN)["fel"] == 1
+
+
+def _bbc_rad(plats, lag, siffror, form):
+    resultat = {"W": "Win", "D": "Draw", "L": "Loss"}
+    celler = "".join(f"<td>{x}</td>" for x in siffror)
+    formcell = "".join(f'<li><div>{f}</div><span class="visually-hidden">Result {resultat[f]}</span></li>' for f in form)
+    return f"<tr><td><span>{plats}</span><span>{lag}</span></td>{celler}<td><ul>{formcell}</ul></td></tr>"
+
+
+BBC_HTML = ("<table><thead><tr><th>Team</th><th>Played</th><th>Won</th><th>Drawn</th><th>Lost</th><th>GF</th>"
+            "<th>GA</th><th>GD</th><th>Points</th><th>Form, Last 6 games, Oldest first</th></tr></thead><tbody>"
+            + _bbc_rad(1, "Manchester United", [6, 5, 1, 0, 14, 4, "+10", 16], "LWWDWW")
+            + _bbc_rad(2, "Tottenham Hotspur", [6, 4, 1, 1, 10, 6, "+4", 13], "WWLWDW")
+            + "".join(_bbc_rad(i, f"Lag {i}", [6, 1, 1, 4, 5, 9, "−4", 4], "LLDLWL") for i in range(3, 11))
+            + "</tbody></table>")
+
+
+def test_bbc_tabell_med_form():
+    from pipeline.sources import bbc
+    t = bbc.tolka_tabell(BBC_HTML)
+    assert len(t) == 10
+    assert t[0] == {"plats": 1, "lag": "Manchester United", "spelade": 6, "vunna": 5, "oavgjorda": 1, "forlorade": 0,
+                    "gjorda": 14, "inslappta": 4, "poang": 16, "form": "WWDWWL"}     # senaste först
+    assert t[2]["poang"] == 4
+    assert bbc.url("England", "Championship").endswith("/championship/table")
+    assert bbc.url("England", "FA-cupen") is None
+
+
+def test_tabell_och_form_i_matchdetaljen(conn, monkeypatch):
+    from pipeline.sources import bbc
+    _forbered(conn, monkeypatch)
+    monkeypatch.setattr(bbc, "hamta_tabell", lambda land, liga: (bbc.url(land, liga), bbc.tolka_tabell(BBC_HTML)))
+    lagkoll.uppdatera_tabeller(conn, 4974, INNAN)
+    k = export.bygg_kupong(conn, 4974, nu=INNAN)
+    t = k["matcher"][0]["tabell"]
+    assert t["kalla"] == "BBC Sport" and t["hemma"]["plats"] == 1 and t["hemma"]["form"] == "WWDWWL"
+    assert t["borta"]["plats"] == 2
+    # Form ur tabellen räcker inte som underlag för en Lagkoll-analys
+    m2 = conn.execute("SELECT * FROM matcher WHERE matchnr = 2").fetchone()
+    assert not lagkoll.har_underlag(lagkoll.profil(conn, m2, "hemma", INNAN))
