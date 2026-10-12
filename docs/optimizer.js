@@ -15,11 +15,38 @@ export const LAMBDA = 0.3;          // risknivå: 0 = bara träffchans, 1 = bara
 export const VARDE_GRANS = 0.03;    // orange prick från 3 procentenheter understreckat
 export const VARDE_GRANS_OSAKER = 0.05;   // …och från 5 när bedömningen bara bygger på Svenska Spels odds
 export const TECKEN = ["1", "X", "2"];
+// Skrällchans: ett tecken som inte är favorit, har minst 20 % chans och är tydligt understreckat
+// (chans/streck ≥ 1,25). Historiskt går de in exakt så ofta som oddsen säger, men betalar i snitt
+// 1,44 gånger mer per träff än folkets val. Högst tre per omgång, de mest understreckade. Se README.
+export const SKRALL_MIN_CHANS = 0.2;
+export const SKRALL_MIN_KVOT = 1.25;
+export const SKRALL_MAX = 3;
 
 const MIN_STRECK = 0.01;            // skydd mot division med ~0 för nästan ostreckade tecken
 const ALLA_VAL = ["1", "X", "2", "1X", "12", "X2", "1X2"];
 
 /** 96 → {halv: 5, hel: 1}. Null om antalet inte går att bygga av halv- och helgarderingar. */
+/** Omgångens skrällchanser: {matchnr: {tecken, chans, streck, kvot}}. matcher: [{nr, chans, streck}]. */
+export function skrallchanser(matcher) {
+  const kandidater = [];
+  for (const m of matcher) {
+    if (!m.chans || !m.streck) continue;
+    const summa = TECKEN.reduce((a, t) => a + (m.streck[t] || 0), 0);
+    if (summa <= 0) continue;
+    const favorit = TECKEN.reduce((a, t) => (m.chans[t] > m.chans[a] ? t : a), "1");
+    let bast = null;
+    for (const t of TECKEN) {
+      if (t === favorit || m.chans[t] < SKRALL_MIN_CHANS) continue;
+      const streck = m.streck[t] / summa;
+      const kvot = m.chans[t] / Math.max(streck, 0.01);
+      if (kvot >= SKRALL_MIN_KVOT && (!bast || kvot > bast.kvot)) bast = { nr: m.nr, tecken: t, chans: m.chans[t], streck, kvot };
+    }
+    if (bast) kandidater.push(bast);
+  }
+  kandidater.sort((a, b) => b.kvot - a.kvot);
+  return Object.fromEntries(kandidater.slice(0, SKRALL_MAX).map((k) => [k.nr, k]));
+}
+
 export function faktorisera(rader) {
   if (!Number.isInteger(rader) || rader < 1) return null;
   let n = rader, halv = 0, hel = 0;

@@ -19,6 +19,7 @@
   --ruta-kant: #d3dceb;
   --vald-text: #ffffff;
   --orange: #ff8a1a;
+  --orange-text: #a84f00;
   --last: #ffc61a;
   --ratt: #1b8a4b;
   --fel: #c0392b;
@@ -37,7 +38,7 @@
     --navy-1: #0f2152; --navy-2: #060d24; --meny: #060d24;
     --bg: #070d1c; --yta: #101a30; --yta-2: #15213b; --text: #eef2fa; --dampad: #95a2bc;
     --linje: #22304f; --ruta: #18243f; --ruta-kant: #2a3a5e; --vald-text: #ffffff;
-    --orange: #ff9c33; --last: #ffcc33; --ratt: #4cc27f; --fel: #ef6b5b; --banner: #2d2710;
+    --orange: #ff9c33; --orange-text: #ff9c33; --last: #ffcc33; --ratt: #4cc27f; --fel: #ef6b5b; --banner: #2d2710;
     --serie-1: #3987e5; --serie-2: #d95926;
     --skugga: 0 1px 2px rgba(0, 0, 0, .35), 0 4px 14px rgba(0, 0, 0, .3);
     color-scheme: dark;
@@ -48,7 +49,7 @@
   --navy-1: #0f2152; --navy-2: #060d24; --meny: #060d24;
   --bg: #070d1c; --yta: #101a30; --yta-2: #15213b; --text: #eef2fa; --dampad: #95a2bc;
   --linje: #22304f; --ruta: #18243f; --ruta-kant: #2a3a5e; --vald-text: #ffffff;
-  --orange: #ff9c33; --last: #ffcc33; --ratt: #4cc27f; --fel: #ef6b5b; --banner: #2d2710;
+  --orange: #ff9c33; --orange-text: #ff9c33; --last: #ffcc33; --ratt: #4cc27f; --fel: #ef6b5b; --banner: #2d2710;
   --serie-1: #3987e5; --serie-2: #d95926;
   --skugga: 0 1px 2px rgba(0, 0, 0, .35), 0 4px 14px rgba(0, 0, 0, .3);
   color-scheme: dark;
@@ -194,6 +195,7 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 .liga .typ { font-weight: 700; letter-spacing: .03em; }
 .liga .typ.HALV, .liga .typ.HEL { color: var(--primar); }
 .liga .emot-mark { color: var(--fel); font-weight: 700; }
+.liga .skrall-mark { color: var(--orange-text); font-weight: 700; }
 
 .rutor { display: grid; grid-template-columns: repeat(3, 46px); gap: 5px; padding: 8px 8px 8px 0; }
 .ruta {
@@ -452,3 +454,4 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .jamf.bättre .jamf-markor { background: var(--ratt); }
 .jamf.sämre .jamf-markor { background: var(--fel); }
 .jamf.för-lite-data .jamf-markor { background: transparent; border: 1.5px solid var(--dampad); }
+.skrall-text { margin: 10px 0 0; font-size: 14px; padding: 8px 10px; border-radius: 10px; border-left: 3px solid var(--orange); background: var(--yta-2); }

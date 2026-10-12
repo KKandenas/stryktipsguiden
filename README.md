@@ -358,6 +358,32 @@ medelskillnaden är större än två standardfel och modellen har minst 100 matc
 "ingen säker skillnad" eller "för lite data". Med 13 matcher i veckan tar det i regel ett halvår eller
 mer innan små skillnader går att se.
 
+### Skrällar: vad historiken säger (oktober 2026)
+
+Testat mot 3 289 avgjorda matcher sedan 2021, med oddsens chans (Svenska Spels startodds i historiken)
+mot faktiskt utfall. "Kvot" = utfall / oddsens chans, där 1,00 betyder att oddsen stämde. Skriptet finns inte
+i repot, men tabellerna går att återskapa med prognoser (odds-v2), streck och tips.
+
+| Signal | Resultat |
+|---|---|
+| Oddsens kalibrering per tecken och nivå | Stämmer i alla grupper (kvot 0,94–1,08, inom felmarginalen). Ingen favorit–longshot-snedhet. |
+| Värdekvot chans/streck | Förutsäger inte utfallet. Understreckade tecken går in så ofta som oddsen säger, inte oftare. |
+| "Favoritfällan" (favorit ≥ 50 % och överstreckad) | Ingen effekt. Överstreckade favoriter vinner lika ofta som oddsen säger. |
+| Jämna matcher och kryss | Kryssen stämmer med oddsen oavsett hur jämn matchen är. |
+| Liga | Ingen liga avviker säkert. FA-cupen 0,91 och League Two 0,93, men med få matcher. |
+| Tio tidningars tips emot favoriten (≤ 4/10 på favoriten) | **Signal:** favoriten vann 32 % mot 39 % enligt oddsen (kvot 0,82 ± 0,15). Troligen för att tidningarna tippar senare än startoddsen. Ingår redan i tips-v1. |
+
+Slutsatsen är att skrällar inte går att förutsäga bättre än oddsen. Värdet ligger i utdelningen: tecken som
+inte är favorit, har chans ≥ 20 % och kvot chans/streck ≥ 1,25 gick in exakt så ofta som oddsen sa (26,4 %), men
+gav i snitt 1,44 gånger mer per träff i förhållande till strecken (övriga icke-favoriter 1,07). Appen markerar
+högst tre sådana per omgång som **Skrällchans** (`skrallchanser` i `docs/optimizer.js`). Optimeraren väger
+redan in samma sak genom utdelningsdelen av poängen.
+
+Odds- och streckrörelser under veckan går inte att testa bakåt, eftersom Svenska Spels API bara har startodds
+och slutstreck för gamla omgångar. Pipelinen sparar ögonblicksbilder vid varje körning sedan oktober 2026, så
+den analysen kan göras när det finns en säsong data. xG finns inte från någon fri källa som tillåter
+insamling. Det hör hemma i Lagkoll (steg 3).
+
 ### Försök: optimera mot förväntad utdelning (inte infört)
 
 Utdelningen kan förutsägas mycket väl från strecken på de rätta tecknen

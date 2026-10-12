@@ -1,7 +1,7 @@
 import {
-  BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261012d";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261012d";
+  BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
+} from "./optimizer.js?v=20261013a";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261013a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -224,8 +224,10 @@ function skillnadMotAndra(kupong, resultat, budget, lasningar) {
 function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skillnad = null) {
   lista.replaceChildren();
   const val = resultat?.ok ? Object.fromEntries(resultat.val.map((v) => [v.nr, v])) : {};
+  const skrallar = skrallchanser(kupong.matcher);
 
   for (const m of kupong.matcher) {
+    const skrall = skrallar[m.nr];
     const v = val[m.nr];
     const last = normaliseraLasning(lasningar[m.nr]) || "";
     const oppen = oppna.has(m.nr);
@@ -244,6 +246,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
           v ? el("span", { class: `typ ${v.typ}`, text: v.typ }) : null,
           m.osaker ? el("span", { class: "osaker", title: "Osäkrare: bara Svenska Spels odds", "aria-label": "osäkrare bedömning", text: " ⚠︎" }) : null,
           emot ? el("span", { class: "emot-mark", text: ` · ${emot} tips emot` }) : null,
+          skrall ? el("span", { class: "skrall-mark", text: ` · Skrällchans ${skrall.tecken}` }) : null,
           skillnad?.skiljer[m.nr] ? el("span", { class: "annat-forslag", text: ` · ${skillnad.namn}: ${skillnad.skiljer[m.nr]}` }) : null,
           `${v ? " · " : ""}${m.resultat ? slut.replace(" · ", "") + " · " : ""}${[!m.resultat && m.avspark && kortFmt.format(new Date(m.avspark)), m.liga].filter(Boolean).join(" · ")}`),
       ),
@@ -272,7 +275,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
 
     const traff = m.resultat && v ? (v.tecken.includes(m.resultat) ? "traff" : "miss") : "";
     const li = el("li", { class: `match ${traff}${oppen ? " oppen" : ""}` }, huvud, rutor);
-    if (oppen) li.append(detaljer(m, v));
+    if (oppen) li.append(detaljer(m, v, skrall));
     lista.append(li);
   }
 }
@@ -314,9 +317,14 @@ const BOLAGSNAMN = {
 const decOdds = (x) => x.toFixed(2).replace(".", ",");
 
 /** Utfälld match: kommentar och en tabell "Spelstatistik inför match" med kolumnerna 1 · X · 2. */
-function detaljer(m, v) {
+function detaljer(m, v, skrall = null) {
   const d = el("div", { class: "detaljer" });
   if (m.kommentar) d.append(el("p", { class: "kommentar", text: m.kommentar }));
+  if (skrall) {
+    d.append(el("p", { class: "skrall-text" }, el("b", { text: `Skrällchans ${skrall.tecken}: ` }),
+      `${procent(skrall.chans)} % chans men bara ${Math.round(skrall.streck * 100)} % streck. ` +
+      `Går den in betalar den ovanligt bra – men den är fortfarande mindre trolig än favoriten.`));
+  }
   const tipsrad = tipsetiketter(m, v);
   if (tipsrad) d.append(tipsrad);
 

@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, sammanfattning,
+  BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, sammanfattning, skrallchanser,
 } from "../../docs/optimizer.js";
 
 const exempel = JSON.parse(readFileSync(new URL("../../docs/exempel-kupong.json", import.meta.url), "utf8"));
@@ -101,4 +101,23 @@ test("alla rader i systemet är unika", () => {
 test("antal rätt", () => {
   const val = [{ nr: 1, tecken: "1X" }, { nr: 2, tecken: "2" }, { nr: 3, tecken: "1X2" }];
   assert.equal(antalRatt(val, { 1: "X", 2: "1", 3: "2" }), 2);
+});
+
+
+test("skrällchanser: bara understreckade icke-favoriter med minst 20 % chans, högst tre", () => {
+  const m = (nr, chans, streck) => ({ nr, chans: { 1: chans[0], X: chans[1], 2: chans[2] }, streck: { 1: streck[0], X: streck[1], 2: streck[2] } });
+  const matcher = [
+    m(1, [0.5, 0.25, 0.25], [70, 15, 15]),    // både X och 2: kvot 1,67 – en per match, X vinner lika-läget först
+    m(2, [0.6, 0.25, 0.15], [60, 25, 15]),    // inget understreckat
+    m(3, [0.45, 0.3, 0.25], [40, 20, 40]),    // X: kvot 1,5
+    m(4, [0.7, 0.19, 0.11], [85, 5, 10]),     // X under 20 % chans – räknas inte
+    m(5, [0.4, 0.3, 0.3], [30, 22, 48]),      // X: kvot 1,36
+    m(6, [0.4, 0.28, 0.32], [33, 24, 43]),    // X: kvot 1,17 – under gränsen
+    m(7, [0.5, 0.26, 0.24], [62, 18, 20]),    // X: 1,44
+  ];
+  const s = skrallchanser(matcher);
+  assert.deepEqual(Object.keys(s).map(Number).sort((a, b) => a - b), [1, 3, 7]);
+  assert.equal(s[3].tecken, "X");
+  assert.ok(Math.abs(s[3].kvot - 1.5) < 1e-9);
+  assert.ok(!skrallchanser([m(4, [0.7, 0.19, 0.11], [85, 5, 10])])[4]);
 });
