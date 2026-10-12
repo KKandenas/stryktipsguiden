@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-12T14:07:13Z",
+ "genererad": "2026-10-12T18:03:29Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -81,6 +81,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "X",
    "mal": "1-1"
   },
@@ -138,6 +139,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "1",
    "mal": "5-1"
   },
@@ -195,6 +197,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "X",
    "mal": "2-2"
   },
@@ -252,6 +255,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "2",
    "mal": "0-2"
   },
@@ -309,6 +313,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "1",
    "mal": "2-1"
   },
@@ -366,6 +371,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "1",
    "mal": "2-1"
   },
@@ -423,6 +429,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "2",
    "mal": "1-2"
   },
@@ -480,6 +487,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "X",
    "mal": "1-1"
   },
@@ -537,6 +545,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "1",
    "mal": "1-0"
   },
@@ -594,6 +603,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "2",
    "mal": "0-1"
   },
@@ -651,6 +661,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "1",
    "mal": "3-0"
   },
@@ -708,6 +719,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "2",
    "mal": "0-4"
   },
@@ -765,6 +777,7 @@
    },
    "tips": [],
    "kommentar": null,
+   "lagkoll": null,
    "resultat": "X",
    "mal": "2-2"
   }
