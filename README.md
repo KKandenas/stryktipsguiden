@@ -267,7 +267,10 @@ variables → Actions → fliken Variables, t.ex. `gemini-2.5-flash`. Dessutom: 
 nästa modell i kedjan direkt: `gemini-3.7-flash`, `gemini-3.6-flash` och sedan `gemini-3.5-flash`.
 Kedjan kan ändras med repo-variabeln `GEMINI_RESERVMODELLER`, kommaseparerad. En modell som svarat dåligt
 flyttas sist för resten av körningen. En modell som inte finns (400 eller 404) hoppas över. Svarar ingen
-modell görs ett nytt varv efter 30 s, sedan ges anropet upp.
+modell görs ett nytt varv efter 30 s, sedan ges anropet upp. SDK:ts egna omförsök vid 429 och 5xx är avstängda
+(`HttpRetryOptions(attempts=1, http_status_codes=[408])`), eftersom SDK:t annars väntar så länge servern
+anger i Retry-After och anropet då ser ut att hänga. En modell vars dagskvot är slut (429 "per day") används
+inte mer under körningen.
 
 **Spärrar** så att en körning alltid hinner spara sin data: 3 misslyckade anrop i rad stänger av AI
 resten av körningen, och AI får ta högst 15 min per körning. Det som inte hanns med tas vid nästa körning. En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.

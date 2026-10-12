@@ -133,7 +133,12 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
     global _gemini
     if _gemini is None:
         from google import genai
-        _gemini = genai.Client()  # läser GEMINI_API_KEY
+        from google.genai import types
+        # SDK:t gör annars egna omförsök vid 429/5xx och väntar så länge servern säger (Retry-After) – det
+        # var därför anrop "hängde". Vi låter 429/5xx komma direkt hit och byter modell i stället.
+        _gemini = genai.Client(http_options=types.HttpOptions(  # läser GEMINI_API_KEY
+            timeout=ANROP_TIDSGRANS * 1000,
+            retry_options=types.HttpRetryOptions(attempts=1, http_status_codes=[408])))
     senaste_fel = "ingen modell att prova"
     for varv in range(MAX_VARV):
         if varv:
@@ -160,6 +165,10 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
                 senaste_fel = f"{modell} svarade {kod or type(e).__name__}: {e}"
                 if kod in OKANDA_MODELLER and "model" in str(e).lower():
                     log.warning("Gemini: %s finns inte – används inte mer i den här körningen", modell)
+                    _ur_spel.add(modell)
+                    continue
+                if kod == 429 and "day" in str(e).lower():
+                    log.warning("Gemini: %s – dagskvoten är slut, används inte mer i den här körningen", modell)
                     _ur_spel.add(modell)
                     continue
                 if kod in TILLFALLIGA_FEL:

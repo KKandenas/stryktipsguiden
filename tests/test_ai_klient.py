@@ -131,3 +131,33 @@ def test_alla_modeller_nere_ger_aifel_efter_tva_varv(monkeypatch):
     with pytest.raises(AiFel):
         klient.anropa_json("s", "u", {})
     assert len(falsk.anrop) == 2 * klient.MAX_VARV
+
+
+def test_dagskvot_slut_tar_modellen_ur_spel(monkeypatch):
+    falsk = _FalskGemini({"huvud": [_Fel(429, "Quota exceeded for metric: requests per day")], "reserv1": []})
+    monkeypatch.setattr(klient, "_gemini", falsk)
+    monkeypatch.setattr(klient, "GEMINI_MODELL", "huvud")
+    monkeypatch.setattr(klient, "GEMINI_RESERVER", ["reserv1"])
+    monkeypatch.setattr(klient, "_ordning", [])
+    monkeypatch.setattr(klient, "_ur_spel", set())
+    assert klient.anropa_json("s", "u", {}) == {"ok": 1}
+    assert klient._ur_spel == {"huvud"}
+
+
+def test_gemini_klienten_byggs_utan_egna_omforsok(monkeypatch):
+    """Körs bara där google-genai är installerat (Python 3.10+, t.ex. i CI)."""
+    pytest.importorskip("google.genai")
+    monkeypatch.setenv("GEMINI_API_KEY", "test")
+    monkeypatch.setattr(klient, "_gemini", None)
+    monkeypatch.setattr(klient, "_ordning", [])
+    monkeypatch.setattr(klient, "_ur_spel", set())
+    fangad = {}
+
+    def fake_skapa(fn, sekunder):
+        fangad["klient"] = klient._gemini
+        raise RuntimeError("inget nätverk i tester")
+    monkeypatch.setattr(klient, "_med_tidsgrans", fake_skapa)
+    with pytest.raises(AiFel):
+        klient._anropa_gemini("s", "u", {}, 10)
+    opt = fangad["klient"]._api_client._http_options
+    assert opt.retry_options.attempts == 1 and opt.retry_options.http_status_codes == [408]
