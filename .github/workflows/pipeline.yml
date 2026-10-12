@@ -68,6 +68,7 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODELL: ${{ vars.GEMINI_MODELL }}
+          GEMINI_RESERVMODELLER: ${{ vars.GEMINI_RESERVMODELLER }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           KOMMANDO: ${{ inputs.kommando || 'auto' }}
           FRAN: ${{ inputs.fran }}

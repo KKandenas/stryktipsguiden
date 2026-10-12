@@ -13,24 +13,30 @@ import logging
 import os
 import threading
 import time
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 log = logging.getLogger(__name__)
 
 GEMINI_MODELL = os.environ.get("GEMINI_MODELL", "").strip() or "gemini-3.8-flash"  # kan sättas som repo-variabel
+# Reserver när huvudmodellen är överbelastad eller inte svarar (repo-variabel GEMINI_RESERVMODELLER, kommaseparerad).
+GEMINI_RESERVER = [m.strip() for m in (os.environ.get("GEMINI_RESERVMODELLER", "").strip()
+                                       or "gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash").split(",") if m.strip()]
 GEMINI_TANKANDE = "low"            # minimal | low | medium | high
 
 CLAUDE_MODELL = "claude-opus-5-5"
 CLAUDE_EFFORT = "medium"
 
-MAX_FORSOK = 4                     # gratisnivån har låga gränser per minut och är ibland överbelastad
+MAX_VARV = 2                       # varv genom hela modellkedjan innan anropet ges upp (30 s paus emellan)
 TILLFALLIGA_FEL = {429, 500, 502, 503, 504}
-ANROP_TIDSGRANS = 120              # sekunder per enskilt anrop; SDK:t kan annars hänga i det oändliga
+OKANDA_MODELLER = {400, 404}       # modellen finns inte (längre) – hoppas över resten av körningen
+ANROP_TIDSGRANS = 90               # sekunder per enskilt anrop; SDK:t kan annars hänga i det oändliga
 AI_TIDSBUDGET = 15 * 60            # sekunder AI totalt per körning, så att körningen hinner spara sin data
 MAX_FEL_I_RAD = 3                  # så många misslyckade anrop i rad → AI hoppas över resten av körningen
 
 _start: Optional[float] = None
 _fel_i_rad = 0
+_ordning: List[str] = []           # modellkedjan; en modell som just svarat dåligt flyttas sist
+_ur_spel: set = set()              # modeller som inte finns
 
 # Signaturen som resten av koden använder; tester skickar in en egen funktion med samma form.
 Anropare = Callable[[str, str, Dict[str, Any], int], Dict[str, Any]]
@@ -106,41 +112,69 @@ def _med_tidsgrans(fn: Callable[[], Any], sekunder: float) -> Any:
     return ut["svar"]
 
 
+def _modellkedja() -> List[str]:
+    global _ordning
+    alla = [GEMINI_MODELL] + [m for m in GEMINI_RESERVER if m != GEMINI_MODELL]
+    if set(_ordning) != set(alla):
+        _ordning = alla
+    return [m for m in _ordning if m not in _ur_spel]
+
+
+def _flytta_sist(modell: str) -> None:
+    if modell in _ordning:
+        _ordning.remove(modell)
+        _ordning.append(modell)
+
+
 def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_tokens: int) -> Dict[str, Any]:
+    """Prova modellkedjan: huvudmodellen först, sedan reserverna. En modell som är överbelastad, svarar
+    med serverfel eller inte svarar inom tidsgränsen flyttas sist för resten av körningen, så att nästa
+    anrop går direkt till en modell som fungerar."""
     global _gemini
-    from google import genai
-
     if _gemini is None:
+        from google import genai
         _gemini = genai.Client()  # läser GEMINI_API_KEY
-    for forsok in range(1, MAX_FORSOK + 1):
-        try:
-            svar = _med_tidsgrans(lambda: _gemini.interactions.create(
-                model=GEMINI_MODELL,
-                system_instruction=system,
-                input=anvandare,
-                response_mime_type="application/json",
-                response_format={"type": "text", "mime_type": "application/json", "schema": schema},
-                generation_config={"thinking_level": GEMINI_TANKANDE, "max_output_tokens": max_tokens},
-                store=False,
-            ), ANROP_TIDSGRANS)
-            break
-        except AiFel:
-            raise
-        except Exception as e:  # interactions-API:t har egna feltyper; titta bara på statuskoden
-            kod = getattr(e, "code", None) or getattr(e, "status_code", None)
-            if kod in TILLFALLIGA_FEL and forsok < MAX_FORSOK:
-                log.info("Gemini: tillfälligt fel (%s), väntar 30 s (försök %d)", kod, forsok)
-                time.sleep(30)
+    senaste_fel = "ingen modell att prova"
+    for varv in range(MAX_VARV):
+        if varv:
+            log.info("Gemini: alla modeller svarade dåligt, väntar 30 s")
+            time.sleep(30)
+        for modell in _modellkedja():
+            try:
+                svar = _med_tidsgrans(lambda modell=modell: _gemini.interactions.create(
+                    model=modell,
+                    system_instruction=system,
+                    input=anvandare,
+                    response_mime_type="application/json",
+                    response_format={"type": "text", "mime_type": "application/json", "schema": schema},
+                    generation_config={"thinking_level": GEMINI_TANKANDE, "max_output_tokens": max_tokens},
+                    store=False,
+                ), ANROP_TIDSGRANS)
+            except AiFel as e:                       # tidsgränsen
+                senaste_fel = f"{modell}: {e}"
+                log.info("Gemini: %s – provar nästa modell", senaste_fel)
+                _flytta_sist(modell)
                 continue
-            raise AiFel(f"Gemini svarade {kod or type(e).__name__}: {e}") from e
-
-    usage = getattr(svar, "usage", None)
-    if usage is not None:
-        log.info("Gemini: %s in / %s ut tokens (%s)", getattr(usage, "total_input_tokens", "?"),
-                 getattr(usage, "total_output_tokens", "?"), GEMINI_MODELL)
-    if svar.status != "completed":
-        raise AiFel(f"Gemini avslutade med status {svar.status}")
-    return _tolka_json(svar.output_text)
+            except Exception as e:  # interactions-API:t har egna feltyper; titta bara på statuskoden
+                kod = getattr(e, "code", None) or getattr(e, "status_code", None)
+                senaste_fel = f"{modell} svarade {kod or type(e).__name__}: {e}"
+                if kod in OKANDA_MODELLER and "model" in str(e).lower():
+                    log.warning("Gemini: %s finns inte – används inte mer i den här körningen", modell)
+                    _ur_spel.add(modell)
+                    continue
+                if kod in TILLFALLIGA_FEL:
+                    log.info("Gemini: %s – tillfälligt fel (%s), provar nästa modell", modell, kod)
+                    _flytta_sist(modell)
+                    continue
+                raise AiFel(senaste_fel) from e
+            usage = getattr(svar, "usage", None)
+            if usage is not None:
+                log.info("Gemini: %s in / %s ut tokens (%s)", getattr(usage, "total_input_tokens", "?"),
+                         getattr(usage, "total_output_tokens", "?"), modell)
+            if svar.status != "completed":
+                raise AiFel(f"Gemini ({modell}) avslutade med status {svar.status}")
+            return _tolka_json(svar.output_text)
+    raise AiFel(senaste_fel)
 
 
 # ---------- Claude ----------
