@@ -433,6 +433,11 @@ skrällarna: 1 upp till 64 rader och 2 på större system. Låsta matcher får i
 De höga totalerna kommer från en enda 13-rättare (december 2025). Utan den ger Skrällchans ändå mer
 tillbaka än Oddsen från 128 rader och uppåt, men mindre på små system.
 
+Testat i oktober 2026 utan att det infördes: att välja skrällar där högst 6 av Tio tidningars tips höll på
+favoriten först. Varje vald skräll träffade något oftare (31 % mot 28 % för den bästa), men i backtestet
+med riktig utdelning blev resultatet detsamma eller något sämre (576 rader: 116 % mot 120 %). Regeln
+förblir kvot 1,25–1,5, högst kvot först.
+
 Odds- och streckrörelser under veckan går inte att testa bakåt, eftersom Svenska Spels API bara har startodds
 och slutstreck för gamla omgångar. Pipelinen sparar ögonblicksbilder vid varje körning sedan oktober 2026, så
 den analysen kan göras när det finns en säsong data. xG finns inte från någon fri källa som tillåter
