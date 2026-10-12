@@ -336,6 +336,28 @@ oddsen). speltips.se, hurbra.se, bettingstugan.se, tippat.se, gamblingcabin.se, 
 sportsmole.co.uk och footballpredictions.com samlas in från och med nu
 och står på startvikten tills de har 30 avgjorda matcher, vilket tar ungefär 3–4 veckor.
 
+### Skuggmodeller och jämförelse mot oddsen
+
+Varje modell i `pipeline/model/modeller.py` har ett visningsnamn, en roll och en flagga `framat`:
+
+| Roll | Betydelse |
+|---|---|
+| `bas` | Oddsen (odds-v2). Allt jämförs mot den. |
+| `alternativ` | Eget förslag i appen, i dag "Med experter". |
+| `skugga` | Sparar prognoser och mäts, men påverkar inga rader. |
+| `arkiv` | Äldre version som mäts som jämförelse. |
+
+Modeller med `framat = True` går inte att räkna om på historiken, till exempel sådana som bygger på
+AI-analys av dagsaktuella nyheter. De räknas bara för öppna omgångar, så det som sparas är alltid den
+sista prognosen före spelstopp. De ingår inte i huvudtabellen, eftersom de annars skulle krympa det
+gemensamma urvalet.
+
+Statistiksidan visar varje modell, och Svenska folket, **parvis mot oddsen** på exakt samma matcher
+(`export.parvis`). Måttet är log loss per match. Slutsatsen "bättre" eller "sämre" dras bara när
+medelskillnaden är större än två standardfel och modellen har minst 100 matcher. Annars visas
+"ingen säker skillnad" eller "för lite data". Med 13 matcher i veckan tar det i regel ett halvår eller
+mer innan små skillnader går att se.
+
 ### Försök: optimera mot förväntad utdelning (inte infört)
 
 Utdelningen kan förutsägas mycket väl från strecken på de rätta tecknen

@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261012c";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261012c";
+} from "./optimizer.js?v=20261012d";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261012d";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -450,8 +450,36 @@ function visaTabeller() {
 
 const MODELLNAMN = { "odds-v2": "Oddsen", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell",
   "tips-v1": "Med experter" };
-const pct = (x) => `${Math.round(x * 100)} %`;
+const pct = (x) => `${Math.round(x * 100)}\u00a0%`;
 const dec = (x) => x.toFixed(3).replace(".", ",");
+
+const ROLLNAMN = { alternativ: "eget förslag", skugga: "skuggmodell", referens: "jämförelse", arkiv: "äldre version" };
+const procent2 = (x) => `${(x * 100).toFixed(2).replace(".", ",").replace("-", "−")}\u00a0%`;
+
+/** Varje modell mot Oddsen, match för match (export.parvis). */
+function renderaJamforelse(box, rader) {
+  box.append(el("h3", { text: "Modellerna mot Oddsen" }));
+  box.append(el("p", { class: "forklaring-stat", text:
+    "Varje modell jämförs med Oddsen på exakt samma matcher. Måttet är hur väl sannolikheterna stämde " +
+    "(log loss) – det är dem förslagen bygger på, inte bara om favoriten vann. En skillnad räknas först " +
+    "när den är större än felmarginalen; annars kan den lika gärna vara slump." }));
+  const lista = el("ul", { class: "jamforelse" });
+  for (const r of rader) {
+    const text = r.slutsats === "bättre" ? "Bättre än Oddsen" : r.slutsats === "sämre" ? "Sämre än Oddsen"
+      : r.slutsats === "för lite data" ? `För lite data än (${r.antal} av 100 matcher)` : "Ingen säker skillnad";
+    const tal = r.slutsats === "för lite data" || r.felmarginal == null ? ""
+      : ` · ${r.skillnad > 0 ? "+" : ""}${procent2(r.skillnad)} ± ${procent2(r.felmarginal)}`;
+    lista.append(el("li", { class: `jamf ${r.slutsats.replaceAll(" ", "-")}` },
+      el("div", { class: "jamf-huvud" }, el("b", { text: r.namn }),
+        el("span", { class: "jamf-roll", text: ROLLNAMN[r.roll] || r.roll })),
+      el("p", { class: "jamf-slutsats" }, el("span", { class: "jamf-markor", "aria-hidden": "true" }), text,
+        el("span", { class: "dampad", text: tal })),
+      el("p", { class: "dampad liten", text:
+        `${r.antal.toLocaleString("sv-SE")} matcher${r.framat ? " sedan start" : ""} · favoriten rätt ${pct(r.traff)} ` +
+        `(Oddsen ${pct(r.traff_odds)}) · Brier ${dec(r.brier)} (Oddsen ${dec(r.brier_odds)})` })));
+  }
+  box.append(lista);
+}
 
 /** Aktuella siffror på sidan "Så funkar Stryktipsguiden" (resten av texten är fast). */
 function renderaOm() {
@@ -508,6 +536,8 @@ function renderaStatistik() {
   }
   tabell.append(kropp);
   box.append(tabell);
+
+  if (blk.jamforelse?.length) renderaJamforelse(box, blk.jamforelse);
 
   if (st.tipsare?.length) {
     box.append(el("h3", { text: "Tipsarnas vikt i förslaget Med experter" }));

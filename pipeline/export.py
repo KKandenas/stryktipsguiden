@@ -241,6 +241,44 @@ def _traffar(p, res) -> bool:
     return p[TECKEN.index(res)] >= max(p) - 1e-9
 
 
+FOLKET = "Svenska folket"
+MIN_JAMFORELSE = 100     # matcher innan en slutsats dras om en modell är bättre eller sämre än oddsen
+
+
+def parvis(version: str, par: list) -> dict:
+    """Jämför en modell med oddsen match för match. par = [(p_odds, p_modell, resultat)].
+
+    Måttet är log loss (lägre = bättre sannolikheter). Skillnaden räknas per match, så att svåra och
+    lätta matcher tar ut varandra, och slutsatsen dras bara när skillnaden är större än två
+    standardfel – annars kan den lika gärna vara slump."""
+    from .model.ensemble import logloss
+    from .model.sannolikhet import brier
+
+    n = len(par)
+    d = [logloss(b, r) - logloss(p, r) for b, p, r in par]          # > 0: modellen bättre
+    medel = sum(d) / n
+    se = (sum((x - medel) ** 2 for x in d) / (n - 1) / n) ** 0.5 if n > 1 else float("inf")
+    ll_bas = sum(logloss(b, r) for b, _, r in par) / n
+    if n < MIN_JAMFORELSE:
+        slutsats = "för lite data"
+    elif medel > 2 * se:
+        slutsats = "bättre"
+    elif medel < -2 * se:
+        slutsats = "sämre"
+    else:
+        slutsats = "ingen säker skillnad"
+    m = MODELLER.get(version)
+    return {"version": version, "namn": m.namn if m else version, "roll": m.roll if m else "referens",
+            "framat": bool(m and m.framat), "antal": n,
+            "traff": round(sum(_traffar(p, r) for _, p, r in par) / n, 3),
+            "traff_odds": round(sum(_traffar(b, r) for b, _, r in par) / n, 3),
+            "brier": round(sum(brier(p, r) for _, p, r in par) / n, 4),
+            "brier_odds": round(sum(brier(b, r) for b, _, r in par) / n, 4),
+            "skillnad": round(medel / ll_bas, 4) if ll_bas else 0.0,       # andel bättre än oddsen
+            "felmarginal": round(2 * se / ll_bas, 4) if ll_bas and se != float("inf") else None,
+            "slutsats": slutsats}
+
+
 def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
     """Träffsäkerhet för modeller, källor och ligor – för hela historiken ("alla") och från varje
     startår ("2023" = från 1 januari 2023). Modellerna jämförs på samma matcher."""
@@ -272,7 +310,9 @@ def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
         for mid, *_ in urval:
             for v in prog.get(mid, {}):
                 antal[v] = antal.get(v, 0) + 1
-        versioner = [v for v, n in antal.items() if n >= min_n]
+        # Framåtmodeller har bara prognoser från sin start och skulle krympa det gemensamma urvalet –
+        # de mäts i stället parvis mot oddsen (jamforelse nedan).
+        versioner = [v for v, n in antal.items() if n >= min_n and not MODELLER[v].framat]
         gemensamma = [m for m in urval if all(v in prog.get(m[0], {}) for v in versioner)]
         if not versioner or len(gemensamma) < min_n:
             return None
@@ -307,7 +347,23 @@ def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
                 l_[0] += brier(p, res); l_[1] += _traffar(p, res); l_[2] += 1
         ligor = sorted(({"liga": k, "brier": round(v[0] / v[2], 4), "traff": round(v[1] / v[2], 3), "antal": v[2]}
                         for k, v in per_liga.items() if v[2] >= min_n), key=lambda x: -x["antal"])[:6]
-        return {"modeller": modeller, "kallor": kallor, "ligor": ligor}
+        return {"modeller": modeller, "kallor": kallor, "ligor": ligor, "jamforelse": jamforelse(urval)}
+
+    def jamforelse(urval) -> list:
+        """Varje modell (och Svenska folket) parvis mot oddsen, på de matcher där båda har prognos."""
+        kandidater = {v: (lambda mid, v=v: prog.get(mid, {}).get(v)) for v in MODELLER if v != STANDARD_MODELL}
+        kandidater[FOLKET] = lambda mid: (tuple(x / sum(streck[mid]) for x in streck[mid])
+                                          if mid in streck and sum(streck[mid]) > 0 else None)
+        ut = []
+        for v, hamta in kandidater.items():
+            par = [(prog[mid][STANDARD_MODELL], p, res) for mid, _, _, res in urval
+                   if STANDARD_MODELL in prog.get(mid, {}) and (p := hamta(mid)) is not None]
+            if not par:
+                continue
+            ut.append(parvis(v, par))
+        ordning = {"alternativ": 0, "skugga": 1, "referens": 2, "arkiv": 3}
+        ut.sort(key=lambda x: (ordning.get(x["roll"], 9), -x["antal"]))
+        return ut
 
     ar = sorted({m[1][:4] for m in matcher if any(m[0] in prog and v in prog[m[0]] for v in (STANDARD_MODELL,))})
     per_ar = {"alla": block(None)}

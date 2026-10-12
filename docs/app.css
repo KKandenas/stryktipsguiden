@@ -440,3 +440,15 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .tabellista a { display: block; text-wrap: balance; padding: 10px 12px; border-radius: 10px; background: var(--yta-2); border: 1px solid var(--linje); font-weight: 600; font-size: 15px; text-decoration: none; color: inherit; }
 .tabellista a:hover, .tabellista a:focus-visible { border-color: var(--primar); }
 #tabeller-innehall h2 { margin-top: 14px; }
+
+/* modelljämförelse */
+.om .jamforelse, .jamforelse { list-style: none; padding: 0; margin: 8px 0 16px; display: grid; gap: 8px; }
+.jamf { background: var(--yta-2); border: 1px solid var(--linje); border-radius: 12px; padding: 10px 12px; }
+.jamf-huvud { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.jamf-huvud b { font-size: 15px; }
+.jamf-roll { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--dampad); }
+.jamf-slutsats { margin: 4px 0 2px; font-weight: 600; font-size: 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 0 6px; }
+.jamf-markor { width: 9px; height: 9px; border-radius: 50%; background: var(--dampad); flex: none; }
+.jamf.bättre .jamf-markor { background: var(--ratt); }
+.jamf.sämre .jamf-markor { background: var(--fel); }
+.jamf.för-lite-data .jamf-markor { background: transparent; border: 1.5px solid var(--dampad); }

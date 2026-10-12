@@ -6,8 +6,16 @@ sannolikheter för 1/X/2, eller None om underlaget inte räcker. Prognoserna spa
 
 Ny modell: skapa en klass med unik `version` och lägg den i MODELLER. Vilken version appen
 använder bestäms av statistiksteget (installningar.aktiv_modell, se statistik.py); utan beslut
-används odds-v1. Ändra aldrig beteendet hos en version som redan har sparade prognoser –
+används odds-v2. Ändra aldrig beteendet hos en version som redan har sparade prognoser –
 skapa en ny version.
+
+Varje modell har också:
+- `namn`: visningsnamnet i appen.
+- `roll`: "bas" (Oddsen, som allt jämförs mot), "alternativ" (eget förslag i appen), "skugga"
+  (sparar prognoser och mäts, men påverkar inga rader) eller "arkiv" (äldre version, mäts som jämförelse).
+- `framat`: True för modeller som inte går att räkna om på historiken (t.ex. sådana som bygger på
+  AI-analys av dagsaktuella nyheter). De räknas bara för öppna omgångar, så den sparade prognosen är
+  alltid den sista före spelstopp, och de mäts först när resultaten kommit in.
 """
 from __future__ import annotations
 
@@ -44,6 +52,9 @@ class OddsModell:
 
     Svenska Spels startodds används bara om inga senare odds finns (gäller främst historik)."""
     version = "odds-v1"
+    namn = "Odds, oviktat snitt"
+    roll = "arkiv"
+    framat = False
     beskrivning = "Snitt av bookmakerodds med marginalen borträknad"
 
     def prognos(self, u: Underlag) -> Optional[Tripel]:
@@ -65,6 +76,8 @@ class OddsModellV2(OddsModell):
 
     Med bara ett bolag (t.ex. Svenska Spels startodds i historiken) blir resultatet identiskt med odds-v1."""
     version = "odds-v2"
+    namn = "Oddsen"
+    roll = "bas"
     beskrivning = "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
 
     def prognos(self, u: Underlag) -> Optional[Tripel]:
@@ -98,6 +111,9 @@ class EnsembleModell:
 
     Vikterna tränas om varje vecka på avgjorda matcher. Ger bara prognos när odds finns."""
     version = "ensemble-v1"
+    namn = "Sammanvägd modell"
+    roll = "skugga"      # tar över som bas automatiskt om den slår oddsen (statistik.valj_modell)
+    framat = False
     beskrivning = "Odds, streck och tips viktade efter historisk träffsäkerhet"
 
     def __init__(self, vikter: Optional[ensemble.Vikter] = None):
@@ -121,6 +137,9 @@ class TipsModell:
 
     Parallellt alternativ till basmodellen – väljs i appen, aldrig automatiskt. Strecken ingår inte."""
     version = "tips-v1"
+    namn = "Med experter"
+    roll = "alternativ"
+    framat = False
     beskrivning = "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt"
 
     def __init__(self, vikter: Optional[ensemble.Vikter] = None):
@@ -136,6 +155,11 @@ class TipsModell:
 
 MODELLER = {m.version: m for m in (OddsModell(), OddsModellV2(), EnsembleModell(), TipsModell())}
 STANDARD_MODELL = "odds-v2"
+
+
+def framatmodeller() -> List[str]:
+    """Versioner som bara kan räknas för öppna omgångar (se modulens docstring)."""
+    return [v for v, m in MODELLER.items() if getattr(m, "framat", False)]
 
 
 def aktiv_modell():

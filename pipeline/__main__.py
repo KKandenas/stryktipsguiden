@@ -29,7 +29,8 @@ from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
 from .model import statistik
-from .model.modeller import MODELLER, EnsembleModell, aktiv_modell, berakna_prognoser, ladda_modell
+from .model.modeller import (MODELLER, EnsembleModell, aktiv_modell, berakna_prognoser, framatmodeller,
+                             ladda_modell)
 from .modeller import Match, ValideringsFel
 from .sources import oddsapi, svenskaspel
 from .tid import nu_utc, till_utc
@@ -185,6 +186,12 @@ def steg_prognos(conn, alla: bool = False) -> bool:
             if m.vikter is not None:
                 s, u = berakna_prognoser(conn, m, aktuella)
                 log.info("Prognos (%s): %d nya/ändrade, %d matcher saknar underlag", m.version, s, u)
+        # Framåtmodeller (skuggmodeller som inte kan räknas om i efterhand): bara öppna omgångar,
+        # så att det som sparas är den sista prognosen före spelstopp.
+        oppna = [r[0] for r in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ?", (nu_utc(),))]
+        for version in framatmodeller():
+            s, u = berakna_prognoser(conn, ladda_modell(conn, version), oppna)
+            log.info("Prognos (%s, skugga): %d nya/ändrade, %d matcher saknar underlag", version, s, u)
         return True
     except Exception as e:
         log.exception("Prognos: misslyckades: %s", e)

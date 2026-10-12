@@ -169,3 +169,42 @@ def test_utan_frysning_visas_slutdatan(conn):
     fyll(conn)
     efter = export.bygg_kupong(conn, 4974, nu="2026-10-10T15:00:00Z")
     assert efter["omgang"]["frusen"] is None
+
+
+def test_parvis_jamforelse_mot_oddsen():
+    import random
+    rng = random.Random(1)
+    odds = (0.5, 0.3, 0.2)
+    facit = [rng.choices("1X2", weights=odds)[0] for _ in range(400)]
+    lika = export.parvis("odds-v1", [(odds, odds, r) for r in facit])
+    assert lika["slutsats"] == "ingen säker skillnad" and lika["skillnad"] == 0
+    # En modell som vet facit i förväg är tydligt bättre; en som tror tvärtom är sämre
+    vet = export.parvis("tips-v1", [(odds, tuple(0.8 if t == r else 0.1 for t in "1X2"), r) for r in facit])
+    assert vet["slutsats"] == "bättre" and vet["skillnad"] > 0 and vet["traff"] == 1.0
+    fel = export.parvis("tips-v1", [(odds, (0.1, 0.3, 0.6), r) for r in facit])
+    assert fel["slutsats"] == "sämre"
+    assert export.parvis("tips-v1", [(odds, odds, r) for r in facit[:50]])["slutsats"] == "för lite data"
+    assert export.parvis("Svenska folket", [(odds, odds, "1")] * 120)["roll"] == "referens"
+
+
+def test_framatmodell_kramper_inte_huvudjamforelsen(conn, monkeypatch):
+    """En skuggmodell med prognoser bara för de senaste matcherna mäts parvis, inte i huvudtabellen."""
+    from tests.test_statistik import fyll_syntetiskt
+    from pipeline.model import modeller, statistik
+
+    class Skugga(modeller.OddsModellV2):
+        version, namn, roll, framat = "skugga-test", "Testskugga", "skugga", True
+    monkeypatch.setitem(modeller.MODELLER, Skugga.version, Skugga())
+    monkeypatch.setitem(export.MODELLER, Skugga.version, Skugga())
+    fyll_syntetiskt(conn, n_omgangar=60, facit="odds")
+    statistik.kor(conn)
+    fore = export.statistik_per_ar(conn, "odds-v2")["alla"]["modeller"][0]["antal"]
+    senaste = [r[0] for r in conn.execute("SELECT id FROM matcher ORDER BY id DESC LIMIT 130")]
+    for mid in senaste:
+        conn.execute("INSERT INTO prognoser VALUES (?, 'skugga-test', 0.4, 0.3, 0.3, 'x')", (mid,))
+    conn.commit()
+    alla = export.statistik_per_ar(conn, "odds-v2")["alla"]
+    assert "skugga-test" not in [m["version"] for m in alla["modeller"]]
+    assert alla["modeller"][0]["antal"] == fore > 130
+    skugga = next(j for j in alla["jamforelse"] if j["version"] == "skugga-test")
+    assert skugga["framat"] and skugga["antal"] == 130 and skugga["roll"] == "skugga"
