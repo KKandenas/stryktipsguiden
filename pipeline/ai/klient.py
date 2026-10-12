@@ -22,7 +22,8 @@ GEMINI_TANKANDE = "low"            # minimal | low | medium | high
 CLAUDE_MODELL = "claude-opus-5-5"
 CLAUDE_EFFORT = "medium"
 
-MAX_FORSOK_VID_429 = 3             # gratisnivån har låga gränser per minut
+MAX_FORSOK = 4                     # gratisnivån har låga gränser per minut och är ibland överbelastad
+TILLFALLIGA_FEL = {429, 500, 502, 503, 504}
 
 # Signaturen som resten av koden använder; tester skickar in en egen funktion med samma form.
 Anropare = Callable[[str, str, Dict[str, Any], int], Dict[str, Any]]
@@ -81,11 +82,10 @@ _gemini = None
 def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_tokens: int) -> Dict[str, Any]:
     global _gemini
     from google import genai
-    from google.genai import errors
 
     if _gemini is None:
         _gemini = genai.Client()  # läser GEMINI_API_KEY
-    for forsok in range(1, MAX_FORSOK_VID_429 + 1):
+    for forsok in range(1, MAX_FORSOK + 1):
         try:
             svar = _gemini.interactions.create(
                 model=GEMINI_MODELL,
@@ -97,12 +97,13 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
                 store=False,
             )
             break
-        except errors.APIError as e:
-            if e.code == 429 and forsok < MAX_FORSOK_VID_429:
-                log.info("Gemini: för många anrop (429), väntar 30 s (försök %d)", forsok)
+        except Exception as e:  # interactions-API:t har egna feltyper; titta bara på statuskoden
+            kod = getattr(e, "code", None) or getattr(e, "status_code", None)
+            if kod in TILLFALLIGA_FEL and forsok < MAX_FORSOK:
+                log.info("Gemini: tillfälligt fel (%s), väntar 30 s (försök %d)", kod, forsok)
                 time.sleep(30)
                 continue
-            raise AiFel(f"Gemini svarade {e.code}: {e.message}") from e
+            raise AiFel(f"Gemini svarade {kod or type(e).__name__}: {e}") from e
 
     usage = getattr(svar, "usage", None)
     if usage is not None:
