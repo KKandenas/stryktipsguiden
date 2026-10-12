@@ -1,7 +1,7 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning,
-} from "./optimizer.js?v=20261012b";
-import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261012b";
+} from "./optimizer.js?v=20261012c";
+import { backtesta, franAr, rattFordelning } from "./backtest.js?v=20261012c";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -98,6 +98,7 @@ async function start() {
       return;
     }
   }
+  if (document.body.dataset.vy === "tabeller") visaTabeller();
   state.formRang = state.kupong.tipsare_form || [];
   const lagrat = lasLagring();
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
@@ -392,7 +393,59 @@ function detaljer(m, v) {
   if (tips.length > 3) {
     d.append(el("p", { class: "dampad liten", text: `Även tippat: ${tips.slice(3).map((t) => `${KORTNAMN[t.kalla] || t.kalla} ${t.tecken}`).join(" · ")}` }));
   }
+  const serie = serietabell(m.land, m.liga);
+  if (serie) d.append(el("p", { class: "tabellank" }, extern(serie.url, `Serietabell: ${serie.namn}`)));
   return d;
+}
+
+// ---------- serietabeller (externa länkar, öppnas i nytt fönster) ----------
+
+const BBC = (slug) => `https://www.bbc.com/sport/football/${slug}/table`;
+const SERIETABELLER = [
+  // [land, ligor som Svenska Spel kan skriva dem, visningsnamn, url]
+  ["England", ["Premier League"], "Premier League", BBC("premier-league")],
+  ["England", ["Championship"], "Championship", BBC("championship")],
+  ["England", ["League One"], "League One", BBC("league-one")],
+  ["England", ["League Two"], "League Two", BBC("league-two")],
+  ["Sverige", ["Allsvenskan"], "Allsvenskan", "https://allsvenskan.se/tabell"],
+  ["Sverige", ["Superettan"], "Superettan", "https://superettan.se/tabell"],
+  ["Norge", ["Eliteserien"], "Eliteserien", "https://www.eliteserien.no/tabell"],
+  ["Skottland", ["Premiership"], "Skotska Premiership", BBC("scottish-premiership")],
+  ["Tyskland", ["Bundesliga"], "Bundesliga", BBC("german-bundesliga")],
+  ["Spanien", ["La Liga", "LaLiga"], "La Liga", BBC("spanish-la-liga")],
+  ["Italien", ["Serie A"], "Serie A", BBC("italian-serie-a")],
+  ["Frankrike", ["Ligue 1"], "Ligue 1", BBC("french-ligue-one")],
+  ["Nederländerna", ["Eredivisie"], "Eredivisie", BBC("dutch-eredivisie")],
+  ["Portugal", ["Primeira Liga"], "Primeira Liga", BBC("portuguese-primeira-liga")],
+  ["Danmark", ["Superligan", "Superligaen"], "Superligaen", BBC("danish-superliga")],
+  ["Belgien", ["Pro League"], "Pro League", BBC("belgian-pro-league")],
+  ["USA", ["MLS"], "MLS", BBC("us-major-league")],
+].map(([land, ligor, namn, url]) => ({ land, ligor: ligor.map((l) => l.toLowerCase()), namn, url }));
+
+/** Tabellänk för en liga, eller null (cuper, landskamper och ligor vi saknar länk till). */
+export function serietabell(land, liga) {
+  const l = (liga || "").toLowerCase();
+  return SERIETABELLER.find((t) => t.land === land && t.ligor.includes(l)) || null;
+}
+
+function extern(url, text) {
+  return el("a", { href: url, target: "_blank", rel: "noopener noreferrer", class: "extern" }, text,
+    el("span", { class: "sr-only", text: " (öppnas i nytt fönster)" }), el("span", { "aria-hidden": "true", text: " ↗" }));
+}
+
+function visaTabeller() {
+  const box = $("tabeller-innehall");
+  const veckans = [];
+  for (const m of state.kupong?.matcher || []) {
+    const t = serietabell(m.land, m.liga);
+    if (t && !veckans.includes(t)) veckans.push(t);
+  }
+  const lista = (tabeller) => el("ul", { class: "tabellista" }, ...tabeller.map((t) => el("li", {}, extern(t.url, t.namn))));
+  box.replaceChildren(
+    ...(veckans.length ? [el("h2", { text: "Ligor på veckans kupong" }), lista(veckans)] : []),
+    el("h2", { text: veckans.length ? "Övriga ligor" : "Ligor" }),
+    lista(SERIETABELLER.filter((t) => !veckans.includes(t))),
+  );
 }
 
 const MODELLNAMN = { "odds-v2": "Oddsen", "odds-v1": "Odds, oviktat snitt", "ensemble-v1": "Sammanvägd modell",
@@ -531,7 +584,7 @@ function renderaStatistik() {
 // ---------- meny och vyer ----------
 
 const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp",
-  om: "Om guiden" };
+  tabeller: "Serietabeller", om: "Om guiden" };
 
 function initMeny() {
   const knapp = $("meny-knapp"), lista = $("meny-lista");
@@ -559,6 +612,7 @@ function visaVy() {
   $("meny-aktuell").textContent = VYER[vy];
   if (vy === "backtest") oppnaBacktest();
   if (vy === "rattning") oppnaRattning();
+  if (vy === "tabeller") visaTabeller();
   if (vy !== "kupong" || namn) window.scrollTo(0, 0);
 }
 

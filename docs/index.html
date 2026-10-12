@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261012b">
-<script type="module" src="app.js?v=20261012b"></script>
+<link rel="stylesheet" href="app.css?v=20261012c">
+<script type="module" src="app.js?v=20261012c"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -37,6 +37,7 @@
         <li><a href="#rattning" data-vy="rattning"><b>Förra omgången</b><span>Rättning av senaste kupongen</span></a></li>
         <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
         <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
+        <li><a href="#tabeller" data-vy="tabeller"><b>Serietabeller</b><span>Aktuella tabeller, öppnas i nytt fönster</span></a></li>
         <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
         <li><a href="#om" data-vy="om"><b>Så funkar Stryktipsguiden</b><span>Syfte, källor och hur raderna räknas fram</span></a></li>
       </ul>
@@ -149,6 +150,16 @@
         <li><b>Tryck på ett tecken</b> för att låsa det 🔒. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren, oddsen och tipsen.</li>
       </ul>
       <p><a class="knapp primar" href="#kupong">Till kupongen</a></p>
+    </section>
+  </section>
+
+  <!-- ===== Serietabeller ===== -->
+  <section class="vy innehall om" data-vy="tabeller" hidden>
+    <h1 class="vy-rubrik">Serietabeller</h1>
+    <section class="kort">
+      <p>Länkar till aktuella tabeller hos BBC Sport och ligornas egna sajter. De öppnas i ett nytt fönster.
+        Du hittar också tabellen under varje match när du fäller ut den.</p>
+      <div id="tabeller-innehall"></div>
     </section>
   </section>
 

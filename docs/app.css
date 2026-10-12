@@ -433,3 +433,10 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* serietabeller */
+.tabellank { margin-top: 10px; font-size: 14px; }
+.om .tabellista { list-style: none; padding: 0; margin: 6px 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tabellista a { display: block; text-wrap: balance; padding: 10px 12px; border-radius: 10px; background: var(--yta-2); border: 1px solid var(--linje); font-weight: 600; font-size: 15px; text-decoration: none; color: inherit; }
+.tabellista a:hover, .tabellista a:focus-visible { border-color: var(--primar); }
+#tabeller-innehall h2 { margin-top: 14px; }
