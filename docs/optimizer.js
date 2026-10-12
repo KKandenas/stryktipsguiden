@@ -10,7 +10,7 @@
 // Produkten över matcherna är (träffchans)^(1−λ) · (förväntad utdelning)^λ, och dynamisk
 // programmering över (match, antal halv, antal hel) hittar den exakt bästa kombinationen.
 
-export const BUDGETAR = [1, 32, 64, 96, 128, 192, 256];
+export const BUDGETAR = [1, 16, 32, 48, 64, 96, 128, 144, 192, 256, 384, 576];
 export const LAMBDA = 0.3;          // risknivå: 0 = bara träffchans, 1 = bara utdelning. 0,3 valt efter backtest, se README
 export const VARDE_GRANS = 0.03;    // orange prick från 3 procentenheter understreckat
 export const VARDE_GRANS_OSAKER = 0.05;   // …och från 5 när bedömningen bara bygger på Svenska Spels odds

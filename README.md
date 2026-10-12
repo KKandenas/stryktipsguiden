@@ -175,9 +175,9 @@ python3 -m http.server 8765 -d docs
 
 Antalet rader bestämmer garderingarna exakt (2^halv · 3^hel = rader):
 
-| Rader | 1 | 32 | 64 | 96 | 128 | 192 | 256 |
-|---|---|---|---|---|---|---|---|
-| Fördelning | 13 spik | 5 halv | 6 halv | 5 halv + 1 hel | 7 halv | 6 halv + 1 hel | 8 halv |
+| Rader | 1 | 16 | 32 | 48 | 64 | 96 | 128 | 144 | 192 | 256 | 384 | 576 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Fördelning | 13 spik | 4 halv | 5 halv | 4 halv + 1 hel | 6 halv | 5 halv + 1 hel | 7 halv | 4 halv + 2 hel | 6 halv + 1 hel | 8 halv | 7 halv + 1 hel | 6 halv + 2 hel |
 
 För varje match och teckenval S räknas en poäng ut:
 `(1 − λ)·log(Σ chans) + λ·log(Σ chans/streck)`. Första delen är träffchansen, och den andra är
@@ -357,7 +357,7 @@ filen först när avsnittet öppnas och kör varje omgång genom **samma `optimi
 dina rader, så backtestet räknar exakt som appen. Logiken finns i `docs/backtest.js`.
 
 - Du väljer startår och förslag (Modellen eller Tipsviktat; `historik.json` har den tipsviktade chansen
-  som åttonde fält per match), antal rader per vecka (1–256), och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
+  som åttonde fält per match), antal rader per vecka (1–576), och ser insats, tillbaka, netto, antal 13/12/11/10 rätt,
   saldot vecka för vecka, utfallet per år och de största vinsterna.
 - Som jämförelse visas "Folket": samma antal rader, men valda efter strecken i stället för modellens chans.
 - Utdelningen räknas som om dina rader inte hade påverkat potten. Vissa veckor ger 10 eller 11 rätt
