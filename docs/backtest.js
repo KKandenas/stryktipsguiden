@@ -4,7 +4,7 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261013f";
+import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261013g";
 
 /** Matcher i optimerarens format. kalla "modell" (och "skrall"): modellens chans och folkets streck.
  *  kalla "tips": den tipsviktade chansen (fält 8) där den finns, annars modellens.
@@ -27,9 +27,15 @@ export function medLagkoll(historik) {
   return { ...historik, omgangar: historik.omgangar.filter((o) => o.matcher.some((m) => m[8])) };
 }
 
-/** Historiken från och med ett startår ("alla" = allt). */
+// Premiären: dagen då förslagen började visas skarpt, med riktiga odds före spelstopp. Omgångar från och
+// med den här dagen är inte simulerade – det är förslagen som faktiskt visades (frysta före spelstopp).
+export const PREMIAR = "2026-10-12";
+
+/** Historiken från och med ett startår ("alla" = allt, "premiar" = sedan premiären). */
 export function franAr(historik, ar) {
-  return ar === "alla" ? historik : { ...historik, omgangar: historik.omgangar.filter((o) => o.datum >= `${ar}-01-01`) };
+  if (ar === "alla") return historik;
+  const fran = ar === "premiar" ? PREMIAR : `${ar}-01-01`;
+  return { ...historik, omgangar: historik.omgangar.filter((o) => o.datum >= fran) };
 }
 
 /** Antal rader i systemet med k rätt, k = 0..13 (utan att räkna upp alla rader). */

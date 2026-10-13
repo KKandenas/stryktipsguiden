@@ -78,7 +78,7 @@ FRYSTA_FALT = ("chans", "chans_kalla", "streck", "streck_tid", "varde", "osaker"
 # Bolag som visas i appen, i den här ordningen (övriga i bokstavsordning efter), högst MAX_BOLAG.
 BOLAGSORDNING = ["pinnacle", "svenskaspel", "svenskaspel_start", "unibet_eu", "betsson", "nordicbet", "bet365",
                  "betfair_ex_eu", "williamhill", "coolbet", "betclic", "marathonbet", "sport888"]
-MAX_BOLAG = 5
+MAX_BOLAG = 12
 FORM_DAGAR = 56          # "senaste tiden" för tipsarnas form = 8 veckor
 FORM_MIN = 10            # färre matcher än så → hela historiken används i stället
 

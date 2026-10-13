@@ -493,3 +493,20 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .drift-varning .drift-ikon { background: var(--orange); }
 .drift-fel .drift-ikon { background: var(--fel); }
 .drift-info .drift-ikon { background: var(--ruta-kant); color: var(--dampad); }
+
+/* odds som fälls ut */
+.visa-bolag-rad td { padding-top: 2px; padding-bottom: 6px; }
+.visa-bolag { background: none; border: 0; padding: 4px 0; color: var(--primar); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.visa-bolag:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+.visa-bolag::after { content: " ▾"; }
+.visa-bolag[aria-expanded="true"]::after { content: " ▴"; }
+
+/* länk till Svenska Spel */
+.lamna-in { display: block; margin-top: 12px; text-align: center; font-weight: 700; font-size: 15px; color: var(--primar); text-decoration: none; padding: 10px; border-radius: 10px; border: 1.5px solid var(--ruta-kant); }
+.lamna-in:hover, .lamna-in:focus-visible { border-color: var(--primar); }
+
+/* backtest per systemstorlek och premiären */
+.tabell-scroll { overflow-x: auto; }
+.storlekar td, .storlekar th { white-space: nowrap; }
+.storlekar tr.aktiv td { font-weight: 700; background: var(--yta-2); }
+.premiar-not { margin: 8px 0 12px; padding: 8px 10px; border-radius: 10px; background: var(--banner); font-size: 14px; }

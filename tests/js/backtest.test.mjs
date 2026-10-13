@@ -1,7 +1,7 @@
 // Körs med: node --test tests/js/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { backtesta, matcherFor, medLagkoll, rattFordelning, rattaRader } from "../../docs/backtest.js";
+import { PREMIAR, backtesta, franAr, matcherFor, medLagkoll, rattFordelning, rattaRader } from "../../docs/backtest.js";
 import { optimera } from "../../docs/optimizer.js";
 
 // Syntetisk omgång: [chans1, chansX, chans2, streck1, streckX, streck2, resultat]
@@ -70,4 +70,12 @@ test("backtest av Skrällchans och Lagkoll", () => {
   assert.deepEqual(matcherFor(o, "lagkoll")[0].chans, { 1: 0.2, X: 0.3, 2: 0.5 });
   assert.deepEqual(matcherFor(o, "lagkoll")[1].chans, { 1: 0.5, X: 0.28, 2: 0.22 });
   assert.equal(skrall.omgangar[0].insats, 32);
+});
+
+
+test("Sedan premiären tar bara omgångar från premiärdagen", () => {
+  const h = { omgangar: [{ datum: "2026-10-10" }, { datum: PREMIAR }, { datum: "2026-10-17" }, { datum: "2025-03-01" }] };
+  assert.deepEqual(franAr(h, "premiar").omgangar.map((o) => o.datum), [PREMIAR, "2026-10-17"]);
+  assert.equal(franAr(h, "2026").omgangar.length, 3);
+  assert.equal(franAr(h, "alla").omgangar.length, 4);
 });

@@ -6,6 +6,13 @@ Grunden är byggd. Nästa halvår handlar mest om att samla avgjorda omgångar, 
 Lagkoll och Skrällchans när det finns tillräckligt med underlag. Inga nya modeller byggs innan det finns data
 som talar för dem.
 
+## Senast tillagt (13 oktober 2026)
+
+- Länk till Svenska Spel under radförslaget.
+- Oddsen i matchdetaljen visar snittet direkt. Bolagen, upp till 12, fälls ut på begäran.
+- Backtest per systemstorlek: alla storlekar sida vid sida för valt förslag och period.
+- "Sedan premiären" (12 oktober 2026) i backtestets periodval: förslagen som faktiskt visades, utan simulering.
+
 ## Läget i dag
 
 | Del | Status |
@@ -71,11 +78,33 @@ Detaljerna finns i README.
 | Egen risknivå för 64–128 rader | Resultaten vände mellan perioderna, alltså brus. λ 0,45 och högre var klart sämre. |
 | Favoritfällan och jämna matcher | Oddsen var rätt kalibrerade i alla grupper. |
 
+## Större idéer att besluta om
+
+### Inloggning och Mina spel
+Man loggar in och sparar de spel man lämnat in, alltså förslag, antal rader och egna ändringar. Sidan
+Mina spel visar rättning, utfall över tid och jämförelser med förslaget. Man ska också kunna bjuda in andra.
+- Kräver en extern tjänst, eftersom appen ligger på GitHub Pages utan egen server. Förslaget är Firebase
+  med Google-inloggning och Firestore, som är gratis i vår skala.
+- Att besluta först: vilka data som sparas (e-postadress, spel), säkerhetsregler, hur inbjudningar fungerar
+  och att Firebase-projektet skapas och nycklarna läggs in av ägaren.
+- Uppskattning: några kvällar.
+
+### Spelbolag
+En fortsättning på Mina spel. Man skapar en grupp och väljer per spel om man spelade själv eller med
+spelbolaget. Spelbolaget får gemensam statistik och bokföring av inbetalt per spelare, med manuella
+justeringar för vinster utanför appen. Appen bokför bara och hanterar aldrig riktiga pengar. Ska byggas
+med samma datamodell som Mina spel.
+
+### Nyheter om lagen
+- **Steg A:** en sida "Lagnyheter" som samlar det Lagkoll redan hittar, alltså skador, avstängningar och
+  tränarbyten per match. Ingen extra AI behövs. Görs när Lagkoll har fungerat några helger.
+- **Steg B:** RSS-flöden, till exempel BBC per liga, med AI-sammanfattning. Väntar tills Geminis
+  gratiskvot har visat sig räcka.
+
 ## Idéer i reserven
 
 | Idé | Varför den väntar |
 |---|---|
-| Mina spel | Spara vad man faktiskt spelade varje vecka och visa sitt eget resultat. Trevligt men inte nödvändigt. |
 | Val mellan fler och större vinster | λ 0,15 träffar oftare, λ 0,3 ger större vinster. Fast risknivå är valt. |
 | Formmodell (Elo) för svenska serier | Oddsen täcker det mesta. Blir intressant om lägre serier blir vanligare. |
 | Nivåer av tipsviktning | Uppskjutet. Med experter behöver mer data först. |
