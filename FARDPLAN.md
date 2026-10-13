@@ -80,14 +80,13 @@ Detaljerna finns i README.
 
 ## Större idéer att besluta om
 
-### Inloggning och Mina spel
-Man loggar in och sparar de spel man lämnat in, alltså förslag, antal rader och egna ändringar. Sidan
-Mina spel visar rättning, utfall över tid och jämförelser med förslaget. Man ska också kunna bjuda in andra.
-- Kräver en extern tjänst, eftersom appen ligger på GitHub Pages utan egen server. Förslaget är Firebase
-  med Google-inloggning och Firestore, som är gratis i vår skala.
-- Att besluta först: vilka data som sparas (e-postadress, spel), säkerhetsregler, hur inbjudningar fungerar
-  och att Firebase-projektet skapas och nycklarna läggs in av ägaren.
-- Uppskattning: några kvällar.
+### Inloggning och Mina spel (byggt 13 oktober 2026 – väntar på Firebase-projektet)
+- Inloggning med Google eller e-postlänk. Knappen "Jag lämnade in de här raderna" sparar raderna som visas,
+  med förslaget utan egna ändringar som jämförelse. Mina spel visar insats, tillbaka och netto, rättning per
+  spel, vad egna ändringar gav, ändring av rader före avgörandet, delning via e-postadress och radering av
+  kontot.
+- [ ] Skapa Firebase-projektet och fyll i `docs/firebase-config.js` enligt [FIREBASE.md](FIREBASE.md).
+- [ ] Prova inloggningen på riktigt: Google, e-postlänk och delning mellan två konton.
 
 ### Spelbolag
 En fortsättning på Mina spel. Man skapar en grupp och väljer per spel om man spelade själv eller med

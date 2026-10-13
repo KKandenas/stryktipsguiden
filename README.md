@@ -479,6 +479,18 @@ Exempel med 64 rader i veckan och 253 omgångar: modellen fick tillbaka 46 % (�
 13 % (−14 125 kr). Svenska Spel behåller ungefär en tredjedel av insatserna, så att gå plus är svårt.
 Modellen förlorar betydligt mindre än att följa folket.
 
+## Inloggning och Mina spel
+
+Valfritt och avstängt tills `docs/firebase-config.js` är ifylld. Uppsättningen beskrivs i
+[FIREBASE.md](FIREBASE.md).
+- `docs/konto.js` laddar Firebase (Authentication och Firestore) först när någon använder kontot.
+  `?demo-konto` ger en låtsasdatabas i minnet.
+- `docs/minaspel.js` är ren logik: skapa spel, ändra tecken, rätta mot `historik.json`, sammanställa och
+  jämföra med förslaget utan egna ändringar. Tester finns i `tests/js/minaspel.test.mjs`.
+- `firestore.rules`: man läser och skriver bara sitt eget, utom spel som ägaren delat med ens verifierade
+  e-postadress. `delad_med` kopieras till varje spel, så att en enkel `array-contains`-fråga räcker.
+- Spelen har `grupp_id`, som är förberett för spelbolag.
+
 ## kupong.json
 
 Det enda appen läser. Formatet finns beskrivet i början av `pipeline/export.py`. Kort sammanfattat:

@@ -1,8 +1,10 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013h";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013h";
+} from "./optimizer.js?v=20261013i";
+import * as konto from "./konto.js?v=20261013i";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261013i";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013i";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -162,6 +164,7 @@ async function start() {
   state.lasningar = (lagrat.lasningar || {})[state.kupong.omgang.id] || {};
 
   byggBudgetknappar();
+  initKonto();
   $("matcher").addEventListener("click", klickMatch);
   $("rensa").addEventListener("click", () => { state.lasningar = {}; uppdatera(); });
   uppdatera();
@@ -501,6 +504,285 @@ function tabellBlock(m) {
   return el("section", { class: "tabellblock", "aria-label": "Tabell och form" },
     el("div", { class: "tabellblock-lagen" }, lag(m.hemmalag, t.hemma), lag(m.bortalag, t.borta)),
     el("p", { class: "dampad liten", text: `Tabell${t.hemma?.form || t.borta?.form ? " och form (senaste matchen längst till höger)" : ""}: ${t.kalla}.` }));
+}
+
+// ---------- konto och Mina spel ----------
+
+const KONTO_FLAGGA = "stryktipsguiden-inloggad";
+const ms = { anvandare: null, spel: null, delade: null, profil: null, oppna: new Set(), utkast: {}, raderaSteg: false, fel: "" };
+
+function initKonto() {
+  const knapp = $("spara-spel");
+  if (!konto.aktiverat()) return;
+  knapp.hidden = false;
+  knapp.addEventListener("click", sparaAktuelltSpel);
+  konto.nar((u) => {
+    ms.anvandare = u;
+    try { u ? localStorage.setItem(KONTO_FLAGGA, "1") : localStorage.removeItem(KONTO_FLAGGA); } catch { /* privat läge */ }
+    ms.spel = ms.delade = ms.profil = null;
+    if (document.body.dataset.vy === "minaspel") oppnaMinaSpel();
+  });
+  // Starta Firebase direkt bara om man var inloggad förra gången eller kommer från en inloggningslänk
+  let flagga = false;
+  try { flagga = localStorage.getItem(KONTO_FLAGGA) === "1"; } catch { /* privat läge */ }
+  if (flagga || /[?&]oobCode=/.test(location.href)) {
+    konto.starta().then(() => konto.slutforLank(fragaEpostForLank)).catch((e) => { ms.fel = e.message; });
+  }
+}
+
+function fragaEpostForLank() {
+  return new Promise((klar) => {
+    location.hash = "#minaspel";
+    const box = $("minaspel-innehall");
+    const falt = el("input", { type: "email", id: "lank-epost", autocomplete: "email", required: true, placeholder: "namn@exempel.se" });
+    const form = el("form", { class: "konto-form" }, el("label", { for: "lank-epost", text: "Vilken e-postadress skickades länken till?" }),
+      falt, el("button", { type: "submit", class: "knapp primar", text: "Logga in" }));
+    form.addEventListener("submit", (e) => { e.preventDefault(); klar(normaliseraEpost(falt.value)); });
+    box.replaceChildren(el("section", { class: "kort" }, el("h2", { text: "Slutför inloggningen" }),
+      el("p", { text: "Du öppnade länken på en annan enhet eller webbläsare än där du bad om den." }), form));
+  });
+}
+
+async function sparaAktuelltSpel() {
+  const status = $("spara-status");
+  status.hidden = false;
+  if (!ms.anvandare) {
+    status.textContent = "Logga in under Mina spel för att spara dina rader.";
+    status.append(" ", el("a", { href: "#minaspel", text: "Logga in" }));
+    return;
+  }
+  if (!state.resultat?.ok) { status.textContent = "Det finns inga rader att spara."; return; }
+  const spel = skapaSpel({ kupong: state.kupong, forslag: state.kalla, resultat: state.resultat,
+    forslagResultat: optimeraForslag(state.kupong, state.kalla, state.budget, {}) });
+  const fel = valideraSpel(spel);
+  if (fel) { status.textContent = fel; return; }
+  status.textContent = "Sparar …";
+  try {
+    await konto.sparaSpel(spel);
+    ms.spel = null;
+    status.textContent = `Sparat i Mina spel: ${FORSLAG[spel.forslag].namn}, ${spel.rader} rader. ` +
+      "Sparar du igen ersätts raderna för den här omgången.";
+  } catch (e) {
+    status.textContent = `Kunde inte spara: ${e.message}`;
+  }
+}
+
+async function laddaHistorik() {
+  if (state.historik) return state.historik;
+  const r = await fetch("historik.json", { cache: "no-cache" });
+  if (!r.ok) throw new Error(String(r.status));
+  state.historik = await r.json();
+  return state.historik;
+}
+
+async function oppnaMinaSpel() {
+  const box = $("minaspel-innehall");
+  if (!konto.aktiverat()) {
+    box.replaceChildren(el("section", { class: "kort" }, el("p", { text:
+      "Inloggning och Mina spel är inte aktiverade än. När de är det kan du spara de rader du lämnar in och följa hur de går." })));
+    return;
+  }
+  try {
+    await konto.starta();
+  } catch (e) {
+    box.replaceChildren(el("p", { class: "fel", text: `Inloggningen kunde inte laddas: ${e.message}` }));
+    return;
+  }
+  if (!ms.anvandare) { renderaInloggning(box); return; }
+  try {
+    [ms.spel, ms.delade, ms.profil] = await Promise.all([
+      ms.spel || konto.minaSpel(), ms.delade || konto.deladeSpel(), ms.profil || konto.profil(), laddaHistorik()]);
+  } catch (e) {
+    box.replaceChildren(el("p", { class: "fel", text: `Dina spel kunde inte hämtas: ${e.message}` }));
+    return;
+  }
+  renderaMinaSpel(box);
+}
+
+function renderaInloggning(box) {
+  const status = el("p", { class: "konto-status", "aria-live": "polite", text: ms.fel });
+  const google = el("button", { type: "button", class: "knapp primar", text: "Logga in med Google" });
+  google.addEventListener("click", async () => {
+    status.textContent = "";
+    try { await konto.loggaInGoogle(); } catch (e) { status.textContent = `Inloggningen avbröts: ${e.message}`; }
+  });
+  const falt = el("input", { type: "email", id: "konto-epost", autocomplete: "email", required: true, placeholder: "namn@exempel.se" });
+  const form = el("form", { class: "konto-form" },
+    el("label", { for: "konto-epost", text: "Eller få en inloggningslänk till din e-post" }), falt,
+    el("button", { type: "submit", class: "knapp", text: "Skicka länk" }));
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const epost = normaliseraEpost(falt.value);
+    if (!epost) { status.textContent = "Skriv en giltig e-postadress."; return; }
+    try {
+      await konto.skickaLank(epost);
+      status.textContent = `Länken är skickad till ${epost}. Öppna den på den här enheten för att logga in.`;
+    } catch (e) { status.textContent = `Länken kunde inte skickas: ${e.message}`; }
+  });
+  box.replaceChildren(el("section", { class: "kort" },
+    el("h2", { text: "Logga in" }),
+    el("p", { text: "Med ett konto kan du spara raderna du lämnar in, se hur de gick över tid och dela dem med vänner." }),
+    google, form, status,
+    el("p", { class: "dampad liten", text: "Vi sparar bara ditt namn, din e-postadress och de spel du själv sparar. " +
+      "Du kan radera allt när du vill under Mina spel." })));
+}
+
+function spelkort(spel, r, { egen }) {
+  const d = new Date(spel.datum + "T12:00:00Z").toLocaleDateString("sv-SE", { weekday: "short", day: "numeric", month: "short" });
+  const kort = el("article", { class: "spelkort" });
+  kort.append(el("div", { class: "spelkort-huvud" },
+    el("div", {}, el("b", { text: `Omgång ${spel.omgang_id}` }), el("span", { class: "dampad liten", text: ` · ${d}` }),
+      el("p", { class: "dampad liten", text: `${FORSLAG[spel.forslag]?.namn || spel.forslag} · ${spel.rader} rader · ${kr(spel.insats)}` })),
+    r ? el("div", { class: "spelkort-res" }, el("b", { text: `${r.basta} rätt` }), el("span", { text: kr(r.vinst) }))
+      : el("div", { class: "spelkort-res vantar" }, el("span", { text: "Inte avgjord" }))));
+  if (r && r.andrade.length) {
+    const diff = r.vinst - r.forslag.vinst;
+    kort.append(el("p", { class: "liten", text:
+      `Du ändrade ${r.andrade.length} ${r.andrade.length === 1 ? "match" : "matcher"}. Utan ändringarna: ${r.forslag.basta} rätt, ` +
+      `${kr(r.forslag.vinst)}${diff ? ` (${diff > 0 ? "dina ändringar gav" : "dina ändringar kostade"} ${kr(Math.abs(diff))})` : ""}.` +
+      (r.lyckade.length ? ` Rätt ändrat: match ${r.lyckade.map((i) => i + 1).join(", ")}.` : "") +
+      (r.missade.length ? ` Fel ändrat: match ${r.missade.map((i) => i + 1).join(", ")}.` : "") }));
+  } else if (!r && spel.tecken.some((t, i) => t !== spel.forslag_tecken[i])) {
+    kort.append(el("p", { class: "dampad liten", text: `Egna ändringar på ${spel.tecken.filter((t, i) => t !== spel.forslag_tecken[i]).length} matcher.` }));
+  }
+  const nyckel = `${spel.agare}_${spel.omgang_id}`;
+  const visa = el("button", { type: "button", class: "visa-bolag", "aria-expanded": String(ms.oppna.has(nyckel)),
+    text: ms.oppna.has(nyckel) ? "Dölj raderna" : egen && !r ? "Visa och ändra raderna" : "Visa raderna" });
+  visa.addEventListener("click", () => { ms.oppna.has(nyckel) ? ms.oppna.delete(nyckel) : ms.oppna.add(nyckel); renderaMinaSpel($("minaspel-innehall")); });
+  kort.append(visa);
+  if (ms.oppna.has(nyckel)) kort.append(spelrader(spel, r, egen && !r));
+  return kort;
+}
+
+function spelrader(spel, r, redigerbar) {
+  const utkast = ms.utkast[spel.omgang_id] || spel;
+  const lista = el("ol", { class: "spelrader" });
+  utkast.tecken.forEach((t, i) => {
+    const andrad = t !== spel.forslag_tecken[i];
+    const rutor = el("span", { class: "spelrutor" }, ...["1", "X", "2"].map((x) => {
+      const vald = t.includes(x);
+      const b = el(redigerbar ? "button" : "span", { class: `spelruta${vald ? " vald" : ""}${r?.facit[i] === x ? " utfall" : ""}`,
+        text: x, ...(redigerbar ? { type: "button", "aria-pressed": String(vald), "aria-label": `Match ${i + 1}: ${x}` } : {}) });
+      if (redigerbar) {
+        b.addEventListener("click", () => {
+          const ny = vald ? t.replace(x, "") : ["1", "X", "2"].filter((y) => t.includes(y) || y === x).join("");
+          if (!ny) return;
+          ms.utkast[spel.omgang_id] = andraTecken(utkast, i, ny);
+          renderaMinaSpel($("minaspel-innehall"));
+        });
+      }
+      return b;
+    }));
+    lista.append(el("li", { class: andrad ? "andrad" : "" },
+      el("span", { class: "spelmatch", text: spel.matcher[i] }), rutor));
+  });
+  const del = [lista, el("p", { class: "dampad liten", text: "Markerade matcher skiljer sig från förslaget." +
+    (r ? " Gul ram = rätt tecken." : "") })];
+  if (redigerbar && ms.utkast[spel.omgang_id]) {
+    const spara = el("button", { type: "button", class: "knapp primar", text: `Spara ändringar (${utkast.rader} rader)` });
+    spara.addEventListener("click", async () => {
+      await konto.sparaSpel(utkast);
+      delete ms.utkast[spel.omgang_id];
+      ms.spel = null;
+      oppnaMinaSpel();
+    });
+    const angra = el("button", { type: "button", class: "knapp", text: "Ångra" });
+    angra.addEventListener("click", () => { delete ms.utkast[spel.omgang_id]; renderaMinaSpel($("minaspel-innehall")); });
+    del.push(el("div", { class: "knapprad" }, spara, angra));
+  }
+  return el("div", {}, ...del);
+}
+
+function renderaMinaSpel(box) {
+  const s = sammanstall(ms.spel || [], state.historik);
+  const ut = [];
+  const loggaUt = el("button", { type: "button", class: "visa-bolag", text: "Logga ut" });
+  loggaUt.addEventListener("click", () => konto.loggaUt());
+  ut.push(el("p", { class: "konto-rad" }, `Inloggad som ${ms.anvandare.namn}`, " · ", loggaUt));
+
+  if (!s.antal) {
+    ut.push(el("section", { class: "kort" }, el("h2", { text: "Inga sparade spel än" }),
+      el("p", { text: "Välj förslag och antal rader på kupongen och tryck på ”Jag lämnade in de här raderna” när du har spelat. " +
+        "Har du ändrat något kan du justera raderna här efteråt." })));
+  } else {
+    const netto = s.netto;
+    ut.push(el("section", { class: "kort ms-summa" },
+      el("div", {}, el("span", { text: "Spel" }), el("b", { text: String(s.antal) })),
+      el("div", {}, el("span", { text: "Insats" }), el("b", { text: kr(s.insats) })),
+      el("div", {}, el("span", { text: "Tillbaka" }), el("b", { text: kr(s.vinst) })),
+      el("div", {}, el("span", { text: "Netto" }), el("b", { class: netto >= 0 ? "plus" : "minus", text: plusKr(netto) })),
+      el("p", { class: "dampad liten", text: s.rattade
+        ? `${s.rattade} av ${s.antal} spel är rättade. Förslagen utan dina ändringar hade gett ${kr(s.forslagVinst)}. Bästa resultat: ${s.basta} rätt.`
+        : "Inget spel är rättat än – resultaten kommer på söndagen." })));
+    ut.push(el("h2", { class: "ms-rubrik", text: "Dina spel" }));
+    for (const { spel, resultat } of s.rader) ut.push(spelkort(spel, resultat, { egen: true }));
+  }
+
+  if (ms.delade?.length) {
+    ut.push(el("h2", { class: "ms-rubrik", text: "Delat med dig" }));
+    const perAgare = new Map();
+    for (const sp of ms.delade) (perAgare.get(sp.agare_namn) || perAgare.set(sp.agare_namn, []).get(sp.agare_namn)).push(sp);
+    for (const [namn, lista] of perAgare) {
+      const sa = sammanstall(lista, state.historik);
+      ut.push(el("p", { class: "liten" }, el("b", { text: namn }), ` · ${sa.antal} spel · netto ${plusKr(sa.netto)}`));
+      for (const { spel, resultat } of sa.rader.slice(0, 5)) ut.push(spelkort(spel, resultat, { egen: false }));
+    }
+  }
+
+  ut.push(delningsruta());
+  ut.push(raderingsruta());
+  box.replaceChildren(...ut);
+}
+
+function delningsruta() {
+  const lista = ms.profil?.delad_med || [];
+  const status = el("p", { class: "konto-status", "aria-live": "polite" });
+  const falt = el("input", { type: "email", id: "dela-epost", autocomplete: "off", placeholder: "van@exempel.se" });
+  const form = el("form", { class: "konto-form rad" }, el("label", { for: "dela-epost", class: "sr-only", text: "E-postadress att dela med" }),
+    falt, el("button", { type: "submit", class: "knapp", text: "Dela" }));
+  const spara = async (ny) => {
+    try { await konto.satDelning(ny); ms.profil = { ...ms.profil, delad_med: ny }; renderaMinaSpel($("minaspel-innehall")); }
+    catch (e) { status.textContent = `Det gick inte att spara: ${e.message}`; }
+  };
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const epost = normaliseraEpost(falt.value);
+    if (!epost) { status.textContent = "Skriv en giltig e-postadress."; return; }
+    if (epost === ms.anvandare.epost) { status.textContent = "Det är din egen adress."; return; }
+    if (lista.includes(epost)) { status.textContent = "Den adressen har redan tillgång."; return; }
+    if (lista.length >= MAX_DELNINGAR) { status.textContent = `Du kan dela med högst ${MAX_DELNINGAR} personer.`; return; }
+    spara([...lista, epost]);
+  });
+  return el("section", { class: "kort" }, el("h2", { text: "Dela dina spel" }),
+    el("p", { class: "liten", text: "Den du delar med ser dina sparade spel och resultat när hen loggar in med den e-postadressen. " +
+      "Hen kan inte ändra något." }),
+    form, status,
+    lista.length ? el("ul", { class: "delningar" }, ...lista.map((e) => {
+      const ta = el("button", { type: "button", class: "visa-bolag", text: "Ta bort", "aria-label": `Sluta dela med ${e}` });
+      ta.addEventListener("click", () => spara(lista.filter((x) => x !== e)));
+      return el("li", {}, el("span", { text: e }), ta);
+    })) : el("p", { class: "dampad liten", text: "Du delar inte med någon." }));
+}
+
+function raderingsruta() {
+  const status = el("p", { class: "konto-status", "aria-live": "polite" });
+  const knapp = el("button", { type: "button", class: "knapp fara", text: ms.raderaSteg ? "Ja, radera allt" : "Radera mitt konto" });
+  knapp.addEventListener("click", async () => {
+    if (!ms.raderaSteg) { ms.raderaSteg = true; renderaMinaSpel($("minaspel-innehall")); return; }
+    try { await konto.raderaKonto(); ms.raderaSteg = false; status.textContent = "Ditt konto och dina spel är raderade."; }
+    catch (e) { status.textContent = e.message; }
+  });
+  const delar = [el("h2", { text: "Radera konto" }),
+    el("p", { class: "liten", text: ms.raderaSteg
+      ? "Alla dina sparade spel, delningar och själva kontot tas bort. Det går inte att ångra."
+      : "Tar bort alla dina sparade spel och ditt konto." }), knapp];
+  if (ms.raderaSteg) {
+    const avbryt = el("button", { type: "button", class: "knapp", text: "Avbryt" });
+    avbryt.addEventListener("click", () => { ms.raderaSteg = false; renderaMinaSpel($("minaspel-innehall")); });
+    delar.push(avbryt);
+  }
+  delar.push(status);
+  return el("section", { class: "kort radera" }, ...delar);
 }
 
 // ---------- Lagnyheter ----------
@@ -882,7 +1164,7 @@ function renderaStatistik() {
 // ---------- meny och vyer ----------
 
 const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp",
-  tabeller: "Serietabeller", nyheter: "Lagnyheter", om: "Om guiden" };
+  tabeller: "Serietabeller", nyheter: "Lagnyheter", minaspel: "Mina spel", om: "Om guiden" };
 
 function initMeny() {
   const knapp = $("meny-knapp"), lista = $("meny-lista");
@@ -912,6 +1194,7 @@ function visaVy() {
   if (vy === "rattning") oppnaRattning();
   if (vy === "tabeller") visaTabeller();
   if (vy === "nyheter") renderaNyheter();
+  if (vy === "minaspel") oppnaMinaSpel();
   if (vy !== "kupong" || namn) window.scrollTo(0, 0);
 }
 

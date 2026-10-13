@@ -1,0 +1,47 @@
+rules_version = '2';
+
+// Säkerhetsregler för Stryktipsguidens Firestore (Mina spel). Klistras in under Firestore → Regler i
+// Firebase-konsolen (se FIREBASE.md). Principer:
+// - Man läser och skriver bara sitt eget, utom spel som ägaren uttryckligen delat med ens e-postadress.
+// - Delning kräver verifierad e-post (Google-konton och e-postlänkar är alltid verifierade).
+// - Allt som skrivs kontrolleras: rätt ägare, 13 matcher, rimliga värden och högst 20 delningar.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function inloggad() {
+      return request.auth != null;
+    }
+    function minEpost() {
+      return request.auth.token.email.lower();
+    }
+    function verifierad() {
+      return inloggad() && request.auth.token.email_verified == true;
+    }
+    function giltigDelning(lista) {
+      return lista is list && lista.size() <= 20;
+    }
+
+    match /anvandare/{uid} {
+      allow read: if inloggad() && request.auth.uid == uid;
+      allow create, update: if inloggad() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['namn', 'epost', 'delad_med', 'skapad'])
+        && request.resource.data.namn is string && request.resource.data.namn.size() <= 100
+        && giltigDelning(request.resource.data.delad_med);
+      allow delete: if inloggad() && request.auth.uid == uid;
+    }
+
+    match /spel/{spelId} {
+      allow read: if inloggad() && (resource.data.agare == request.auth.uid
+        || (verifierad() && minEpost() in resource.data.delad_med));
+      allow create, update: if inloggad()
+        && request.resource.data.agare == request.auth.uid
+        && spelId == request.auth.uid + '_' + string(request.resource.data.omgang_id)
+        && request.resource.data.omgang_id is int
+        && request.resource.data.tecken is list && request.resource.data.tecken.size() == 13
+        && request.resource.data.forslag_tecken is list && request.resource.data.forslag_tecken.size() == 13
+        && request.resource.data.rader is int && request.resource.data.rader >= 1 && request.resource.data.rader <= 20000
+        && giltigDelning(request.resource.data.delad_med);
+      allow delete: if inloggad() && resource.data.agare == request.auth.uid;
+    }
+  }
+}

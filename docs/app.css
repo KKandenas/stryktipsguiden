@@ -525,3 +525,46 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .kalla-tid { color: var(--dampad); font-size: 12px; }
 .om .nyhet-lagkoll { font-size: 13px; margin: 8px 0 0; }
 @media (max-width: 420px) { .nyhet-lagen { grid-template-columns: 1fr; } }
+
+/* Mina spel */
+.spara-spel { display: block; width: 100%; margin-top: 8px; padding: 10px; border-radius: 10px; border: 0; background: var(--gul); color: var(--gul-text); font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; }
+.spara-spel:focus-visible { outline: 2px solid var(--primar); outline-offset: 2px; }
+.spara-status { margin-top: 8px; font-size: 13px; text-align: center; }
+.minaspel .kort + .kort, .minaspel .kort + .ms-rubrik { margin-top: 12px; }
+.konto-form { display: grid; gap: 6px; margin-top: 14px; }
+.konto-form.rad { grid-template-columns: 1fr auto; align-items: center; }
+.konto-form label { font-size: 14px; font-weight: 600; }
+.konto-form input { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--ruta-kant); background: var(--yta); color: var(--text); min-width: 0; }
+.konto-status { font-size: 14px; margin-top: 8px; min-height: 1em; }
+.konto-rad { font-size: 14px; color: var(--dampad); margin-bottom: 10px; }
+.ms-summa { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.ms-summa div span { display: block; font-size: 12px; color: var(--dampad); }
+.ms-summa div b { font-family: var(--rubrikfont); font-size: 22px; font-variant-numeric: tabular-nums; }
+.ms-summa b.plus { color: var(--ratt); }
+.ms-summa b.minus { color: var(--fel); }
+.ms-summa p { grid-column: 1 / -1; margin: 4px 0 0; }
+@media (max-width: 420px) { .ms-summa { grid-template-columns: repeat(2, 1fr); } }
+.om .ms-rubrik { font-family: var(--rubrikfont); font-size: 20px; font-weight: 800; margin: 18px 0 8px; }
+.spelkort { background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+.spelkort-huvud { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.om .spelkort-huvud p { margin: 2px 0 0; }
+.spelkort-res { text-align: right; flex: none; }
+.spelkort-res b { display: block; font-family: var(--rubrikfont); font-size: 20px; }
+.spelkort-res span { font-size: 13px; font-variant-numeric: tabular-nums; }
+.spelkort-res.vantar span { color: var(--dampad); }
+.om .spelkort > p { margin: 8px 0 0; }
+.om .spelrader { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 4px; }
+.spelrader li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 8px; font-size: 13px; }
+.spelrader li.andrad { background: var(--banner); }
+.spelmatch { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.spelrutor { display: inline-flex; gap: 4px; flex: none; }
+.spelruta { width: 30px; height: 28px; border-radius: 6px; display: inline-grid; place-items: center; font-weight: 700; font-size: 13px; background: var(--ruta); border: 1.5px solid var(--ruta-kant); color: var(--dampad); font-family: inherit; padding: 0; }
+button.spelruta { cursor: pointer; }
+.spelruta.vald { background: var(--primar); border-color: var(--primar); color: var(--vald-text); }
+.spelruta.utfall { box-shadow: 0 0 0 2px var(--gul); }
+.knapprad { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.om .delningar { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 4px; }
+.delningar li { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; }
+.knapp.fara { background: var(--fel); color: #fff; border-color: var(--fel); }
+.radera .knapp + .knapp { margin-left: 8px; }
+.knapprad .knapp { min-height: 40px; padding: 0 14px; font-size: 14px; }
