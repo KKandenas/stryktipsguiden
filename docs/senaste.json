@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-12T19:13:57Z",
+ "genererad": "2026-10-13T17:44:24Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -96,7 +96,7 @@
      "form": "DDLDWL"
     },
     "borta": {
-     "plats": 18,
+     "plats": 19,
      "antal_lag": 20,
      "spelade": 6,
      "vunna": 0,
@@ -181,7 +181,7 @@
      "form": "WLDLWW"
     },
     "borta": {
-     "plats": 17,
+     "plats": 18,
      "antal_lag": 20,
      "spelade": 6,
      "vunna": 0,
@@ -254,7 +254,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 15,
+     "plats": 16,
      "antal_lag": 20,
      "spelade": 6,
      "vunna": 1,
@@ -339,7 +339,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 16,
+     "plats": 17,
      "antal_lag": 20,
      "spelade": 6,
      "vunna": 1,
