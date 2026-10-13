@@ -93,7 +93,7 @@ Detaljerna finns i README.
   vecka. Inbjudan sker via en länk med kod som går att byta. Allt delas lika. En kassabok för inbetalningar,
   utbetalningar och spel eller vinster utanför appen. Saldo per medlem. Kupongen visar vems tur det är, och
   man väljer om man spelade själv eller för bolaget.
-- [ ] Publicera nya `firestore.rules` i Firebase.
+- [x] Publicera nya `firestore.rules` i Firebase.
 - [ ] Prova på riktigt med en vän: skapa bolag, bjud in, spara för bolaget och lägg in en inbetalning.
 
 ### Nyheter om lagen
