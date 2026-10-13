@@ -6,7 +6,7 @@
 // forslag_tecken är förslaget utan egna låsningar, så att man kan se vad ens egna ändringar gav.
 // Resultatet räknas fram ur historik.json (facit och utdelning), så inget resultat behöver sparas.
 
-import { rattFordelning } from "./backtest.js?v=20261013k";
+import { rattFordelning } from "./backtest.js?v=20261013l";
 
 export const TECKEN_GILTIGA = ["1", "X", "2", "1X", "12", "X2", "1X2"];
 export const MAX_DELNINGAR = 20;

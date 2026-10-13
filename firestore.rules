@@ -5,6 +5,8 @@ rules_version = '2';
 // - Man läser och skriver bara sitt eget, utom spel som ägaren uttryckligen delat med ens e-postadress.
 // - Delning kräver verifierad e-post (Google-konton och e-postlänkar är alltid verifierade).
 // - Allt som skrivs kontrolleras: rätt ägare, 13 matcher, rimliga värden och högst 20 delningar.
+// - Spelbolag: bara medlemmar ser bolaget. Man går med genom att ange bolagets inbjudningskod. Bara skaparen
+//   ändrar inställningar; bara skaparen och kassören skriver i kassaboken.
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -28,6 +30,82 @@ service cloud.firestore {
         && request.resource.data.namn is string && request.resource.data.namn.size() <= 100
         && giltigDelning(request.resource.data.delad_med);
       allow delete: if inloggad() && request.auth.uid == uid;
+    }
+
+    // ---------- spelbolag ----------
+
+    function grupp(gid) {
+      return get(/databases/$(database)/documents/grupper/$(gid)).data;
+    }
+    function medlemI(gid) {
+      return inloggad() && request.auth.uid in grupp(gid).medlem_uids;
+    }
+    function bokforare(gid) {
+      return inloggad() && (request.auth.uid == grupp(gid).skapare || request.auth.uid == grupp(gid).kassor);
+    }
+    function giltigtSpel(d) {
+      return d.omgang_id is int && d.tecken is list && d.tecken.size() == 13
+        && d.forslag_tecken is list && d.forslag_tecken.size() == 13
+        && d.rader is int && d.rader >= 1 && d.rader <= 20000;
+    }
+
+    match /inbjudningar/{kod} {
+      // Bara den som känner koden kan läsa inbjudan; listning är avstängd
+      allow get: if inloggad();
+      allow list: if false;
+      allow create: if inloggad()
+        && getAfter(/databases/$(database)/documents/grupper/$(request.resource.data.gid)).data.skapare == request.auth.uid
+        && getAfter(/databases/$(database)/documents/grupper/$(request.resource.data.gid)).data.kod == kod;
+      allow delete: if inloggad() && grupp(resource.data.gid).skapare == request.auth.uid;
+    }
+
+    match /grupper/{gid} {
+      allow read: if inloggad() && request.auth.uid in resource.data.medlem_uids;
+      allow create: if inloggad()
+        && request.resource.data.skapare == request.auth.uid
+        && request.resource.data.medlem_uids == [request.auth.uid]
+        && request.resource.data.namn is string && request.resource.data.namn.size() <= 60
+        && request.resource.data.spelform in ['kassa', 'tur'];
+      allow update: if inloggad() && (
+        // Skaparen ändrar inställningar, medlemmar och kod (men kan inte lämna över skaparrollen)
+        (resource.data.skapare == request.auth.uid
+          && request.resource.data.skapare == resource.data.skapare
+          && request.resource.data.medlem_uids.size() <= 20
+          && request.resource.data.spelform in ['kassa', 'tur'])
+        // Gå med: ange rätt kod och lägg bara till sig själv
+        || (!(request.auth.uid in resource.data.medlem_uids)
+          && request.resource.data.anslut_kod == resource.data.kod
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['medlem_uids', 'medlemmar', 'turordning', 'anslut_kod'])
+          && request.resource.data.medlem_uids == resource.data.medlem_uids.concat([request.auth.uid])
+          && request.resource.data.medlemmar.diff(resource.data.medlemmar).affectedKeys().hasOnly([request.auth.uid])
+          && request.resource.data.medlem_uids.size() <= 20)
+        // Lämna: en medlem (inte skaparen) tar bort sig själv
+        || (request.auth.uid in resource.data.medlem_uids
+          && request.auth.uid != resource.data.skapare
+          && !(request.auth.uid in request.resource.data.medlem_uids)
+          && request.resource.data.medlem_uids.size() == resource.data.medlem_uids.size() - 1
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['medlem_uids', 'medlemmar', 'turordning']))
+      );
+      allow delete: if inloggad() && resource.data.skapare == request.auth.uid;
+
+      match /spel/{omgang} {
+        allow read: if medlemI(gid);
+        allow create, update: if medlemI(gid)
+          && request.resource.data.sparad_av == request.auth.uid
+          && request.resource.data.grupp_id == gid
+          && giltigtSpel(request.resource.data);
+        allow delete: if medlemI(gid) && (resource.data.sparad_av == request.auth.uid || bokforare(gid));
+      }
+
+      match /kassabok/{post} {
+        allow read: if medlemI(gid);
+        allow create: if bokforare(gid)
+          && request.resource.data.av == request.auth.uid
+          && request.resource.data.typ in ['inbetalning', 'utbetalning', 'vinst', 'insats']
+          && request.resource.data.belopp is number && request.resource.data.belopp > 0
+          && request.resource.data.belopp <= 1000000;
+        allow delete: if bokforare(gid);
+      }
     }
 
     match /spel/{spelId} {

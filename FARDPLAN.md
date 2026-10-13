@@ -88,11 +88,13 @@ Detaljerna finns i README.
 - [x] Skapa Firebase-projektet och fyll i `docs/firebase-config.js` enligt [FIREBASE.md](FIREBASE.md).
 - [x] Prova inloggningen på riktigt: inloggning, spara och Mina spel fungerar.
 
-### Spelbolag
-En fortsättning på Mina spel. Man skapar en grupp och väljer per spel om man spelade själv eller med
-spelbolaget. Spelbolaget får gemensam statistik och bokföring av inbetalt per spelare, med manuella
-justeringar för vinster utanför appen. Appen bokför bara och hanterar aldrig riktiga pengar. Ska byggas
-med samma datamodell som Mina spel.
+### Spelbolag (byggt 13 oktober 2026)
+- Två spelformer: kassa, där en kassör spelar för allas pengar, och turordning, där en medlem spelar per
+  vecka. Inbjudan sker via en länk med kod som går att byta. Allt delas lika. En kassabok för inbetalningar,
+  utbetalningar och spel eller vinster utanför appen. Saldo per medlem. Kupongen visar vems tur det är, och
+  man väljer om man spelade själv eller för bolaget.
+- [ ] Publicera nya `firestore.rules` i Firebase.
+- [ ] Prova på riktigt med en vän: skapa bolag, bjud in, spara för bolaget och lägg in en inbetalning.
 
 ### Nyheter om lagen
 - **Steg A:** sidan "Lagnyheter" samlar det Lagkoll redan hittar, alltså skador, avstängningar,

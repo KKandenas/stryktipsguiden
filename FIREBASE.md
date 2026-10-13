@@ -54,6 +54,12 @@ in. Det tar ungefär 10 minuter.
 5. Committa och pusha. När GitHub Pages har uppdaterats syns knappen **Jag lämnade in de här raderna** på
    kupongen, och **Mina spel** finns i menyn.
 
+## När reglerna ändras
+
+`firestore.rules` uppdateras när appen får nya funktioner, till exempel spelbolag. Gå då till
+**Firestore Database → Regler**, ersätt allt med den nya filen och tryck **Publicera**. Det behövs inga andra
+ändringar i Firebase.
+
 ## Vad som sparas
 
 | Var | Innehåll |
@@ -61,6 +67,10 @@ in. Det tar ungefär 10 minuter.
 | Firebase Authentication | Namn och e-postadress från inloggningen |
 | `anvandare/{uid}` | Namn, e-post och listan med e-postadresser du delar med |
 | `spel/{uid}_{omgång}` | Raderna du lämnade in, förslaget utan dina ändringar, antal rader och insats |
+| `grupper/{id}` | Spelbolaget: namn, spelform, medlemmar (namn), kassör, turordning och inbjudningskod |
+| `grupper/{id}/spel/{omgång}` | Bolagets spel, med vem som lämnade in och vilka medlemmar som delar på det |
+| `grupper/{id}/kassabok/{id}` | Inbetalningar, utbetalningar och spel eller vinster utanför appen |
+| `inbjudningar/{kod}` | Bolagets id och namn, som inbjudningslänken pekar på |
 
 Resultat och utdelning sparas inte. De räknas fram i appen från `historik.json`. Under Mina spel finns knappen
 **Radera mitt konto**, som tar bort spelen, profilen och själva kontot.

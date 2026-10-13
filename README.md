@@ -489,7 +489,16 @@ Valfritt och avstängt tills `docs/firebase-config.js` är ifylld. Uppsättninge
   jämföra med förslaget utan egna ändringar. Tester finns i `tests/js/minaspel.test.mjs`.
 - `firestore.rules`: man läser och skriver bara sitt eget, utom spel som ägaren delat med ens verifierade
   e-postadress. `delad_med` kopieras till varje spel, så att en enkel `array-contains`-fråga räcker.
-- Spelen har `grupp_id`, som är förberett för spelbolag.
+- **Spelbolag** (`docs/spelbolag.js`, tester i `tests/js/spelbolag.test.mjs`): spelformen är antingen
+  kassa, där en kassör spelar för allas pengar, eller turordning, där en medlem spelar per vecka.
+  - Man går med via en inbjudningslänk, `#gamed-<kod>`.
+  - Allt delas lika mellan medlemmarna. Saldo = betalat − mottaget − andel av insatserna + andel av
+    vinsterna. I turordning räknas veckans insats som spelarens inbetalning, och vinsten som pengar spelaren
+    tagit emot.
+  - Vinster från appens spel räknas fram ur `historik.json`. Kassaboken, som skaparen och kassören fyller i,
+    tar inbetalningar, utbetalningar och spel eller vinster utanför appen.
+  - Reglerna: bara medlemmar läser bolaget. Man går med genom att ange rätt kod och bara lägga till sig
+    själv. Bara skaparen ändrar inställningarna, och bara skaparen och kassören skriver i kassaboken.
 
 ## kupong.json
 

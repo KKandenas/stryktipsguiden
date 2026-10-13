@@ -571,3 +571,24 @@ button.spelruta { cursor: pointer; }
 .spelkort-knappar { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; margin-top: 6px; }
 .visa-bolag.fara-text { color: var(--fel); }
 .visa-bolag:not([aria-expanded])::after { content: none; }
+
+/* spelbolag */
+.tur-info { margin-top: 10px; font-size: 14px; font-weight: 600; text-align: center; color: var(--primar); }
+.spara-val { margin-top: 8px; display: grid; gap: 6px; }
+.spara-val p { margin: 0; text-align: center; }
+.spara-alternativ { display: grid; gap: 2px; }
+.spara-alternativ .knapp { min-height: 42px; }
+.spara-alternativ .knapp:disabled { opacity: .5; cursor: not-allowed; }
+.sb-valj { margin-bottom: 10px; }
+.om .saldolista, .om .kassabok, .om .turordning { list-style: none; padding: 0; margin: 6px 0; display: grid; gap: 6px; }
+.saldolista li, .kassabok li { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; background: var(--yta); border: 1px solid var(--linje); border-radius: 10px; padding: 8px 10px; }
+.saldolista li > div, .kassabok li > div { min-width: 0; }
+.om .saldolista p, .om .kassabok p { margin: 2px 0 0; }
+.saldolista .saldo { font-family: var(--rubrikfont); font-size: 20px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.saldo.plus { color: var(--ratt); }
+.saldo.minus { color: var(--fel); }
+.kassabok .tal { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.kb-form select, .konto-form select, .om .kort > input[type="text"], .om .kort > select { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--ruta-kant); background: var(--yta); color: var(--text); width: 100%; }
+.om .sb-etikett { display: block; font-size: 14px; font-weight: 600; margin: 14px 0 4px; }
+.turordning li { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; padding: 4px 0; border-bottom: 1px solid var(--linje); }
+.turordning li .visa-bolag { font-size: 16px; padding: 2px 8px; }
