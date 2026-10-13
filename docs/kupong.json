@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-13T17:44:24Z",
+ "genererad": "2026-10-13T17:47:48Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -173,6 +173,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -332,6 +333,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -491,6 +493,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -649,6 +652,24 @@
      "form": "DLDDWW"
     },
     "kalla": "BBC Sport"
+   },
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har vunnit de fyra senaste mötena mot Hull.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-12T18:06:18Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
    },
    "resultat": null,
    "mal": null
@@ -809,6 +830,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -968,6 +990,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -1119,6 +1142,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -1278,6 +1302,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -1429,6 +1454,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -1580,6 +1606,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -1731,6 +1758,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -1882,6 +1910,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   },
@@ -2033,6 +2062,7 @@
     },
     "kalla": "BBC Sport"
    },
+   "lagnytt": null,
    "resultat": null,
    "mal": null
   }
