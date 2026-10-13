@@ -568,3 +568,6 @@ button.spelruta { cursor: pointer; }
 .knapp.fara { background: var(--fel); color: #fff; border-color: var(--fel); }
 .radera .knapp + .knapp { margin-left: 8px; }
 .knapprad .knapp { min-height: 40px; padding: 0 14px; font-size: 14px; }
+.spelkort-knappar { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; margin-top: 6px; }
+.visa-bolag.fara-text { color: var(--fel); }
+.visa-bolag:not([aria-expanded])::after { content: none; }

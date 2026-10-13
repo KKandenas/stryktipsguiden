@@ -9,7 +9,7 @@
 //   spel/{uid}_{omgang_id}     { agare, agare_namn, delad_med: [e-post], …spelet (se minaspel.js) }
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261013j";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261013k";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;
@@ -46,6 +46,7 @@ export async function skickaLank(epost) {
 }
 export async function loggaUt() { return (await starta()).loggaUt(); }
 export async function sparaSpel(spel) { return (await starta()).sparaSpel(spel); }
+export async function taBortSpel(omgangId) { return (await starta()).taBortSpel(omgangId); }
 export async function minaSpel() { return (await starta()).minaSpel(); }
 export async function deladeSpel() { return (await starta()).deladeSpel(); }
 export async function profil() { return (await starta()).profil(); }
@@ -109,6 +110,10 @@ async function firebase() {
       await F.setDoc(F.doc(db, "spel", `${u.uid}_${spel.omgang_id}`),
         { ...spel, agare: u.uid, agare_namn: p.namn || u.displayName || u.email, delad_med: p.delad_med || [] });
     },
+    async taBortSpel(omgangId) {
+      const u = kravInloggad();
+      await F.deleteDoc(F.doc(db, "spel", `${u.uid}_${omgangId}`));
+    },
     async minaSpel() {
       const u = kravInloggad();
       const s = await F.getDocs(F.query(F.collection(db, "spel"), F.where("agare", "==", u.uid)));
@@ -159,6 +164,7 @@ function demo() {
     loggaUt: async () => meddela(null),
     profil: async () => db.profil,
     sparaSpel: async (spel) => { db.spel.set(spel.omgang_id, { ...spel, agare: "demo", delad_med: db.profil.delad_med }); },
+    taBortSpel: async (omgangId) => { db.spel.delete(omgangId); },
     minaSpel: async () => [...db.spel.values()],
     deladeSpel: async () => db.delade,
     satDelning: async (lista) => { db.profil.delad_med = lista; },

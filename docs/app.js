@@ -1,10 +1,10 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013j";
-import * as konto from "./konto.js?v=20261013j";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261013j";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013j";
+} from "./optimizer.js?v=20261013k";
+import * as konto from "./konto.js?v=20261013k";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261013k";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013k";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -509,7 +509,8 @@ function tabellBlock(m) {
 // ---------- konto och Mina spel ----------
 
 const KONTO_FLAGGA = "stryktipsguiden-inloggad";
-const ms = { anvandare: null, spel: null, delade: null, profil: null, oppna: new Set(), utkast: {}, raderaSteg: false, fel: "" };
+const ms = { anvandare: null, spel: null, delade: null, profil: null, oppna: new Set(), utkast: {}, raderaSteg: false,
+  taBort: null, fel: "" };
 
 function initKonto() {
   const knapp = $("spara-spel");
@@ -649,9 +650,37 @@ function spelkort(spel, r, { egen }) {
   const visa = el("button", { type: "button", class: "visa-bolag", "aria-expanded": String(ms.oppna.has(nyckel)),
     text: ms.oppna.has(nyckel) ? "Dölj raderna" : egen && !r ? "Visa och ändra raderna" : "Visa raderna" });
   visa.addEventListener("click", () => { ms.oppna.has(nyckel) ? ms.oppna.delete(nyckel) : ms.oppna.add(nyckel); renderaMinaSpel($("minaspel-innehall")); });
-  kort.append(visa);
+  const knappar = el("div", { class: "spelkort-knappar" }, visa);
+  if (egen) knappar.append(...taBortKnappar(spel));
+  kort.append(knappar);
   if (ms.oppna.has(nyckel)) kort.append(spelrader(spel, r, egen && !r));
   return kort;
+}
+
+/** "Ta bort" med bekräftelse i två steg (appen kan inte visa confirm-dialoger). */
+function taBortKnappar(spel) {
+  const rita = () => renderaMinaSpel($("minaspel-innehall"));
+  if (ms.taBort !== spel.omgang_id) {
+    const b = el("button", { type: "button", class: "visa-bolag fara-text", text: "Ta bort",
+      "aria-label": `Ta bort spelet för omgång ${spel.omgang_id}` });
+    b.addEventListener("click", () => { ms.taBort = spel.omgang_id; rita(); });
+    return [b];
+  }
+  const ja = el("button", { type: "button", class: "visa-bolag fara-text", text: "Ja, ta bort spelet" });
+  ja.addEventListener("click", async () => {
+    try {
+      await konto.taBortSpel(spel.omgang_id);
+      ms.taBort = null;
+      delete ms.utkast[spel.omgang_id];
+      ms.spel = null;
+      oppnaMinaSpel();
+    } catch (e) {
+      ja.textContent = `Gick inte: ${e.message}`;
+    }
+  });
+  const nej = el("button", { type: "button", class: "visa-bolag", text: "Avbryt" });
+  nej.addEventListener("click", () => { ms.taBort = null; rita(); });
+  return [ja, nej];
 }
 
 function spelrader(spel, r, redigerbar) {
