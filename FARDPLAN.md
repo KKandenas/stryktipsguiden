@@ -80,13 +80,13 @@ Detaljerna finns i README.
 
 ## Större idéer att besluta om
 
-### Inloggning och Mina spel (byggt 13 oktober 2026 – väntar på Firebase-projektet)
+### Inloggning och Mina spel (i drift sedan 13 oktober 2026)
 - Inloggning med Google eller e-postlänk. Knappen "Jag lämnade in de här raderna" sparar raderna som visas,
   med förslaget utan egna ändringar som jämförelse. Mina spel visar insats, tillbaka och netto, rättning per
   spel, vad egna ändringar gav, ändring av rader före avgörandet, delning via e-postadress och radering av
   kontot.
-- [ ] Skapa Firebase-projektet och fyll i `docs/firebase-config.js` enligt [FIREBASE.md](FIREBASE.md).
-- [ ] Prova inloggningen på riktigt: Google, e-postlänk och delning mellan två konton.
+- [x] Skapa Firebase-projektet och fyll i `docs/firebase-config.js` enligt [FIREBASE.md](FIREBASE.md).
+- [x] Prova inloggningen på riktigt: inloggning, spara och Mina spel fungerar.
 
 ### Spelbolag
 En fortsättning på Mina spel. Man skapar en grupp och väljer per spel om man spelade själv eller med
