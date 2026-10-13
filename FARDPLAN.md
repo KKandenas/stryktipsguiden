@@ -96,8 +96,8 @@ justeringar för vinster utanför appen. Appen bokför bara och hanterar aldrig 
 med samma datamodell som Mina spel.
 
 ### Nyheter om lagen
-- **Steg A:** en sida "Lagnyheter" som samlar det Lagkoll redan hittar, alltså skador, avstängningar och
-  tränarbyten per match. Ingen extra AI behövs. Görs när Lagkoll har fungerat några helger.
+- **Steg A:** sidan "Lagnyheter" samlar det Lagkoll redan hittar, alltså skador, avstängningar,
+  sammanhang och tränarbyten per match, med källa. Ingen extra AI behövs. Klar 13 oktober 2026.
 - **Steg B:** RSS-flöden, till exempel BBC per liga, med AI-sammanfattning. Väntar tills Geminis
   gratiskvot har visat sig räcka.
 

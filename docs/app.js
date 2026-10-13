@@ -1,8 +1,8 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013g";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013g";
+} from "./optimizer.js?v=20261013h";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013h";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -145,6 +145,7 @@ async function start() {
     }
   }
   if (document.body.dataset.vy === "tabeller") visaTabeller();
+  if (document.body.dataset.vy === "nyheter") renderaNyheter();
   state.formRang = state.kupong.tipsare_form || [];
   const lagrat = lasLagring();
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
@@ -502,6 +503,57 @@ function tabellBlock(m) {
     el("p", { class: "dampad liten", text: `Tabell${t.hemma?.form || t.borta?.form ? " och form (senaste matchen längst till höger)" : ""}: ${t.kalla}.` }));
 }
 
+// ---------- Lagnyheter ----------
+
+function renderaNyheter() {
+  const box = $("nyheter-innehall");
+  if (!box) return;
+  const k = state.kupong;
+  if (!k) return;
+  const matcher = k.matcher;
+  const med = matcher.filter((m) => m.lagnytt).length;
+  const delar = [el("p", { class: "nyheter-sammanfattning", text: med
+    ? `Nyheter för ${med} av 13 matcher.`
+    : "Inga lagnyheter än. De flesta förhandsartiklar publiceras torsdag–lördag." })];
+
+  const fakta = (lag, n) => {
+    const kol = el("div", { class: "nyhet-lag" }, el("b", { text: lag }));
+    for (const x of n?.franvaro || []) {
+      kol.append(el("p", { class: `franvaro ${x.status}` },
+        `${x.status === "borta" ? "Saknas" : "Osäker"}: `, el(x.nyckelspelare ? "b" : "span", { text: x.spelare }),
+        x.orsak ? el("span", { class: "dampad", text: ` (${x.orsak})` }) : null,
+        el("span", { class: "kalla-tid", text: ` · ${KORTNAMN[x.kalla] || x.kalla}` })));
+    }
+    for (const x of n?.sammanhang || []) {
+      kol.append(el("p", {}, x.text, el("span", { class: "kalla-tid", text: ` · ${KORTNAMN[x.kalla] || x.kalla}` })));
+    }
+    if (n?.tranarbyte) {
+      kol.append(el("p", { text: `Ny tränare: ${n.tranarbyte.tilltradande} (${n.tranarbyte.tilltradde}), efter ${n.tranarbyte.avgaende}` }));
+    }
+    if (kol.children.length === 1) kol.append(el("p", { class: "dampad", text: "Inget nytt" }));
+    return kol;
+  };
+
+  // Matcher med nyheter först, i kupongens ordning; resten samlas längst ner
+  for (const m of [...matcher.filter((x) => x.lagnytt), ...matcher.filter((x) => !x.lagnytt)]) {
+    const tid = m.avspark ? kortFmt.format(new Date(m.avspark)) : "";
+    const kort = el("article", { class: `nyhet${m.lagnytt ? "" : " tom"}` },
+      el("div", { class: "nyhet-huvud" },
+        el("span", { class: "nr", text: String(m.nr) }),
+        el("div", {}, el("h2", { text: `${m.hemmalag} – ${m.bortalag}` }),
+          el("p", { class: "dampad liten", text: [m.liga, tid].filter(Boolean).join(" · ") }))));
+    if (m.lagnytt) {
+      kort.append(el("div", { class: "nyhet-lagen" }, fakta(m.hemmalag, m.lagnytt.hemma), fakta(m.bortalag, m.lagnytt.borta)));
+    }
+    if (m.tabell) kort.append(tabellBlock(m));
+    if (m.lagkoll?.motivering) {
+      kort.append(el("p", { class: "nyhet-lagkoll" }, el("b", { text: "Lagkoll: " }), m.lagkoll.motivering));
+    }
+    delar.push(kort);
+  }
+  box.replaceChildren(...delar);
+}
+
 // ---------- Lagkoll (skuggmodell) ----------
 
 const RISKTEXT = { "låg": "Låg skrällrisk", medel: "Viss skrällrisk", "hög": "Hög skrällrisk" };
@@ -830,7 +882,7 @@ function renderaStatistik() {
 // ---------- meny och vyer ----------
 
 const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp",
-  tabeller: "Serietabeller", om: "Om guiden" };
+  tabeller: "Serietabeller", nyheter: "Lagnyheter", om: "Om guiden" };
 
 function initMeny() {
   const knapp = $("meny-knapp"), lista = $("meny-lista");
@@ -859,6 +911,7 @@ function visaVy() {
   if (vy === "backtest") oppnaBacktest();
   if (vy === "rattning") oppnaRattning();
   if (vy === "tabeller") visaTabeller();
+  if (vy === "nyheter") renderaNyheter();
   if (vy !== "kupong" || namn) window.scrollTo(0, 0);
 }
 

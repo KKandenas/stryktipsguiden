@@ -510,3 +510,18 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 .storlekar td, .storlekar th { white-space: nowrap; }
 .storlekar tr.aktiv td { font-weight: 700; background: var(--yta-2); }
 .premiar-not { margin: 8px 0 12px; padding: 8px 10px; border-radius: 10px; background: var(--banner); font-size: 14px; }
+
+/* lagnyheter */
+.nyheter-sammanfattning { font-weight: 600; margin: 4px 0 12px; }
+#nyheter-innehall { display: grid; gap: 10px; }
+.nyhet { background: var(--yta-2); border: 1px solid var(--linje); border-radius: 12px; padding: 12px; }
+.nyhet.tom .tabellblock { margin-top: 6px; }
+.nyhet-huvud { display: flex; gap: 10px; align-items: flex-start; }
+.nyhet-huvud .nr { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--ruta); font-weight: 700; font-size: 13px; }
+.om .nyhet-huvud h2 { font-family: var(--rubrikfont); font-size: 19px; font-weight: 800; margin: 0; line-height: 1.15; }
+.om .nyhet-huvud p { margin: 2px 0 0; }
+.nyhet-lagen { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.om .nyhet-lag p { font-size: 13px; margin: 3px 0; line-height: 1.4; }
+.kalla-tid { color: var(--dampad); font-size: 12px; }
+.om .nyhet-lagkoll { font-size: 13px; margin: 8px 0 0; }
+@media (max-width: 420px) { .nyhet-lagen { grid-template-columns: 1fr; } }

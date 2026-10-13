@@ -155,3 +155,16 @@ def test_tabell_och_form_i_matchdetaljen(conn, monkeypatch):
     # Form ur tabellen räcker inte som underlag för en Lagkoll-analys
     m2 = conn.execute("SELECT * FROM matcher WHERE matchnr = 2").fetchone()
     assert not lagkoll.har_underlag(lagkoll.profil(conn, m2, "hemma", INNAN))
+
+
+def test_lagnyheter_exporteras_hela_veckan(conn, monkeypatch):
+    """Nyheterna syns även när ingen Lagkoll-analys gjorts (t.ex. tidigt i veckan)."""
+    _forbered(conn, monkeypatch)
+    lagkoll.uppdatera_tabeller(conn, 4974, INNAN)
+    k = export.bygg_kupong(conn, 4974, nu=INNAN)
+    assert k["matcher"][0]["lagkoll"] is None
+    n = k["matcher"][0]["lagnytt"]
+    assert n["hemma"]["franvaro"][0]["spelare"] == "Bruno Fernandes"
+    assert n["hemma"]["franvaro"][0]["kalla"] == "sportsmole.co.uk" and n["hemma"]["franvaro"][0]["tid"]
+    assert n["borta"]["tranarbyte"]["tilltradande"] == "B Ny"                  # Tottenham, nyligen
+    assert k["matcher"][1]["lagnytt"] is None

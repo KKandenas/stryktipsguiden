@@ -191,9 +191,9 @@ def profil(conn: sqlite3.Connection, match: sqlite3.Row, sida: str, nu: Optional
             if nyckel[0] in sedda:
                 continue
             sedda.add(nyckel[0])
-            p["franvaro"].append({**x, "kalla": r["namn"]})
+            p["franvaro"].append({**x, "kalla": r["namn"], "tid": r["tidpunkt"]})
         if d.get("sammanhang"):
-            p["sammanhang"].append({"text": d["sammanhang"], "kalla": r["namn"]})
+            p["sammanhang"].append({"text": d["sammanhang"], "kalla": r["namn"], "tid": r["tidpunkt"]})
     p["franvaro"].sort(key=lambda x: (not x["nyckelspelare"], x["status"] != "borta"))
     return p
 
@@ -315,6 +315,19 @@ def analysera(conn: sqlite3.Connection, anropa: Anropare, nu: Optional[str] = No
             log.info("Lagkoll: %s – %s → %s (skrällrisk %s)", m["hemmalag"], m["bortalag"],
                      "/".join(_procent(x) for x in svar["p"]), svar["skrallrisk"])
     return stat
+
+
+def nyheter(conn: sqlite3.Connection, match: sqlite3.Row, nu: Optional[str] = None) -> Optional[dict]:
+    """Lagnyheter för sidan Lagnyheter: frånvaro, sammanhang och färska tränarbyten för båda lagen, med källa
+    och tid. Samma underlag som Lagkoll använder, men visas hela veckan – oberoende av om analysen gjorts."""
+    ut = {}
+    for sida in ("hemma", "borta"):
+        p = profil(conn, match, sida, nu)
+        ut[sida] = {"franvaro": p["franvaro"][:10], "sammanhang": p["sammanhang"][:4],
+                    "tranarbyte": p["tranarbyten"][-1] if p["tranarbyten"] else None}
+    if not any(v["franvaro"] or v["sammanhang"] or v["tranarbyte"] for v in ut.values()):
+        return None
+    return ut
 
 
 def for_export(conn: sqlite3.Connection, match_id: int) -> Optional[dict]:

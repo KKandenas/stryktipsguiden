@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261013g">
-<script type="module" src="app.js?v=20261013g"></script>
+<link rel="stylesheet" href="app.css?v=20261013h">
+<script type="module" src="app.js?v=20261013h"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -34,6 +34,7 @@
       </button>
       <ul id="meny-lista" class="meny-lista" hidden>
         <li><a href="#kupong" data-vy="kupong"><b>Kupongen</b><span>Radförslag för veckans omgång</span></a></li>
+        <li><a href="#nyheter" data-vy="nyheter"><b>Lagnyheter</b><span>Skador, avstängningar och tränarbyten</span></a></li>
         <li><a href="#rattning" data-vy="rattning"><b>Förra omgången</b><span>Rättning av senaste kupongen</span></a></li>
         <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
         <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
@@ -156,6 +157,17 @@
         <li><b>Tryck på ett tecken</b> för att låsa det 🔒. Resten räknas om runt dina låsningar. <b>Tryck på matchen</b> för att visa kommentaren, oddsen och tipsen.</li>
       </ul>
       <p><a class="knapp primar" href="#kupong">Till kupongen</a></p>
+    </section>
+  </section>
+
+  <!-- ===== Lagnyheter ===== -->
+  <section class="vy innehall om" data-vy="nyheter" hidden>
+    <h1 class="vy-rubrik">Lagnyheter</h1>
+    <section class="kort">
+      <p>Det guiden har hittat om lagen på veckans kupong: skadade och avstängda spelare, tränarbyten och annat som
+        påverkar. Uppgifterna kommer ur förhandsartiklarna som tipsen hämtas från och ur Wikipedia, och uppdateras
+        vid varje körning. Flest nyheter kommer torsdag–lördag.</p>
+      <div id="nyheter-innehall"><p class="dampad">Laddar …</p></div>
     </section>
   </section>
 

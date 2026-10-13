@@ -23,6 +23,8 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
       "kommentar": null,
       "tabell": {"hemma"/"borta": {"plats", "antal_lag", "spelade", "poang", "form": "WWLDW" (senaste först)…} | null,
                  "kalla": "BBC Sport" | "Wikipedia"} | null,
+      "lagnytt": {"hemma"/"borta": {"franvaro": [{"spelare", "orsak", "status", "nyckelspelare", "kalla", "tid"}],
+                  "sammanhang": [{"text", "kalla", "tid"}], "tranarbyte": {...} | null}} | null,
       "lagkoll": {"chans": {"1", "X", "2"}, "skrallrisk": "låg" | "medel" | "hög", "motivering", "faktorer": [...],
                   "tid", "hemma"/"borta": {"tabell", "form", "franvaro": [...], "tranarbyte", "kallor"}} | null,
       "resultat": "1" | null, "mal": "2-1" | null
@@ -73,7 +75,7 @@ TECKEN = ("1", "X", "2")
 
 # Fält per match som fryses vid sista körningen före spelstopp (resultat och mål läggs alltid till färskt)
 FRYSTA_FALT = ("chans", "chans_kalla", "streck", "streck_tid", "varde", "osaker", "chans_tips", "varde_tips",
-               "odds", "tips", "kommentar", "lagkoll", "tabell")
+               "odds", "tips", "kommentar", "lagkoll", "tabell", "lagnytt")
 
 # Bolag som visas i appen, i den här ordningen (övriga i bokstavsordning efter), högst MAX_BOLAG.
 BOLAGSORDNING = ["pinnacle", "svenskaspel", "svenskaspel_start", "unibet_eu", "betsson", "nordicbet", "bet365",
@@ -169,6 +171,7 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "odds": odds, "tips": tips, "kommentar": kommentar[0] if kommentar else None,
             "lagkoll": lagkoll.for_export(conn, m["id"]),
             "tabell": lagkoll.for_matchdetalj(conn, m),
+            "lagnytt": lagkoll.nyheter(conn, m, nu),
             "resultat": m["resultat"] if visa_resultat else None,
             "mal": (f"{m['mal_hemma']}-{m['mal_borta']}"
                     if visa_resultat and m["mal_hemma"] is not None else None),
