@@ -71,10 +71,12 @@ export async function slutforLank(fragaEpost) {
 async function firebase() {
   const [{ initializeApp }, A, F] = await Promise.all([
     import(`${BAS}/firebase-app.js`), import(`${BAS}/firebase-auth.js`), import(`${BAS}/firebase-firestore.js`)]);
-  const app = initializeApp(FIREBASE_CONFIG);
+  const { databaseId, ...config } = FIREBASE_CONFIG;
+  const app = initializeApp(config);
   const auth = A.getAuth(app);
   auth.languageCode = "sv";
-  const db = F.getFirestore(app);
+  // Standarddatabasen heter "(default)"; har databasen fått ett eget namn anges det som databaseId i konfigurationen
+  const db = databaseId ? F.getFirestore(app, databaseId) : F.getFirestore(app);
   const fran = (u) => (u ? { uid: u.uid, namn: u.displayName || u.email, epost: (u.email || "").toLowerCase() } : null);
   A.onAuthStateChanged(auth, async (u) => {
     if (u) {   // se till att profilen finns

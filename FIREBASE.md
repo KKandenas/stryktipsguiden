@@ -23,10 +23,12 @@ in. Det tar ungefär 10 minuter.
 ## 3. Skapa databasen
 
 1. Välj **Build → Firestore Database → Skapa databas**.
-2. Plats: `eur3 (europe-west)`, så att datan ligger i EU.
-3. Starta i **produktionsläge**.
-4. Under fliken **Regler**: ersätt allt med innehållet i [`firestore.rules`](firestore.rules) och tryck
-   **Publicera**.
+2. **Database ID:** skriv `(default)`, med parenteserna. Godtar konsolen inte det, skriv `stryktipsguiden` och
+   lägg till `databaseId: "stryktipsguiden"` i konfigurationen i steg 4.
+3. Edition: **Standard**. Plats: `eur3 (europe-west)`, så att datan ligger i EU. Den går inte att ändra senare.
+4. Starta i **produktionsläge**. Reglerna går inte att ändra medan databasen skapas.
+5. När databasen är skapad: gå till fliken **Regler**, ersätt allt med innehållet i
+   [`firestore.rules`](firestore.rules) och tryck **Publicera**.
 
 ## 4. Koppla appen till projektet
 
@@ -43,6 +45,7 @@ in. Det tar ungefär 10 minuter.
      storageBucket: "…",
      messagingSenderId: "…",
      appId: "…",
+     // databaseId: "stryktipsguiden",   // bara om databasen fick ett eget namn i steg 3
    };
    ```
 
