@@ -1,10 +1,10 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013i";
-import * as konto from "./konto.js?v=20261013i";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261013i";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013i";
+} from "./optimizer.js?v=20261013j";
+import * as konto from "./konto.js?v=20261013j";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261013j";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013j";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";

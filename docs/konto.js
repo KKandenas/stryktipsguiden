@@ -9,7 +9,7 @@
 //   spel/{uid}_{omgang_id}     { agare, agare_namn, delad_med: [e-post], …spelet (se minaspel.js) }
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261013i";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261013j";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;
