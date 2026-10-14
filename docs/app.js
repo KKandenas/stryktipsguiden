@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261014d";
-import * as konto from "./konto.js?v=20261014d";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014d";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014d";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014d";
+} from "./optimizer.js?v=20261014e";
+import * as konto from "./konto.js?v=20261014e";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014e";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014e";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014e";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -1836,11 +1836,9 @@ const kr = (x) => `${Math.round(x).toLocaleString("sv-SE")} kr`;
 const plusKr = (x) => (x > 0 ? "+" : x < 0 ? "−" : "") + kr(Math.abs(x));
 
 async function oppnaBacktest() {
-  if (state.historik) return;
   try {
-    const r = await fetch("historik.json", { cache: "no-cache" });
-    if (!r.ok) throw new Error(String(r.status));
-    state.historik = await r.json();
+    // Historiken kan redan vara laddad av Mina spel eller Spelbolag – rita då direkt
+    await laddaHistorik();
     state.btBudget = state.btBudget || 64;
     renderaBacktest();
   } catch (e) {

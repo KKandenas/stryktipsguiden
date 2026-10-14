@@ -72,6 +72,9 @@ button { font: inherit; color: inherit; }
 .dampad { color: var(--dampad); }
 .liten { font-size: 13px; }
 
+/* Dolda element ska alltid vara dolda, även när en klass sätter display (t.ex. grid för menyer) */
+[hidden] { display: none !important; }
+
 /* ---------- header: taktiktavla med ordmärke till vänster och meny till höger ---------- */
 .topp {
   position: sticky; top: 0; z-index: 20; color: #fff;
