@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-13T17:47:48Z",
+ "genererad": "2026-10-14T18:50:30Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -514,28 +514,28 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 13,
+     "plats": 7,
      "antal_lag": 24,
-     "spelade": 9,
-     "vunna": 3,
+     "spelade": 10,
+     "vunna": 4,
      "oavgjorda": 3,
      "forlorade": 3,
-     "gjorda": 14,
+     "gjorda": 15,
      "inslappta": 13,
-     "poang": 12,
-     "form": "WDWLLD"
+     "poang": 15,
+     "form": "WWDWLL"
     },
     "borta": {
-     "plats": 21,
+     "plats": 18,
      "antal_lag": 24,
-     "spelade": 9,
-     "vunna": 1,
+     "spelade": 10,
+     "vunna": 2,
      "oavgjorda": 4,
      "forlorade": 4,
-     "gjorda": 11,
-     "inslappta": 14,
-     "poang": 7,
-     "form": "LWLDLL"
+     "gjorda": 16,
+     "inslappta": 15,
+     "poang": 10,
+     "form": "WLWLDL"
     },
     "kalla": "BBC Sport"
    },
@@ -600,28 +600,28 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 17,
+     "plats": 14,
      "antal_lag": 24,
-     "spelade": 9,
-     "vunna": 3,
+     "spelade": 10,
+     "vunna": 4,
      "oavgjorda": 1,
      "forlorade": 5,
-     "gjorda": 12,
-     "inslappta": 17,
-     "poang": 10,
-     "form": "LWWLLL"
+     "gjorda": 15,
+     "inslappta": 18,
+     "poang": 13,
+     "form": "WLWWLL"
     },
     "borta": {
-     "plats": 4,
+     "plats": 6,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 5,
      "oavgjorda": 1,
-     "forlorade": 3,
-     "gjorda": 15,
-     "inslappta": 13,
+     "forlorade": 4,
+     "gjorda": 17,
+     "inslappta": 16,
      "poang": 16,
-     "form": "WWWDWW"
+     "form": "LWWWDW"
     },
     "kalla": "BBC Sport"
    },
@@ -698,16 +698,16 @@
      "form": "DDLLLW"
     },
     "borta": {
-     "plats": 15,
+     "plats": 16,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 2,
      "oavgjorda": 5,
-     "forlorade": 2,
-     "gjorda": 10,
-     "inslappta": 13,
+     "forlorade": 3,
+     "gjorda": 11,
+     "inslappta": 15,
      "poang": 11,
-     "form": "DWLDDW"
+     "form": "LDWLDD"
     },
     "kalla": "BBC Sport"
    },
@@ -774,26 +774,26 @@
     "hemma": {
      "plats": 2,
      "antal_lag": 24,
-     "spelade": 9,
-     "vunna": 5,
+     "spelade": 10,
+     "vunna": 6,
      "oavgjorda": 3,
      "forlorade": 1,
-     "gjorda": 17,
-     "inslappta": 12,
-     "poang": 18,
-     "form": "WDDWWD"
+     "gjorda": 20,
+     "inslappta": 14,
+     "poang": 21,
+     "form": "WWDDWW"
     },
     "borta": {
-     "plats": 5,
+     "plats": 9,
      "antal_lag": 24,
-     "spelade": 8,
+     "spelade": 9,
      "vunna": 4,
      "oavgjorda": 2,
-     "forlorade": 2,
-     "gjorda": 15,
-     "inslappta": 11,
+     "forlorade": 3,
+     "gjorda": 16,
+     "inslappta": 14,
      "poang": 14,
-     "form": "LWWDLW"
+     "form": "LLWWDL"
     },
     "kalla": "BBC Sport"
    },
@@ -860,26 +860,26 @@
     "hemma": {
      "plats": 24,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 1,
      "oavgjorda": 1,
-     "forlorade": 7,
+     "forlorade": 8,
      "gjorda": 8,
-     "inslappta": 16,
+     "inslappta": 20,
      "poang": 4,
-     "form": "LDLLWL"
+     "form": "LLDLLW"
     },
     "borta": {
-     "plats": 8,
+     "plats": 10,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 4,
      "oavgjorda": 2,
-     "forlorade": 3,
+     "forlorade": 4,
      "gjorda": 16,
-     "inslappta": 15,
+     "inslappta": 16,
      "poang": 14,
-     "form": "WDDLWL"
+     "form": "LWDDLW"
     },
     "kalla": "BBC Sport"
    },
@@ -944,7 +944,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 14,
+     "plats": 15,
      "antal_lag": 24,
      "spelade": 9,
      "vunna": 3,
@@ -956,7 +956,7 @@
      "form": "WLLWLW"
     },
     "borta": {
-     "plats": 16,
+     "plats": 17,
      "antal_lag": 24,
      "spelade": 9,
      "vunna": 3,
@@ -1030,28 +1030,28 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 20,
-     "antal_lag": 24,
-     "spelade": 9,
-     "vunna": 2,
-     "oavgjorda": 2,
-     "forlorade": 5,
-     "gjorda": 7,
-     "inslappta": 14,
-     "poang": 8,
-     "form": "LLLWLL"
-    },
-    "borta": {
      "plats": 22,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
+     "vunna": 2,
+     "oavgjorda": 2,
+     "forlorade": 6,
+     "gjorda": 8,
+     "inslappta": 19,
+     "poang": 8,
+     "form": "LLLLWL"
+    },
+    "borta": {
+     "plats": 21,
+     "antal_lag": 24,
+     "spelade": 10,
      "vunna": 1,
-     "oavgjorda": 4,
+     "oavgjorda": 5,
      "forlorade": 4,
-     "gjorda": 13,
-     "inslappta": 17,
-     "poang": 7,
-     "form": "WDLDLD"
+     "gjorda": 15,
+     "inslappta": 19,
+     "poang": 8,
+     "form": "DWDLDL"
     },
     "kalla": "BBC Sport"
    },
@@ -2197,10 +2197,17 @@
   }
  },
  "drift": {
-  "ai": null,
+  "ai": {
+   "konfigurerad": true,
+   "lyckade": 0,
+   "misslyckade": 3,
+   "modeller": {},
+   "stoppad": "flera misslyckade anrop i rad",
+   "tid": "2026-10-14T18:50:30Z"
+  },
   "odds": {
-   "kvar": 458,
-   "tid": "2026-10-12T18:06:17Z"
+   "kvar": 452,
+   "tid": "2026-10-14T18:47:24Z"
   }
  },
  "tipsare_form": [
