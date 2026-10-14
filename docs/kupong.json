@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-14T18:50:30Z",
+ "genererad": "2026-10-14T19:28:56Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -137,14 +137,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Newcastle har starkt stöd hemma på St. James Park och möter ett slitet Birmingham-lag med en veckomatch i benen.",
+     "system": "1",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "X",
-     "text": "Skribenten tippar slutresultatet 1–1 mellan Newcastle och Aston Villa. Bland speltipsen lyfts även X2 dubbelchans och oavgjort i halvtid/fulltid fram.",
+     "text": "Skribenten förutspår resultatet 2-2. Båda lagen besitter offensiv spets men dras med defensiva svagheter och flera skador.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Newcastle är oddsfavorit (45 %) men överstreckas på 52 %. Värdet finns på X och 2. Tipsaren förutspår 1–1 och lyfter X2.",
+   "kommentar": "Newcastle är favorit enligt oddsen men överstreckas på 50 %. Fint värde finns på tvåan (25 % mot chans 32 %). Tipsarna är delade mellan ettan och krysset.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -173,7 +180,77 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "lårskada",
+       "spelare": "Anthony Elanga",
+       "status": "borta",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Jacob Ramsey",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Har fansen som en tolfte spelare på St. James Park.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Newcastle har haft svårt att hålla tätt hemma och släpper in i snitt 1,67 mål per hemmamatch.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Leon Goretzka",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Amadou Onana",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Luca Ruggeri",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Aston Villa trivs bättre borta än hemma och har vunnit 57 % av sina bortamatcher.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -297,14 +374,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X",
+     "text": "Liverpool saknar skadade spelare och har resande fot i Champions League, medan Brentford är utvilade och starka hemma.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
-     "tecken": "X",
-     "text": "Skribenten tippar ett oavgjort resultat (2-2). Artikeln innehåller inte någon utförlig analys av form eller skador än.",
+     "tecken": "1X",
+     "text": "Brentford har varit starka på hemmaplan och möter ett Liverpool som drabbats av flera skador och en avstängning på Ryan Gravenberch.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Jämn oddsbild där Brentford har 39 % och Liverpool 36 %. Svenska folket överstreckar hemmalaget kraftigt, vilket ger fint värde på tvåan. Tipset landar på 2–2.",
+   "kommentar": "Brentford hålls som knapp favorit av oddsen och erbjuder spelvärde då ettan är streckad till 36 % (40 % chans). Båda tipsarna rekommenderar 1X mot ett skadedrabbat Liverpool.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -333,7 +417,98 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Milambo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Dasilva",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Furo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Truppen är utvilad inför matchen.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Brentford har inlett ligan utan förlust och är starka på hemmaplan.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [
+      {
+       "nyckelspelare": true,
+       "orsak": "skada",
+       "spelare": "Alexander Isak",
+       "status": "borta",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": true,
+       "orsak": "avstängning",
+       "spelare": "Ryan Gravenberch",
+       "status": "borta",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": true,
+       "orsak": "skada",
+       "spelare": "Cody Gakpo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": true,
+       "orsak": "skada",
+       "spelare": "Dominik Szoboszlai",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Har en resa till Österrike och Champions League-match mot LASK i benen.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Liverpool söker revansch efter en 3-0-förlust mot Manchester City.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -457,14 +632,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Manchester City har radat upp segrar och har en enorm truppbredd som ska räcka mot nykomlingen Ipswich.",
+     "system": "1",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten tippar att Manchester City vinner matchen med 3–1.",
+     "text": "Manchester City har en överlägsen trupp och urstark hemmaform med full pott på Etihad. Ipswich har haft stora problem på bortaplan där de släpper in många mål.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Manchester City är storfavorit med 77 % vinstchans enligt oddsen. Folket har bara streckat ettan till 45 %, vilket ger enormt spelvärde på 1. Tipset är 3–1.",
+   "kommentar": "Manchester City är gigantisk favorit med 78 % vinstchans och är faktiskt understreckad på 74 %. Båda tipsarna spikar planenligt ettan mot nykomlingen Ipswich.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -493,7 +675,40 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har sex raka segrar och en veckomatch mot PSG på onsdag.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Har en full trupp tillgänglig och har vunnit samtliga sina senaste hemmamatcher.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Nykomling som har tre segrar och tre förluster hittills.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Har släppt in 2,67 mål i snitt per bortamatch och har ännu inte hållit nollan på resande fot.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:01:13Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -617,14 +832,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X2",
+     "text": "Tabelljumbon Fulham har haft förtvivlat svårt att vinna, men möter ett formstarkt Hull som bara har ett nederlag hittills.",
+     "system": "1X2",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten förutspår en 1-0-seger för Fulham. Fulham har vunnit de fyra senaste inbördes mötena mot Hull City.",
+     "text": "Fulham har inlett svagt och förlorade senast mot Ipswich, men har hemmafördel mot ett Hull som har fyra raka matcher utan vinst och svag bortastatistik.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Fulham bär favoritskapet (56 %) och är understreckad med fint spelvärde på ettan mot folkets 47 %. Tipset spår en 1–0-seger till hemmalaget.",
+   "kommentar": "Fulham är klar favorit (55 % chans) och streckas förmånligt till 49 %, vilket ger bra värde på ettan. Tipsarna spretar, där ena garderar fullt medan andra tror på hemmaseger.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -655,19 +877,77 @@
    },
    "lagnytt": {
     "hemma": {
-     "franvaro": [],
+     "franvaro": [
+      {
+       "nyckelspelare": true,
+       "orsak": "knuffar för en startplats",
+       "spelare": "Rodrigo Muniz",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": true,
+       "orsak": "skada",
+       "spelare": "Antonee Robinson",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
      "sammanhang": [
       {
-       "text": "Har vunnit de fyra senaste mötena mot Hull.",
+       "text": "Är tabelljumbo och har inte tagit säsongens första seger ännu.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Tränas av Marco Silva och har haft defensiva svagheter med i snäll 1.4 insläppta mål per match.",
        "kalla": "footballpredictions.com",
-       "tid": "2026-10-12T18:06:18Z"
+       "tid": "2026-10-14T19:25:59Z"
       }
      ],
      "tranarbyte": null
     },
     "borta": {
-     "franvaro": [],
-     "sammanhang": [],
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Matazo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Hughes",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Targett",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Gör dundersuccé som nykomling och har bara ett nederlag hittills.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Komますが till London med fyra raka matcher utan vinst och en svag bortastatistik med endast 17 % vinst.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
      "tranarbyte": null
     }
    },
@@ -794,14 +1074,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "X2",
+     "text": "Två kryssglada lag möts där QPR förfogar över ett betydligt mer stabilt försvar.",
+     "system": "X2",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten tippar att Birmingham City vinner mötet med 1–0. Fullständig analys publiceras närmare matchstart.",
+     "text": "Skribenten tippar att Birmingham City vinner matchen med 1-0.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Birmingham är favorit till 47 % och erbjuder visst värde då ettan bara är streckad till 43 %. Tipset spår också en 1–0-seger för hemmalaget.",
+   "kommentar": "Jämn match där Birmingham är favorit hos oddsen (46 %). Tvåan på QPR är något understreckad på 23 %, och tipsarna är oeniga där Bettingstugan lyfter X2 och den andra tror på hemmalaget.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -830,7 +1117,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har ett betydligt mer stabilt försvar.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -954,14 +1258,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Bristol City får spela på hemmaplan medan gästerna har en tuff bortamatch i ryggen.",
+     "system": "1",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "X",
-     "text": "Skribenten förutspår att matchen slutar 1–1 mellan lagen.",
+     "text": "Skribenten förutspår ett oavgjort resultat baserat på en målbild på 1–1.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Bristol City är knapp favorit med 42 % vinstchans mot ett överstreckat 1. Litet värde syns på krysset (27 % chans), vilket även tipset landar i (1–1).",
+   "kommentar": "Bristol City är favorit (44 % chans) och streckas ganska nära oddsen. Värdet ligger marginellt på krysset. Ena tipsaren tror på hemmaseger medan den andra spår 1–1.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -990,7 +1301,30 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Får spela hemma med fin form på spelare som Dom Ballard och Scott Twine.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har en bortamatch i ryggen; Chris Wilder är stark hemma men svagare borta.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1112,8 +1446,23 @@
      }
     ]
    },
-   "tips": [],
-   "kommentar": "Derby är knapp favorit med 38 % chans men överstreckas till 43 %. Både krysset och tvåan erbjuder spelvärde gentemot oddsen.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "12",
+     "text": "Derby är trötta på att kryssa och möter ett Stoke som har haft heta spelare som Ethan Galbraith.",
+     "system": "12",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": "X",
+     "text": "Skribenten förutspår att matchen slutar oavgjort, 1-1.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Helt jämn match enligt oddsen (35 % mot 35 %), men folket överstreckar Stoke till 42 %. Bäst värde finns på 1X. Tipsarna landar i 12 respektive X.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1142,7 +1491,30 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Ligger näst sist i tabellen och kryssar ofta.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Ligger på en fjärdeplats i tabellen.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1266,14 +1638,21 @@
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Norwich har ett starkt anfallsspel och ska kunna ta en seger här trots vissa brister i backlinjen.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten tippar att Norwich vinner matchen med 2–1.",
+     "text": "Skribenten tippar en 2–1-seger för Norwich.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Norwich är tydlig favorit (55 %) och streckas bara till 45 %, vilket skapar ett bra värde på ettan. Tvåan är samtidigt klart överstreckad.",
+   "kommentar": "Norwich är klar favorit med 53 % segerchans och streckas snarlikt av folket (55 %). Båda tipsarna är helt överens och förutspår hemmaseger.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1302,7 +1681,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har problem med backlinjen trots bra anfallsspel.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1424,8 +1820,23 @@
      }
     ]
    },
-   "tips": [],
-   "kommentar": "Southampton har hela 64 % vinstchans enligt oddsen men är endast streckad till 44 %. Ett massivt värde landar därmed på ettan då bortalaget överstreckas.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Southampton är urstarka hemma på St Mary's Stadium och får tillbaka Cam Bragg från avstängning.",
+     "system": "1",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": "1",
+     "text": "Skribenten förutspår en hemmaseger och anger 3-1 som troligt resultat.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Southampton bär ett tungt favoritskap på 65 % och är streckat i exakt paritet med oddsen. Tipsarna är eniga om att ettan vinner planenligt på hemmaplan.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1454,7 +1865,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Får tillbaka Cam Bragg efter avstängning; starka hemma på St Mary's.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1576,8 +2004,23 @@
      }
     ]
    },
-   "tips": [],
-   "kommentar": "West Ham är favorit till 48 % men är grovt understreckad till bara 29 %. Folket streckar Swansea hårt (44 %), så spelvärdet ligger helt på tvåan.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "X2",
+     "text": "Swansea leder ligan men West Ham har spelare i högform som Jarrod Bowen och Joël Piroe.",
+     "system": "X2",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": "X",
+     "text": "Skribenten tippar att matchen slutar 1-1 efter ett jämnt möte mellan Swansea och West Ham.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "West Ham är knapp favorit enligt oddsen men understreckas till 34 % mot 40 % chans, vilket ger fint värde på tvåan. Tipsarna lutar åt X och X2.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1606,7 +2049,40 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Tränas av Vitor Matos som har navigerat klubben till en första plats.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "Swansea har fin form med flera vinster på senaste tiden.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Besökare från huvudstaden med spelare i högform.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      },
+      {
+       "text": "West Ham har blandade resultat men gör ofta mål.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1728,8 +2204,23 @@
      }
     ]
    },
-   "tips": [],
-   "kommentar": "West Bromwich är favorit med 53 % vinstchans och har fint värde på ettan, som bara streckats till 44 %. Bortalaget är i stället överstreckat.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "12",
+     "text": "West Bromwich har haft marginalerna emot sig men har stor kvalitet, medan Blackburn har hittat målformen.",
+     "system": "12",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": "1",
+     "text": "Skribenten tippar att West Bromwich vinner matchen med 2-1 mot Blackburn Rovers.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "West Bromwich är favorit (50 % chans) men är aningen överstreckad på 53 %. Visst värde finns på X2. Tipsarna lutar åt ettan respektive 12.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1758,7 +2249,30 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har haft uddlöst spel och marginalerna emot sig.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Skickliga Rovers har hittat målformen.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1880,8 +2394,23 @@
      }
     ]
    },
-   "tips": [],
-   "kommentar": "Wrexham har 53 % segerchans enligt oddsen men streckas till 45 %. Det ger ett fint värde på ettan medan tvåan lockar för många streck.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "X",
+     "text": "Wrexham kryssar ofta och gästerna slåss för överlevnad med uppskruvad motivation.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": "1",
+     "text": "Skribenten förväntar sig en seger för Wrexham med 2-1 mot Preston baserat på tidigare inbördes möten och lagens statistik.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Wrexham har god vinstchans (56 %) men överstreckas till 61 %. Värdet hamnar på X och 2. Tipsarna splittras, där ena tror på kryss och den andra på hemmavinst.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1910,7 +2439,30 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Hollywood-ägd trupp som placerar sig på den nedre halvan tack vare många oavgjorda.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Ligger som tabelljumbo men har bättre form än på länge.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -2032,8 +2584,16 @@
      }
     ]
    },
-   "tips": [],
-   "kommentar": "Huddersfield är knapp oddsfavorit (38 %) men har bara streckats till 28 %. Det ger högt värde på tvåan då hemmalaget är kraftigt överstreckat.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X2",
+     "text": "Ett vidöppet toppmöte i League One där det skiljer väldigt lite mellan lagen.",
+     "system": "1X2",
+     "system_rader": 1152
+    }
+   ],
+   "kommentar": "Knapp fördel Huddersfield enligt oddsen (38 % chans), men folket gör Plymouth till klar favorit. Tvåan är kraftigt understreckad på 26 % och ger omgångens bästa värde.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -2062,7 +2622,30 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Serieledare med brutal form.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Ligger på en fjärdeplats i tabellen.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-14T19:25:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   }
