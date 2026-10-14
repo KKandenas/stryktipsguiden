@@ -1,31 +1,21 @@
 name: Pipeline
 
-# Cron körs i UTC. Kommentarerna visar svensk tid som "sommartid / vintertid".
-# Varje körning gör det som är aktuellt (python -m pipeline auto), så en extra
-# eller försenad körning är ofarlig. Stängda omgångar hämtas om i upp till 48 h
-# så att slutstrecken kommer med även om lördagskörningen blir sen.
+# GitHubs schemalagda körningar kan bli flera timmar sena eller utebli. Därför startas pipelinen
+# varje timme (och var 20:e minut på lördagar) med kommandot `planerad`. Den gör en riktig uppdatering
+# bara när en tid i pipeline/schema.py (svensk tid) har passerats och inte körts än – annars avslutas den
+# direkt utan att anropa några API:er eller ändra någon data. Udda minuter, eftersom GitHub är mest
+# belastat på hela timmar.
 on:
   schedule:
-    - cron: "0 8 * * 1"     # mån 10:00 / 09:00  – ny kupong (öppnar 07:00), streck, odds, tips
-    - cron: "0 17 * * 3"    # ons 19:00 / 18:00  – uppdaterade streck, odds och tips
-    - cron: "0 17 * * 4"    # tor 19:00 / 18:00  – streck, odds, tips
-    - cron: "0 17 * * 5"    # fre 19:00 / 18:00  – tips som publiceras på fredagen
-    - cron: "30 8 * * 6"    # lör 10:30 / 09:30  – förmiddagsuppdatering
-    - cron: "30 9 * * 6"    # lör 11:30 / 10:30
-    - cron: "30 10 * * 6"   # lör 12:30 / 11:30
-    - cron: "0 12 * * 6"    # lör 14:00 / 13:00  – streck och odds
-    - cron: "0 13 * * 6"    # lör 15:00 / 14:00
-    - cron: "25 13 * * 6"   # lör 15:25 / 14:25  – sista försök före spelstopp sommartid
-    - cron: "20 14 * * 6"   # lör 16:20 / 15:20  – sista före spelstopp vintertid / slutstreck sommartid
-    - cron: "0 8 * * 0"     # sön 10:00 / 09:00  – resultat och utdelning
-    - cron: "0 18 * * 0"    # sön 20:00 / 19:00  – resultat för sena matcher
+    - cron: "17 * * * *"          # varje timme
+    - cron: "37,57 8-15 * * 6"    # lördagar 10–17 / 09–16 svensk tid: tätare inför spelstopp
   workflow_dispatch:
     inputs:
       kommando:
         description: "Vad ska köras?"
         type: choice
         default: auto
-        options: [auto, svenskaspel, odds, resultat, tips, kommentarer, lagkoll, tabeller, backfill]
+        options: [auto, planerad, svenskaspel, odds, resultat, tips, kommentarer, lagkoll, tabeller, backfill]
       fran:
         description: "backfill: första omgång (t.ex. 4900)"
         required: false
@@ -70,7 +60,7 @@ jobs:
           GEMINI_MODELL: ${{ vars.GEMINI_MODELL }}
           GEMINI_RESERVMODELLER: ${{ vars.GEMINI_RESERVMODELLER }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          KOMMANDO: ${{ inputs.kommando || 'auto' }}
+          KOMMANDO: ${{ inputs.kommando || 'planerad' }}
           FRAN: ${{ inputs.fran }}
           TILL: ${{ inputs.till }}
         run: |

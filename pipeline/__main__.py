@@ -1,6 +1,7 @@
 """Kommandorad för pipelinen.
 
-    python -m pipeline auto                 # det som schemat kör: allt som är aktuellt just nu
+    python -m pipeline planerad             # det som schemat startar: kör auto bara om en planerad tid passerats
+    python -m pipeline auto                 # allt som är aktuellt just nu
     python -m pipeline svenskaspel          # kupong + streck + Svenska Spels odds + Tio tidningars tips
     python -m pipeline odds                 # The Odds API för öppna omgångar
     python -m pipeline resultat             # resultat och utdelning för avslutade omgångar
@@ -27,7 +28,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, export, lagkoll, lagring, tipsinsamling
+from . import config, db, export, lagkoll, lagring, schema, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
@@ -269,6 +270,22 @@ def steg_lagkoll(conn, tvinga: bool = False) -> bool:
     return True
 
 
+def kor_auto(conn) -> bool:
+    """Allt som är aktuellt just nu. Returnerar False om ett kritiskt steg misslyckades."""
+    ok = steg_svenskaspel(conn)
+    steg_odds(conn)
+    ok &= steg_resultat(conn)
+    steg_tips(conn)
+    steg_prognos(conn)
+    steg_statistik(conn)
+    steg_kommentarer(conn)
+    steg_tabeller(conn)
+    steg_lagkoll(conn)
+    spara_ai_status(conn)
+    ok &= steg_export(conn)
+    return ok
+
+
 def steg_statistik(conn, tvinga: bool = False) -> bool:
     if not tvinga and not statistik.behover_koras(conn):
         log.info("Statistik: inga nya resultat sedan senaste körningen")
@@ -319,7 +336,7 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipsguidens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "lagkoll", "tabeller", "statistik",
+    for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "lagkoll", "tabeller", "statistik",
                  "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
@@ -344,17 +361,17 @@ def main(argv=None) -> int:
 
     kritiskt_ok = True
     if args.kommando == "auto":
-        kritiskt_ok &= steg_svenskaspel(conn)
-        steg_odds(conn)
-        kritiskt_ok &= steg_resultat(conn)
-        steg_tips(conn)
-        steg_prognos(conn)
-        steg_statistik(conn)
-        steg_kommentarer(conn)
-        steg_tabeller(conn)
-        steg_lagkoll(conn)
-        spara_ai_status(conn)
-        kritiskt_ok &= steg_export(conn)
+        kritiskt_ok = kor_auto(conn)
+    elif args.kommando == "planerad":
+        tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], datetime.now(timezone.utc))
+        if tid is None:
+            log.info("Planerad: inget att göra – den senaste planerade uppdateringen är redan körd")
+        else:
+            log.info("Planerad: kör uppdateringen för %s (svensk tid)",
+                     tid.astimezone(schema.SVENSK_TID).strftime("%a %d %b %H:%M"))
+            kritiskt_ok = kor_auto(conn)
+            # Markeras som körd även om något steg misslyckades, så att nästa start inte tar samma kvot igen
+            _satt_installning(conn, "senaste_planerade", tid.strftime("%Y-%m-%dT%H:%M:%SZ"))
     elif args.kommando == "svenskaspel":
         kritiskt_ok = steg_svenskaspel(conn)
     elif args.kommando == "odds":

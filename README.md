@@ -76,6 +76,10 @@ Gör också så här:
 
 ## Schema
 
+GitHubs schemalagda körningar kan bli flera timmar sena. Därför startas pipelinen varje timme, och tätare på
+lördagar, med `python -m pipeline planerad`. Den kör `auto` bara när en tid i `pipeline/schema.py` (svensk
+tid) har passerats och inte körts än. Annars avslutas den direkt utan API-anrop eller dataändringar.
+
 `.github/workflows/pipeline.yml` kör `python -m pipeline auto` (svensk tid, sommar/vinter):
 
 | När | Varför |
