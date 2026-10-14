@@ -822,3 +822,11 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .pill.dalig { background: var(--chip-rod); color: var(--chip-rod-text); }
 .pill.vantar { background: var(--chip-bla); color: var(--chip-bla-text); }
 .kupongbar .lamna-in span[aria-hidden] { margin-left: 4px; }
+
+/* Medan inloggningen kontrolleras */
+.hamtar { display: flex; align-items: center; gap: 10px; }
+.hamtar p { margin: 0; color: var(--dampad); }
+.hamtar-prick { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ruta-kant); border-top-color: var(--primar); animation: snurra .8s linear infinite; flex: none; }
+@keyframes snurra { to { transform: rotate(360deg); } }
+.konto-knapp.vantar .avatar { opacity: .4; }
+@media (prefers-reduced-motion: reduce) { .hamtar-prick { animation: none; } }

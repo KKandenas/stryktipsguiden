@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261014l";
-import * as konto from "./konto.js?v=20261014l";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014l";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014l";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014l";
+} from "./optimizer.js?v=20261014m";
+import * as konto from "./konto.js?v=20261014m";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014m";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014m";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014m";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -615,9 +615,16 @@ function initKonto() {
   });
   initKontoknapp();
   konto.nar((u) => {
+    const nyAnvandare = (u?.uid || null) !== (ms.anvandare?.uid || null);
+    // Första beskedet från Firebase måste alltid ritas, även "ingen inloggad" (annars blir "Hämtar …" kvar)
+    const forstaBesked = konto.lageKant() && !ms.besked;
+    if (konto.lageKant()) ms.besked = true;
     ms.anvandare = u;
     renderaKontoknapp();
-    try { u ? localStorage.setItem(KONTO_FLAGGA, "1") : localStorage.removeItem(KONTO_FLAGGA); } catch { /* privat läge */ }
+    if (konto.lageKant()) {
+      try { u ? localStorage.setItem(KONTO_FLAGGA, "1") : localStorage.removeItem(KONTO_FLAGGA); } catch { /* privat läge */ }
+    }
+    if (!nyAnvandare && !forstaBesked) return;   // samma person, t.ex. när profilbilden kommit in
     ms.spel = ms.delade = ms.profil = null;
     sb.grupper = null; sb.data = {};
     if (document.body.dataset.vy === "minaspel") oppnaMinaSpel();
@@ -676,6 +683,7 @@ function initKontoknapp() {
 
 function renderaKontoknapp() {
   const u = ms.anvandare;
+  $("konto-knapp").classList.toggle("vantar", vantarPaInloggning());
   $("konto-avatar").replaceWith(Object.assign(avatar(u), { id: "konto-avatar" }));
   $("konto-knapp").setAttribute("aria-label", u ? `Konto: ${u.namn}` : "Logga in");
   $("konto-knapp").classList.toggle("inloggad", Boolean(u));
@@ -727,6 +735,17 @@ function renderaKontomeny() {
   ut.addEventListener("click", async () => { meny.hidden = true; await konto.loggaUt(); });
   delar.push(ut, status);
   meny.replaceChildren(...delar);
+}
+
+/** Var användaren inloggad förra gången, men Firebase har inte svarat än? Då väntar vi i stället för att visa inloggningen. */
+function vantarPaInloggning() {
+  if (ms.anvandare || konto.lageKant()) return false;
+  try { return localStorage.getItem(KONTO_FLAGGA) === "1" || /[?&]oobCode=/.test(location.href); } catch { return false; }
+}
+
+function visaHamtar(box, text) {
+  box.replaceChildren(el("section", { class: "kort hamtar", "aria-busy": "true" },
+    el("span", { class: "hamtar-prick", "aria-hidden": "true" }), el("p", { text })));
 }
 
 function fragaEpostForLank() {
@@ -818,13 +837,16 @@ async function oppnaMinaSpel() {
       "Inloggning och Mina spel är inte aktiverade än. När de är det kan du spara de rader du lämnar in och följa hur de går." })));
     return;
   }
+  if (vantarPaInloggning()) visaHamtar(box, "Hämtar dina spel …");
   try {
     await konto.starta();
   } catch (e) {
     box.replaceChildren(el("p", { class: "fel", text: `Inloggningen kunde inte laddas: ${e.message}` }));
     return;
   }
+  if (vantarPaInloggning()) { visaHamtar(box, "Hämtar dina spel …"); return; }
   if (!ms.anvandare) { renderaInloggning(box); return; }
+  if (!ms.spel) visaHamtar(box, "Hämtar dina spel …");
   try {
     [ms.spel, ms.delade, ms.profil] = await Promise.all([
       ms.spel || konto.minaSpel(), ms.delade || konto.deladeSpel(), ms.profil || konto.profil(), laddaHistorik()]);
@@ -1077,6 +1099,7 @@ async function oppnaSpelbolag() {
   const box = $("spelbolag-innehall");
   if (!konto.aktiverat()) { box.replaceChildren(kort(el("p", { text: "Inloggningen är inte aktiverad." }))); return; }
   try { await konto.starta(); } catch (e) { box.replaceChildren(el("p", { class: "fel", text: e.message })); return; }
+  if (vantarPaInloggning()) { visaHamtar(box, "Hämtar dina spelbolag …"); return; }
   if (!ms.anvandare) {
     renderaInloggning(box);
     if (sb.anslutKod) box.prepend(el("p", { class: "premiar-not", text: "Logga in för att gå med i spelbolaget du blivit inbjuden till." }));

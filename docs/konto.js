@@ -13,8 +13,8 @@
 //   inbjudningar/{kod}         { gid, namn } – inbjudningslänken pekar hit
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261014l";
-import { nyKod } from "./spelbolag.js?v=20261014l";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261014m";
+import { nyKod } from "./spelbolag.js?v=20261014m";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;
@@ -25,6 +25,7 @@ export const aktiverat = () => DEMO || Boolean(FIREBASE_CONFIG);
 
 let impl = null;
 let anvandare = null;
+let kand = false;           // har inloggningsläget hunnit bli känt (Firebase har svarat)?
 const lyssnare = new Set();
 
 /** Anropas med {uid, namn, epost, bild} eller null när inloggningen ändras (bild = egen bild, Google-bild eller null). Returnerar en avregistrering. */
@@ -33,8 +34,10 @@ export function nar(fn) {
   fn(anvandare);
   return () => lyssnare.delete(fn);
 }
-const meddela = (u) => { anvandare = u; for (const fn of lyssnare) fn(u); };
+const meddela = (u) => { anvandare = u; kand = true; for (const fn of lyssnare) fn(u); };
 export const inloggad = () => anvandare;
+/** true när Firebase har svarat om någon är inloggad (före dess vet vi inte). */
+export const lageKant = () => kand;
 
 /** Ladda Firebase (eller demoläget) och börja följa inloggningen. Säker att anropa flera gånger. */
 export async function starta() {
@@ -126,18 +129,17 @@ async function firebase() {
   const fran = (u, profil) => (u ? { uid: u.uid, namn: u.displayName || u.email, epost: (u.email || "").toLowerCase(),
     googleBild: u.photoURL || null, egenBild: profil?.bild || null, bild: profil?.bild || u.photoURL || null } : null);
   A.onAuthStateChanged(auth, async (u) => {
-    let profil = null;
-    if (u) {   // se till att profilen finns
-      const ref = F.doc(db, "anvandare", u.uid);
-      const snap = await F.getDoc(ref);
-      if (!snap.exists()) {
-        await F.setDoc(ref, { namn: u.displayName || u.email, epost: (u.email || "").toLowerCase(), delad_med: [],
-          skapad: new Date().toISOString() });
-      } else {
-        profil = snap.data();
-      }
+    // Visa inloggningen direkt; profilen (egen bild) hämtas efteråt och kompletterar
+    meddela(fran(u, null));
+    if (!u) return;
+    const ref = F.doc(db, "anvandare", u.uid);
+    const snap = await F.getDoc(ref);
+    if (!snap.exists()) {   // se till att profilen finns
+      await F.setDoc(ref, { namn: u.displayName || u.email, epost: (u.email || "").toLowerCase(), delad_med: [],
+        skapad: new Date().toISOString() });
+    } else if (snap.data().bild && anvandare?.uid === u.uid) {
+      meddela(fran(u, snap.data()));
     }
-    meddela(fran(u, profil));
   });
 
   const kravInloggad = () => {
