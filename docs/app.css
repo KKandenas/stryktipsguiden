@@ -626,3 +626,10 @@ button.spelruta { cursor: pointer; }
   .topp-inre { gap: 8px; }
   .meny-knapp { padding: 0 11px; gap: 6px; }
 }
+
+/* profilbilder i spelbolaget */
+.avatar.liten { width: 32px; height: 32px; flex: none; background: var(--primar); color: #fff; font-size: 12px; }
+.saldolista li { align-items: center; }
+.saldolista .saldo-namn { flex: 1; min-width: 0; }
+.veckans-spelare { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.turnamn { display: inline-flex; align-items: center; gap: 8px; }

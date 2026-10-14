@@ -13,8 +13,8 @@
 //   inbjudningar/{kod}         { gid, namn } – inbjudningslänken pekar hit
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261014e";
-import { nyKod } from "./spelbolag.js?v=20261014e";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261014g";
+import { nyKod } from "./spelbolag.js?v=20261014g";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;
@@ -59,8 +59,24 @@ export async function satDelning(lista) { return (await starta()).satDelning(lis
 export async function raderaKonto() { return (await starta()).raderaKonto(); }
 /** Spara en egen profilbild (data-URL, JPEG) eller null för att ta bort den. */
 export async function sparaBild(dataUrl) {
-  await (await starta()).sparaBild(dataUrl);
+  const i = await starta();
+  await i.sparaBild(dataUrl);
   if (anvandare) meddela({ ...anvandare, egenBild: dataUrl, bild: dataUrl || anvandare.googleBild });
+  await synkaGruppbild(await i.minaGrupper());
+}
+
+/** Se till att ens bild i spelbolagen är samma som profilbilden (medlemmar kan inte läsa varandras profiler). */
+export async function synkaGruppbild(grupper) {
+  if (!anvandare) return;
+  const i = await starta();
+  const bild = anvandare.bild || null;
+  for (const g of grupper || []) {
+    const post = g.medlemmar?.[anvandare.uid];
+    if (post && (post.bild || null) !== bild) {
+      await i.satMedlemspost(g.id, { namn: post.namn, ...(bild ? { bild } : {}) });
+      g.medlemmar[anvandare.uid] = { namn: post.namn, ...(bild ? { bild } : {}) };
+    }
+  }
 }
 
 // Spelbolag
@@ -95,6 +111,8 @@ export async function slutforLank(fragaEpost) {
 }
 
 // ---------- Firebase ----------
+
+const medlemspost = (namn) => ({ namn, ...(anvandare?.bild ? { bild: anvandare.bild } : {}) });
 
 async function firebase() {
   const [{ initializeApp }, A, F] = await Promise.all([
@@ -198,7 +216,7 @@ async function firebase() {
       const kod = nyKod();
       const batch = F.writeBatch(db);
       batch.set(ref, { namn, spelform, skapare: u.uid, kassor: spelform === "kassa" ? u.uid : null,
-        medlemmar: { [u.uid]: { namn: p.namn || u.displayName || u.email } }, medlem_uids: [u.uid], turordning: [u.uid],
+        medlemmar: { [u.uid]: medlemspost(p.namn || u.displayName || u.email) }, medlem_uids: [u.uid], turordning: [u.uid],
         tur_start: omgangId, kod, skapad: new Date().toISOString() });
       batch.set(F.doc(db, "inbjudningar", kod), { gid: ref.id, namn });
       await batch.commit();
@@ -216,10 +234,11 @@ async function firebase() {
       const p = await profilen();
       await F.updateDoc(F.doc(db, "grupper", inb.gid), {
         medlem_uids: F.arrayUnion(u.uid), turordning: F.arrayUnion(u.uid),
-        [`medlemmar.${u.uid}`]: { namn: p.namn || u.displayName || u.email }, anslut_kod: kod });
+        [`medlemmar.${u.uid}`]: medlemspost(p.namn || u.displayName || u.email), anslut_kod: kod });
       return inb.gid;
     },
     uppdateraGrupp: (gid, falt) => F.updateDoc(F.doc(db, "grupper", gid), falt),
+    satMedlemspost: (gid, post) => F.updateDoc(F.doc(db, "grupper", gid), { [`medlemmar.${kravInloggad().uid}`]: post }),
     async bytKod(grupp) {
       const kod = nyKod();
       const batch = F.writeBatch(db);
@@ -311,11 +330,12 @@ function demo() {
       if (!inb) throw new Error("Inbjudningen finns inte längre – be om en ny länk.");
       const g = db.grupper.get(inb.gid);
       if (!g.medlem_uids.includes("demo")) {
-        g.medlem_uids.push("demo"); g.turordning.push("demo"); g.medlemmar.demo = { namn: "Demo" };
+        g.medlem_uids.push("demo"); g.turordning.push("demo"); g.medlemmar.demo = medlemspost("Demo");
       }
       return inb.gid;
     },
     uppdateraGrupp: async (gid, falt) => { Object.assign(db.grupper.get(gid), falt); },
+    satMedlemspost: async (gid, post) => { db.grupper.get(gid).medlemmar.demo = post; },
     bytKod: async (g) => {
       db.inbjudningar.delete(g.kod);
       const kod = nyKod();

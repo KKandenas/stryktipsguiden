@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261014e";
-import * as konto from "./konto.js?v=20261014e";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014e";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014e";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014e";
+} from "./optimizer.js?v=20261014g";
+import * as konto from "./konto.js?v=20261014g";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014g";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014g";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014g";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -527,7 +527,11 @@ function initKonto() {
     sb.grupper = null; sb.data = {};
     if (document.body.dataset.vy === "minaspel") oppnaMinaSpel();
     if (document.body.dataset.vy === "spelbolag") oppnaSpelbolag();
-    if (u) laddaGrupper().then(renderaTurInfo).catch(() => {}); else renderaTurInfo();
+    if (u) {
+      laddaGrupper().then((g) => { renderaTurInfo(); return konto.synkaGruppbild(g); }).catch(() => {});
+    } else {
+      renderaTurInfo();
+    }
   });
   // Starta Firebase direkt bara om man var inloggad förra gången eller kommer från en inloggningslänk
   let flagga = false;
@@ -543,7 +547,8 @@ const PERSON_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" 
   'stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>';
 
 function initialer(namn) {
-  return (namn || "?").split(/[\s@.]+/).filter(Boolean).slice(0, 2).map((d) => d[0].toUpperCase()).join("");
+  const ord = (namn || "").split(/[\s@.]+/).map((d) => d.match(/\p{L}/u)?.[0]).filter(Boolean);
+  return ord.slice(0, 2).join("").toUpperCase() || "?";
 }
 
 function avatar(u, klass = "avatar") {
@@ -986,7 +991,11 @@ async function oppnaSpelbolag() {
   }
   try {
     if (sb.anslutKod) { await visaInbjudan(box); return; }
-    if (!sb.grupper) { await laddaGrupper(); renderaTurInfo(); }
+    if (!sb.grupper) {
+      await laddaGrupper();
+      renderaTurInfo();
+      await konto.synkaGruppbild(sb.grupper);
+    }
     const g = sb.grupper.find((x) => x.id === sb.vald);
     if (g && !sb.data[g.id]) {
       const [spel, bok] = await Promise.all([konto.gruppSpel(g.id), konto.kassabok(g.id), laddaHistorik()]);
@@ -1092,7 +1101,9 @@ function renderaSpelbolag(box) {
     const spelare = g.spelform === "tur" ? turFor(g, omg) : g.kassor || g.skapare;
     const vem = spelare === me ? "Du" : g.medlemmar[spelare]?.namn || "—";
     ut.push(kort(el("h2", { text: `Den här veckan · omgång ${omg}` }),
-      el("p", { text: `${vem} ${g.spelform === "tur" ? "spelar" : "lämnar in"} den här veckan. ` +
+      el("p", { class: "veckans-spelare" }, avatar({ namn: g.medlemmar[spelare]?.namn, bild: g.medlemmar[spelare]?.bild }, "avatar liten"),
+        el("span", { text: `${vem} ${g.spelform === "tur" ? "spelar" : "lämnar in"} den här veckan.` })),
+      el("p", { text:
         (veckans ? `Inlämnat av ${veckans.sparad_av_namn}: ${FORSLAG[veckans.forslag]?.namn || veckans.forslag}, ${veckans.rader} rader (${kr(veckans.insats)}).`
           : "Inget inlämnat än.") }),
       !veckans && farSpara(g, me, omg) ? el("p", { class: "liten" }, "Välj rader på ", el("a", { href: "#kupong", text: "kupongen" }),
@@ -1105,7 +1116,8 @@ function renderaSpelbolag(box) {
   for (const uid of g.medlem_uids) {
     const m = r.medlemmar[uid];
     lista.append(el("li", {},
-      el("div", {}, el("b", { text: `${m.namn}${uid === me ? " (du)" : ""}` }),
+      avatar({ namn: m.namn, bild: g.medlemmar[uid]?.bild }, "avatar liten"),
+      el("div", { class: "saldo-namn" }, el("b", { text: `${m.namn}${uid === me ? " (du)" : ""}` }),
         el("p", { class: "dampad liten", text: `Betalat ${kr(m.betalat)} · fått ${kr(m.mottaget)} · andel insatser ${kr(m.insats)} · andel vinster ${kr(m.vinst)}` })),
       el("b", { class: `saldo ${m.saldo > 0.5 ? "plus" : m.saldo < -0.5 ? "minus" : ""}`, text: plusKr(m.saldo) })));
   }
@@ -1261,7 +1273,8 @@ function installningar(g) {
         upp.addEventListener("click", () => flytta(-1));
         ner.addEventListener("click", () => flytta(1));
         const tur = turFor(g, omg) === u;
-        ordning.append(el("li", {}, el("span", { text: `${g.medlemmar[u]?.namn}${tur ? " – spelar den här veckan" : ""}` }),
+        ordning.append(el("li", {}, el("span", { class: "turnamn" }, avatar({ namn: g.medlemmar[u]?.namn, bild: g.medlemmar[u]?.bild }, "avatar liten"),
+          `${g.medlemmar[u]?.namn}${tur ? " – spelar den här veckan" : ""}`),
           el("span", {}, upp, ner)));
       });
       const borjar = el("button", { type: "button", class: "knapp", text: "Låt första i listan spela den här veckan" });

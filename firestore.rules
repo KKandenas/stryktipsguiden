@@ -22,10 +22,17 @@ service cloud.firestore {
     function giltigDelning(lista) {
       return lista is list && lista.size() <= 20;
     }
-    // Profilbilden är en liten JPEG (data-URL, högst ~100 kB) som sparas direkt i profilen
+    // Profilbilden är en liten JPEG (data-URL, högst ~100 kB) eller Googles profilbild
+    function giltigtBildvarde(b) {
+      return b is string && b.size() <= 100000
+        && (b.matches('data:image/jpeg;base64,[A-Za-z0-9+/=]+') || b.matches('https://lh[0-9]+[.]googleusercontent[.]com/.*'));
+    }
     function giltigBild(d) {
-      return !('bild' in d) || (d.bild is string && d.bild.size() <= 100000
-        && d.bild.matches('data:image/jpeg;base64,[A-Za-z0-9+/=]+'));
+      return !('bild' in d) || giltigtBildvarde(d.bild);
+    }
+    // En medlems post i spelbolaget: namn och eventuellt bild
+    function giltigMedlemspost(p) {
+      return p.keys().hasOnly(['namn', 'bild']) && p.namn is string && p.namn.size() <= 100 && giltigBild(p);
     }
 
     match /anvandare/{uid} {
@@ -84,7 +91,13 @@ service cloud.firestore {
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['medlem_uids', 'medlemmar', 'turordning', 'anslut_kod'])
           && request.resource.data.medlem_uids == resource.data.medlem_uids.concat([request.auth.uid])
           && request.resource.data.medlemmar.diff(resource.data.medlemmar).affectedKeys().hasOnly([request.auth.uid])
+          && giltigMedlemspost(request.resource.data.medlemmar[request.auth.uid])
           && request.resource.data.medlem_uids.size() <= 20)
+        // Uppdatera sitt eget namn och sin bild i bolaget
+        || (request.auth.uid in resource.data.medlem_uids
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['medlemmar'])
+          && request.resource.data.medlemmar.diff(resource.data.medlemmar).affectedKeys().hasOnly([request.auth.uid])
+          && giltigMedlemspost(request.resource.data.medlemmar[request.auth.uid]))
         // Lämna: en medlem (inte skaparen) tar bort sig själv
         || (request.auth.uid in resource.data.medlem_uids
           && request.auth.uid != resource.data.skapare
