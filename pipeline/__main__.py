@@ -396,6 +396,8 @@ def main(argv=None) -> int:
     elif args.kommando == "export":
         kritiskt_ok = steg_export(conn, args.omgang, args.till, args.dolj_resultat)
 
+    if args.kommando in ("tips", "kommentarer", "lagkoll"):
+        spara_ai_status(conn)      # driftstatusen visar senaste AI-försöket även vid separata körningar
     conn.close()
     if not kritiskt_ok:
         log.error("Klar, men minst ett kritiskt steg misslyckades (se ovan)")
