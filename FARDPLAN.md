@@ -6,6 +6,17 @@ Grunden är byggd. Nästa halvår handlar mest om att samla avgjorda omgångar, 
 Lagkoll och Skrällchans när det finns tillräckligt med underlag. Inga nya modeller byggs innan det finns data
 som talar för dem.
 
+## Ny layout (14 oktober 2026)
+
+- Flikrad längst ner (Kupong · Nyheter · Mina spel · Statistik · Mer). Headern har bara ordmärket och
+  kontobilden.
+- Kupongen: kompakta förslag (Odds · Experter · Lagkoll · Skräll), antal rader i en svepbar rad och en fast
+  list längst ner med kostnad, fördelning, Lämna in och Spara. Matchraderna har etiketter i stället för en
+  avklippt textrad.
+- Matchdetaljen har flikarna Översikt, Lagen, Experter och Odds, och visar chans mot streck som staplar.
+- Statistik har undersidorna Träffsäkerhet, Varje vecka och Förra omgången. Slutsatserna kommer först, och
+  fackmåtten ligger under "Visa detaljer". Datum skrivs på svenska.
+
 ## Senast tillagt (13 oktober 2026)
 
 - Länk till Svenska Spel under radförslaget.

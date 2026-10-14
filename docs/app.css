@@ -633,3 +633,192 @@ button.spelruta { cursor: pointer; }
 .saldolista .saldo-namn { flex: 1; min-width: 0; }
 .veckans-spelare { display: flex; align-items: center; gap: 8px; font-weight: 600; }
 .turnamn { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ======================================================================
+   Ny layout (oktober 2026): flikrad, kompakt kupong med fast list,
+   matchdetalj med flikar och statistik med undersidor
+   ====================================================================== */
+:root { --flikrad-h: 62px; --kupongbar-h: 60px; }
+
+/* Plats för flikraden (och på kupongen även den fasta listen) längst ner */
+body { padding-bottom: calc(var(--flikrad-h) + env(safe-area-inset-bottom)); }
+body[data-vy="kupong"] { padding-bottom: calc(var(--flikrad-h) + var(--kupongbar-h) + env(safe-area-inset-bottom)); }
+
+/* Flikraden */
+.flikrad {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  height: calc(var(--flikrad-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom);
+  background: var(--yta); border-top: 1px solid var(--linje); box-shadow: 0 -2px 10px rgba(10, 25, 60, .06);
+}
+.flikrad a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  color: var(--dampad); text-decoration: none; font-size: 11px; font-weight: 600; position: relative;
+}
+.flikrad a[aria-current="page"] { color: var(--primar); font-weight: 700; }
+.flikrad a[aria-current="page"]::before {
+  content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 3px; border-radius: 0 0 3px 3px; background: var(--primar);
+}
+.flikrad a:focus-visible { outline: 2px solid var(--gul); outline-offset: -4px; }
+@media (min-width: 900px) {
+  .flikrad { left: 50%; right: auto; width: 560px; transform: translateX(-50%); border: 1px solid var(--linje); border-bottom: 0; border-radius: 16px 16px 0 0; }
+}
+
+/* Förslagen: en smal segmenterad rad */
+.forslag { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; padding: 3px; border-radius: 10px; margin-bottom: 6px; }
+.forslag button { min-height: 36px; padding: 0 4px; border-radius: 8px; font: inherit; font-weight: 600; font-size: 14px; color: var(--text); }
+.forslag button[aria-checked="true"] { color: var(--primar); font-weight: 700; }
+.forslag-beskrivning { margin: 0 0 4px; font-size: 13px; color: var(--dampad); }
+.budget .skillnad { margin: 2px 0; font-size: 13px; text-align: left; }
+
+/* Antal rader: en rad som sveps i sidled */
+.budgetknappar {
+  display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  margin: 10px -18px 0; padding: 2px 18px 4px; scroll-padding-inline: 18px;
+}
+.budgetknappar::-webkit-scrollbar { display: none; }
+.budgetknappar button {
+  flex: none; min-height: 38px; padding: 0 13px; border-radius: 999px; font-size: 17px; background: var(--yta);
+}
+.budgetknappar button[aria-checked="true"] { padding: 0 15px; }
+
+/* Den fasta listen längst ner på kupongen */
+.kupongbar {
+  position: fixed; left: 0; right: 0; bottom: calc(var(--flikrad-h) + env(safe-area-inset-bottom)); z-index: 29;
+  background: var(--meny); color: #fff; box-shadow: 0 -4px 16px rgba(10, 25, 60, .25);
+}
+body:not([data-vy="kupong"]) .kupongbar { display: none; }
+.kupongbar-inre { max-width: 560px; margin: 0 auto; min-height: var(--kupongbar-h); padding: 0 16px; box-sizing: border-box; display: flex; align-items: center; gap: 10px; }
+.kupongbar-text { flex: 1; min-width: 0; display: grid; }
+.kupongbar-text b { font-family: var(--rubrikfont); font-weight: 800; font-size: 20px; line-height: 1.1; }
+.kupongbar-text span { font-size: 12px; color: #b9c4dc; }
+.kupongbar .fel { margin: 0; text-align: left; color: #ffb4a8; font-size: 12px; }
+.kupongbar .lamna-in {
+  flex: none; margin: 0; padding: 0 12px; height: 40px; display: inline-flex; align-items: center; border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, .5); color: #fff; font-size: 14px; font-weight: 700; text-decoration: none;
+}
+.kupongbar .spara-spel { flex: none; width: auto; margin: 0; height: 40px; padding: 0 16px; border-radius: 10px; font-size: 14px; }
+.kupongbar .spara-val, .kupongbar .spara-status {
+  position: absolute; left: 12px; right: 12px; bottom: calc(100% + 8px); max-width: 536px; margin: 0 auto;
+  background: var(--yta); color: var(--text); border-radius: 14px; padding: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+  text-align: left;
+}
+.kupongbar .spara-status { font-size: 14px; }
+@media (min-width: 900px) { .kupongbar { left: 50%; right: auto; width: 560px; transform: translateX(-50%); border-radius: 16px 16px 0 0; } }
+
+/* Matchraderna: etiketter i stället för en lång textrad */
+.etiketter { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.chip { font-size: 11px; font-weight: 700; line-height: 1; padding: 4px 7px; border-radius: 6px; background: var(--ruta); color: var(--text); white-space: nowrap; }
+.chip.typ { background: #e7eefb; color: var(--primar); letter-spacing: .03em; }
+.chip.typ.SPIK { background: var(--ruta); color: var(--dampad); }
+.chip.emot { background: #fbe9e7; color: #a5281b; }
+.chip.skrall { background: #fff0d9; color: #8a4100; }
+.chip.annat { background: #eef0f4; color: #36425a; font-weight: 600; }
+.chip.osaker { background: #fff6d6; color: #7a5a00; }
+.chip.resultat { background: var(--meny); color: #fff; }
+.matchtid { display: block; font-size: 11px; color: var(--dampad); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Matchdetaljen: flikar */
+.detaljflikar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--linje); margin: 0 -2px 10px; }
+.detaljflikar button {
+  min-height: 42px; border: 0; background: none; font: inherit; font-size: 14px; font-weight: 600; color: var(--dampad); cursor: pointer;
+}
+.detaljflikar button[aria-selected="true"] { color: var(--primar); font-weight: 700; box-shadow: inset 0 -3px 0 var(--primar); }
+.detaljflikar button:focus-visible { outline: 2px solid var(--gul); outline-offset: -2px; }
+.detaljflik { display: grid; gap: 10px; }
+.detaljflik > * { margin-top: 0; margin-bottom: 0; }
+.detaljflik .visa-bolag { justify-self: start; }
+
+/* Chans mot streck som staplar */
+.staplar { background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; padding: 10px 12px; display: grid; gap: 10px; }
+.staplar-huvud { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.staplar-huvud b { font-family: var(--rubrikfont); font-size: 17px; }
+.staplar-huvud .forklaring { display: inline-flex; gap: 10px; font-size: 12px; color: var(--dampad); }
+.staplar-huvud .nyckel { width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; }
+.stapel-tecken { display: grid; grid-template-columns: 28px minmax(0, 1fr) 40px; gap: 8px; align-items: center; }
+.stapel-t { font-family: var(--rubrikfont); font-weight: 800; font-size: 22px; text-align: center; border-radius: 6px; line-height: 30px; }
+.stapel-tecken.vald .stapel-t { background: var(--primar); color: var(--vald-text); }
+.stapel-tecken.utfall .stapel-t { box-shadow: 0 0 0 2px var(--gul); }
+.stapel-par { display: grid; gap: 3px; }
+.stapel-rad { display: flex; align-items: center; gap: 6px; }
+.stapel-spar { flex: 1; height: 10px; background: var(--ruta); border-radius: 0 4px 4px 0; overflow: hidden; }
+.stapel-spar i { display: block; height: 100%; border-radius: 0 4px 4px 0; }
+.stapel-spar i.s1 { background: var(--serie-1); }
+.stapel-spar i.s2 { background: var(--serie-2); }
+.stapel-tal { width: 38px; text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; }
+.stapel-varde { font-family: var(--rubrikfont); font-weight: 800; font-size: 17px; text-align: right; color: var(--dampad); font-variant-numeric: tabular-nums; }
+.stapel-varde.plus { color: var(--ratt); }
+.staplar > p { margin: 0; }
+
+/* Statistikens undersidor */
+.undermeny {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding: 3px; margin: 0 0 12px;
+  background: var(--ruta); border-radius: 10px;
+}
+.undermeny a {
+  display: grid; place-items: center; min-height: 36px; border-radius: 8px; text-decoration: none;
+  color: var(--text); font-size: 13px; font-weight: 600; text-align: center;
+}
+.undermeny a[aria-current="page"] { background: var(--yta); color: var(--primar); font-weight: 700; box-shadow: 0 1px 3px rgba(10, 25, 60, .15); }
+.undermeny-ram { padding-top: 14px; }
+
+/* Sidan Mer */
+.om .merlista { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.merlista a {
+  display: block; padding: 14px 16px; border-radius: 12px; background: var(--yta); border: 1px solid var(--linje);
+  color: inherit; text-decoration: none;
+}
+.merlista a b { display: block; font-size: 16px; }
+.merlista a span { display: block; font-size: 13px; color: var(--dampad); margin-top: 2px; }
+.merlista a:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+
+/* Statistik: slutsatserna först */
+.stat-matt { margin: 0 0 8px; font-size: 13px; color: var(--dampad); }
+.statkort { background: var(--yta-2); border: 1px solid var(--linje); border-radius: 12px; padding: 12px; }
+.statkort-etikett { display: block; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--dampad); }
+.statkort b { display: block; font-family: var(--rubrikfont); font-weight: 800; font-size: 32px; line-height: 1.05; margin-top: 2px; }
+.statkort b.mellan { font-size: 22px; line-height: 1.15; margin-top: 4px; }
+.statkort p { margin: 2px 0 0; font-size: 13px; color: var(--dampad); }
+.statkort.stort .statkort-rad { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.statkort.stort b { font-size: 40px; }
+.statkort.stort .statkort-rad span { font-size: 14px; color: var(--text); }
+.statkort.stort p { margin-top: 4px; }
+.statkort-par { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.kompakt-jamf ul { list-style: none; padding: 0; margin: 6px 0 0; }
+.kompakt-jamf li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--linje); font-size: 14px; font-weight: 600; }
+.pill { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.bra { background: #e3f3ea; color: var(--ratt); }
+.pill.dalig { background: #fbe9e7; color: #a5281b; }
+.pill.lika { background: var(--ruta); color: var(--dampad); }
+.pill.vantar { background: #e7eefb; color: var(--primar); }
+.statdetaljer { margin-top: 16px; border-top: 1px solid var(--linje); padding-top: 10px; }
+.statdetaljer summary { cursor: pointer; font-weight: 700; color: var(--primar); font-size: 14px; padding: 6px 0; }
+.statdetaljer summary:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+
+/* Färger för etiketter och statusfält – egna värden i mörkt läge */
+:root {
+  --chip-bla: #e7eefb; --chip-bla-text: #1a56c4; --chip-rod: #fbe9e7; --chip-rod-text: #a5281b;
+  --chip-orange: #fff0d9; --chip-orange-text: #8a4100; --chip-gra: #eef0f4; --chip-gra-text: #36425a;
+  --chip-gul: #fff6d6; --chip-gul-text: #7a5a00; --chip-gron: #e3f3ea; --chip-gron-text: #1b8a4b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --chip-bla: #1b2d55; --chip-bla-text: #a9c4ff; --chip-rod: #45201c; --chip-rod-text: #ffb4a8;
+    --chip-orange: #43300f; --chip-orange-text: #ffc580; --chip-gra: #222c44; --chip-gra-text: #c3cbdc;
+    --chip-gul: #3a320f; --chip-gul-text: #ffe08a; --chip-gron: #173a26; --chip-gron-text: #7fdca4;
+  }
+}
+:root[data-theme="dark"] {
+  --chip-bla: #1b2d55; --chip-bla-text: #a9c4ff; --chip-rod: #45201c; --chip-rod-text: #ffb4a8;
+  --chip-orange: #43300f; --chip-orange-text: #ffc580; --chip-gra: #222c44; --chip-gra-text: #c3cbdc;
+  --chip-gul: #3a320f; --chip-gul-text: #ffe08a; --chip-gron: #173a26; --chip-gron-text: #7fdca4;
+}
+.chip.typ { background: var(--chip-bla); color: var(--chip-bla-text); }
+.chip.emot { background: var(--chip-rod); color: var(--chip-rod-text); }
+.chip.skrall { background: var(--chip-orange); color: var(--chip-orange-text); }
+.chip.annat { background: var(--chip-gra); color: var(--chip-gra-text); }
+.chip.osaker { background: var(--chip-gul); color: var(--chip-gul-text); }
+.pill.bra { background: var(--chip-gron); color: var(--chip-gron-text); }
+.pill.dalig { background: var(--chip-rod); color: var(--chip-rod-text); }
+.pill.vantar { background: var(--chip-bla); color: var(--chip-bla-text); }
+.kupongbar .lamna-in span[aria-hidden] { margin-left: 4px; }

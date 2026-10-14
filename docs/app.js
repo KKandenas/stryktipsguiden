@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261014g";
-import * as konto from "./konto.js?v=20261014g";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014g";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014g";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014g";
+} from "./optimizer.js?v=20261014l";
+import * as konto from "./konto.js?v=20261014l";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014l";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014l";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014l";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -18,6 +18,7 @@ const state = {
   lasningar: {},       // {matchnr: "1X"} för aktuell omgång
   oppna: new Set(),    // matcher med utfälld kommentar
   oddsOppna: new Set(), // matcher där alla bolags odds är utfällda
+  detaljFlik: {},      // vald flik i matchdetaljen, per matchnummer
   resultat: null,      // senaste optimeringen
   historik: null,      // historik.json, laddas först när backtestet öppnas
   btBudget: null,      // vald budget i backtestet
@@ -47,11 +48,13 @@ function arsknappar(ar, valt, vid) {
 // Förslagen man kan välja mellan. Skrällchans = Oddsens chans, men raderna måste ha med omgångens bästa
 // skrällar (1 på små system, 2 på stora – se optimizer.skrallKrav). Lagkoll är en skuggmodell under test.
 const FORSLAG = {
-  modell: { namn: "Oddsen", under: "Spelbolagens bedömning" },
-  tips: { namn: "Med experter", under: "Odds + tipsare" },
-  lagkoll: { namn: "Lagkoll", under: "Odds + lagnyheter · test" },
-  skrall: { namn: "Skrällchans", under: "Oddsen + 1–2 skrällar" },
+  modell: { namn: "Oddsen", kort: "Odds", under: "Spelbolagens odds, med marginalen borträknad" },
+  tips: { namn: "Med experter", kort: "Experter", under: "Oddsen plus tipsare som brukar ha rätt" },
+  lagkoll: { namn: "Lagkoll", kort: "Lagkoll", under: "Oddsen justerade efter lagnyheterna (test)" },
+  skrall: { namn: "Skrällchans", kort: "Skräll", under: "Oddsen, men med 1–2 understreckade skrällar i raderna" },
 };
+
+const KORTNAMN_FORSLAG = { "Med experter": "Experter", Oddsen: "Oddsen", Lagkoll: "Lagkoll", Skrällchans: "Skräll" };
 
 const vardeMot = (chans, streck) => {
   if (!chans || !streck) return null;
@@ -129,7 +132,6 @@ async function hamta(fil) {
 }
 
 async function start() {
-  initMeny();
   window.addEventListener("hashchange", visaVy);
   visaVy();
   const tvingaExempel = new URLSearchParams(location.search).has("exempel");
@@ -204,7 +206,7 @@ function byggBudgetknappar() {
   const box = $("budgetknappar");
   for (const b of BUDGETAR) {
     const knapp = el("button", { type: "button", role: "radio", "data-budget": b, text: String(b) });
-    knapp.addEventListener("click", () => { state.budget = b; uppdatera(); });
+    knapp.addEventListener("click", () => { state.budget = b; uppdatera(); knapp.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); });
     box.append(knapp);
   }
 }
@@ -293,14 +295,15 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
       el("span", { class: "lagblock" },
         el("span", { class: "lag", text: m.hemmalag }),
         el("span", { class: "lag", text: m.bortalag }),
-        // Viktigast först (typ, osäkerhet, tips emot) – tid och liga får klippas på smala skärmar
-        el("span", { class: "liga" },
-          v ? el("span", { class: `typ ${v.typ}`, text: v.typ }) : null,
-          m.osaker ? el("span", { class: "osaker", title: "Osäkrare: bara Svenska Spels odds", "aria-label": "osäkrare bedömning", text: " ⚠︎" }) : null,
-          emot ? el("span", { class: "emot-mark", text: ` · ${emot} tips emot` }) : null,
-          skrall ? el("span", { class: "skrall-mark", text: ` · Skrällchans ${skrall.tecken}` }) : null,
-          skillnad?.skiljer[m.nr] ? el("span", { class: "annat-forslag", text: ` · ${skillnad.namn}: ${skillnad.skiljer[m.nr]}` }) : null,
-          `${v ? " · " : ""}${m.resultat ? slut.replace(" · ", "") + " · " : ""}${[!m.resultat && m.avspark && kortFmt.format(new Date(m.avspark)), m.liga].filter(Boolean).join(" · ")}`),
+        // Etiketter med det viktigaste (typ, skräll, tips emot, annat förslag); tid och liga nedtonat under
+        el("span", { class: "etiketter" },
+          v ? el("span", { class: `chip typ ${v.typ}`, text: v.typ }) : null,
+          m.resultat ? el("span", { class: "chip resultat", text: slut.replace(" · ", "") }) : null,
+          skrall ? el("span", { class: "chip skrall", text: `Skräll ${skrall.tecken}` }) : null,
+          emot ? el("span", { class: "chip emot", text: `${emot} tips emot` }) : null,
+          skillnad?.skiljer[m.nr] ? el("span", { class: "chip annat", text: `${KORTNAMN_FORSLAG[skillnad.namn] || skillnad.namn}: ${skillnad.skiljer[m.nr]}` }) : null,
+          m.osaker ? el("span", { class: "chip osaker", title: "Osäkrare: bara Svenska Spels odds", text: "⚠︎ osäker" }) : null),
+        el("span", { class: "matchtid", text: [!m.resultat && m.avspark && kortFmt.format(new Date(m.avspark)), m.liga].filter(Boolean).join(" · ") }),
       ),
     );
 
@@ -369,79 +372,108 @@ const BOLAGSNAMN = {
 const decOdds = (x) => x.toFixed(2).replace(".", ",");
 
 /** Utfälld match: kommentar och en tabell "Spelstatistik inför match" med kolumnerna 1 · X · 2. */
+const DETALJFLIKAR = [["oversikt", "Översikt"], ["lagen", "Lagen"], ["experter", "Experter"], ["odds", "Odds"]];
+
+/** Matchdetaljen med flikar: Översikt, Lagen, Experter och Odds. */
 function detaljer(m, v, skrall = null) {
   const d = el("div", { class: "detaljer" });
-  if (m.kommentar) d.append(el("p", { class: "kommentar", text: m.kommentar }));
+  const visa = () => {
+    const flik = state.detaljFlik[m.nr] || "oversikt";
+    const rad = el("div", { class: "detaljflikar", role: "tablist", "aria-label": `Match ${m.nr}` },
+      ...DETALJFLIKAR.map(([k, namn]) => {
+        const b = el("button", { type: "button", role: "tab", "aria-selected": String(k === flik), text: namn });
+        b.addEventListener("click", (e) => { e.stopPropagation(); state.detaljFlik[m.nr] = k; visa(); });
+        return b;
+      }));
+    const innehall = { oversikt: detaljOversikt, lagen: detaljLagen, experter: detaljExperter, odds: detaljOdds }[flik](m, v, skrall);
+    d.replaceChildren(rad, el("div", { class: "detaljflik", role: "tabpanel" }, ...innehall));
+  };
+  visa();
+  return d;
+}
+
+function detaljOversikt(m, v, skrall) {
+  const ut = [];
+  if (m.kommentar) ut.push(el("p", { class: "kommentar", text: m.kommentar }));
   if (skrall) {
-    d.append(el("p", { class: "skrall-text" }, el("b", { text: `Skrällchans ${skrall.tecken}: ` }),
+    ut.push(el("p", { class: "skrall-text" }, el("b", { text: `Skrällchans ${skrall.tecken}: ` }),
       `${procent(skrall.chans)} % chans men bara ${Math.round(skrall.streck * 100)} % streck. ` +
       `Går den in betalar den ovanligt bra – men den är fortfarande mindre trolig än favoriten.`));
   }
-  const tipsrad = tipsetiketter(m, v);
-  if (tipsrad) d.append(tipsrad);
-  if (m.tabell) d.append(tabellBlock(m));
-
-  const tabell = el("table", { class: "detaljtabell" });
-  tabell.append(el("thead", {}, el("tr", {}, el("th", { text: "Inför match" }),
-    ...TECKEN.map((t) => el("th", { class: "tal", text: t })))));
-  const kropp = el("tbody");
-  const rubrik = (text) => kropp.append(el("tr", { class: "grupp" }, el("th", { colspan: 4, text })));
-  const rad = (namn, varden, klass = "", under = null) => {
-    const tr = el("tr", { class: klass },
-      el("td", {}, namn, under ? el("span", { class: "under", text: under }) : null),
-      ...TECKEN.map((t, i) => el("td", { class: "tal" }, varden[i] ?? "–")));
-    kropp.append(tr);
-    return tr;
-  };
-  const proc = (c) => TECKEN.map((t) => (c ? `${procent(c[t])} %` : null));
-
-  const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
-  if (modell) rad("Oddsen", proc(modell), ["modell", "skrall"].includes(state.kalla) ? "markerad" : "", "chans enligt spelbolagen");
-  if (m.chans_tips) rad("Med experter", proc(m.chans_tips), state.kalla === "tips" ? "markerad" : "", "odds + tipsare");
-  if (m.lagkoll) rad("Lagkoll", proc(m.lagkoll.chans), state.kalla === "lagkoll" ? "markerad" : "skugga-rad", "odds + lagnyheter · test");
-  if (m.streck) rad("Svenska folket", TECKEN.map((t) => `${Math.round(m.streck[t])} %`), "", "streck");
-  if (m.varde) {
-    rad("Värde", TECKEN.map((t) => {
-      const p = Math.round(m.varde[t] * 100);
-      return el("span", { class: p >= VARDE_GRANS * 100 ? "plus" : p < 0 ? "minus" : "", text: (p > 0 ? "+" : p < 0 ? "−" : "±") + Math.abs(p) });
-    }), "", "procentenheter");
-  }
-  if (m.chans_kalla === "streck") rad("Odds saknas", [null, null, null], "", "chansen bygger på strecken");
+  ut.push(chansStaplar(m, v));
   if (m.osaker && m.chans_kalla !== "streck") {
-    d.append(el("p", { class: "osaker-not", text:
+    ut.push(el("p", { class: "osaker-not", text:
       "Osäkrare bedömning: här finns bara Svenska Spels odds, som har högre marginal och uppdateras mer sällan " +
       "än de stora bolagens. Värdeprick visas först när chansen är minst 5 procentenheter över strecken." }));
   }
+  if (m.tabell) ut.push(tabellBlock(m));
+  return ut;
+}
 
-  if (m.odds?.bolag?.length) {
-    rubrik("Odds");
-    if (m.odds.antal_bolag > 1) {
-      // Snittet syns direkt; de enskilda bolagen fälls ut på begäran (sparar plats i mobilen)
-      rad(`Snitt av ${m.odds.antal_bolag} bolag`, TECKEN.map((t) => decOdds(m.odds.snitt[t])));
-      const bolagsrader = m.odds.bolag.map((b) => {
-        const tr = rad(BOLAGSNAMN[b.bolag] || b.bolag, TECKEN.map((t) => decOdds(b[t])), "bolagsrad");
-        tr.hidden = !state.oddsOppna.has(m.nr);
-        return tr;
-      });
-      const fler = m.odds.antal_bolag > m.odds.bolag.length ? ` (de ${m.odds.bolag.length} största)` : "";
-      const knapp = el("button", { type: "button", class: "visa-bolag", "aria-expanded": String(state.oddsOppna.has(m.nr)) });
-      const etikett = () => { knapp.textContent = state.oddsOppna.has(m.nr) ? "Dölj bolagen" : `Visa bolagen${fler}`; };
-      etikett();
-      knapp.addEventListener("click", (e) => {
-        e.stopPropagation();
-        state.oddsOppna.has(m.nr) ? state.oddsOppna.delete(m.nr) : state.oddsOppna.add(m.nr);
-        for (const tr of bolagsrader) tr.hidden = !state.oddsOppna.has(m.nr);
-        knapp.setAttribute("aria-expanded", String(state.oddsOppna.has(m.nr)));
-        etikett();
-      });
-      kropp.insertBefore(el("tr", { class: "visa-bolag-rad" }, el("td", { colspan: 4 }, knapp)), bolagsrader[0]);
-    } else {
-      for (const b of m.odds.bolag) rad(BOLAGSNAMN[b.bolag] || b.bolag, TECKEN.map((t) => decOdds(b[t])));
-    }
+/** Chans enligt valt förslag mot folkets streck, som staplar per tecken, med värdet till höger. */
+function chansStaplar(m, v) {
+  const box = el("section", { class: "staplar", "aria-label": "Chans mot streck" });
+  const namn = m.chans_kalla === "streck" ? "Strecken" : FORSLAG[state.kalla]?.namn || "Oddsen";
+  box.append(el("div", { class: "staplar-huvud" }, el("b", { text: "Chans mot streck" }),
+    el("span", { class: "forklaring" },
+      el("span", {}, el("i", { class: "nyckel s1", "aria-hidden": "true" }), ` ${namn}`),
+      el("span", {}, el("i", { class: "nyckel s2", "aria-hidden": "true" }), " Folket"))));
+  const summa = m.streck ? TECKEN.reduce((a, t) => a + m.streck[t], 0) || 1 : 1;
+  for (const t of TECKEN) {
+    const c = m.chans ? Math.round(m.chans[t] * 100) : null;
+    const f = m.streck ? Math.round((m.streck[t] / summa) * 100) : null;
+    const diff = c != null && f != null ? c - f : null;
+    const varde = m.varde && m.varde[t] >= (m.osaker ? VARDE_GRANS_OSAKER : VARDE_GRANS);
+    const stapel = (pct, klass) => el("div", { class: "stapel-rad" },
+      el("span", { class: "stapel-spar", "aria-hidden": "true" }, el("i", { class: klass, style: `width:${pct ?? 0}%` })),
+      el("span", { class: "stapel-tal", text: pct != null ? `${pct}\u00a0%` : "–" }));
+    box.append(el("div", { class: `stapel-tecken${v?.tecken.includes(t) ? " vald" : ""}${m.resultat === t ? " utfall" : ""}`,
+      "aria-label": `${t}: ${namn} ${c ?? "okänd"} procent, folket ${f ?? "okänt"} procent` },
+      el("span", { class: "stapel-t", text: t }),
+      el("div", { class: "stapel-par" }, stapel(c, "s1"), stapel(f, "s2")),
+      el("span", { class: `stapel-varde${varde ? " plus" : ""}`, text: diff == null ? "" : (diff > 0 ? "+" : diff < 0 ? "−" : "±") + Math.abs(diff) })));
   }
+  box.append(el("p", { class: "dampad liten", text: "Grönt = chansen är tydligt högre än strecken (värde)." +
+    (v ? ` Förslaget har ${v.tecken.split("").join(", ")} på den här matchen.` : "") }));
+  return box;
+}
 
-  // Experter: de tre som träffat bäst senaste tiden bland dem som tippat matchen – i första hand
-  // på matcher från samma land (England/Sverige/Övrigt), annars över alla ligor.
+function detaljLagen(m) {
+  const ut = [];
+  if (m.tabell) ut.push(tabellBlock(m));
+  if (m.lagnytt) {
+    ut.push(el("div", { class: "nyhet-lagen" }, lagfakta(m.hemmalag, m.lagnytt.hemma), lagfakta(m.bortalag, m.lagnytt.borta)));
+  }
+  if (m.lagkoll) ut.push(lagkollPanel(m));
+  if (!m.tabell && !m.lagnytt && !m.lagkoll) {
+    ut.push(el("p", { class: "dampad", text: "Inga lagnyheter än. De flesta förhandsartiklar kommer torsdag–lördag." }));
+  }
+  const serie = serietabell(m.land, m.liga);
+  if (serie) ut.push(el("p", { class: "tabellank" }, extern(serie.url, `Serietabell: ${serie.namn}`)));
+  return ut;
+}
+
+/** En enkel tabell med kolumnerna 1, X, 2. rader = [{namn, under, varden: [3], klass}] */
+function teckentabell(rubrik, rader) {
+  const kropp = el("tbody");
+  for (const r of rader) {
+    const tr = el("tr", { class: r.klass || "" },
+      el("td", {}, r.namn, r.under ? el("span", { class: "under", text: r.under }) : null),
+      ...TECKEN.map((t, i) => el("td", { class: "tal" }, r.varden[i] ?? "–")));
+    if (r.dold) tr.hidden = true;
+    r.tr = tr;
+    kropp.append(tr);
+  }
+  return el("table", { class: "detaljtabell" },
+    el("thead", {}, el("tr", {}, el("th", { text: rubrik }), ...TECKEN.map((t) => el("th", { class: "tal", text: t })))), kropp);
+}
+
+function detaljExperter(m, v) {
+  const ut = [];
+  const tipsrad = tipsetiketter(m, v);
+  if (tipsrad) ut.push(tipsrad);
+  // De tre som träffat bäst senaste tiden bland dem som tippat matchen – i första hand på matcher från
+  // samma land (England/Sverige/Övrigt), annars över alla ligor.
   const form = state.formRang || [];
   const grupp = m.land === "England" || m.land === "Sverige" ? m.land : "Övrigt";
   const formFor = (namn) => {
@@ -454,34 +486,91 @@ function detaljer(m, v, skrall = null) {
     .map((t) => ({ ...t, tecken: t.tecken || t.system, f: formFor(t.kalla) }))
     .sort((a, b) => (b.f ? b.f.poang : -1) - (a.f ? a.f.poang : -1));
   const topp = tips.slice(0, 3);
-  if (topp.length) {
-    rubrik(tips.length > 3 ? "Experter – de tre bästa senaste tiden (● tips, ○ bara i systemet)" : "Experter (● tips, ○ bara i systemet)");
-    for (const t of topp) {
-      const under = t.f
-        ? `${Math.round(t.f.poang * 100)} % träff, ${t.f.i}${t.f.period === "8v" ? " senaste 8 v." : ""} (${t.f.antal})`
-        : "för lite historik ännu";
-      const sys = t.system && t.system !== t.tecken ? t.system : null;
-      rad(KORTNAMN[t.kalla] || t.kalla, TECKEN.map((x) => (t.tecken.includes(x)
+  if (!topp.length) {
+    ut.push(el("p", { class: "dampad", text: "Inga experttips på den här matchen än." }));
+    return ut;
+  }
+  ut.push(teckentabell(tips.length > 3 ? "De tre bästa senaste tiden" : "Experter", topp.map((t) => {
+    const sys = t.system && t.system !== t.tecken ? t.system : null;
+    return {
+      namn: KORTNAMN[t.kalla] || t.kalla,
+      under: (t.f ? `${Math.round(t.f.poang * 100)} % träff, ${t.f.i}${t.f.period === "8v" ? " senaste 8 v." : ""} (${t.f.antal})`
+        : "för lite historik ännu") + (t.system ? ` · system ${t.system}${t.system_rader ? ` (${t.system_rader} r.)` : ""}` : ""),
+      varden: TECKEN.map((x) => (t.tecken.includes(x)
         ? el("span", { class: `tipsmark${m.resultat === x ? " satt" : ""}`, "aria-label": `tippar ${x}`, text: "●" })
         : sys && sys.includes(x)
           ? el("span", { class: `tipsmark system${m.resultat === x ? " satt" : ""}`, "aria-label": `${x} i systemet`, text: "○" })
           : "")),
-        "", under + (t.system ? ` · system ${t.system}${t.system_rader ? ` (${t.system_rader} r.)` : ""}` : ""));
-    }
-  }
-  tabell.append(kropp);
-  d.append(tabell);
-
+    };
+  })));
+  ut.push(el("p", { class: "dampad liten", text: "● tips · ○ bara i skribentens system" }));
   for (const t of topp.filter((t) => t.text)) {
-    d.append(el("p", { class: "motivering" }, el("b", { text: `${KORTNAMN[t.kalla] || t.kalla}: ` }), t.text));
+    ut.push(el("p", { class: "motivering" }, el("b", { text: `${KORTNAMN[t.kalla] || t.kalla}: ` }), t.text));
   }
   if (tips.length > 3) {
-    d.append(el("p", { class: "dampad liten", text: `Även tippat: ${tips.slice(3).map((t) => `${KORTNAMN[t.kalla] || t.kalla} ${t.tecken}`).join(" · ")}` }));
+    ut.push(el("p", { class: "dampad liten", text: `Även tippat: ${tips.slice(3).map((t) => `${KORTNAMN[t.kalla] || t.kalla} ${t.tecken}`).join(" · ")}` }));
   }
-  if (m.lagkoll) d.append(lagkollPanel(m));
-  const serie = serietabell(m.land, m.liga);
-  if (serie) d.append(el("p", { class: "tabellank" }, extern(serie.url, `Serietabell: ${serie.namn}`)));
-  return d;
+  return ut;
+}
+
+function detaljOdds(m) {
+  const proc = (c) => TECKEN.map((t) => (c ? `${procent(c[t])} %` : null));
+  const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
+  const rader = [];
+  if (modell) rader.push({ namn: "Oddsen", under: "chans enligt spelbolagen", varden: proc(modell), klass: ["modell", "skrall"].includes(state.kalla) ? "markerad" : "" });
+  if (m.chans_tips) rader.push({ namn: "Med experter", under: "odds + tipsare", varden: proc(m.chans_tips), klass: state.kalla === "tips" ? "markerad" : "" });
+  if (m.lagkoll) rader.push({ namn: "Lagkoll", under: "odds + lagnyheter · test", varden: proc(m.lagkoll.chans), klass: state.kalla === "lagkoll" ? "markerad" : "skugga-rad" });
+  if (m.streck) rader.push({ namn: "Svenska folket", under: "streck", varden: TECKEN.map((t) => `${Math.round(m.streck[t])} %`) });
+  if (m.varde) {
+    rader.push({ namn: "Värde", under: "procentenheter", varden: TECKEN.map((t) => {
+      const p = Math.round(m.varde[t] * 100);
+      return el("span", { class: p >= VARDE_GRANS * 100 ? "plus" : p < 0 ? "minus" : "", text: (p > 0 ? "+" : p < 0 ? "−" : "±") + Math.abs(p) });
+    }) });
+  }
+  if (m.chans_kalla === "streck") rader.push({ namn: "Odds saknas", under: "chansen bygger på strecken", varden: [null, null, null] });
+  const ut = [teckentabell("Sannolikheter", rader)];
+
+  if (m.odds?.bolag?.length) {
+    const snitt = m.odds.antal_bolag > 1
+      ? [{ namn: `Snitt av ${m.odds.antal_bolag} bolag`, varden: TECKEN.map((t) => decOdds(m.odds.snitt[t])) }] : [];
+    const bolag = m.odds.bolag.map((b) => ({ namn: BOLAGSNAMN[b.bolag] || b.bolag, varden: TECKEN.map((t) => decOdds(b[t])),
+      klass: "bolagsrad", dold: m.odds.antal_bolag > 1 && !state.oddsOppna.has(m.nr) }));
+    ut.push(teckentabell("Odds", [...snitt, ...bolag]));
+    if (m.odds.antal_bolag > 1) {
+      const fler = m.odds.antal_bolag > m.odds.bolag.length ? ` (de ${m.odds.bolag.length} största)` : "";
+      const knapp = el("button", { type: "button", class: "visa-bolag", "aria-expanded": String(state.oddsOppna.has(m.nr)) });
+      const etikett = () => { knapp.textContent = state.oddsOppna.has(m.nr) ? "Dölj bolagen" : `Visa bolagen${fler}`; };
+      etikett();
+      knapp.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.oddsOppna.has(m.nr) ? state.oddsOppna.delete(m.nr) : state.oddsOppna.add(m.nr);
+        for (const b of bolag) b.tr.hidden = !state.oddsOppna.has(m.nr);
+        knapp.setAttribute("aria-expanded", String(state.oddsOppna.has(m.nr)));
+        etikett();
+      });
+      ut.push(knapp);
+    }
+  }
+  return ut;
+}
+
+/** En kolumn med ett lags nyheter: frånvaro, sammanhang och tränarbyte, med källa. */
+function lagfakta(lag, n) {
+  const kol = el("div", { class: "nyhet-lag" }, el("b", { text: lag }));
+  for (const x of n?.franvaro || []) {
+    kol.append(el("p", { class: `franvaro ${x.status}` },
+      `${x.status === "borta" ? "Saknas" : "Osäker"}: `, el(x.nyckelspelare ? "b" : "span", { text: x.spelare }),
+      x.orsak ? el("span", { class: "dampad", text: ` (${x.orsak})` }) : null,
+      el("span", { class: "kalla-tid", text: ` · ${KORTNAMN[x.kalla] || x.kalla}` })));
+  }
+  for (const x of n?.sammanhang || []) {
+    kol.append(el("p", {}, x.text, el("span", { class: "kalla-tid", text: ` · ${KORTNAMN[x.kalla] || x.kalla}` })));
+  }
+  if (n?.tranarbyte) {
+    kol.append(el("p", { text: `Ny tränare: ${n.tranarbyte.tilltradande} (${n.tranarbyte.tilltradde}), efter ${n.tranarbyte.avgaende}` }));
+  }
+  if (kol.children.length === 1) kol.append(el("p", { class: "dampad", text: "Inget nytt" }));
+  return kol;
 }
 
 // ---------- tabell och form ----------
@@ -518,6 +607,12 @@ function initKonto() {
   if (!konto.aktiverat()) return;
   knapp.hidden = false;
   knapp.addEventListener("click", sparaAktuelltSpel);
+  // Valet och statusrutan ovanför listen stängs när man trycker någon annanstans
+  document.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".kupongbar")) return;
+    $("spara-val").hidden = true;
+    $("spara-status").hidden = true;
+  });
   initKontoknapp();
   konto.nar((u) => {
     ms.anvandare = u;
@@ -567,8 +662,6 @@ function initKontoknapp() {
     e.stopPropagation();
     if (!ms.anvandare) { location.hash = "#minaspel"; return; }
     const oppna = meny.hidden;
-    $("meny-lista").hidden = true;            // bara en meny öppen åt gången
-    $("meny-knapp").setAttribute("aria-expanded", "false");
     if (oppna) renderaKontomeny();
     meny.hidden = !oppna;
     knapp.setAttribute("aria-expanded", String(oppna));
@@ -578,7 +671,6 @@ function initKontoknapp() {
   document.addEventListener("pointerdown", (e) => { if (!e.target.closest(".konto-val")) stang(); });
   window.addEventListener("hashchange", stang);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !meny.hidden) { stang(); knapp.focus(); } });
-  $("meny-knapp").addEventListener("click", stang);
   renderaKontoknapp();
 }
 
@@ -652,6 +744,7 @@ function fragaEpostForLank() {
 
 async function sparaAktuelltSpel() {
   const status = $("spara-status"), val = $("spara-val");
+  if (!val.hidden) { val.hidden = true; return; }       // Spara igen stänger valet
   status.hidden = false;
   if (!ms.anvandare) {
     status.textContent = "Logga in under Mina spel för att spara dina rader.";
@@ -1333,24 +1426,6 @@ function renderaNyheter() {
     ? `Nyheter för ${med} av 13 matcher.`
     : "Inga lagnyheter än. De flesta förhandsartiklar publiceras torsdag–lördag." })];
 
-  const fakta = (lag, n) => {
-    const kol = el("div", { class: "nyhet-lag" }, el("b", { text: lag }));
-    for (const x of n?.franvaro || []) {
-      kol.append(el("p", { class: `franvaro ${x.status}` },
-        `${x.status === "borta" ? "Saknas" : "Osäker"}: `, el(x.nyckelspelare ? "b" : "span", { text: x.spelare }),
-        x.orsak ? el("span", { class: "dampad", text: ` (${x.orsak})` }) : null,
-        el("span", { class: "kalla-tid", text: ` · ${KORTNAMN[x.kalla] || x.kalla}` })));
-    }
-    for (const x of n?.sammanhang || []) {
-      kol.append(el("p", {}, x.text, el("span", { class: "kalla-tid", text: ` · ${KORTNAMN[x.kalla] || x.kalla}` })));
-    }
-    if (n?.tranarbyte) {
-      kol.append(el("p", { text: `Ny tränare: ${n.tranarbyte.tilltradande} (${n.tranarbyte.tilltradde}), efter ${n.tranarbyte.avgaende}` }));
-    }
-    if (kol.children.length === 1) kol.append(el("p", { class: "dampad", text: "Inget nytt" }));
-    return kol;
-  };
-
   // Matcher med nyheter först, i kupongens ordning; resten samlas längst ner
   for (const m of [...matcher.filter((x) => x.lagnytt), ...matcher.filter((x) => !x.lagnytt)]) {
     const tid = m.avspark ? kortFmt.format(new Date(m.avspark)) : "";
@@ -1360,7 +1435,7 @@ function renderaNyheter() {
         el("div", {}, el("h2", { text: `${m.hemmalag} – ${m.bortalag}` }),
           el("p", { class: "dampad liten", text: [m.liga, tid].filter(Boolean).join(" · ") }))));
     if (m.lagnytt) {
-      kort.append(el("div", { class: "nyhet-lagen" }, fakta(m.hemmalag, m.lagnytt.hemma), fakta(m.bortalag, m.lagnytt.borta)));
+      kort.append(el("div", { class: "nyhet-lagen" }, lagfakta(m.hemmalag, m.lagnytt.hemma), lagfakta(m.bortalag, m.lagnytt.borta)));
     }
     if (m.tabell) kort.append(tabellBlock(m));
     if (m.lagkoll?.motivering) {
@@ -1465,6 +1540,18 @@ const ROLLNAMN = { alternativ: "eget förslag", skugga: "skuggmodell", referens:
 const procent2 = (x) => `${(x * 100).toFixed(2).replace(".", ",").replace("-", "−")}\u00a0%`;
 
 /** Varje modell mot Oddsen, match för match (export.parvis). */
+/** Modellerna mot Oddsen som en kort lista med statusetiketter (detaljerna finns under "Visa detaljer"). */
+function kompaktJamforelse(rader) {
+  const etikett = (r) => r.slutsats === "bättre" ? ["Bättre", "bra"] : r.slutsats === "sämre" ? ["Sämre", "dalig"]
+    : r.antal === 0 ? ["Mäts från helgen", "vantar"] : r.slutsats === "för lite data" ? [`${r.antal} av 100 matcher`, "vantar"]
+      : ["Ingen säker skillnad", "lika"];
+  return el("div", { class: "kompakt-jamf" }, el("h3", { text: "Modellerna mot Oddsen" }),
+    el("ul", {}, ...rader.map((r) => {
+      const [text, klass] = etikett(r);
+      return el("li", {}, el("span", { text: r.namn }), el("span", { class: `pill ${klass}`, text }));
+    })));
+}
+
 function renderaJamforelse(box, rader) {
   box.append(el("h3", { text: "Modellerna mot Oddsen" }));
   box.append(el("p", { class: "forklaring-stat", text:
@@ -1588,12 +1675,28 @@ function renderaStatistik() {
   const aktiv = blk.modeller.find((m) => m.version === st.aktiv_modell) || blk.modeller[0];
   const folket = blk.kallor.find((k) => k.namn === "Svenska folket");
 
-  box.append(el("p", { text:
-    `Mätt på ${aktiv.antal.toLocaleString("sv-SE")} avgjorda matcher. Oddsens mest sannolika tecken gick in i ${pct(aktiv.traff)}` +
-    (folket ? ` av matcherna, folkets i ${pct(folket.traff)}.` : ".") +
-    " Det viktiga är att sannolikheterna stämmer – det är dem värdet bygger på." }));
+  // Slutsatserna först, i vanlig svenska; tabellerna med fackmåtten ligger under "Visa detaljer"
+  box.append(el("p", { class: "stat-matt", text: `${aktiv.antal.toLocaleString("sv-SE")} avgjorda matcher` }));
+  box.append(el("div", { class: "statkort stort" },
+    el("span", { class: "statkort-etikett", text: "Favoriten vann" }),
+    el("div", { class: "statkort-rad" }, el("b", { text: pct(aktiv.traff) }),
+      el("span", { text: `enligt oddsen${folket ? ` · folket ${pct(folket.traff)}` : ""}` })),
+    el("p", { text: "Folket träffar favoriten ungefär lika ofta, men oddsens procentsatser stämmer bättre – och det är dem värdet bygger på." })));
+  const tipsJamf = blk.jamforelse?.find((j) => j.version === "tips-v1");
+  const smaKort = [];
+  if (blk.skrall) {
+    smaKort.push(el("div", { class: "statkort" }, el("span", { class: "statkort-etikett", text: "Skrällchanser" }),
+      el("b", { text: pct(blk.skrall.traff) }), el("p", { text: `gick in – folket trodde ${pct(blk.skrall.folket)}` })));
+  }
+  if (tipsJamf) {
+    const slut = { "bättre": "Bättre än oddsen", "sämre": "Något sämre än oddsen", "ingen säker skillnad": "Lika bra som oddsen" }[tipsJamf.slutsats] || "För lite data än";
+    smaKort.push(el("div", { class: "statkort" }, el("span", { class: "statkort-etikett", text: "Med experter" }),
+      el("b", { class: "mellan", text: slut }), el("p", { text: `${tipsJamf.antal.toLocaleString("sv-SE")} matcher${state.statAr !== "alla" ? ` sedan ${state.statAr}` : ""}` })));
+  }
+  if (smaKort.length) box.append(el("div", { class: "statkort-par" }, ...smaKort));
+  const det = el("details", { class: "statdetaljer" }, el("summary", { text: "Visa detaljer: Brier, log loss, tipsarnas vikter och per liga" }));
 
-  box.append(el("h3", { text: "Träffsäkerhet" }));
+  det.append(el("h3", { text: "Träffsäkerhet" }));
   const tabell = el("table", { class: "stat-tabell" },
     el("thead", {}, el("tr", {}, el("th", { text: "Källa" }), el("th", { class: "tal", text: "Träff" }),
       el("th", { class: "tal", text: "Brier" }))));
@@ -1609,23 +1712,26 @@ function renderaStatistik() {
       el("td", { class: "tal", text: k.traff != null ? pct(k.traff) : "–" }), el("td", { class: "tal", text: dec(k.brier) })));
   }
   tabell.append(kropp);
-  box.append(tabell);
+  det.append(tabell);
 
-  if (blk.jamforelse?.length) renderaJamforelse(box, blk.jamforelse);
+  if (blk.jamforelse?.length) {
+    box.append(kompaktJamforelse(blk.jamforelse));
+    renderaJamforelse(det, blk.jamforelse);
+  }
   if (blk.skrall) {
     const sk = blk.skrall;
-    box.append(el("h3", { text: "Skrällchanserna" }));
-    box.append(el("p", { text:
+    det.append(el("h3", { text: "Skrällchanserna" }));
+    det.append(el("p", { text:
       `${sk.antal.toLocaleString("sv-SE")} skrällchanser i ${sk.omgangar} omgångar. De gick in i ${pct(sk.traff)} av fallen – ` +
       `oddsen sa ${pct(sk.chans)} och folket trodde bara ${pct(sk.folket)}. Därför betalar de bra när de går in.` }));
-    box.append(el("p", { class: "forklaring-stat", text:
+    det.append(el("p", { class: "forklaring-stat", text:
       "Skrällchans = ett tecken som inte är favorit, har minst 20 % chans och är understreckat (chansen 1,25–1,5 " +
       "gånger strecken). Högst tre per omgång. Förslaget Skrällchans tar med 1 av dem på system upp till 64 rader " +
       "och 2 på större – backtestet under Om du spelat varje vecka visar hur det hade gått." }));
   }
 
   if (st.tipsare?.length) {
-    box.append(el("h3", { text: "Tipsarnas vikt i förslaget Med experter" }));
+    det.append(el("h3", { text: "Tipsarnas vikt i förslaget Med experter" }));
     const t = el("table", { class: "stat-tabell" },
       el("thead", {}, el("tr", {}, el("th", { text: "Tipsare" }), el("th", { class: "tal", text: "Träff" }),
         el("th", { class: "tal", text: "Matcher" }), el("th", { class: "tal", text: "Vikt" }))));
@@ -1639,15 +1745,15 @@ function renderaStatistik() {
         el("td", { class: "tal", text: dec(tp.vikt) })));
     }
     t.append(b);
-    box.append(t);
-    box.append(el("p", { class: "forklaring-stat", text:
+    det.append(t);
+    det.append(el("p", { class: "forklaring-stat", text:
       "Vikten visar hur mycket tipsaren flyttar sannolikheterna jämfört med oddsen (0 = ingen påverkan). " +
       "Nya tipsare börjar på en liten startvikt och får en egen, inlärd vikt när de har minst 30 avgjorda matcher. " +
       "Vikterna lärs om varje söndag – tipsare som ofta har rätt där oddsen har fel får mer att säga till om." }));
   }
 
   if (blk.ligor?.length) {
-    box.append(el("h3", { text: "Per liga (oddsen)" }));
+    det.append(el("h3", { text: "Per liga (oddsen)" }));
     const t = el("table", { class: "stat-tabell" });
     const b = el("tbody");
     for (const l of blk.ligor) {
@@ -1655,7 +1761,7 @@ function renderaStatistik() {
         el("td", { class: "tal", text: dec(l.brier) })));
     }
     t.append(b);
-    box.append(t);
+    det.append(t);
   }
 
   if (st.senaste?.length) {
@@ -1688,33 +1794,20 @@ function renderaStatistik() {
       "respektive det mest streckade (folket). Kolumnen längst till höger är oddsens antal rätt minus folkets." }));
   }
 
-  box.append(el("p", { class: "forklaring-stat", text:
+  det.append(el("p", { class: "forklaring-stat", text:
     "Träff = andel matcher där det mest sannolika tecknet gick in. Brier mäter hur väl sannolikheterna stämmer: " +
     "0 är perfekt och 0,667 är att gissa en tredjedel på allt – lägre är bättre. Tipsens tecken räknas om till " +
     "sannolikheter, vilket straffar säkra tips som slår fel. Den sammanvägda modellen tas i bruk automatiskt först " +
     "när den träffat bättre än oddsen på de senaste cirka 40 omgångarna." }));
+  box.append(det);
   box.append(el("p", {}, el("a", { class: "knapp primar", href: "#backtest", text: "Se vad det hade gett i kronor" })));
 }
 
 // ---------- meny och vyer ----------
 
 const VYER = { kupong: "Kupongen", rattning: "Förra omgången", statistik: "Träffsäkerhet", backtest: "Spela varje vecka", hjalp: "Hjälp",
-  tabeller: "Serietabeller", nyheter: "Lagnyheter", minaspel: "Mina spel", spelbolag: "Spelbolag", om: "Om guiden" };
+  tabeller: "Serietabeller", nyheter: "Lagnyheter", minaspel: "Mina spel", spelbolag: "Spelbolag", mer: "Mer", om: "Om guiden" };
 
-function initMeny() {
-  const knapp = $("meny-knapp"), lista = $("meny-lista");
-  const stang = () => { lista.hidden = true; knapp.setAttribute("aria-expanded", "false"); };
-  knapp.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const oppen = lista.hidden;
-    lista.hidden = !oppen;
-    knapp.setAttribute("aria-expanded", String(oppen));
-    if (oppen) lista.querySelector('[aria-current="page"]')?.focus();
-  });
-  lista.addEventListener("click", (e) => { if (e.target.closest("a")) stang(); });
-  document.addEventListener("pointerdown", (e) => { if (!e.target.closest(".meny-val")) stang(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !lista.hidden) { stang(); knapp.focus(); } });
-}
 
 function visaVy() {
   let namn = location.hash.slice(1);
@@ -1725,10 +1818,15 @@ function visaVy() {
   const vy = VYER[namn] ? namn : "kupong";
   document.body.dataset.vy = vy;
   for (const s of document.querySelectorAll("main > .vy")) s.hidden = s.dataset.vy !== vy;
-  for (const a of document.querySelectorAll("#meny-lista a")) {
+  const flik = { kupong: "kupong", nyheter: "nyheter", minaspel: "minaspel", statistik: "statistik", backtest: "statistik",
+    rattning: "statistik" }[vy] || "mer";
+  for (const a of document.querySelectorAll(".flikrad a")) {
+    if (a.dataset.flik === flik) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  }
+  for (const a of document.querySelectorAll(".undermeny a")) {
     if (a.dataset.vy === vy) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
-  $("meny-aktuell").textContent = VYER[vy];
+  document.title = vy === "kupong" ? "Stryktipsguiden" : `${VYER[vy]} · Stryktipsguiden`;
   if (vy === "backtest") oppnaBacktest();
   if (vy === "rattning") oppnaRattning();
   if (vy === "tabeller") visaTabeller();
@@ -1845,6 +1943,8 @@ function renderaUtdelning(omgang, fordelning) {
 
 // ---------- backtest ----------
 
+/** "2021-12-26" → "26 dec 2021" */
+const svDatum = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString("sv-SE", { day: "numeric", month: "short", year: "numeric" }).replace(".", "");
 const kr = (x) => `${Math.round(x).toLocaleString("sv-SE")} kr`;
 const plusKr = (x) => (x > 0 ? "+" : x < 0 ? "−" : "") + kr(Math.abs(x));
 
@@ -1875,9 +1975,9 @@ function renderaBacktest() {
   const urval = state.kalla === "lagkoll" ? medLagkoll(allaAr) : allaAr;
 
   const vaxel = el("div", { class: "forslag", role: "radiogroup", "aria-label": "Vilket förslag i backtestet" });
-  for (const [k, { namn, under }] of Object.entries(FORSLAG)) {
+  for (const [k, { namn, kort: kortnamn }] of Object.entries(FORSLAG)) {
     const b = el("button", { type: "button", role: "radio", "data-kalla": k, "aria-checked": String(state.kalla === k),
-      disabled: k === "tips" && !harTipsHist }, el("b", { text: namn }), el("span", { text: under }));
+      "aria-label": namn, disabled: k === "tips" && !harTipsHist, text: kortnamn });
     b.addEventListener("click", () => {
       state.kalla = k;
       for (const x of document.querySelectorAll(".forslag button")) x.setAttribute("aria-checked", String(x.dataset.kalla === k));
@@ -1902,7 +2002,7 @@ function renderaBacktest() {
       (urval.omgangar.length < 20 ? ` Med ${urval.omgangar.length} ${urval.omgangar.length === 1 ? "omgång" : "omgångar"} säger siffrorna ännu inget om hur bra förslagen är.` : "") }));
   }
 
-  const forsta = urval.omgangar[0].datum, sista = urval.omgangar.at(-1).datum;
+  const forsta = svDatum(urval.omgangar[0].datum), sista = svDatum(urval.omgangar.at(-1).datum);
   box.append(el("p", { class: "dampad", text:
     `Förslaget ${FORSLAG[state.kalla].namn} spelat varje vecka i ${urval.omgangar.length} omgångar ` +
     `(${forsta} – ${sista}), jämfört med att spela samma antal rader efter folkets streck. Riktig utdelning för 13–10 rätt.` }));
@@ -1940,7 +2040,7 @@ function renderaBacktest() {
   if (storsta.length) {
     box.append(el("h3", { text: `Största vinsterna (${serier[0].namn})` }));
     for (const o of storsta) {
-      box.append(el("p", { text: `${o.datum} · ${o.basta} rätt · ${kr(o.vinst)}` }));
+      box.append(el("p", { text: `${svDatum(o.datum)} · ${o.basta} rätt · ${kr(o.vinst)}` }));
     }
   }
   box.append(el("p", { class: "bt-not", text:
@@ -2000,7 +2100,7 @@ function diagram(serier) {
   const tips = el("div", { class: "bt-avlasning", "aria-live": "polite" });
   const avlas = (i, aktiv) => {
     const o = serier[0].res.omgangar[i];
-    tips.replaceChildren(el("div", { class: "dampad", text: aktiv ? `${o.datum} · omgång ${o.id}` : `Saldo efter ${o.datum}` }),
+    tips.replaceChildren(el("div", { class: "dampad", text: aktiv ? `${svDatum(o.datum)} · omgång ${o.id}` : `Saldo efter ${svDatum(o.datum)}` }),
       ...serier.map((s, si) => el("div", { class: "rad" }, el("i", { class: `nyckel ${s.klass}`, "aria-hidden": "true" }),
         el("b", { text: plusKr(saldon[si][i]) }), el("span", { class: "dampad",
           text: aktiv ? `${s.namn}: ${s.res.omgangar[i].basta} rätt, vann ${kr(s.res.omgangar[i].vinst)}` : s.namn }))));
@@ -2078,13 +2178,26 @@ function uppdatera() {
     : `${sk.namn} ger samma rader.`;
   for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
 
-  for (const b of $("budgetknappar").children) b.setAttribute("aria-checked", String(Number(b.dataset.budget) === state.budget));
+  $("forslag-beskrivning").textContent = FORSLAG[state.kalla].under;
+  for (const b of $("budgetknappar").children) {
+    const vald = Number(b.dataset.budget) === state.budget;
+    b.setAttribute("aria-checked", String(vald));
+    b.textContent = vald ? `${b.dataset.budget} ${b.dataset.budget === "1" ? "rad" : "rader"}` : b.dataset.budget;
+    if (vald && !state.budgetSynlig) {
+      // Den valda storleken ska synas i den svepbara raden
+      b.scrollIntoView({ block: "nearest", inline: "center" });
+      state.budgetSynlig = true;
+    }
+  }
   const fel = $("fel");
   if (state.resultat.ok) {
-    $("sammanfattning").textContent = sammanfattning(state.resultat, state.kupong.omgang.radpris || 1);
+    const r = state.resultat;
+    $("sammanfattning").textContent = `${r.rader} ${r.rader === 1 ? "rad" : "rader"} · ${r.rader * (state.kupong.omgang.radpris || 1)} kr`;
+    $("fordelning").textContent = sammanfattning(r).split(" — ")[1] || "";
     fel.hidden = true;
   } else {
     $("sammanfattning").textContent = "";
+    $("fordelning").textContent = "";
     fel.textContent = state.resultat.fel;
     fel.hidden = false;
   }
