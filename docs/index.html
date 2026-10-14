@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261013l">
-<script type="module" src="app.js?v=20261013l"></script>
+<link rel="stylesheet" href="app.css?v=20261014c">
+<script type="module" src="app.js?v=20261014c"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -28,23 +28,31 @@
         <span class="undertitel">Kristians taktik inför lördagen</span>
       </span>
     </a>
-    <nav class="meny-val" aria-label="Huvudmeny">
-      <button id="meny-knapp" class="meny-knapp" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="meny-lista">
-        <span id="meny-aktuell">Kupongen</span><span class="pil" aria-hidden="true">▾</span>
-      </button>
-      <ul id="meny-lista" class="meny-lista" hidden>
-        <li><a href="#kupong" data-vy="kupong"><b>Kupongen</b><span>Radförslag för veckans omgång</span></a></li>
-        <li><a href="#nyheter" data-vy="nyheter"><b>Lagnyheter</b><span>Skador, avstängningar och tränarbyten</span></a></li>
-        <li><a href="#minaspel" data-vy="minaspel"><b>Mina spel</b><span>Dina inlämnade rader och hur de gick</span></a></li>
-        <li><a href="#spelbolag" data-vy="spelbolag"><b>Spelbolag</b><span>Spela tillsammans – kassa eller turordning</span></a></li>
-        <li><a href="#rattning" data-vy="rattning"><b>Förra omgången</b><span>Rättning av senaste kupongen</span></a></li>
-        <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
-        <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
-        <li><a href="#tabeller" data-vy="tabeller"><b>Serietabeller</b><span>Aktuella tabeller, öppnas i nytt fönster</span></a></li>
-        <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
-        <li><a href="#om" data-vy="om"><b>Så funkar Stryktipsguiden</b><span>Syfte, källor och hur raderna räknas fram</span></a></li>
-      </ul>
-    </nav>
+    <div class="topp-hoger">
+      <div id="konto-val" class="konto-val" hidden>
+        <button id="konto-knapp" class="konto-knapp" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="konto-meny" aria-label="Logga in">
+          <span id="konto-avatar" class="avatar" aria-hidden="true"></span>
+        </button>
+        <div id="konto-meny" class="konto-meny" hidden></div>
+      </div>
+      <nav class="meny-val" aria-label="Huvudmeny">
+        <button id="meny-knapp" class="meny-knapp" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="meny-lista">
+          <span id="meny-aktuell">Kupongen</span><span class="pil" aria-hidden="true">▾</span>
+        </button>
+        <ul id="meny-lista" class="meny-lista" hidden>
+          <li><a href="#kupong" data-vy="kupong"><b>Kupongen</b><span>Radförslag för veckans omgång</span></a></li>
+          <li><a href="#nyheter" data-vy="nyheter"><b>Lagnyheter</b><span>Skador, avstängningar och tränarbyten</span></a></li>
+          <li><a href="#minaspel" data-vy="minaspel"><b>Mina spel</b><span>Dina inlämnade rader och hur de gick</span></a></li>
+          <li><a href="#spelbolag" data-vy="spelbolag"><b>Spelbolag</b><span>Spela tillsammans – kassa eller turordning</span></a></li>
+          <li><a href="#rattning" data-vy="rattning"><b>Förra omgången</b><span>Rättning av senaste kupongen</span></a></li>
+          <li><a href="#statistik" data-vy="statistik"><b>Så har modellen träffat</b><span>Träffsäkerhet mot folket och tipsen</span></a></li>
+          <li><a href="#backtest" data-vy="backtest"><b>Om du spelat varje vecka</b><span>Insats, vinst och saldo sedan 2021</span></a></li>
+          <li><a href="#tabeller" data-vy="tabeller"><b>Serietabeller</b><span>Aktuella tabeller, öppnas i nytt fönster</span></a></li>
+          <li><a href="#hjalp" data-vy="hjalp"><b>Så läser du kupongen</b><span>Chans, streck, värde och låsningar</span></a></li>
+          <li><a href="#om" data-vy="om"><b>Så funkar Stryktipsguiden</b><span>Syfte, källor och hur raderna räknas fram</span></a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
 

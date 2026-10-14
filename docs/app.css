@@ -592,3 +592,34 @@ button.spelruta { cursor: pointer; }
 .om .sb-etikett { display: block; font-size: 14px; font-weight: 600; margin: 14px 0 4px; }
 .turordning li { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; padding: 4px 0; border-bottom: 1px solid var(--linje); }
 .turordning li .visa-bolag { font-size: 16px; padding: 2px 8px; }
+
+/* kontoknappen i headern */
+.topp-hoger { display: flex; align-items: center; gap: 8px; flex: none; position: relative; }
+.konto-val { position: static; }
+.konto-knapp { width: 38px; height: 38px; border-radius: 50%; padding: 0; display: grid; place-items: center; cursor: pointer;
+  background: rgba(12, 22, 20, .55); border: 1px solid rgba(255, 255, 255, .28); color: #fff; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.konto-knapp.inloggad { border: 2px solid var(--gul); }
+.konto-knapp:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+.avatar { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; overflow: hidden; font-weight: 800; font-size: 14px; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar.stor { width: 48px; height: 48px; flex: none; background: var(--primar); color: #fff; font-size: 18px; }
+.konto-meny { position: absolute; right: 0; top: calc(100% + 8px); width: min(280px, calc(100vw - 32px)); z-index: 20;
+  background: var(--yta); color: var(--text); border-radius: 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); padding: 8px; display: grid; gap: 2px; }
+.konto-meny-huvud { display: flex; gap: 10px; align-items: center; padding: 6px 8px 10px; border-bottom: 1px solid var(--linje); margin-bottom: 4px; }
+.konto-meny-huvud > div { min-width: 0; display: grid; }
+.konto-meny-huvud b { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.konto-meny-huvud span { font-size: 12px; color: var(--dampad); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.konto-meny a, .konto-meny-rad { display: block; width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; color: inherit;
+  text-decoration: none; font: inherit; font-size: 15px; font-weight: 600; background: none; border: 0; cursor: pointer; }
+.konto-meny a:hover, .konto-meny-rad:hover, .konto-meny a:focus-visible, .konto-meny-rad:focus-visible { background: var(--ruta); outline: none; }
+.konto-meny .konto-status { margin: 0 8px; font-size: 13px; min-height: 0; }
+@media (max-width: 380px) { .topp-hoger { gap: 6px; } .meny-knapp { padding: 0 10px; } }
+/* Med kontoknappen i headern behöver ordmärket krympa lite tidigare på smala telefoner */
+@media (max-width: 430px) {
+  .ordmarke { font-size: 21px; }
+  .undertitel { font-size: 14px; }
+  .varumarke-ikon { width: 34px; height: 34px; }
+  .varumarke { gap: 8px; }
+  .topp-inre { gap: 8px; }
+  .meny-knapp { padding: 0 11px; gap: 6px; }
+}

@@ -13,8 +13,8 @@
 //   inbjudningar/{kod}         { gid, namn } – inbjudningslänken pekar hit
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261013l";
-import { nyKod } from "./spelbolag.js?v=20261013l";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261014c";
+import { nyKod } from "./spelbolag.js?v=20261014c";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;
@@ -27,7 +27,7 @@ let impl = null;
 let anvandare = null;
 const lyssnare = new Set();
 
-/** Anropas med {uid, namn, epost} eller null när inloggningen ändras. Returnerar en avregistrering. */
+/** Anropas med {uid, namn, epost, bild} eller null när inloggningen ändras (bild = egen bild, Google-bild eller null). Returnerar en avregistrering. */
 export function nar(fn) {
   lyssnare.add(fn);
   fn(anvandare);
@@ -57,6 +57,11 @@ export async function deladeSpel() { return (await starta()).deladeSpel(); }
 export async function profil() { return (await starta()).profil(); }
 export async function satDelning(lista) { return (await starta()).satDelning(lista); }
 export async function raderaKonto() { return (await starta()).raderaKonto(); }
+/** Spara en egen profilbild (data-URL, JPEG) eller null för att ta bort den. */
+export async function sparaBild(dataUrl) {
+  await (await starta()).sparaBild(dataUrl);
+  if (anvandare) meddela({ ...anvandare, egenBild: dataUrl, bild: dataUrl || anvandare.googleBild });
+}
 
 // Spelbolag
 export async function minaGrupper() { return (await starta()).minaGrupper(); }
@@ -100,17 +105,21 @@ async function firebase() {
   auth.languageCode = "sv";
   // Standarddatabasen heter "(default)"; har databasen fått ett eget namn anges det som databaseId i konfigurationen
   const db = databaseId ? F.getFirestore(app, databaseId) : F.getFirestore(app);
-  const fran = (u) => (u ? { uid: u.uid, namn: u.displayName || u.email, epost: (u.email || "").toLowerCase() } : null);
+  const fran = (u, profil) => (u ? { uid: u.uid, namn: u.displayName || u.email, epost: (u.email || "").toLowerCase(),
+    googleBild: u.photoURL || null, egenBild: profil?.bild || null, bild: profil?.bild || u.photoURL || null } : null);
   A.onAuthStateChanged(auth, async (u) => {
+    let profil = null;
     if (u) {   // se till att profilen finns
       const ref = F.doc(db, "anvandare", u.uid);
       const snap = await F.getDoc(ref);
       if (!snap.exists()) {
         await F.setDoc(ref, { namn: u.displayName || u.email, epost: (u.email || "").toLowerCase(), delad_med: [],
           skapad: new Date().toISOString() });
+      } else {
+        profil = snap.data();
       }
     }
-    meddela(fran(u));
+    meddela(fran(u, profil));
   });
 
   const kravInloggad = () => {
@@ -154,6 +163,10 @@ async function firebase() {
       batch.update(F.doc(db, "anvandare", u.uid), { delad_med: lista });
       for (const d of egna.docs) batch.update(d.ref, { delad_med: lista });
       await batch.commit();
+    },
+    async sparaBild(dataUrl) {
+      const u = kravInloggad();
+      await F.updateDoc(F.doc(db, "anvandare", u.uid), { bild: dataUrl || F.deleteField() });
     },
     async raderaKonto() {
       const u = kravInloggad();
@@ -268,7 +281,9 @@ function demo() {
   db.gruppspel.set("exempel", new Map()); db.bok.set("exempel", []);
   setTimeout(() => meddela(null), 0);
   return {
-    loggaInGoogle: async () => meddela({ uid: "demo", namn: "Demo", epost: "demo@exempel.se" }),
+    loggaInGoogle: async () => meddela({ uid: "demo", namn: "Demo", epost: "demo@exempel.se", bild: db.profil.bild || null,
+      egenBild: db.profil.bild || null, googleBild: null }),
+    sparaBild: async (dataUrl) => { db.profil.bild = dataUrl; },
     skickaLank: async () => {},
     slutforLank: async () => {},
     loggaUt: async () => meddela(null),

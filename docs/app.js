@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261013l";
-import * as konto from "./konto.js?v=20261013l";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261013l";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261013l";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261013l";
+} from "./optimizer.js?v=20261014c";
+import * as konto from "./konto.js?v=20261014c";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014c";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014c";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014c";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -518,8 +518,10 @@ function initKonto() {
   if (!konto.aktiverat()) return;
   knapp.hidden = false;
   knapp.addEventListener("click", sparaAktuelltSpel);
+  initKontoknapp();
   konto.nar((u) => {
     ms.anvandare = u;
+    renderaKontoknapp();
     try { u ? localStorage.setItem(KONTO_FLAGGA, "1") : localStorage.removeItem(KONTO_FLAGGA); } catch { /* privat läge */ }
     ms.spel = ms.delade = ms.profil = null;
     sb.grupper = null; sb.data = {};
@@ -533,6 +535,92 @@ function initKonto() {
   if (flagga || /[?&]oobCode=/.test(location.href) || location.hash.startsWith("#gamed-")) {
     konto.starta().then(() => konto.slutforLank(fragaEpostForLank)).catch((e) => { ms.fel = e.message; });
   }
+}
+
+// ---------- kontoknappen uppe till höger ----------
+
+const PERSON_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" ' +
+  'stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>';
+
+function initialer(namn) {
+  return (namn || "?").split(/[\s@.]+/).filter(Boolean).slice(0, 2).map((d) => d[0].toUpperCase()).join("");
+}
+
+function avatar(u, klass = "avatar") {
+  const a = el("span", { class: klass, "aria-hidden": "true" });
+  if (u?.bild) a.append(el("img", { src: u.bild, alt: "", referrerpolicy: "no-referrer" }));
+  else if (u) a.textContent = initialer(u.namn);
+  else a.innerHTML = PERSON_SVG;
+  return a;
+}
+
+function initKontoknapp() {
+  $("konto-val").hidden = false;
+  const knapp = $("konto-knapp"), meny = $("konto-meny");
+  const stang = () => { meny.hidden = true; knapp.setAttribute("aria-expanded", "false"); };
+  knapp.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!ms.anvandare) { location.hash = "#minaspel"; return; }
+    const oppna = meny.hidden;
+    $("meny-lista").hidden = true;            // bara en meny öppen åt gången
+    $("meny-knapp").setAttribute("aria-expanded", "false");
+    if (oppna) renderaKontomeny();
+    meny.hidden = !oppna;
+    knapp.setAttribute("aria-expanded", String(oppna));
+  });
+  meny.addEventListener("click", (e) => { if (e.target.closest("a")) stang(); e.stopPropagation(); });
+  document.addEventListener("click", stang);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !meny.hidden) { stang(); knapp.focus(); } });
+  $("meny-knapp").addEventListener("click", stang);
+  renderaKontoknapp();
+}
+
+function renderaKontoknapp() {
+  const u = ms.anvandare;
+  $("konto-avatar").replaceWith(Object.assign(avatar(u), { id: "konto-avatar" }));
+  $("konto-knapp").setAttribute("aria-label", u ? `Konto: ${u.namn}` : "Logga in");
+  $("konto-knapp").classList.toggle("inloggad", Boolean(u));
+  if (!u) $("konto-meny").hidden = true;
+}
+
+/** Beskär bilden till en kvadrat och förminska till 160×160 JPEG (några kB), i telefonen. */
+async function forminskaBild(fil) {
+  const bild = await createImageBitmap(fil);
+  const sida = Math.min(bild.width, bild.height);
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 160;
+  canvas.getContext("2d").drawImage(bild, (bild.width - sida) / 2, (bild.height - sida) / 2, sida, sida, 0, 0, 160, 160);
+  return canvas.toDataURL("image/jpeg", 0.82);
+}
+
+function renderaKontomeny() {
+  const u = ms.anvandare, meny = $("konto-meny");
+  const status = el("p", { class: "konto-status", "aria-live": "polite" });
+  const fil = el("input", { type: "file", id: "profilbild", accept: "image/*", class: "sr-only" });
+  fil.addEventListener("change", async () => {
+    if (!fil.files[0]) return;
+    status.textContent = "Sparar bilden …";
+    try {
+      await konto.sparaBild(await forminskaBild(fil.files[0]));
+      renderaKontomeny();
+    } catch (e) { status.textContent = `Bilden kunde inte sparas: ${e.message}`; }
+  });
+  const delar = [
+    el("div", { class: "konto-meny-huvud" }, avatar(u, "avatar stor"),
+      el("div", {}, el("b", { text: u.namn }), el("span", { text: u.epost }))),
+    el("a", { href: "#minaspel", text: "Mina spel" }),
+    el("a", { href: "#spelbolag", text: "Spelbolag" }),
+    el("label", { for: "profilbild", class: "konto-meny-rad", text: u.egenBild ? "Byt profilbild" : "Lägg till profilbild" }), fil,
+  ];
+  if (u.egenBild) {
+    const ta = el("button", { type: "button", class: "konto-meny-rad", text: u.googleBild ? "Använd Google-bilden" : "Ta bort profilbilden" });
+    ta.addEventListener("click", async () => { try { await konto.sparaBild(null); renderaKontomeny(); } catch (e) { status.textContent = e.message; } });
+    delar.push(ta);
+  }
+  const ut = el("button", { type: "button", class: "konto-meny-rad", text: "Logga ut" });
+  ut.addEventListener("click", async () => { meny.hidden = true; await konto.loggaUt(); });
+  delar.push(ut, status);
+  meny.replaceChildren(...delar);
 }
 
 function fragaEpostForLank() {

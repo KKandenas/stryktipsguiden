@@ -22,13 +22,19 @@ service cloud.firestore {
     function giltigDelning(lista) {
       return lista is list && lista.size() <= 20;
     }
+    // Profilbilden är en liten JPEG (data-URL, högst ~100 kB) som sparas direkt i profilen
+    function giltigBild(d) {
+      return !('bild' in d) || (d.bild is string && d.bild.size() <= 100000
+        && d.bild.matches('data:image/jpeg;base64,[A-Za-z0-9+/=]+'));
+    }
 
     match /anvandare/{uid} {
       allow read: if inloggad() && request.auth.uid == uid;
       allow create, update: if inloggad() && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['namn', 'epost', 'delad_med', 'skapad'])
+        && request.resource.data.keys().hasOnly(['namn', 'epost', 'delad_med', 'skapad', 'bild'])
         && request.resource.data.namn is string && request.resource.data.namn.size() <= 100
-        && giltigDelning(request.resource.data.delad_med);
+        && giltigDelning(request.resource.data.delad_med)
+        && giltigBild(request.resource.data);
       allow delete: if inloggad() && request.auth.uid == uid;
     }
 

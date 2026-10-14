@@ -65,7 +65,7 @@ in. Det tar ungefär 10 minuter.
 | Var | Innehåll |
 |---|---|
 | Firebase Authentication | Namn och e-postadress från inloggningen |
-| `anvandare/{uid}` | Namn, e-post och listan med e-postadresser du delar med |
+| `anvandare/{uid}` | Namn, e-post, listan med e-postadresser du delar med och din profilbild om du lagt till en (en liten JPEG på några kB) |
 | `spel/{uid}_{omgång}` | Raderna du lämnade in, förslaget utan dina ändringar, antal rader och insats |
 | `grupper/{id}` | Spelbolaget: namn, spelform, medlemmar (namn), kassör, turordning och inbjudningskod |
 | `grupper/{id}/spel/{omgång}` | Bolagets spel, med vem som lämnade in och vilka medlemmar som delar på det |
