@@ -276,6 +276,11 @@ modell görs ett nytt varv efter 30 s, sedan ges anropet upp. SDK:ts egna omför
 anger i Retry-After och anropet då ser ut att hänga. En modell vars dagskvot är slut (429 "per day") används
 inte mer under körningen.
 
+**Anrop per minut:** gratisnivån tillåter 5 anrop per minut och modell. Klienten skickar högst 4
+(`GEMINI_RPM`, som kan höjas med en repo-variabel vid betald nivå) och sprider anropen över kedjan. Är alla
+modeller fulla väntar den på första lediga plats, högst 75 s per anrop. En modell som ändå svarar 429 vilar i
+60 s.
+
 **Spärrar** så att en körning alltid hinner spara sin data: 3 misslyckade anrop i rad stänger av AI
 resten av körningen, och AI får ta högst 15 min per körning. Det som inte hanns med tas vid nästa körning. En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
 

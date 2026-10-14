@@ -59,6 +59,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODELL: ${{ vars.GEMINI_MODELL }}
           GEMINI_RESERVMODELLER: ${{ vars.GEMINI_RESERVMODELLER }}
+          GEMINI_RPM: ${{ vars.GEMINI_RPM }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           KOMMANDO: ${{ inputs.kommando || 'planerad' }}
           FRAN: ${{ inputs.fran }}

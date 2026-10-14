@@ -10,6 +10,8 @@ from pipeline.ai.klient import AiFel
 def nollstall(monkeypatch):
     monkeypatch.setattr(klient, "_start", None)
     monkeypatch.setattr(klient, "_fel_i_rad", 0)
+    monkeypatch.setattr(klient, "_anrop", {})
+    monkeypatch.setattr(klient, "_paus", {})
     monkeypatch.setattr(klient, "leverantor", lambda: "gemini")
 
 
@@ -183,3 +185,37 @@ def test_ai_status_sparas_och_exporteras(conn, monkeypatch):
     assert export.bygg_drift(conn)["ai"] == {"konfigurerad": False, "orsak": "ingen AI-nyckel",
                                              "tid": export.bygg_drift(conn)["ai"]["tid"]}
     assert json.dumps(export.bygg_drift(conn))
+
+
+
+def test_hogst_rpm_grans_anrop_per_modell_och_minut(monkeypatch):
+    """Gratisnivån tillåter 5 anrop/min per modell: vi sprider över kedjan och väntar när alla är fulla."""
+    klocka = {"t": 1000.0}
+    monkeypatch.setattr(klient.time, "monotonic", lambda: klocka["t"])
+    vantat = []
+    monkeypatch.setattr(klient.time, "sleep", lambda s: (vantat.append(s), klocka.__setitem__("t", klocka["t"] + s)))
+    monkeypatch.setattr(klient, "RPM_GRANS", 2)
+    falsk = _FalskGemini({"huvud": [], "reserv1": []})
+    monkeypatch.setattr(klient, "_gemini", falsk)
+    monkeypatch.setattr(klient, "GEMINI_MODELL", "huvud")
+    monkeypatch.setattr(klient, "GEMINI_RESERVER", ["reserv1"])
+    monkeypatch.setattr(klient, "_ordning", [])
+    monkeypatch.setattr(klient, "_ur_spel", set())
+    for _ in range(5):
+        assert klient.anropa_json("s", "u", {}) == {"ok": 1}
+    assert falsk.anrop == ["huvud", "huvud", "reserv1", "reserv1", "huvud"]
+    assert len(vantat) == 1 and 59 <= vantat[0] <= 61       # det femte anropet väntade en minut
+
+
+def test_429_per_minut_pausar_modellen(monkeypatch):
+    klocka = {"t": 1000.0}
+    monkeypatch.setattr(klient.time, "monotonic", lambda: klocka["t"])
+    falsk = _FalskGemini({"huvud": [_Fel(429, "Your project has exceeded a quota")], "reserv1": []})
+    monkeypatch.setattr(klient, "_gemini", falsk)
+    monkeypatch.setattr(klient, "GEMINI_MODELL", "huvud")
+    monkeypatch.setattr(klient, "GEMINI_RESERVER", ["reserv1"])
+    monkeypatch.setattr(klient, "_ordning", [])
+    monkeypatch.setattr(klient, "_ur_spel", set())
+    assert klient.anropa_json("s", "u", {}) == {"ok": 1}
+    assert klient.anropa_json("s", "u", {}) == {"ok": 1}
+    assert falsk.anrop == ["huvud", "reserv1", "reserv1"]      # huvud vilar en minut efter 429
