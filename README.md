@@ -268,7 +268,7 @@ Den kan bytas utan kodändring via repo-variabeln `GEMINI_MODELL` under Settings
 variables → Actions → fliken Variables, t.ex. `gemini-2.5-flash`. Dessutom: tänkande (`GEMINI_TANKANDE = "low"`).
 
 **Reservmodeller:** är huvudmodellen överbelastad (429 eller 5xx) eller svarar inte inom 90 s provas
-nästa modell i kedjan direkt: `gemini-3.7-flash`, `gemini-3.6-flash` och sedan `gemini-3.5-flash`.
+nästa modell i kedjan direkt: `gemini-3.7-flash`, `gemini-2.5-flash`, `gemini-2.5-flash-lite` och sedan `gemini-3.6-flash`. De äldre 2.5-modellerna är mindre belastade och har större gratiskvoter.
 Kedjan kan ändras med repo-variabeln `GEMINI_RESERVMODELLER`, kommaseparerad. En modell som svarat dåligt
 flyttas sist för resten av körningen. En modell som inte finns (400 eller 404) hoppas över. Svarar ingen
 modell görs ett nytt varv efter 30 s, sedan ges anropet upp. SDK:ts egna omförsök vid 429 och 5xx är avstängda

@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 GEMINI_MODELL = os.environ.get("GEMINI_MODELL", "").strip() or "gemini-3.8-flash"  # kan sättas som repo-variabel
 # Reserver när huvudmodellen är överbelastad eller inte svarar (repo-variabel GEMINI_RESERVMODELLER, kommaseparerad).
 GEMINI_RESERVER = [m.strip() for m in (os.environ.get("GEMINI_RESERVMODELLER", "").strip()
-                                       or "gemini-3.7-flash,gemini-3.6-flash,gemini-3.5-flash").split(",") if m.strip()]
+                                       or "gemini-3.7-flash,gemini-2.5-flash,gemini-2.5-flash-lite,gemini-3.6-flash").split(",") if m.strip()]
 GEMINI_TANKANDE = "low"            # minimal | low | medium | high
 
 CLAUDE_MODELL = "claude-opus-5-5"
