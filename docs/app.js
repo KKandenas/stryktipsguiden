@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261014m";
-import * as konto from "./konto.js?v=20261014m";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014m";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014m";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014m";
+} from "./optimizer.js?v=20261015b";
+import * as konto from "./konto.js?v=20261015b";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261015b";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261015b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261015b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -1843,7 +1843,7 @@ function visaVy() {
   for (const s of document.querySelectorAll("main > .vy")) s.hidden = s.dataset.vy !== vy;
   const flik = { kupong: "kupong", nyheter: "nyheter", minaspel: "minaspel", statistik: "statistik", backtest: "statistik",
     rattning: "statistik" }[vy] || "mer";
-  for (const a of document.querySelectorAll(".flikrad a")) {
+  for (const a of document.querySelectorAll(".flikrad a, .topp-nav a")) {
     if (a.dataset.flik === flik) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
   for (const a of document.querySelectorAll(".undermeny a")) {

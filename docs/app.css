@@ -660,9 +660,6 @@ body[data-vy="kupong"] { padding-bottom: calc(var(--flikrad-h) + var(--kupongbar
   content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 3px; border-radius: 0 0 3px 3px; background: var(--primar);
 }
 .flikrad a:focus-visible { outline: 2px solid var(--gul); outline-offset: -4px; }
-@media (min-width: 900px) {
-  .flikrad { left: 50%; right: auto; width: 560px; transform: translateX(-50%); border: 1px solid var(--linje); border-bottom: 0; border-radius: 16px 16px 0 0; }
-}
 
 /* Förslagen: en smal segmenterad rad */
 .forslag { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; padding: 3px; border-radius: 10px; margin-bottom: 6px; }
@@ -704,7 +701,6 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
   text-align: left;
 }
 .kupongbar .spara-status { font-size: 14px; }
-@media (min-width: 900px) { .kupongbar { left: 50%; right: auto; width: 560px; transform: translateX(-50%); border-radius: 16px 16px 0 0; } }
 
 /* Matchraderna: etiketter i stället för en lång textrad */
 .etiketter { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
@@ -830,3 +826,23 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 @keyframes snurra { to { transform: rotate(360deg); } }
 .konto-knapp.vantar .avatar { opacity: .4; }
 @media (prefers-reduced-motion: reduce) { .hamtar-prick { animation: none; } }
+
+/* Dator: menyn ligger i headern och den fasta listen är lika bred som innehållet */
+.topp-nav { display: none; }
+@media (min-width: 900px) {
+  .flikrad { display: none; }
+  body { padding-bottom: 24px; }
+  body[data-vy="kupong"] { padding-bottom: calc(var(--kupongbar-h) + 24px); }
+  .kupongbar { bottom: 0; }
+  .kupongbar-inre { max-width: 1080px; }
+  .kupongbar .spara-val, .kupongbar .spara-status { left: auto; right: max(16px, calc((100vw - 1080px) / 2 + 16px)); width: 360px; }
+  .topp-nav { display: flex; gap: 4px; flex: 1; justify-content: center; }
+  .topp-nav a {
+    color: #e6ebf5; text-decoration: none; font-weight: 600; font-size: 15px; padding: 8px 14px; border-radius: 999px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, .7);
+  }
+  .topp-nav a[aria-current="page"] { text-shadow: none; }
+  .topp-nav a:hover { background: rgba(255, 255, 255, .12); }
+  .topp-nav a[aria-current="page"] { color: var(--gul-text); background: var(--gul); }
+  .topp-nav a:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+}
