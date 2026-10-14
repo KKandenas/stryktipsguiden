@@ -846,3 +846,13 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
   .topp-nav a[aria-current="page"] { color: var(--gul-text); background: var(--gul); }
   .topp-nav a:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
 }
+
+/* Antal rader: radbryt när det finns plats, så att alla storlekar syns utan att scrolla */
+@media (min-width: 600px) {
+  .budgetknappar {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); overflow: visible;
+    margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0;
+  }
+  .budgetknappar button, .budgetknappar button[aria-checked="true"] { padding: 0; }
+  .budgetknappar .rader-ord { display: none; }
+}

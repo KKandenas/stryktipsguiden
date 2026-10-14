@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261015b";
-import * as konto from "./konto.js?v=20261015b";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261015b";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261015b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261015b";
+} from "./optimizer.js?v=20261015e";
+import * as konto from "./konto.js?v=20261015e";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261015e";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261015e";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261015e";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -2205,7 +2205,8 @@ function uppdatera() {
   for (const b of $("budgetknappar").children) {
     const vald = Number(b.dataset.budget) === state.budget;
     b.setAttribute("aria-checked", String(vald));
-    b.textContent = vald ? `${b.dataset.budget} ${b.dataset.budget === "1" ? "rad" : "rader"}` : b.dataset.budget;
+    // "96 rader" i mobilens svepbara rad; på bredare skärmar räcker siffran (se CSS .rader-ord)
+    b.replaceChildren(b.dataset.budget, vald ? el("span", { class: "rader-ord", text: b.dataset.budget === "1" ? " rad" : " rader" }) : "");
     if (vald && !state.budgetSynlig) {
       // Den valda storleken ska synas i den svepbara raden
       b.scrollIntoView({ block: "nearest", inline: "center" });
