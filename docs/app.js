@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav,
-} from "./optimizer.js?v=20261014c";
-import * as konto from "./konto.js?v=20261014c";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014c";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014c";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014c";
+} from "./optimizer.js?v=20261014d";
+import * as konto from "./konto.js?v=20261014d";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261014d";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261014d";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261014d";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -569,7 +569,9 @@ function initKontoknapp() {
     knapp.setAttribute("aria-expanded", String(oppna));
   });
   meny.addEventListener("click", (e) => { if (e.target.closest("a")) stang(); e.stopPropagation(); });
-  document.addEventListener("click", stang);
+  // pointerdown i stället för click: Safari på iPhone skickar inte click från ytor som inte är klickbara
+  document.addEventListener("pointerdown", (e) => { if (!e.target.closest(".konto-val")) stang(); });
+  window.addEventListener("hashchange", stang);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !meny.hidden) { stang(); knapp.focus(); } });
   $("meny-knapp").addEventListener("click", stang);
   renderaKontoknapp();
@@ -602,7 +604,8 @@ function renderaKontomeny() {
     status.textContent = "Sparar bilden …";
     try {
       await konto.sparaBild(await forminskaBild(fil.files[0]));
-      renderaKontomeny();
+      meny.hidden = true;
+      $("konto-knapp").setAttribute("aria-expanded", "false");
     } catch (e) { status.textContent = `Bilden kunde inte sparas: ${e.message}`; }
   });
   const delar = [
@@ -614,7 +617,13 @@ function renderaKontomeny() {
   ];
   if (u.egenBild) {
     const ta = el("button", { type: "button", class: "konto-meny-rad", text: u.googleBild ? "Använd Google-bilden" : "Ta bort profilbilden" });
-    ta.addEventListener("click", async () => { try { await konto.sparaBild(null); renderaKontomeny(); } catch (e) { status.textContent = e.message; } });
+    ta.addEventListener("click", async () => {
+      try {
+        await konto.sparaBild(null);
+        meny.hidden = true;
+        $("konto-knapp").setAttribute("aria-expanded", "false");
+      } catch (e) { status.textContent = e.message; }
+    });
     delar.push(ta);
   }
   const ut = el("button", { type: "button", class: "konto-meny-rad", text: "Logga ut" });
@@ -1690,7 +1699,7 @@ function initMeny() {
     if (oppen) lista.querySelector('[aria-current="page"]')?.focus();
   });
   lista.addEventListener("click", (e) => { if (e.target.closest("a")) stang(); });
-  document.addEventListener("click", (e) => { if (!e.target.closest(".meny-val")) stang(); });
+  document.addEventListener("pointerdown", (e) => { if (!e.target.closest(".meny-val")) stang(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !lista.hidden) { stang(); knapp.focus(); } });
 }
 
