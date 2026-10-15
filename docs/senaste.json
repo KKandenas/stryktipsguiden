@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-14T18:50:30Z",
+ "genererad": "2026-10-15T18:27:42Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -514,7 +514,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 7,
+     "plats": 9,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 4,
@@ -526,7 +526,7 @@
      "form": "WWDWLL"
     },
     "borta": {
-     "plats": 18,
+     "plats": 19,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 2,
@@ -612,7 +612,7 @@
      "form": "WLWWLL"
     },
     "borta": {
-     "plats": 6,
+     "plats": 8,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 5,
@@ -688,17 +688,17 @@
     "hemma": {
      "plats": 23,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 1,
      "oavgjorda": 3,
-     "forlorade": 5,
-     "gjorda": 8,
-     "inslappta": 15,
+     "forlorade": 6,
+     "gjorda": 9,
+     "inslappta": 19,
      "poang": 6,
-     "form": "DDLLLW"
+     "form": "LDDLLL"
     },
     "borta": {
-     "plats": 16,
+     "plats": 17,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 2,
@@ -784,7 +784,7 @@
      "form": "WWDDWW"
     },
     "borta": {
-     "plats": 9,
+     "plats": 10,
      "antal_lag": 24,
      "spelade": 9,
      "vunna": 4,
@@ -870,7 +870,7 @@
      "form": "LLDLLW"
     },
     "borta": {
-     "plats": 10,
+     "plats": 11,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 4,
@@ -946,26 +946,26 @@
     "hemma": {
      "plats": 15,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 3,
      "oavgjorda": 3,
-     "forlorade": 3,
-     "gjorda": 12,
-     "inslappta": 11,
+     "forlorade": 4,
+     "gjorda": 14,
+     "inslappta": 14,
      "poang": 12,
-     "form": "WLLWLW"
+     "form": "LWLLWL"
     },
     "borta": {
-     "plats": 17,
+     "plats": 18,
      "antal_lag": 24,
-     "spelade": 9,
+     "spelade": 10,
      "vunna": 3,
      "oavgjorda": 2,
-     "forlorade": 4,
+     "forlorade": 5,
      "gjorda": 7,
-     "inslappta": 11,
+     "inslappta": 17,
      "poang": 11,
-     "form": "LLWWDD"
+     "form": "LLLWWD"
     },
     "kalla": "BBC Sport"
    },
@@ -1561,11 +1561,11 @@
      }
     ],
     "skrall": {
-     "antal": 651,
+     "antal": 656,
      "omgangar": 253,
-     "traff": 0.29,
-     "chans": 0.266,
-     "folket": 0.193
+     "traff": 0.306,
+     "chans": 0.268,
+     "folket": 0.194
     }
    },
    "2023": {
@@ -1722,11 +1722,11 @@
      }
     ],
     "skrall": {
-     "antal": 498,
+     "antal": 502,
      "omgangar": 199,
-     "traff": 0.289,
-     "chans": 0.265,
-     "folket": 0.193
+     "traff": 0.305,
+     "chans": 0.266,
+     "folket": 0.194
     }
    },
    "2024": {
@@ -1883,11 +1883,11 @@
      }
     ],
     "skrall": {
-     "antal": 357,
+     "antal": 363,
      "omgangar": 146,
-     "traff": 0.308,
-     "chans": 0.265,
-     "folket": 0.193
+     "traff": 0.306,
+     "chans": 0.264,
+     "folket": 0.192
     }
    },
    "2025": {
@@ -2044,11 +2044,11 @@
      }
     ],
     "skrall": {
-     "antal": 233,
+     "antal": 237,
      "omgangar": 93,
-     "traff": 0.335,
-     "chans": 0.262,
-     "folket": 0.191
+     "traff": 0.346,
+     "chans": 0.261,
+     "folket": 0.189
     }
    },
    "2026": {
@@ -2187,11 +2187,11 @@
      }
     ],
     "skrall": {
-     "antal": 104,
+     "antal": 107,
      "omgangar": 41,
-     "traff": 0.288,
-     "chans": 0.263,
-     "folket": 0.191
+     "traff": 0.308,
+     "chans": 0.262,
+     "folket": 0.19
     }
    }
   }
@@ -2199,15 +2199,19 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 0,
-   "misslyckade": 3,
-   "modeller": {},
-   "stoppad": "flera misslyckade anrop i rad",
-   "tid": "2026-10-14T18:50:30Z"
+   "lyckade": 19,
+   "misslyckade": 1,
+   "modeller": {
+    "gemini-3.5-flash-lite": 13,
+    "gemini-3.1-flash-lite": 5,
+    "gemini-3.8-flash": 1
+   },
+   "stoppad": null,
+   "tid": "2026-10-15T18:27:42Z"
   },
   "odds": {
-   "kvar": 452,
-   "tid": "2026-10-14T18:47:24Z"
+   "kvar": 446,
+   "tid": "2026-10-15T18:21:25Z"
   }
  },
  "tipsare_form": [
