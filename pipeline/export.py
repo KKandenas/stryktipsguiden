@@ -404,7 +404,8 @@ def statistik_per_ar(conn: sqlite3.Connection, version: str) -> dict:
         """Hur skrällchanserna har gått: andel som gick in mot vad oddsen och folket trodde."""
         per_omgang: dict = {}
         for mid, _, _, res in urval:
-            p = prog.get(mid, {}).get(STANDARD_MODELL)
+            # Samma underlag som appen: Med experters chans där den finns, annars oddsens
+            p = prog.get(mid, {}).get("tips-v1") or prog.get(mid, {}).get(STANDARD_MODELL)
             if p and mid in streck:
                 per_omgang.setdefault(omgang_for[mid], []).append((mid, p, streck[mid], res))
         antal = traff = 0

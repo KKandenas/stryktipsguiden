@@ -4,7 +4,7 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261015e";
+import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261015f";
 
 /** Matcher i optimerarens format. kalla "modell" (och "skrall"): modellens chans och folkets streck.
  *  kalla "tips": den tipsviktade chansen (fält 8) där den finns, annars modellens.
@@ -61,7 +61,9 @@ export function backtesta(historik, rader, kalla = "modell") {
   const ut = { omgangar: [], insats: 0, vinst: 0, antal: { 13: 0, 12: 0, 11: 0, 10: 0 } };
   for (const o of historik.omgangar) {
     const matcher = matcherFor(o, kalla);
-    const res = optimera(matcher, rader, {}, undefined, kalla === "skrall" ? skrallKrav(matcher, rader) : {});
+    // Skrällarna väljs ur Med experters chans där den finns (fält 8), raderna byggs på Oddsen
+    const res = optimera(matcher, rader, {}, undefined,
+      kalla === "skrall" ? skrallKrav(matcher, rader, {}, matcherFor(o, "tips")) : {});
     if (!res.ok) continue;
     const facit = o.matcher.map((m) => m[6]);
     const fordelning = rattFordelning(res.val, facit);

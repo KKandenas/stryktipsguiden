@@ -445,6 +445,20 @@ skrällarna: 1 upp till 64 rader och 2 på större system. Låsta matcher får i
 De höga totalerna kommer från en enda 13-rättare (december 2025). Utan den ger Skrällchans ändå mer
 tillbaka än Oddsen från 128 rader och uppåt, men mindre på små system.
 
+**Infört i oktober 2026:** skrällarna väljs ur *Med experters* chans (tips-v1) där den finns, annars oddsens
+(`skrallUnderlag` i `docs/optimizer.js`, samma i `export.skrallchanser`). Raderna i övrigt byggs på oddsen.
+Backtest, återbetalning med kravet 1 skräll upp till 64 rader och 2 därefter:
+
+| Rader | Period | Skräll enligt oddsen | Skräll enligt Med experter |
+|---|---|---|---|
+| 64 | alla år | 34 % | 42 % |
+| 64 | 2024– | 35 % | 35 % |
+| 128 | alla år (utan 13 rätt) | 394 % (54 %) | 408 % (68 %) |
+| 256 | alla år (utan 13 rätt) | 217 % (47 %) | 223 % (53 %) |
+
+Den nya varianten var lika bra eller bättre i alla fall som testades. I historiken består "experterna" mest av
+Tio tidningars tips. Matchdetaljen visar hur många experter som tippar skrällen.
+
 Testat i oktober 2026 utan att det infördes: att välja skrällar där högst 6 av Tio tidningars tips höll på
 favoriten först. Varje vald skräll träffade något oftare (31 % mot 28 % för den bästa), men i backtestet
 med riktig utdelning blev resultatet detsamma eller något sämre (576 rader: 116 % mot 120 %). Regeln

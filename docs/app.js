@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
-  skrallKrav,
-} from "./optimizer.js?v=20261015e";
-import * as konto from "./konto.js?v=20261015e";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261015e";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261015e";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261015e";
+  skrallKrav, skrallUnderlag,
+} from "./optimizer.js?v=20261015f";
+import * as konto from "./konto.js?v=20261015f";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261015f";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261015f";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261015f";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -80,7 +80,8 @@ const harTips = (kupong) => kupong.matcher.some((m) => m.chans_tips);
 /** Optimera enligt ett förslag (med skrällkrav för "skrall"). */
 function optimeraForslag(kupong, kalla, budget, lasningar) {
   const matcher = matcherEnligtKalla(kupong, kalla);
-  return optimera(matcher, budget, lasningar, undefined, kalla === "skrall" ? skrallKrav(matcher, budget, lasningar) : {});
+  return optimera(matcher, budget, lasningar, undefined,
+    kalla === "skrall" ? skrallKrav(matcher, budget, lasningar, skrallUnderlag(kupong.matcher)) : {});
 }
 
 /** Kort förklaring under sammanfattningen för förslag som bara delvis skiljer sig från Oddsen. */
@@ -278,7 +279,7 @@ function skillnadMotAndra(kupong, resultat, budget, lasningar) {
 function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skillnad = null) {
   lista.replaceChildren();
   const val = resultat?.ok ? Object.fromEntries(resultat.val.map((v) => [v.nr, v])) : {};
-  const skrallar = skrallchanser(kupong.matcher);
+  const skrallar = skrallchanser(skrallUnderlag(kupong.matcher));
 
   for (const m of kupong.matcher) {
     const skrall = skrallar[m.nr];
@@ -396,8 +397,11 @@ function detaljOversikt(m, v, skrall) {
   const ut = [];
   if (m.kommentar) ut.push(el("p", { class: "kommentar", text: m.kommentar }));
   if (skrall) {
+    const tips = (m.tips || []).filter((t) => t.tecken || t.system);
+    const stod = tips.filter((t) => (t.tecken || t.system).includes(skrall.tecken)).length;
     ut.push(el("p", { class: "skrall-text" }, el("b", { text: `Skrällchans ${skrall.tecken}: ` }),
-      `${procent(skrall.chans)} % chans men bara ${Math.round(skrall.streck * 100)} % streck. ` +
+      `${procent(skrall.chans)} % chans men bara ${Math.round(skrall.streck * 100)} % streck` +
+      (tips.length ? ` · ${stod} av ${tips.length} ${tips.length === 1 ? "expert" : "experter"} tippar ${skrall.tecken}` : "") + ". " +
       `Går den in betalar den ovanligt bra – men den är fortfarande mindre trolig än favoriten.`));
   }
   ut.push(chansStaplar(m, v));

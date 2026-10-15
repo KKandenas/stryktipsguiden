@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, sammanfattning, skrallchanser,
-  skrallKrav, skrallarForBudget,
+  skrallKrav, skrallUnderlag, skrallarForBudget,
 } from "../../docs/optimizer.js";
 
 const exempel = JSON.parse(readFileSync(new URL("../../docs/exempel-kupong.json", import.meta.url), "utf8"));
@@ -148,4 +148,21 @@ test("förslaget Skrällchans: 1 skräll upp till 64 rader, 2 däröver, och rad
   // En låst match får inget skrällkrav – låsningen gäller
   const nr = Number(Object.keys(ett)[0]);
   assert.ok(!skrallKrav(matcher, 32, { [nr]: "1" })[nr]);
+});
+
+
+test("skrällarna väljs ur Med experters chans där den finns", () => {
+  const m = (nr, chans, streck, tips) => ({ nr, chans: { 1: chans[0], X: chans[1], 2: chans[2] },
+    streck: { 1: streck[0], X: streck[1], 2: streck[2] }, chans_tips: tips ? { 1: tips[0], X: tips[1], 2: tips[2] } : null });
+  // Enligt oddsen är X ingen skräll (kvot 1,1), men experterna tror mer på krysset (kvot 1,4)
+  const matcher = [m(1, [0.5, 0.22, 0.28], [55, 20, 25], [0.45, 0.28, 0.27]),
+    ...Array.from({ length: 12 }, (_, i) => m(i + 2, [0.7, 0.2, 0.1], [70, 20, 10]))];
+  assert.deepEqual(skrallchanser(matcher), {});
+  const underlag = skrallUnderlag(matcher);
+  assert.equal(underlag[0].chans.X, 0.28);
+  assert.equal(underlag[1], matcher[1]);                       // utan experter: oförändrad
+  const krav = skrallKrav(matcher, 32, {}, underlag);
+  assert.deepEqual(krav, { 1: "X" });
+  const r = optimera(matcher, 32, {}, undefined, krav);
+  assert.ok(r.val[0].tecken.includes("X"));
 });

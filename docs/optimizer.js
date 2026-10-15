@@ -52,13 +52,23 @@ export function skrallchanser(matcher) {
 }
 
 /** Krav för förslaget Skrällchans: {matchnr: tecken} för omgångens bästa skrällar (1 eller 2 beroende på
- *  budget). Matcher som användaren låst får inget krav – låsningen gäller. */
-export function skrallKrav(matcher, rader, lasningar = {}) {
-  const lista = Object.values(skrallchanser(matcher))
+ *  budget). Matcher som användaren låst får inget krav – låsningen gäller. Skrällarna väljs ur valMatcher
+ *  (chansen enligt Med experter, se skrallUnderlag) medan raderna i övrigt byggs på matcher (Oddsen). */
+export function skrallKrav(matcher, rader, lasningar = {}, valMatcher = matcher) {
+  const lista = Object.values(skrallchanser(valMatcher))
     .filter((s) => !normaliseraLasning(lasningar[s.nr]))
     .sort((a, b) => b.kvot - a.kvot)
     .slice(0, skrallarForBudget(rader));
   return Object.fromEntries(lista.map((s) => [s.nr, s.tecken]));
+}
+
+/** Underlaget för skrällchanser: chansen enligt Med experter där den finns, annars Oddsens. Testat mot
+ *  historiken (oktober 2026): lika bra eller bättre än enbart Oddsen för 64–256 rader. Se README. */
+export function skrallUnderlag(matcher) {
+  return matcher.map((m) => {
+    const chans = m.chans_tips || m.chans_modell || m.chans;
+    return chans === m.chans ? m : { ...m, chans };
+  });
 }
 
 export function faktorisera(rader) {
