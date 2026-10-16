@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-15T18:27:42Z",
+ "genererad": "2026-10-16T17:45:52Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -1128,7 +1128,7 @@
      "form": "DWLDDW"
     },
     "borta": {
-     "plats": 7,
+     "plats": 8,
      "antal_lag": 24,
      "spelade": 8,
      "vunna": 4,
@@ -2199,19 +2199,18 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 19,
-   "misslyckade": 1,
+   "lyckade": 21,
+   "misslyckade": 13,
    "modeller": {
-    "gemini-3.5-flash-lite": 13,
-    "gemini-3.1-flash-lite": 5,
-    "gemini-3.8-flash": 1
+    "gemini-3.5-flash-lite": 19,
+    "gemini-3.6-flash": 2
    },
-   "stoppad": null,
-   "tid": "2026-10-15T18:27:42Z"
+   "stoppad": "tidsbudgeten (15 min) tog slut",
+   "tid": "2026-10-16T17:45:52Z"
   },
   "odds": {
-   "kvar": 446,
-   "tid": "2026-10-15T18:21:25Z"
+   "kvar": 440,
+   "tid": "2026-10-16T17:30:00Z"
   }
  },
  "tipsare_form": [
