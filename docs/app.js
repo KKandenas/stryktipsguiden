@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261017c";
-import * as konto from "./konto.js?v=20261017c";
+} from "./optimizer.js?v=20261017d";
+import * as konto from "./konto.js?v=20261017d";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261017c";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261017c";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261017c";
+} from "./spelbolag.js?v=20261017d";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261017d";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261017d";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -920,7 +920,15 @@ function spelkort(spel, r, { egen }) {
   const nyckel = `${spel.agare}_${spel.omgang_id}`;
   const visa = el("button", { type: "button", class: "visa-bolag", "aria-expanded": String(ms.oppna.has(nyckel)),
     text: ms.oppna.has(nyckel) ? "Dölj raderna" : egen && !r ? "Visa och ändra raderna" : "Visa raderna" });
-  visa.addEventListener("click", () => { ms.oppna.has(nyckel) ? ms.oppna.delete(nyckel) : ms.oppna.add(nyckel); renderaMinaSpel($("minaspel-innehall")); });
+  // Fäll ut och ihop bara det här kortet – att rita om hela sidan (och räkna om alla spel) gjorde knappen seg
+  visa.addEventListener("click", () => {
+    const oppen = !ms.oppna.has(nyckel);
+    oppen ? ms.oppna.add(nyckel) : ms.oppna.delete(nyckel);
+    visa.setAttribute("aria-expanded", String(oppen));
+    visa.textContent = oppen ? "Dölj raderna" : egen && !r ? "Visa och ändra raderna" : "Visa raderna";
+    if (oppen) kort.append(spelrader(spel, r, egen && !r));
+    else kort.querySelector(":scope > .spelrader-ruta")?.remove();
+  });
   const knappar = el("div", { class: "spelkort-knappar" }, visa);
   if (egen) knappar.append(...taBortKnappar(spel));
   kort.append(knappar);
@@ -990,7 +998,7 @@ function spelrader(spel, r, redigerbar) {
     angra.addEventListener("click", () => { delete ms.utkast[spel.omgang_id]; renderaMinaSpel($("minaspel-innehall")); });
     del.push(el("div", { class: "knapprad" }, spara, angra));
   }
-  return el("div", {}, ...del);
+  return el("div", { class: "spelrader-ruta" }, ...del);
 }
 
 function renderaMinaSpel(box) {
