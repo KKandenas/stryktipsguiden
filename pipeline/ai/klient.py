@@ -13,6 +13,7 @@ import logging
 import os
 import threading
 import time
+from contextlib import contextmanager
 from typing import Any, Callable, Dict, List, Optional
 
 log = logging.getLogger(__name__)
@@ -37,9 +38,15 @@ OKANDA_MODELLER = {400, 404}       # modellen finns inte (längre) – hoppas ö
 ANROP_TIDSGRANS = 90               # sekunder per enskilt anrop; SDK:t kan annars hänga i det oändliga
 AI_TIDSBUDGET = 15 * 60            # sekunder AI totalt per körning, så att körningen hinner spara sin data
 MAX_FEL_I_RAD = 3                  # så många misslyckade anrop i rad → AI hoppas över resten av körningen
+# Högsta AI-tid per steg, så att ett steg inte äter upp hela budgeten. Tipsen kommer först och kan ta lång
+# tid (många artiklar, 503 och minutgränser); utan tak hann Lagkoll aldrig börja. Steg som inte står här
+# får det som är kvar av AI_TIDSBUDGET.
+STEGBUDGET = {"Tips": 9 * 60, "Kommentarer": 3 * 60}
 
 _start: Optional[float] = None
 _fel_i_rad = 0
+_steg: Optional[str] = None
+_steg_slut: Optional[float] = None   # tidpunkt (time.monotonic) då stegets AI-tid är slut
 # Hur AI-anropen gick under körningen – sparas för driftstatusen i appen (se __main__.spara_ai_status).
 KORNING: Dict[str, Any] = {"lyckade": 0, "misslyckade": 0, "modeller": {}, "stoppad": None}
 _ordning: List[str] = []           # modellkedjan; en modell som just svarat dåligt flyttas sist
@@ -257,6 +264,19 @@ def _anropa_claude(system: str, anvandare: str, schema: Dict[str, Any], max_toke
     return _tolka_json(next((b.text for b in svar.content if b.type == "text"), None))
 
 
+@contextmanager
+def steg(namn: str):
+    """AI-anropen inom blocket hör till steget `namn` och får högst STEGBUDGET[namn] sekunder.
+    Räknaren för fel i rad nollställs, så att ett steg med trasiga artiklar inte stänger av nästa."""
+    global _steg, _steg_slut, _fel_i_rad
+    sekunder = STEGBUDGET.get(namn)
+    _steg, _steg_slut, _fel_i_rad = namn, (time.monotonic() + sekunder if sekunder else None), 0
+    try:
+        yield
+    finally:
+        _steg, _steg_slut = None, None
+
+
 def anropa_json(system: str, anvandare: str, schema: Dict[str, Any], max_tokens: int = 16000) -> Dict[str, Any]:
     """Ett anrop med strikt JSON-schema för svaret. Kastar AiFel vid avslag, avbrott eller API-fel."""
     global _start, _fel_i_rad
@@ -271,6 +291,8 @@ def anropa_json(system: str, anvandare: str, schema: Dict[str, Any], max_tokens:
     elif time.monotonic() - _start > AI_TIDSBUDGET:
         KORNING["stoppad"] = f"tidsbudgeten ({AI_TIDSBUDGET // 60} min) tog slut"
         raise AiFel(f"tidsbudgeten för AI ({AI_TIDSBUDGET // 60} min) är slut – resten tas nästa körning")
+    if _steg_slut is not None and time.monotonic() > _steg_slut:
+        raise AiFel(f"AI-tiden för {_steg} ({STEGBUDGET[_steg] // 60} min) är slut – resten tas nästa körning")
     try:
         svar = (_anropa_gemini if lev == "gemini" else _anropa_claude)(system, anvandare, schema, max_tokens)
     except AiFel:

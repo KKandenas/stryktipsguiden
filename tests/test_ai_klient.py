@@ -10,6 +10,7 @@ from pipeline.ai.klient import AiFel
 def nollstall(monkeypatch):
     monkeypatch.setattr(klient, "_start", None)
     monkeypatch.setattr(klient, "_fel_i_rad", 0)
+    monkeypatch.setattr(klient, "_steg_slut", None)
     monkeypatch.setattr(klient, "_anrop", {})
     monkeypatch.setattr(klient, "_paus", {})
     monkeypatch.setattr(klient, "leverantor", lambda: "gemini")
@@ -219,3 +220,19 @@ def test_429_per_minut_pausar_modellen(monkeypatch):
     assert klient.anropa_json("s", "u", {}) == {"ok": 1}
     assert klient.anropa_json("s", "u", {}) == {"ok": 1}
     assert falsk.anrop == ["huvud", "reserv1", "reserv1"]      # huvud vilar en minut efter 429
+
+
+def test_tips_far_inte_ata_upp_tiden_for_lagkoll(monkeypatch):
+    monkeypatch.setattr(klient, "_anropa_gemini", lambda *a: {"ok": True})
+    monkeypatch.setattr(klient, "STEGBUDGET", {"Tips": 60})
+    nu = [1000.0]
+    monkeypatch.setattr(klient.time, "monotonic", lambda: nu[0])
+    with klient.steg("Tips"):
+        assert klient.anropa_json("s", "a", {}) == {"ok": True}
+        nu[0] += 61
+        with pytest.raises(AiFel, match="AI-tiden för Tips"):
+            klient.anropa_json("s", "a", {})
+    # Lagkoll har inget eget tak och får resten av den totala budgeten
+    monkeypatch.setattr(klient, "_fel_i_rad", klient.MAX_FEL_I_RAD)
+    with klient.steg("Lagkoll"):
+        assert klient.anropa_json("s", "a", {}) == {"ok": True}

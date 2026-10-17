@@ -285,7 +285,8 @@ modeller fulla väntar den på första lediga plats, högst 75 s per anrop. En m
 60 s.
 
 **Spärrar** så att en körning alltid hinner spara sin data: 3 misslyckade anrop i rad stänger av AI
-resten av körningen, och AI får ta högst 15 min per körning. Det som inte hanns med tas vid nästa körning. En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
+resten av körningen, och AI får ta högst 15 min per körning: tipsen högst 9 min och kommentarerna högst 3 min,
+så att Lagkoll alltid hinner med. Det som inte hanns med tas vid nästa körning. En körning gör cirka 15 anrop: 13 matchartiklar, 1 kupongartikel och 1 för kommentarerna.
 
 **Kostnad:** Geminis gratisnivå räcker för det här. Observera att Google får använda innehåll som
 skickas på gratisnivån för att förbättra sina produkter. Här är det bara publika artiklar och

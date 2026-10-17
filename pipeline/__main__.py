@@ -223,7 +223,8 @@ def steg_tips(conn) -> bool:
     if not _ai_redo("Tips"):
         return True
     try:
-        stat = tipsinsamling.samla(conn, ai_klient.anropa_json)
+        with ai_klient.steg("Tips"):
+            stat = tipsinsamling.samla(conn, ai_klient.anropa_json)
         log.info("Tips: %(artiklar)d artiklar, %(tolkade)d tolkade av AI, %(tips)d nya/ändrade tips, %(fel)d fel", stat)
     except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
         log.exception("Tips: oväntat fel: %s", e)
@@ -235,7 +236,8 @@ def steg_kommentarer(conn) -> bool:
         return True
     for (omgang_id,) in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ? AND installd = 0", (nu_utc(),)).fetchall():
         try:
-            n = ai_kommentarer.uppdatera(conn, ai_klient.anropa_json, export.bygg_kupong(conn, omgang_id))
+            with ai_klient.steg("Kommentarer"):
+                n = ai_kommentarer.uppdatera(conn, ai_klient.anropa_json, export.bygg_kupong(conn, omgang_id))
             log.info("Kommentarer: omgång %s – %d nya/ändrade", omgang_id, n)
         except Exception as e:
             log.error("Kommentarer: omgång %s: %s", omgang_id, e)
@@ -258,7 +260,8 @@ def steg_lagkoll(conn, tvinga: bool = False) -> bool:
     if not _ai_redo("Lagkoll"):
         return True
     try:
-        stat = lagkoll.analysera(conn, ai_klient.anropa_json, tvinga=tvinga)
+        with ai_klient.steg("Lagkoll"):
+            stat = lagkoll.analysera(conn, ai_klient.anropa_json, tvinga=tvinga)
         log.info("Lagkoll: %(analyserade)d analyserade, %(oforandrade)d oförändrade, "
                  "%(utan_underlag)d utan underlag, %(fel)d fel", stat)
         oppna = [r[0] for r in conn.execute("SELECT id FROM omgangar WHERE spelstopp > ?", (nu_utc(),))]
