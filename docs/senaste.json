@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-16T17:45:52Z",
+ "genererad": "2026-10-17T07:49:33Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -514,7 +514,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 9,
+     "plats": 10,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 4,
@@ -612,7 +612,7 @@
      "form": "WLWWLL"
     },
     "borta": {
-     "plats": 8,
+     "plats": 9,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 5,
@@ -784,16 +784,16 @@
      "form": "WWDDWW"
     },
     "borta": {
-     "plats": 10,
+     "plats": 6,
      "antal_lag": 24,
-     "spelade": 9,
-     "vunna": 4,
+     "spelade": 10,
+     "vunna": 5,
      "oavgjorda": 2,
      "forlorade": 3,
-     "gjorda": 16,
-     "inslappta": 14,
-     "poang": 14,
-     "form": "LLWWDL"
+     "gjorda": 18,
+     "inslappta": 15,
+     "poang": 17,
+     "form": "WLLWWD"
     },
     "kalla": "BBC Sport"
    },
@@ -1044,14 +1044,14 @@
     "borta": {
      "plats": 21,
      "antal_lag": 24,
-     "spelade": 10,
+     "spelade": 11,
      "vunna": 1,
      "oavgjorda": 5,
-     "forlorade": 4,
-     "gjorda": 15,
-     "inslappta": 19,
+     "forlorade": 5,
+     "gjorda": 16,
+     "inslappta": 21,
      "poang": 8,
-     "form": "DWDLDL"
+     "form": "LDWDLD"
     },
     "kalla": "BBC Sport"
    },
@@ -1355,6 +1355,27 @@
     "antal": 0
    },
    {
+    "namn": "rekatochklart.com",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "dagensbastaspel.se",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "tipsmedoss.com",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
     "namn": "speltips.se (system)",
     "vikt": 0.1,
     "skattad": false,
@@ -1405,6 +1426,27 @@
    },
    {
     "namn": "footballpredictions.com (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "rekatochklart.com (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "dagensbastaspel.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "tipsmedoss.com (system)",
     "vikt": 0.1,
     "skattad": false,
     "traff": null,

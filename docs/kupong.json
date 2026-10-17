@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-16T17:45:52Z",
+ "genererad": "2026-10-17T07:49:33Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -2033,7 +2033,7 @@
      "form": "LDDLLL"
     },
     "borta": {
-     "plats": 8,
+     "plats": 9,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 5,
@@ -2748,7 +2748,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 7,
+     "plats": 8,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 6,
@@ -3269,7 +3269,7 @@
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 6,
+     "plats": 7,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 5,
@@ -3281,7 +3281,7 @@
      "form": "WLLDWW"
     },
     "borta": {
-     "plats": 9,
+     "plats": 10,
      "antal_lag": 24,
      "spelade": 10,
      "vunna": 4,
@@ -4177,6 +4177,27 @@
     "antal": 0
    },
    {
+    "namn": "rekatochklart.com",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "dagensbastaspel.se",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "tipsmedoss.com",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
     "namn": "speltips.se (system)",
     "vikt": 0.1,
     "skattad": false,
@@ -4227,6 +4248,27 @@
    },
    {
     "namn": "footballpredictions.com (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "rekatochklart.com (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "dagensbastaspel.se (system)",
+    "vikt": 0.1,
+    "skattad": false,
+    "traff": null,
+    "antal": 0
+   },
+   {
+    "namn": "tipsmedoss.com (system)",
     "vikt": 0.1,
     "skattad": false,
     "traff": null,
