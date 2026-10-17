@@ -109,7 +109,7 @@ Detaljerna finns i README.
 - Utbyggt 17 oktober 2026: medlemmar utan konto (läggs in av skaparen och kan kopplas till ett konto senare),
   "Spelades av" på varje spel, topplista sorterad på vinst och efterregistrering av missade veckor (rader för
   en tidigare omgång, eller belopp i kassaboken med vem som spelade).
-- [ ] Publicera de nya `firestore.rules` (17 oktober 2026).
+- [x] Publicera de nya `firestore.rules` (17 oktober 2026).
 
 ### Nyheter om lagen
 - **Steg A:** sidan "Lagnyheter" samlar det Lagkoll redan hittar, alltså skador, avstängningar,
