@@ -1,11 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261017b";
-import * as konto from "./konto.js?v=20261017b";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261017b";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261017b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261017b";
+} from "./optimizer.js?v=20261017c";
+import * as konto from "./konto.js?v=20261017c";
+import {
+  MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
+  valideraGast, valideraPost,
+} from "./spelbolag.js?v=20261017c";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261017c";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261017c";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -791,10 +794,13 @@ async function sparaAktuelltSpel() {
       knapp("Jag själv", () => sparaSom(null)),
       ...grupper.map((g) => {
         const ok = farSpara(g, ms.anvandare.uid, omg);
-        const tur = turFor(g, omg);
-        return knapp(`För ${g.namn}`, () => sparaSom(g), ok,
-          ok ? "" : g.spelform === "tur" ? `Det är ${g.medlemmar[tur] ? `${g.medlemmar[tur].namn}s` : "någon annans"} tur den här veckan.`
+        const tur = losId(g, turFor(g, omg));
+        const vem = spelareVal(g, tur || ms.anvandare.uid, `spara-spelare-${g.id}`);
+        const rad = knapp(`För ${g.namn}`, () => sparaSom(g, vem.value), ok,
+          ok ? "" : g.spelform === "tur" ? `Det är ${tur ? genitiv(namnPa(g, tur) || "någon annan") : "någon annans"} tur den här veckan.`
             : "Det är kassören som lämnar in.");
+        if (ok) rad.append(el("label", { class: "spara-spelare liten" }, "Spelades av ", vem));
+        return rad;
       }));
     val.hidden = false;
     status.hidden = true;
@@ -803,7 +809,7 @@ async function sparaAktuelltSpel() {
   await sparaSom(null);
 }
 
-async function sparaSom(grupp) {
+async function sparaSom(grupp, spelare = null) {
   const status = $("spara-status");
   $("spara-val").hidden = true;
   status.hidden = false;
@@ -814,9 +820,10 @@ async function sparaSom(grupp) {
   status.textContent = "Sparar …";
   try {
     if (grupp) {
-      await konto.sparaGruppSpel(grupp, spel);
+      await konto.sparaGruppSpel(grupp, { ...spel, spelare: spelare || ms.anvandare.uid });
       delete sb.data[grupp.id];
-      status.textContent = `Sparat för ${grupp.namn}: ${FORSLAG[spel.forslag].namn}, ${spel.rader} rader. ` +
+      status.textContent = `Sparat för ${grupp.namn}: ${FORSLAG[spel.forslag].namn}, ${spel.rader} rader, ` +
+        `spelat av ${namnPa(grupp, spelare || ms.anvandare.uid) || "dig"}. ` +
         "Sparar du igen ersätts bolagets rader för den här omgången.";
     } else {
       await konto.sparaSpel(spel);
@@ -1080,8 +1087,22 @@ function raderingsruta() {
 
 // ---------- spelbolag ----------
 
-const sb = { grupper: null, vald: null, data: {}, anslutKod: null, skapa: false, radera: false, taBortPost: null, fel: "" };
+const sb = { grupper: null, vald: null, data: {}, anslutKod: null, skapa: false, radera: false, taBortPost: null, fel: "",
+  efter: null };   // efter: { omg, tecken: [13] } – spel som läggs in i efterhand
 const kort = (...barn) => el("section", { class: "kort" }, ...barn);
+
+/** "Kalle" → "Kalles", "Bo" → "Bos", "Lars" → "Lars". */
+const genitiv = (namn) => (/[sxz]$/i.test(namn) ? namn : `${namn}s`);
+
+/** Lista att välja vem som spelade: alla som delar på spelen (medlemmar och medlemmar utan konto). */
+function spelareVal(g, vald, id) {
+  const me = ms.anvandare?.uid;
+  return el("select", { id, class: "spelare-val" }, ...deltagarIds(g).map((x) => {
+    const o = el("option", { value: x, text: `${namnPa(g, x)}${x === me ? " (du)" : ""}` });
+    o.selected = x === losId(g, vald);
+    return o;
+  }));
+}
 
 async function laddaGrupper() {
   sb.grupper = await konto.minaGrupper();
@@ -1095,8 +1116,8 @@ function renderaTurInfo() {
   if (!rad) return;
   const omg = state.kupong?.omgang.id;
   const delar = (ms.anvandare && omg ? sb.grupper || [] : []).filter((g) => g.spelform === "tur").map((g) => {
-    const tur = turFor(g, omg);
-    return tur === ms.anvandare.uid ? `Din tur att spela i ${g.namn} den här veckan.` : `${g.medlemmar[tur]?.namn || "Någon"}s tur i ${g.namn}.`;
+    const tur = losId(g, turFor(g, omg));
+    return tur === ms.anvandare.uid ? `Din tur att spela i ${g.namn} den här veckan.` : `${genitiv(namnPa(g, tur) || "Någon")} tur i ${g.namn}.`;
   });
   rad.hidden = !delar.length;
   rad.textContent = delar.join(" ");
@@ -1215,19 +1236,20 @@ function renderaSpelbolag(box) {
     el("div", {}, el("span", { text: "Insatser" }), el("b", { text: kr(r.insats) })),
     el("div", {}, el("span", { text: "Vinster" }), el("b", { text: kr(r.vinst) })),
     el("div", {}, el("span", { text: "Netto" }), el("b", { class: r.netto >= 0 ? "plus" : "minus", text: plusKr(r.netto) })),
-    el("p", { class: "dampad liten", text: `${g.medlem_uids.length} ${g.medlem_uids.length === 1 ? "medlem" : "medlemmar"}.` +
+    el("p", { class: "dampad liten", text: `${deltagarIds(g).length} ${deltagarIds(g).length === 1 ? "medlem" : "medlemmar"}.` +
       (g.spelform === "kassa" ? ` Kassör: ${g.medlemmar[g.kassor || g.skapare]?.namn}. I kassan: ${kr(r.kassa)}.` : "") })));
 
   // Den här veckan
   if (omg) {
     const veckans = d.spel.find((s) => s.omgang_id === omg);
-    const spelare = g.spelform === "tur" ? turFor(g, omg) : g.kassor || g.skapare;
-    const vem = spelare === me ? "Du" : g.medlemmar[spelare]?.namn || "—";
+    const spelare = losId(g, g.spelform === "tur" ? turFor(g, omg) : g.kassor || g.skapare);
+    const vem = spelare === me ? "Du" : namnPa(g, spelare) || "—";
     ut.push(kort(el("h2", { text: `Den här veckan · omgång ${omg}` }),
-      el("p", { class: "veckans-spelare" }, avatar({ namn: g.medlemmar[spelare]?.namn, bild: g.medlemmar[spelare]?.bild }, "avatar liten"),
+      el("p", { class: "veckans-spelare" }, avatar({ namn: namnPa(g, spelare), bild: g.medlemmar[spelare]?.bild }, "avatar liten"),
         el("span", { text: `${vem} ${g.spelform === "tur" ? "spelar" : "lämnar in"} den här veckan.` })),
       el("p", { text:
-        (veckans ? `Inlämnat av ${veckans.sparad_av_namn}: ${FORSLAG[veckans.forslag]?.namn || veckans.forslag}, ${veckans.rader} rader (${kr(veckans.insats)}).`
+        (veckans ? `Spelat av ${namnPa(g, veckans.spelare || veckans.sparad_av) || veckans.sparad_av_namn}: ` +
+          `${FORSLAG[veckans.forslag]?.namn || veckans.forslag}, ${veckans.rader} rader (${kr(veckans.insats)}).`
           : "Inget inlämnat än.") }),
       !veckans && farSpara(g, me, omg) ? el("p", { class: "liten" }, "Välj rader på ", el("a", { href: "#kupong", text: "kupongen" }),
         ` och tryck på ”Jag lämnade in de här raderna” → ”För ${g.namn}”.`) : null));
@@ -1236,11 +1258,13 @@ function renderaSpelbolag(box) {
   // Medlemmar och saldon
   ut.push(el("h2", { class: "ms-rubrik", text: "Medlemmar och saldon" }));
   const lista = el("ul", { class: "saldolista" });
-  for (const uid of g.medlem_uids) {
+  const visas = [...new Set(deltagarIds(g).map((id) => losId(g, id)))];
+  for (const [uid, m] of Object.entries(r.medlemmar)) if (!visas.includes(uid) && Math.abs(m.saldo) > 0.5) visas.push(uid);
+  for (const uid of visas) {
     const m = r.medlemmar[uid];
     lista.append(el("li", {},
       avatar({ namn: m.namn, bild: g.medlemmar[uid]?.bild }, "avatar liten"),
-      el("div", { class: "saldo-namn" }, el("b", { text: `${m.namn}${uid === me ? " (du)" : ""}` }),
+      el("div", { class: "saldo-namn" }, el("b", { text: `${m.namn}${uid === me ? " (du)" : m.gast ? " (utan konto)" : ""}` }),
         el("p", { class: "dampad liten", text: `Betalat ${kr(m.betalat)} · fått ${kr(m.mottaget)} · andel insatser ${kr(m.insats)} · andel vinster ${kr(m.vinst)}` })),
       el("b", { class: `saldo ${m.saldo > 0.5 ? "plus" : m.saldo < -0.5 ? "minus" : ""}`, text: plusKr(m.saldo) })));
   }
@@ -1248,12 +1272,25 @@ function renderaSpelbolag(box) {
     ? "Plus = har pengar att få av de andra. Minus = ska betala till de andra (t.ex. dela ut en vinst man tagit emot)."
     : "Saldot är din del av kassan: det du betalat in minus din andel av insatserna plus din andel av vinsterna." }));
 
+  ut.push(topplistaRuta(g, d));
+
   // Spelen
   ut.push(el("h2", { class: "ms-rubrik", text: "Bolagets spel" }));
   if (!r.spel.length) ut.push(el("p", { class: "dampad", text: "Inga spel än." }));
-  for (const { spel, resultat } of r.spel.slice(0, 12)) {
+  for (const { spel, resultat, spelare } of r.spel.slice(0, sb.allaSpel ? undefined : 12)) {
     const k = spelkort({ ...spel, agare: `g-${g.id}` }, resultat, { egen: false });
-    k.querySelector(".spelkort-huvud p")?.append(` · ${spel.sparad_av_namn}`);
+    const huvud = k.querySelector(".spelkort-huvud p");
+    if (spel.sparad_av === me || farBokfora(g, me)) {
+      // Vem som spelade går att ändra i efterhand
+      const vem = spelareVal(g, spelare, `spelare-${spel.omgang_id}`);
+      vem.addEventListener("change", async () => {
+        try { await konto.andraSpelare(g.id, spel.omgang_id, vem.value); delete sb.data[g.id]; oppnaSpelbolag(); }
+        catch (e) { huvud?.append(el("span", { class: "fel", text: ` Kunde inte ändra: ${e.message}` })); }
+      });
+      huvud?.after(el("label", { class: "spara-spelare liten" }, "Spelades av ", vem));
+    } else {
+      huvud?.append(` · spelat av ${namnPa(g, spelare) || spel.sparad_av_namn}`);
+    }
     if (spel.sparad_av === me || farBokfora(g, me)) {
       const b = el("button", { type: "button", class: "visa-bolag fara-text", text: "Ta bort" });
       b.addEventListener("click", async () => {
@@ -1265,6 +1302,13 @@ function renderaSpelbolag(box) {
     ut.push(k);
   }
 
+  if (r.spel.length > 12 && !sb.allaSpel) {
+    const b = el("button", { type: "button", class: "knapp", text: `Visa alla ${r.spel.length} spel` });
+    b.addEventListener("click", () => { sb.allaSpel = true; renderaSpelbolag(box); });
+    ut.push(b);
+  }
+
+  if (farBokfora(g, me)) ut.push(efterhandRuta(g, d));
   ut.push(kassabokRuta(g, d.bok));
   ut.push(installningar(g));
   box.replaceChildren(...ut);
@@ -1276,7 +1320,11 @@ function kassabokRuta(g, bok) {
   if (farBokfora(g, me)) {
     const typ = el("select", { id: "kb-typ" }, ...Object.entries(POSTTYPER).map(([k, v]) => el("option", { value: k, text: v })));
     const vem = el("select", { id: "kb-vem" }, el("option", { value: "", text: g.spelform === "kassa" ? "Kassan" : "Ingen särskild" }),
-      ...g.medlem_uids.map((u) => el("option", { value: u, text: g.medlemmar[u]?.namn })));
+      ...deltagarIds(g).map((u) => el("option", { value: u, text: namnPa(g, u) })));
+    const spelare = el("select", { id: "kb-spelare" }, el("option", { value: "", text: "Ingen särskild" }),
+      ...deltagarIds(g).map((u) => el("option", { value: u, text: namnPa(g, u) })));
+    const spelareRad = [el("label", { for: "kb-spelare", text: "Spelades av" }), spelare,
+      el("p", { class: "dampad liten", text: "Räknas in i topplistan. Används när raderna inte finns kvar att lägga in." })];
     const belopp = el("input", { type: "number", id: "kb-belopp", min: 1, step: 1, inputmode: "numeric", placeholder: "kr" });
     const text = el("input", { type: "text", id: "kb-text", maxlength: 80, placeholder: "t.ex. Swish oktober" });
     const datum = el("input", { type: "date", id: "kb-datum", value: new Date().toISOString().slice(0, 10) });
@@ -1290,11 +1338,14 @@ function kassabokRuta(g, bok) {
         insats: "Ett spel utanför appen som delas lika. Välj vem som betalade, eller kassan.",
       }[typ.value];
     };
-    typ.addEventListener("change", uppdateraHjalp);
+    const visaSpelare = () => { for (const x of spelareRad) x.hidden = !["vinst", "insats"].includes(typ.value); };
+    typ.addEventListener("change", () => { uppdateraHjalp(); visaSpelare(); });
     uppdateraHjalp();
+    visaSpelare();
     const f = el("form", { class: "konto-form kb-form" },
       el("label", { for: "kb-typ", text: "Typ" }), typ, hjalp,
       el("label", { for: "kb-vem", text: "Medlem" }), vem,
+      ...spelareRad,
       el("label", { for: "kb-belopp", text: "Belopp" }), belopp,
       el("label", { for: "kb-text", text: "Kommentar" }), text,
       el("label", { for: "kb-datum", text: "Datum" }), datum,
@@ -1303,6 +1354,7 @@ function kassabokRuta(g, bok) {
       e.preventDefault();
       const post = { typ: typ.value, uid: vem.value || null, belopp: Math.round(Number(belopp.value) * 100) / 100,
         text: text.value.trim(), datum: datum.value };
+      if (["vinst", "insats"].includes(typ.value) && spelare.value) post.spelare = spelare.value;
       const fel = valideraPost(post, g);
       if (fel) { status.textContent = fel; return; }
       try { await konto.laggTillPost(g, post); delete sb.data[g.id]; oppnaSpelbolag(); }
@@ -1316,8 +1368,9 @@ function kassabokRuta(g, bok) {
     const lista = el("ul", { class: "kassabok" });
     for (const p of bok) {
       const rad = el("li", {},
-        el("div", {}, el("b", { text: `${POSTTYPER[p.typ]}${p.uid ? ` · ${g.medlemmar[p.uid]?.namn || "tidigare medlem"}` : ""}` }),
-          el("p", { class: "dampad liten", text: [p.datum, p.text].filter(Boolean).join(" · ") })),
+        el("div", {}, el("b", { text: `${POSTTYPER[p.typ]}${p.uid ? ` · ${namnPa(g, p.uid) || "tidigare medlem"}` : ""}` }),
+          el("p", { class: "dampad liten", text: [p.datum, p.spelare && `spelat av ${namnPa(g, p.spelare) || "tidigare medlem"}`, p.text]
+            .filter(Boolean).join(" · ") })),
         el("b", { class: "tal", text: kr(p.belopp) }));
       if (farBokfora(g, me)) {
         const b = el("button", { type: "button", class: "visa-bolag fara-text", text: sb.taBortPost === p.id ? "Ja, ta bort" : "Ta bort" });
@@ -1335,6 +1388,138 @@ function kassabokRuta(g, bok) {
     delar.push(el("p", { class: "dampad liten", text: "Inga poster än." }));
   }
   return kort(...delar);
+}
+
+/** Topplistan: vad var och en har spelat in, sorterad på vinst. */
+function topplistaRuta(g, d) {
+  const me = ms.anvandare.uid;
+  const rader = topplista(g, d.spel, d.bok, state.historik);
+  const kropp = el("tbody", {}, ...rader.map((x, i) => el("tr", { class: x.id === me ? "du" : "" },
+    el("td", { class: "tal" }, x.veckor || x.vinst ? String(i + 1) : "–"),
+    el("td", {}, el("span", { class: "topp-namn" }, avatar({ namn: x.namn, bild: g.medlemmar[x.id]?.bild }, "avatar liten"),
+      el("span", { text: `${x.namn}${x.id === me ? " (du)" : ""}` }))),
+    el("td", { class: "tal" }, String(x.veckor)),
+    el("td", { class: "tal" }, kr(x.insats)),
+    el("td", { class: "tal" }, el("b", { text: kr(x.vinst) })),
+    el("td", { class: `tal ${x.netto > 0 ? "plus" : x.netto < 0 ? "minus" : ""}` }, plusKr(x.netto)),
+    el("td", { class: "tal" }, x.basta === null ? "–" : `${x.basta} rätt`))));
+  return el("section", { class: "kort topplista" }, el("h2", { text: "Topplista" }),
+    el("div", { class: "tabell-rull" }, el("table", { class: "detaljtabell topplista-tabell" },
+      el("thead", {}, el("tr", {}, ...["", "Medlem", "Spel", "Insats", "Vinst", "Netto", "Bästa"].map((t) => el("th", { text: t })))),
+      kropp)),
+    el("p", { class: "dampad liten", text: "Räknas på den som spelade varje vecka. Ändra vem som spelade under Bolagets spel, " +
+      "eller lägg in missade veckor nedan." }));
+}
+
+/** Lägg in ett missat spel för en tidigare omgång. Spelet rättas mot facit som alla andra. */
+function efterhandRuta(g, d) {
+  const me = ms.anvandare.uid;
+  const kandidater = [];
+  const k = state.kupong;
+  const histIds = new Set((state.historik?.omgangar || []).map((o) => o.id));
+  if (k && !histIds.has(k.omgang.id)) {
+    kandidater.push({ id: k.omgang.id, datum: k.omgang.datum, lag: k.matcher.map((m) => [m.hemmalag, m.bortalag]) });
+  }
+  for (const o of [...(state.historik?.omgangar || [])].reverse()) if (o.lag) kandidater.push(o);
+  const delar = [el("h2", { text: "Lägg in ett spel i efterhand" })];
+  if (!kandidater.length) return kort(...delar, el("p", { class: "dampad", text: "Inga omgångar att välja än." }));
+
+  if (!sb.efter || !kandidater.some((o) => o.id === sb.efter.omg)) sb.efter = { omg: kandidater[0].id, tecken: Array(13).fill("") };
+  const e = sb.efter;
+  const o = kandidater.find((x) => x.id === e.omg);
+  const finns = new Set(d.spel.map((x) => x.omgang_id));
+  const omgVal = el("select", { id: "eh-omg" }, ...kandidater.map((x) => {
+    const opt = el("option", { value: x.id, text: `Omgång ${x.id} · ${x.datum}${finns.has(x.id) ? " (inlagd – ersätts)" : ""}` });
+    opt.selected = x.id === e.omg;
+    return opt;
+  }));
+  omgVal.addEventListener("change", () => { sb.efter = { omg: Number(omgVal.value), tecken: Array(13).fill("") }; renderaSpelbolag($("spelbolag-innehall")); });
+  const vem = spelareVal(g, losId(g, turFor(g, e.omg)) || me, "eh-spelare");
+  const summa = el("p", { class: "eh-summa", "aria-live": "polite" });
+  const status = el("p", { class: "konto-status", "aria-live": "polite" });
+  const visaSumma = () => {
+    const klara = e.tecken.every(Boolean);
+    summa.textContent = klara ? `${antalRader(e.tecken)} rader · ${kr(antalRader(e.tecken))}`
+      : `Välj tecken för alla matcher (${e.tecken.filter(Boolean).length} av 13 klara).`;
+  };
+  const rutnat = el("ol", { class: "eh-matcher" }, ...o.lag.map(([h, b], i) => {
+    const knappar = TECKEN.map((t) => {
+      const knapp = el("button", { type: "button", class: "eh-tecken", text: t, "aria-pressed": String(e.tecken[i].includes(t)),
+        "aria-label": `Match ${i + 1}, ${t}` });
+      knapp.addEventListener("click", () => {
+        const nu = new Set(e.tecken[i]);
+        nu.has(t) ? nu.delete(t) : nu.add(t);
+        e.tecken[i] = TECKEN.filter((x) => nu.has(x)).join("");
+        knapp.setAttribute("aria-pressed", String(nu.has(t)));
+        visaSumma();
+      });
+      return knapp;
+    });
+    return el("li", {}, el("span", { class: "eh-lag", text: `${h} – ${b}` }), el("span", { class: "eh-knappar" }, ...knappar));
+  }));
+  visaSumma();
+  const spara = el("button", { type: "button", class: "knapp primar", text: "Spara spelet" });
+  spara.addEventListener("click", async () => {
+    const nu = new Date().toISOString();
+    const spel = { omgang_id: o.id, datum: o.datum, spelstopp: null, forslag: "Inlagt i efterhand", rader: antalRader(e.tecken),
+      insats: antalRader(e.tecken), tecken: e.tecken.slice(), forslag_tecken: e.tecken.slice(),
+      matcher: o.lag.map(([h, b]) => `${h} – ${b}`), sparad: nu, andrad: nu, grupp_id: null, spelare: vem.value };
+    const fel = valideraSpel(spel);
+    if (fel) { status.textContent = fel; return; }
+    try {
+      await konto.sparaGruppSpel(g, spel);
+      sb.efter = null; delete sb.data[g.id]; oppnaSpelbolag();
+    } catch (err) { status.textContent = `Det gick inte att spara: ${err.message}`; }
+  });
+  return el("section", { class: "kort efterhand" }, ...delar,
+    el("p", { class: "dampad liten", text: "Har ni missat att spara en vecka? Välj omgången, klicka i raderna och vem som spelade. " +
+      "Spelet rättas mot facit som de andra. Finns raderna inte kvar kan du i stället lägga in insats och vinst i kassaboken." }),
+    el("label", { for: "eh-omg", class: "sb-etikett", text: "Omgång" }), omgVal, rutnat, summa,
+    el("label", { for: "eh-spelare", class: "sb-etikett", text: "Spelades av" }), vem,
+    el("div", { class: "knapprad" }, spara), status);
+}
+
+/** Skaparen lägger till medlemmar utan konto, tar bort dem eller kopplar dem till ett konto. */
+function gastRuta(g, status) {
+  const gaster = Object.entries(g.gaster || {}).filter(([id, x]) => !x.borttagen && !g.kopplingar?.[id]);
+  const kopplade = new Set(Object.values(g.kopplingar || {}));
+  const kanKopplas = g.medlem_uids.filter((u) => u !== g.skapare && !kopplade.has(u));
+  const lista = el("ul", { class: "delningar" }, ...gaster.map(([id, x]) => {
+    const ta = el("button", { type: "button", class: "visa-bolag fara-text", text: "Ta bort" });
+    ta.addEventListener("click", async () => {
+      if (ta.dataset.steg !== "2") { ta.dataset.steg = "2"; ta.textContent = `Ja, ta bort ${x.namn}`; return; }
+      try { await konto.taBortGast(g, id); sb.grupper = null; delete sb.data[g.id]; oppnaSpelbolag(); } catch (e) { status.textContent = e.message; }
+    });
+    const knappar = [ta];
+    if (kanKopplas.length) {
+      const koppla = el("select", { "aria-label": `Koppla ${x.namn} till ett konto` },
+        el("option", { value: "", text: "Koppla till konto …" }),
+        ...kanKopplas.map((u) => el("option", { value: u, text: g.medlemmar[u]?.namn })));
+      koppla.addEventListener("change", async () => {
+        if (!koppla.value) return;
+        try { await konto.kopplaGast(g, id, koppla.value); sb.grupper = null; delete sb.data[g.id]; oppnaSpelbolag(); }
+        catch (e) { status.textContent = e.message; }
+      });
+      knappar.unshift(koppla);
+    }
+    return el("li", {}, el("span", { text: x.namn }), el("span", { class: "gast-knappar" }, ...knappar));
+  }));
+  const namn = el("input", { type: "text", id: "sb-gast", maxlength: 60, placeholder: "Namn" });
+  const lagg = el("button", { type: "submit", class: "knapp", text: "Lägg till" });
+  const f = el("form", { class: "gast-form" }, namn, lagg);
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fel = valideraGast(namn.value, g);
+    if (fel) { status.textContent = fel; return; }
+    try { await konto.laggTillGast(g, namn.value.trim()); sb.grupper = null; delete sb.data[g.id]; oppnaSpelbolag(); }
+    catch (err) { status.textContent = `Det gick inte att lägga till: ${err.message}`; }
+  });
+  return [el("p", { class: "sb-etikett", text: "Medlemmar utan konto" }),
+    gaster.length ? lista : el("p", { class: "dampad liten", text: "Inga än." }),
+    el("label", { for: "sb-gast", class: "sr-only", text: "Namn på ny medlem utan konto" }), f,
+    el("p", { class: "dampad liten", text: "De delar på insatser och vinster som alla andra och kan stå i turordningen. " +
+      "Du sparar deras spel och väljer dem under ”Spelades av”. Skapar de ett konto senare och går med via länken kan du " +
+      "koppla ihop dem, så följer historiken med." })];
 }
 
 function installningar(g) {
@@ -1391,19 +1576,21 @@ function installningar(g) {
           const index = ny.indexOf(nu);
           spara({ turordning: ny, tur_start: omg - index });
         };
-        const upp = el("button", { type: "button", class: "visa-bolag", text: "↑", "aria-label": `Flytta upp ${g.medlemmar[u]?.namn}`, disabled: i === 0 });
-        const ner = el("button", { type: "button", class: "visa-bolag", text: "↓", "aria-label": `Flytta ner ${g.medlemmar[u]?.namn}`, disabled: i === g.turordning.length - 1 });
+        const upp = el("button", { type: "button", class: "visa-bolag", text: "↑", "aria-label": `Flytta upp ${namnPa(g, u)}`, disabled: i === 0 });
+        const ner = el("button", { type: "button", class: "visa-bolag", text: "↓", "aria-label": `Flytta ner ${namnPa(g, u)}`, disabled: i === g.turordning.length - 1 });
         upp.addEventListener("click", () => flytta(-1));
         ner.addEventListener("click", () => flytta(1));
         const tur = turFor(g, omg) === u;
-        ordning.append(el("li", {}, el("span", { class: "turnamn" }, avatar({ namn: g.medlemmar[u]?.namn, bild: g.medlemmar[u]?.bild }, "avatar liten"),
-          `${g.medlemmar[u]?.namn}${tur ? " – spelar den här veckan" : ""}`),
+        ordning.append(el("li", {}, el("span", { class: "turnamn" }, avatar({ namn: namnPa(g, u), bild: g.medlemmar[u]?.bild }, "avatar liten"),
+          `${namnPa(g, u)}${arGast(g, u) ? " (utan konto)" : ""}${tur ? " – spelar den här veckan" : ""}`),
           el("span", {}, upp, ner)));
       });
       const borjar = el("button", { type: "button", class: "knapp", text: "Låt första i listan spela den här veckan" });
       borjar.addEventListener("click", () => spara({ tur_start: omg }));
       delar.push(el("p", { class: "sb-etikett", text: "Turordning" }), ordning, borjar);
     }
+    delar.push(...gastRuta(g, status));
+
     // Ta bort medlemmar
     const andra = g.medlem_uids.filter((u) => u !== me);
     if (andra.length) {

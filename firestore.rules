@@ -6,7 +6,8 @@ rules_version = '2';
 // - Delning kräver verifierad e-post (Google-konton och e-postlänkar är alltid verifierade).
 // - Allt som skrivs kontrolleras: rätt ägare, 13 matcher, rimliga värden och högst 20 delningar.
 // - Spelbolag: bara medlemmar ser bolaget. Man går med genom att ange bolagets inbjudningskod. Bara skaparen
-//   ändrar inställningar; bara skaparen och kassören skriver i kassaboken.
+//   ändrar inställningar och lägger till medlemmar utan konto; bara skaparen och kassören skriver i
+//   kassaboken och ändrar vem som spelade ett spel.
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -59,7 +60,8 @@ service cloud.firestore {
     function giltigtSpel(d) {
       return d.omgang_id is int && d.tecken is list && d.tecken.size() == 13
         && d.forslag_tecken is list && d.forslag_tecken.size() == 13
-        && d.rader is int && d.rader >= 1 && d.rader <= 20000;
+        && d.rader is int && d.rader >= 1 && d.rader <= 20000
+        && (!('spelare' in d) || (d.spelare is string && d.spelare.size() <= 40));
     }
 
     match /inbjudningar/{kod} {
@@ -84,6 +86,7 @@ service cloud.firestore {
         (resource.data.skapare == request.auth.uid
           && request.resource.data.skapare == resource.data.skapare
           && request.resource.data.medlem_uids.size() <= 20
+          && (!('gaster' in request.resource.data) || request.resource.data.gaster.size() <= 40)
           && request.resource.data.spelform in ['kassa', 'tur'])
         // Gå med: ange rätt kod och lägg bara till sig själv
         || (!(request.auth.uid in resource.data.medlem_uids)
@@ -112,6 +115,10 @@ service cloud.firestore {
         allow create, update: if medlemI(gid)
           && request.resource.data.sparad_av == request.auth.uid
           && request.resource.data.grupp_id == gid
+          && giltigtSpel(request.resource.data);
+        // Skaparen och kassören kan ändra vem som spelade, även på spel som någon annan sparat
+        allow update: if bokforare(gid)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['spelare', 'andrad'])
           && giltigtSpel(request.resource.data);
         allow delete: if medlemI(gid) && (resource.data.sparad_av == request.auth.uid || bokforare(gid));
       }

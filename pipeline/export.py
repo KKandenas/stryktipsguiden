@@ -509,6 +509,9 @@ def skriv(kupong: dict, sokvag: Path, kompakt: bool = False) -> bool:
     return True
 
 
+HISTORIK_LAGNAMN = 26   # ungefär ett halvår
+
+
 def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
     """Avgjorda omgångar med prognos för alla 13 matcher – underlag för backtestet i appen.
 
@@ -517,7 +520,9 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
      "omgangar": [{"id": 4973, "datum": "2026-10-03",
                    "utdelning": [13 rätt, 12, 11, 10],          # kr per rad
                    "matcher": [[chans1, chansX, chans2, streck1, streckX, streck2, "resultat",
-                                [tipsviktad chans 1, X, 2] | null, [Lagkolls chans 1, X, 2] | null], ...]}]}
+                                [tipsviktad chans 1, X, 2] | null, [Lagkolls chans 1, X, 2] | null], ...],
+                   "lag": [["Hemma", "Borta"], ...]}]}      # bara de senaste HISTORIK_LAGNAMN omgångarna
+    Lagnamnen behövs när ett spelbolag lägger in ett missat spel i efterhand; äldre omgångar klarar sig utan.
     """
     version = vald_version(conn)
     omgangar = []
@@ -546,6 +551,9 @@ def bygg_historik(conn: sqlite3.Connection, nu: Optional[str] = None) -> dict:
             omgangar.append({"id": o["id"], "datum": o["datum"],
                              "utdelning": [o["utdelning_13"], o["utdelning_12"], o["utdelning_11"], o["utdelning_10"]],
                              "matcher": matcher})
+    for o in omgangar[-HISTORIK_LAGNAMN:]:
+        o["lag"] = [[h, b] for h, b in conn.execute(
+            "SELECT hemmalag, bortalag FROM matcher WHERE omgang_id = ? ORDER BY matchnr", (o["id"],))]
     return {"formatversion": 1, "genererad": nu or nu_utc(), "modell": version, "omgangar": omgangar}
 
 

@@ -92,6 +92,7 @@ def test_historik_tar_bara_avgjorda_omgangar_med_prognos(conn):
     o = h["omgangar"][0]
     assert o["utdelning"] == [59266.0, 736.0, 49.0, 16.0]
     assert len(o["matcher"]) == 13
+    assert len(o["lag"]) == 13 and all(h and b for h, b in o["lag"])   # lagnamn för efterregistrering
     m1 = o["matcher"][0]
     assert len(m1) == 9 and m1[6] == "2" and m1[3:6] == [65.0, 20.0, 15.0] and m1[8] is None
     assert m1[7] is None            # ingen tips-v1-prognos i testet

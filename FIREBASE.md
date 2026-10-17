@@ -67,8 +67,8 @@ in. Det tar ungefär 10 minuter.
 | Firebase Authentication | Namn och e-postadress från inloggningen |
 | `anvandare/{uid}` | Namn, e-post, listan med e-postadresser du delar med och din profilbild om du lagt till en (en liten JPEG på några kB) |
 | `spel/{uid}_{omgång}` | Raderna du lämnade in, förslaget utan dina ändringar, antal rader och insats |
-| `grupper/{id}` | Spelbolaget: namn, spelform, medlemmar (namn och profilbild), kassör, turordning och inbjudningskod |
-| `grupper/{id}/spel/{omgång}` | Bolagets spel, med vem som lämnade in och vilka medlemmar som delar på det |
+| `grupper/{id}` | Spelbolaget: namn, spelform, medlemmar (namn och profilbild), medlemmar utan konto (bara namn), kassör, turordning och inbjudningskod |
+| `grupper/{id}/spel/{omgång}` | Bolagets spel, med vem som sparade, vem som spelade och vilka medlemmar som delar på det |
 | `grupper/{id}/kassabok/{id}` | Inbetalningar, utbetalningar och spel eller vinster utanför appen |
 | `inbjudningar/{kod}` | Bolagets id och namn, som inbjudningslänken pekar på |
 

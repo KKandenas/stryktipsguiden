@@ -8,13 +8,13 @@
 //   anvandare/{uid}            { namn, epost, delad_med: [e-post], skapad }
 //   spel/{uid}_{omgang_id}     { agare, agare_namn, delad_med: [e-post], …spelet (se minaspel.js) }
 //   grupper/{gid}              spelbolaget (se spelbolag.js)
-//   grupper/{gid}/spel/{omg}   bolagets spel, med sparad_av och deltagare
+//   grupper/{gid}/spel/{omg}   bolagets spel, med sparad_av, spelare (vem som spelade) och deltagare
 //   grupper/{gid}/kassabok/{id} poster som skaparen eller kassören lagt in
 //   inbjudningar/{kod}         { gid, namn } – inbjudningslänken pekar hit
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261017b";
-import { nyKod } from "./spelbolag.js?v=20261017b";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261017c";
+import { deltagarIds, nyKod } from "./spelbolag.js?v=20261017c";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;
@@ -98,6 +98,10 @@ export async function taBortGruppSpel(gid, omgangId) { return (await starta()).t
 export async function kassabok(gid) { return (await starta()).kassabok(gid); }
 export async function laggTillPost(grupp, post) { return (await starta()).laggTillPost(grupp, post); }
 export async function taBortPost(gid, id) { return (await starta()).taBortPost(gid, id); }
+export async function andraSpelare(gid, omgangId, spelare) { return (await starta()).andraSpelare(gid, omgangId, spelare); }
+export async function laggTillGast(grupp, namn) { return (await starta()).laggTillGast(grupp, namn); }
+export async function taBortGast(grupp, id) { return (await starta()).taBortGast(grupp, id); }
+export async function kopplaGast(grupp, id, uid) { return (await starta()).kopplaGast(grupp, id, uid); }
 
 /** Är sidan öppnad från en inloggningslänk i e-posten? Då slutförs inloggningen (e-post frågas om den saknas). */
 export async function slutforLank(fragaEpost) {
@@ -115,6 +119,7 @@ export async function slutforLank(fragaEpost) {
 
 // ---------- Firebase ----------
 
+const nyGastId = () => `gast_${nyKod().slice(0, 12)}`;
 const medlemspost = (namn) => ({ namn, ...(anvandare?.bild ? { bild: anvandare.bild } : {}) });
 
 async function firebase() {
@@ -273,8 +278,20 @@ async function firebase() {
       const p = await profilen();
       await F.setDoc(F.doc(db, "grupper", grupp.id, "spel", String(spel.omgang_id)),
         { ...spel, grupp_id: grupp.id, sparad_av: u.uid, sparad_av_namn: p.namn || u.displayName || u.email,
-          deltagare: grupp.medlem_uids });
+          spelare: spel.spelare || u.uid, deltagare: deltagarIds(grupp) });
     },
+    andraSpelare: (gid, omgangId, spelare) => F.updateDoc(F.doc(db, "grupper", gid, "spel", String(omgangId)),
+      { spelare, andrad: new Date().toISOString() }),
+    async laggTillGast(grupp, namn) {
+      const id = nyGastId();
+      await F.updateDoc(F.doc(db, "grupper", grupp.id), { [`gaster.${id}`]: { namn }, turordning: F.arrayUnion(id) });
+      return id;
+    },
+    // Gästen finns kvar (med namnet) så att historiken går att läsa, men delar inte på nya spel
+    taBortGast: (grupp, id) => F.updateDoc(F.doc(db, "grupper", grupp.id),
+      { [`gaster.${id}.borttagen`]: true, turordning: F.arrayRemove(id) }),
+    kopplaGast: (grupp, id, uid) => F.updateDoc(F.doc(db, "grupper", grupp.id),
+      { [`kopplingar.${id}`]: uid, turordning: F.arrayRemove(id) }),
     taBortGruppSpel: (gid, omgangId) => F.deleteDoc(F.doc(db, "grupper", gid, "spel", String(omgangId))),
     async kassabok(gid) {
       return (await F.getDocs(F.collection(db, "grupper", gid, "kassabok"))).docs
@@ -283,7 +300,7 @@ async function firebase() {
     async laggTillPost(grupp, post) {
       const u = kravInloggad();
       await F.addDoc(F.collection(db, "grupper", grupp.id, "kassabok"),
-        { ...post, av: u.uid, deltagare: grupp.medlem_uids, skapad: new Date().toISOString() });
+        { ...post, av: u.uid, deltagare: deltagarIds(grupp), skapad: new Date().toISOString() });
     },
     taBortPost: (gid, id) => F.deleteDoc(F.doc(db, "grupper", gid, "kassabok", id)),
   };
@@ -356,12 +373,29 @@ function demo() {
     gruppSpel: async (gid) => [...(db.gruppspel.get(gid)?.values() || [])],
     sparaGruppSpel: async (g, spel) => {
       db.gruppspel.get(g.id).set(spel.omgang_id, { ...spel, grupp_id: g.id, sparad_av: "demo", sparad_av_namn: "Demo",
-        deltagare: [...g.medlem_uids] });
+        spelare: spel.spelare || "demo", deltagare: deltagarIds(g) });
+    },
+    andraSpelare: async (gid, omgangId, spelare) => { Object.assign(db.gruppspel.get(gid).get(omgangId), { spelare }); },
+    laggTillGast: async (g, namn) => {
+      const x = db.grupper.get(g.id), id = nyGastId();
+      x.gaster = { ...x.gaster, [id]: { namn } };
+      if (!x.turordning.includes(id)) x.turordning.push(id);
+      return id;
+    },
+    taBortGast: async (g, id) => {
+      const x = db.grupper.get(g.id);
+      x.gaster[id] = { ...x.gaster[id], borttagen: true };
+      x.turordning = x.turordning.filter((u) => u !== id);
+    },
+    kopplaGast: async (g, id, uid) => {
+      const x = db.grupper.get(g.id);
+      x.kopplingar = { ...x.kopplingar, [id]: uid };
+      x.turordning = x.turordning.filter((u) => u !== id);
     },
     taBortGruppSpel: async (gid, omgangId) => { db.gruppspel.get(gid).delete(omgangId); },
     kassabok: async (gid) => [...(db.bok.get(gid) || [])].sort((a, b) => (a.datum < b.datum ? 1 : -1)),
     laggTillPost: async (g, post) => {
-      db.bok.get(g.id).push({ ...post, id: String(Math.random()), av: "demo", deltagare: [...g.medlem_uids] });
+      db.bok.get(g.id).push({ ...post, id: String(Math.random()), av: "demo", deltagare: deltagarIds(g) });
     },
     taBortPost: async (gid, id) => { db.bok.set(gid, db.bok.get(gid).filter((p) => p.id !== id)); },
     _db: db,

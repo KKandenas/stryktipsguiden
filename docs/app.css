@@ -879,3 +879,31 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 @media (min-width: 1120px) and (max-height: 640px) {
   .nyhetspanel { position: static; max-height: none; }
 }
+
+/* Spelbolag: vem som spelade, topplista, efterregistrering och medlemmar utan konto */
+.spara-spelare { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.spara-spelare select, .gast-knappar select { font: inherit; font-size: 14px; padding: 4px 6px; border-radius: 8px;
+  border: 1px solid var(--linje); background: var(--yta); color: inherit; max-width: 100%; }
+.tabell-rull { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+.topplista-tabell { width: 100%; font-size: 14px; }
+.topplista-tabell th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dampad); font-weight: 700; text-align: right; }
+.topplista-tabell th:nth-child(2) { text-align: left; }
+.topplista-tabell td { white-space: nowrap; }
+.topplista-tabell tr.du td { background: var(--yta-2); }
+.topplista-tabell .plus { color: var(--ratt); }
+.topplista-tabell .minus { color: var(--fel); }
+.topp-namn { display: inline-flex; align-items: center; gap: 6px; }
+.eh-matcher, .om .eh-matcher { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 4px; counter-reset: eh; }
+.eh-matcher li, .om .eh-matcher li { margin: 0; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; counter-increment: eh; font-size: 14px; }
+.eh-lag { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eh-lag::before { content: counter(eh) ". "; color: var(--dampad); font-weight: 700; }
+.eh-knappar { display: flex; gap: 4px; flex: none; }
+.eh-tecken { width: 38px; height: 34px; border-radius: 8px; border: 1px solid var(--ruta-kant); background: var(--ruta);
+  color: inherit; font: inherit; font-weight: 800; cursor: pointer; }
+.eh-tecken[aria-pressed="true"] { background: var(--primar); border-color: var(--primar); color: var(--vald-text); }
+.eh-tecken:focus-visible { outline: 2px solid var(--primar); outline-offset: 2px; }
+.eh-summa { font-weight: 700; font-size: 14px; }
+.gast-knappar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.gast-form { display: flex; gap: 8px; margin-top: 8px; }
+.gast-form input { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--linje);
+  background: var(--yta); color: inherit; }

@@ -1,7 +1,9 @@
 // Körs med: node --test tests/js/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { farBokfora, farSpara, nyKod, rakna, turFor, valideraPost } from "../../docs/spelbolag.js";
+import {
+  deltagarIds, farBokfora, farSpara, namnPa, nyKod, rakna, topplista, turFor, valideraGast, valideraPost,
+} from "../../docs/spelbolag.js";
 
 const facit = ["1", "X", "2", "1", "1", "2", "X", "1", "2", "1", "X", "2", "1"];
 const historik = { omgangar: [{ id: 100, utdelning: [100000, 900, 90, 30], matcher: facit.map((r) => [0, 0, 0, 0, 0, 0, r]) }] };
@@ -88,4 +90,55 @@ test("validering av poster och inbjudningskod", () => {
   const k = nyKod();
   assert.match(k, /^[A-Za-z0-9]{20}$/);
   assert.notEqual(k, nyKod());
+});
+
+test("medlemmar utan konto delar som alla andra och kan ha turen", () => {
+  const g = grupp("tur", { gaster: { gx: { namn: "Dan" }, gy: { namn: "Eva", borttagen: true } },
+    turordning: ["a", "b", "c", "gx"] });
+  assert.deepEqual(deltagarIds(g), ["a", "b", "c", "gx"]);
+  assert.equal(namnPa(g, "gx"), "Dan");
+  assert.equal(namnPa(g, "gy"), "Eva");                 // borttagen men finns kvar i historiken
+  assert.equal(turFor(g, 103), "gx");
+  assert.ok(farSpara(g, "a", 103));                     // skaparen sparar gästens vecka
+  assert.ok(!farSpara(g, "b", 103));
+  // Dan spelade (Anna sparade): Dan betalar insatsen och tar emot vinsten, fyra delar lika
+  const s = { ...spel("a"), spelare: "gx", deltagare: deltagarIds(g) };
+  const r = rakna(g, [s], [], historik);
+  assert.equal(r.medlemmar.gx.betalat, 90);
+  assert.equal(r.medlemmar.gx.mottaget, 900);
+  assert.equal(r.medlemmar.b.insats, 22.5);
+  assert.equal(r.spel[0].spelare, "gx");
+  assert.ok(r.medlemmar.gx.gast);
+  assert.equal(valideraPost({ typ: "inbetalning", uid: "gx", belopp: 50 }, g), null);
+  assert.match(valideraPost({ typ: "vinst", belopp: 5, spelare: "zz" }, g), /spelade/);
+  assert.match(valideraGast("dan", g), /redan/);
+  assert.match(valideraGast(" ", g), /namn/);
+  assert.equal(valideraGast("Fia", g), null);
+});
+
+test("en gäst som kopplas till ett konto tar med sig historiken", () => {
+  const g = grupp("tur", { gaster: { gx: { namn: "Dan" } }, kopplingar: { gx: "c" } });
+  assert.deepEqual(deltagarIds(g), ["a", "b", "c"]);
+  const s = { ...spel("a"), spelare: "gx", deltagare: ["a", "b", "c", "gx"] };
+  const r = rakna(g, [s], [], historik);
+  assert.equal(r.medlemmar.gx, undefined);
+  assert.equal(r.medlemmar.c.betalat, 90);
+  assert.equal(r.medlemmar.a.insats, 30);               // gx och c är samma person – tre delar
+  assert.equal(topplista(g, [s], [], historik)[0].id, "c");
+});
+
+test("topplistan räknar spelade veckor, insats, vinst och bästa resultat per spelare", () => {
+  const g = grupp("tur", { gaster: { gx: { namn: "Dan" } } });
+  const vinnare = { ...spel("a"), spelare: "b" };                       // 12 rätt, 900 kr
+  const forlorare = { ...spel("a", 101), spelare: "a" };               // omgång 101 är inte avgjord
+  const bok = [{ typ: "insats", belopp: 64, spelare: "gx" }, { typ: "vinst", belopp: 50, spelare: "gx" },
+    { typ: "vinst", belopp: 1000 }];                                    // utan spelare: inte med i topplistan
+  const t = topplista(g, [vinnare, forlorare], bok, historik);
+  assert.deepEqual(t.map((x) => x.id), ["b", "gx", "a", "c"]);
+  assert.deepEqual([t[0].veckor, t[0].insats, t[0].vinst, t[0].netto, t[0].basta], [1, 90, 900, 810, 12]);
+  assert.deepEqual([t[1].veckor, t[1].insats, t[1].vinst, t[1].basta], [1, 64, 50, null]);
+  assert.deepEqual([t[2].veckor, t[2].vinst, t[2].basta], [1, 0, null]);
+  assert.equal(t[3].veckor, 0);
+  // Utan spelare-fält räknas den som sparade
+  assert.equal(topplista(grupp("kassa"), [spel("b")], [], historik)[0].id, "b");
 });
