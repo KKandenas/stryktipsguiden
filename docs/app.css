@@ -395,7 +395,8 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
 
 /* ---------- dator: bredare sidor, kupongen i två kolumner ---------- */
 @media (min-width: 900px) {
-  .innehall, .omgang-inre, .topp-inre, .fot { max-width: 1080px; }
+  :root { --sidbredd: 1080px; }
+  .innehall, .omgang-inre, .topp-inre, .fot { max-width: var(--sidbredd); }
   .topp { background-image: url("bilder/tavla.webp"); }
   .topp-inre { min-height: 84px; }
   .varumarke-ikon { width: 48px; height: 48px; border-radius: 12px; }
@@ -834,8 +835,8 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
   body { padding-bottom: 24px; }
   body[data-vy="kupong"] { padding-bottom: calc(var(--kupongbar-h) + 24px); }
   .kupongbar { bottom: 0; }
-  .kupongbar-inre { max-width: 1080px; }
-  .kupongbar .spara-val, .kupongbar .spara-status { left: auto; right: max(16px, calc((100vw - 1080px) / 2 + 16px)); width: 360px; }
+  .kupongbar-inre { max-width: var(--sidbredd); }
+  .kupongbar .spara-val, .kupongbar .spara-status { left: auto; right: max(16px, calc((100vw - var(--sidbredd)) / 2 + 16px)); width: 360px; }
   .topp-nav { display: flex; gap: 4px; flex: 1; justify-content: center; }
   .topp-nav a {
     color: #e6ebf5; text-decoration: none; font-weight: 600; font-size: 15px; padding: 8px 14px; border-radius: 999px;
@@ -855,4 +856,26 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
   }
   .budgetknappar button, .budgetknappar button[aria-checked="true"] { padding: 0; }
   .budgetknappar .rader-ord { display: none; }
+}
+
+/* Nyhetskolumn till höger om kupongen på breda skärmar (dator, liggande iPad). Smalare skärmar har
+   nyheterna under fliken Lagen i matchdetaljen. */
+.nyhetspanel { display: none; }
+@media (min-width: 1120px) {
+  :root { --sidbredd: 1360px; }
+  .tva-kolumner { grid-template-columns: 300px minmax(0, 1fr) 300px; gap: 20px; }
+  .nyhetspanel {
+    display: block; position: sticky; top: 100px; margin-top: 18px;
+    max-height: calc(100vh - 100px - var(--kupongbar-h) - 24px); overflow-y: auto; overscroll-behavior: contain;
+  }
+  .nyhetspanel .nyhetspanel-rubrik { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--dampad); margin: 0 0 8px; font-family: inherit; }
+  .nyhetspanel .nyhet-lagen { grid-template-columns: 1fr; }
+  .nyhetspanel > p { font-size: 14px; }
+}
+@media (min-width: 1300px) {
+  .tva-kolumner { grid-template-columns: 340px minmax(0, 1fr) 360px; gap: 24px; }
+}
+@media (min-width: 1120px) and (max-height: 640px) {
+  .nyhetspanel { position: static; max-height: none; }
 }

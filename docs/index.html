@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261017a">
-<script type="module" src="app.js?v=20261017a"></script>
+<link rel="stylesheet" href="app.css?v=20261017b">
+<script type="module" src="app.js?v=20261017b"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -85,6 +85,9 @@
       </div>
 
       <ol id="matcher" class="matcher" aria-label="Matcher"></ol>
+
+      <!-- Breda skärmar: lagnyheterna för vald match i en egen kolumn (döljs under 1120 px) -->
+      <aside id="nyhetspanel" class="om nyhetspanel" aria-label="Lagnyheter för vald match" aria-live="polite"></aside>
     </div>
 
     <!-- Fast list längst ner: kostnad, fördelning och knappar -->

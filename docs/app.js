@@ -1,11 +1,11 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261017a";
-import * as konto from "./konto.js?v=20261017a";
-import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261017a";
-import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261017a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261017a";
+} from "./optimizer.js?v=20261017b";
+import * as konto from "./konto.js?v=20261017b";
+import { MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, farBokfora, farSpara, rakna, turFor, valideraPost } from "./spelbolag.js?v=20261017b";
+import { andraTecken, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261017b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261017b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -17,6 +17,7 @@ const state = {
   budget: 96,
   lasningar: {},       // {matchnr: "1X"} för aktuell omgång
   oppna: new Set(),    // matcher med utfälld kommentar
+  aktivMatch: null,    // senast öppnade matchen: visas i nyhetskolumnen på breda skärmar
   oddsOppna: new Set(), // matcher där alla bolags odds är utfällda
   detaljFlik: {},      // vald flik i matchdetaljen, per matchnummer
   resultat: null,      // senaste optimeringen
@@ -261,6 +262,7 @@ function renderaTopp() {
 function renderaMatcher() {
   ritaMatcher($("matcher"), { ...state.kupong, matcher: matcherEnligtKalla(state.kupong) },
     state.resultat, state.lasningar, state.oppna, true, state.skillnad);
+  renderaNyhetspanel();
 }
 
 /** Jämförelseförslaget med samma budget och låsningar: matcher med andra tecken. Oddsen jämförs med
@@ -1455,23 +1457,45 @@ function renderaNyheter() {
     : "Inga lagnyheter än. De flesta förhandsartiklar publiceras torsdag–lördag." })];
 
   // Matcher med nyheter först, i kupongens ordning; resten samlas längst ner
-  for (const m of [...matcher.filter((x) => x.lagnytt), ...matcher.filter((x) => !x.lagnytt)]) {
-    const tid = m.avspark ? kortFmt.format(new Date(m.avspark)) : "";
-    const kort = el("article", { class: `nyhet${m.lagnytt ? "" : " tom"}` },
-      el("div", { class: "nyhet-huvud" },
-        el("span", { class: "nr", text: String(m.nr) }),
-        el("div", {}, el("h2", { text: `${m.hemmalag} – ${m.bortalag}` }),
-          el("p", { class: "dampad liten", text: [m.liga, tid].filter(Boolean).join(" · ") }))));
-    if (m.lagnytt) {
-      kort.append(el("div", { class: "nyhet-lagen" }, lagfakta(m.hemmalag, m.lagnytt.hemma), lagfakta(m.bortalag, m.lagnytt.borta)));
-    }
-    if (m.tabell) kort.append(tabellBlock(m));
-    if (m.lagkoll?.motivering) {
-      kort.append(el("p", { class: "nyhet-lagkoll" }, el("b", { text: "Lagkoll: " }), m.lagkoll.motivering));
-    }
-    delar.push(kort);
-  }
+  for (const m of [...matcher.filter((x) => x.lagnytt), ...matcher.filter((x) => !x.lagnytt)]) delar.push(nyhetKort(m));
   box.replaceChildren(...delar);
+}
+
+/** En matchs lagnyheter: frånvaro och sammanhang per lag, tabell och form, Lagkollens motivering. */
+function nyhetKort(m) {
+  const tid = m.avspark ? kortFmt.format(new Date(m.avspark)) : "";
+  const kort = el("article", { class: `nyhet${m.lagnytt ? "" : " tom"}` },
+    el("div", { class: "nyhet-huvud" },
+      el("span", { class: "nr", text: String(m.nr) }),
+      el("div", {}, el("h2", { text: `${m.hemmalag} – ${m.bortalag}` }),
+        el("p", { class: "dampad liten", text: [m.liga, tid].filter(Boolean).join(" · ") }))));
+  if (m.lagnytt) {
+    kort.append(el("div", { class: "nyhet-lagen" }, lagfakta(m.hemmalag, m.lagnytt.hemma), lagfakta(m.bortalag, m.lagnytt.borta)));
+  }
+  if (m.tabell) kort.append(tabellBlock(m));
+  if (m.lagkoll?.motivering) {
+    kort.append(el("p", { class: "nyhet-lagkoll" }, el("b", { text: "Lagkoll: " }), m.lagkoll.motivering));
+  }
+  return kort;
+}
+
+/** Nyhetskolumnen bredvid kupongen (bara breda skärmar, se app.css): den senast öppnade matchen. */
+function renderaNyhetspanel() {
+  const panel = $("nyhetspanel");
+  const k = state.kupong;
+  if (!panel || !k) return;
+  const m = k.matcher.find((x) => x.nr === state.aktivMatch);
+  const rubrik = el("h2", { class: "nyhetspanel-rubrik", text: "Lagnyheter" });
+  if (!m) {
+    const med = k.matcher.filter((x) => x.lagnytt).length;
+    panel.replaceChildren(rubrik, el("p", { class: "dampad", text: med
+      ? `Nyheter finns för ${med} av 13 matcher. Klicka på en match för att se dem här.`
+      : "Inga lagnyheter än. De flesta förhandsartiklar publiceras torsdag–lördag." }));
+    return;
+  }
+  const delar = [rubrik, nyhetKort(m)];
+  if (!m.lagnytt) delar.push(el("p", { class: "dampad liten", text: "Inga lagnyheter för matchen än." }));
+  panel.replaceChildren(...delar);
 }
 
 // ---------- Lagkoll (skuggmodell) ----------
@@ -2256,7 +2280,13 @@ function klickMatch(e) {
   const huvud = e.target.closest(".match-huvud");
   if (huvud) {
     const nr = Number(huvud.dataset.nr);
-    state.oppna.has(nr) ? state.oppna.delete(nr) : state.oppna.add(nr);
+    if (state.oppna.has(nr)) {
+      state.oppna.delete(nr);
+      if (state.aktivMatch === nr) state.aktivMatch = [...state.oppna].pop() ?? null;
+    } else {
+      state.oppna.add(nr);
+      state.aktivMatch = nr;
+    }
     renderaMatcher();
     document.querySelector(`.match-huvud[data-nr="${nr}"]`)?.focus();
   }
