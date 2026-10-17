@@ -299,6 +299,28 @@ def test_footballpredictions_lankar_med_datum():
     assert len(a) == 1 and a[0].url.endswith("blackburn-rovers-vs-cardiff-prediction-10-10-2026/")
 
 
+
+def test_nya_svenska_sajter_hittar_veckans_artikel(monkeypatch):
+    from pipeline.sources.tipssajter import dagensbastaspel, rekatochklart, tipsmedoss
+    sidor = {
+        rekatochklart.LISTA: '<a href="/tips/stryktipset/stryktipset-tips-10-10/">gammal</a>'
+                             '<a href="https://www.rekatochklart.com/tips/stryktipset/stryktipset-tips-17-10/">ny</a>',
+        dagensbastaspel.BAS + "/": '<a href="/analyser/stryktipset-2026-10-17">Stryktipset</a>',
+        tipsmedoss.LISTA: '<a href="https://tipsmedoss.com/2026/stryktipsforslag/'
+                          'stryktipset-17-10-analys-spelforslag-tips-till-alla-matcher/">x</a>',
+    }
+    hamta = lambda url, **_: sidor.get(url, "")
+    for modul in (rekatochklart, dagensbastaspel, tipsmedoss):
+        monkeypatch.setattr(modul, "hamta_sida", hamta)
+    sp = "2026-10-17T13:59:00Z"
+    assert rekatochklart.Rekatochklart().hitta_artiklar([], sp)[0].url.endswith("/stryktipset-tips-17-10/")
+    assert dagensbastaspel.Dagensbastaspel().hitta_artiklar([], sp)[0].url.endswith("/stryktipset-2026-10-17")
+    assert "stryktipset-17-10-" in tipsmedoss.Tipsmedoss().hitta_artiklar([], sp)[0].url
+    # Nästa vecka finns inget än
+    sp2 = "2026-10-24T13:59:00Z"
+    for s in (rekatochklart.Rekatochklart(), dagensbastaspel.Dagensbastaspel(), tipsmedoss.Tipsmedoss()):
+        assert s.hitta_artiklar([], sp2) == []
+
 # ---------- experternas system ----------
 
 def test_system_tolkas_och_sparas_som_egen_kalla(conn, monkeypatch):

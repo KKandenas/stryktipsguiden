@@ -18,7 +18,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 Tripel = Tuple[float, float, float]
 
 TIPSSAJTER = ["speltips.se", "hurbra.se", "bettingstugan.se", "tippat.se", "gamblingcabin.se", "sportsgambler.com",
-              "sportsmole.co.uk", "footballpredictions.com"]
+              "sportsmole.co.uk", "footballpredictions.com", "rekatochklart.com", "dagensbastaspel.se", "tipsmedoss.com"]
 SYSTEM_SUFFIX = " (system)"          # experternas system räknas som en egen källa per sajt
 SYSTEMKALLOR = [k + SYSTEM_SUFFIX for k in TIPSSAJTER]
 KALLOR = ["odds", "streck", "Tio tidningars tips", *TIPSSAJTER, *SYSTEMKALLOR]

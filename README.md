@@ -236,6 +236,9 @@ Python < 3.10 där SDK:erna inte finns, hoppas AI-stegen över med en loggrad.
 | bettingstugan.se | svensk, analys med tecken per match | länk med omgångens datum på `/stryktipset`, huvudanalysen i första hand |
 | tippat.se | svensk, expertens kupong ("Sparka & Spring") | fast sida; valda tecken (färgmarkerade i HTML) märks upp som `[VALT 1]`, och kupongens datum kontrolleras |
 | gamblingcabin.se | svensk, panelens spikar och drag (bara några matcher) | senaste panelen från `/speltips/`, publiceringsdatumet ska vara veckan före spelstopp |
+| rekatochklart.com | svensk, tecken för alla matcher och två färdiga system | länk med omgångens datum på `/tips/stryktipset/` (`stryktipset-tips-17-10`) |
+| dagensbastaspel.se | svensk, spelteoretisk analys (Miljongänget), tar ofta upp några matcher | länk `/analyser/stryktipset-<datum>` på startsidan eller `/analyser` |
+| tipsmedoss.com | svensk, tecken för alla matcher plus bank, värdespik och skräll | länk med omgångens datum på `/category/stryktipsforslag/` |
 | sportsgambler.com | internationell, en artikel per match | ligasidornas länkar `<hemma>-vs-<borta>-prediction-…-<datum>` paras med kupongen |
 | footballpredictions.com | internationell, en artikel per match ("Our prediction: 2 - 1") | ligasidornas länkar med datum (PL, Championship, Bundesliga, Serie A, Ligue 1) |
 | sportsmole.co.uk | internationell, en artikel per match ("We say: 2-1") | ligasidornas länkar paras på lagnamn; artikelns avsparksdatum kontrolleras efter hämtning |
@@ -245,7 +248,7 @@ oddspedia.com, squawka.com, betensured.com, oddschecker.com och whoscored.com bl
 anrop. Sportskeeda och FootyStats spärrar AI-tjänster, och vitibet.com spärrar en rad AI-robotar
 och skriver att de inte vill att data tas för AI. Därför används inte heller den, trots att den
 har sannolikheter per match. bettingexpert.com och mightytips.com går inte att läsa utan JavaScript. Aftonbladet och Expressen spärrar AI-tjänster i robots.txt. livescore.com spärrar sina
-nyhetssidor för AI-tjänster. dagensbastaspel.se saknar en Stryktipssida.
+nyhetssidor för AI-tjänster. spelbloggare.com har ingen artikel per omgång, bara en allmän guide.
 
 **Inga resultatläckor:** tips tolkas bara för matcher som inte har startat. Tipssidor visar
 livestatus och resultat efter avspark, och det får inte påverka tipset (gäller tidiga matcher före
@@ -351,7 +354,8 @@ men utan strecken:
 
 Läget i oktober 2026: Tio tidningars tips har vikt 0,016 (3 692 matcher, tillför nästan inget utöver
 oddsen). speltips.se, hurbra.se, bettingstugan.se, tippat.se, gamblingcabin.se, sportsgambler.com,
-sportsmole.co.uk och footballpredictions.com samlas in från och med nu
+sportsmole.co.uk och footballpredictions.com samlas in från och med nu (rekatochklart.com,
+dagensbastaspel.se och tipsmedoss.com från 17 oktober)
 och står på startvikten tills de har 30 avgjorda matcher, vilket tar ungefär 3–4 veckor.
 
 ### Skuggmodeller och jämförelse mot oddsen

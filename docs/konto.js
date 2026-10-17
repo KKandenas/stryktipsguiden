@@ -13,8 +13,8 @@
 //   inbjudningar/{kod}         { gid, namn } – inbjudningslänken pekar hit
 // delad_med kopieras till varje spel, så att den man delat med kan hämta spelen med en enkel fråga.
 
-import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261015f";
-import { nyKod } from "./spelbolag.js?v=20261015f";
+import { FIREBASE_CONFIG } from "./firebase-config.js?v=20261017a";
+import { nyKod } from "./spelbolag.js?v=20261017a";
 
 const VERSION = "10.12.2";
 const BAS = `https://www.gstatic.com/firebasejs/${VERSION}`;

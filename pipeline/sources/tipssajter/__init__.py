@@ -10,15 +10,18 @@ Källan läggs automatiskt in i tabellen kallor första gången den används.
 """
 from .bas import Artikel, Tipssajt
 from .bettingstugan import Bettingstugan
+from .dagensbastaspel import Dagensbastaspel
 from .footballpredictions import Footballpredictions
 from .gamblingcabin import Gamblingcabin
 from .hurbra import Hurbra
+from .rekatochklart import Rekatochklart
 from .speltips import Speltips
 from .sportsgambler import Sportsgambler
 from .sportsmole import Sportsmole
 from .tippat import Tippat
+from .tipsmedoss import Tipsmedoss
 
-SAJTER = [Speltips(), Hurbra(), Bettingstugan(), Tippat(), Gamblingcabin(), Sportsgambler(), Sportsmole(),
-          Footballpredictions()]
+SAJTER = [Speltips(), Hurbra(), Bettingstugan(), Tippat(), Gamblingcabin(), Rekatochklart(), Dagensbastaspel(),
+          Tipsmedoss(), Sportsgambler(), Sportsmole(), Footballpredictions()]
 
 __all__ = ["Artikel", "Tipssajt", "SAJTER"]
