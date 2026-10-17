@@ -130,6 +130,8 @@ class EnsembleModell:
 # från resultaten (med straff mot startvikten, så att lite data bara flyttar den lite).
 TIPSKALLOR = ["Tio tidningars tips", *ensemble.TIPSSAJTER, *ensemble.SYSTEMKALLOR]
 STARTVIKT_TIPS = 0.1
+# Sammanlagd startvikt för tipsare utan skattad vikt i en match: som fyra tipsare i dag (se ensemble.prognos).
+TAK_STARTVIKT_TIPS = 0.4
 
 
 class TipsModell:
@@ -150,7 +152,7 @@ class TipsModell:
         o.kallor.pop("streck", None)
         if self.vikter is None or "odds" not in o.kallor:
             return None
-        return ensemble.prognos(self.vikter, o, {k: STARTVIKT_TIPS for k in TIPSKALLOR})
+        return ensemble.prognos(self.vikter, o, {k: STARTVIKT_TIPS for k in TIPSKALLOR}, TAK_STARTVIKT_TIPS)
 
 
 class LagkollModell:

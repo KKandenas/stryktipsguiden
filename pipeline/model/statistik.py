@@ -19,8 +19,8 @@ from typing import Dict, List, Optional, Tuple
 
 from ..tid import nu_utc
 from . import ensemble
-from .modeller import (STARTVIKT_TIPS, STANDARD_MODELL, TIPSKALLOR, EnsembleModell, TipsModell, las_underlag,
-                       observation, vald_version)
+from .modeller import (STARTVIKT_TIPS, TAK_STARTVIKT_TIPS, STANDARD_MODELL, TIPSKALLOR, EnsembleModell, TipsModell,
+                       las_underlag, observation, vald_version)
 from .sannolikhet import brier
 
 log = logging.getLogger(__name__)
@@ -103,6 +103,7 @@ TRANING = {
                              startvikter={"odds": 1.0, **{k: STARTVIKT_TIPS for k in TIPSKALLOR}}),
 }
 EXTRA = {TipsModell.version: {k: STARTVIKT_TIPS for k in TIPSKALLOR}}
+EXTRA_TAK = {TipsModell.version: TAK_STARTVIKT_TIPS}
 
 
 def _utan_streck(o: ensemble.Observation) -> ensemble.Observation:
@@ -111,7 +112,7 @@ def _utan_streck(o: ensemble.Observation) -> ensemble.Observation:
 
 def walk_forward(conn, data, version: str = EnsembleModell.version) -> Tuple[int, Optional[ensemble.Vikter]]:
     install = TRANING[version]
-    extra = EXTRA.get(version)
+    extra, tak = EXTRA.get(version), EXTRA_TAK.get(version)
     if version == TipsModell.version:
         data = [(*rad[:5], _utan_streck(rad[5])) for rad in data]
     omgangar = sorted({(stopp, oid) for oid, stopp, *_ in data})
@@ -130,7 +131,7 @@ def walk_forward(conn, data, version: str = EnsembleModell.version) -> Tuple[int
                 sedan += 1
                 for _, _, mid, _, _, o in rader:
                     if "odds" in o.kallor:
-                        sparade += _spara_prognos(conn, mid, version, ensemble.prognos(vikter, o, extra), nu)
+                        sparade += _spara_prognos(conn, mid, version, ensemble.prognos(vikter, o, extra, tak), nu)
             tran += [o for *_, o in rader if "odds" in o.kallor]
 
         slutlig = ensemble.anpassa(tran, **install) if len(tran) >= MIN_TRANING else None

@@ -74,6 +74,23 @@ def fyll_syntetiskt(conn, n_omgangar=60, facit="odds", seed=3):
     berakna_prognoser(conn)
 
 
+
+def test_tak_for_startvikter_galler_bara_oskattade_tipsare():
+    v = E.Vikter(w={"odds": 1.0, "a.se": 0.3})
+    odds = (0.5, 0.25, 0.25)
+    kallor = {"odds": odds, "a.se": E.pseudosannolikhet("1"),
+              **{f"s{i}.se": E.pseudosannolikhet("1") for i in range(8)}}
+    extra = {f"s{i}.se": 0.1 for i in range(8)}
+    utan = E.prognos(v, E.Observation(kallor), extra)
+    med = E.prognos(v, E.Observation(kallor), extra, 0.4)
+    # Åtta oskattade tipsare med tak 0,4 väger som fyra; den skattade (a.se) påverkas inte
+    fyra = E.prognos(v, E.Observation({k: p for k, p in kallor.items() if k[:2] not in ("s4", "s5", "s6", "s7")}),
+                     {f"s{i}.se": 0.1 for i in range(4)})
+    assert utan[0] > med[0] and abs(med[0] - fyra[0]) < 1e-9
+    # Under taket ändras inget
+    tva = {k: p for k, p in kallor.items() if k[:2] not in ("s2", "s3", "s4", "s5", "s6", "s7")}
+    assert E.prognos(v, E.Observation(tva), extra, 0.4) == E.prognos(v, E.Observation(tva), extra)
+
 def test_walk_forward_ar_arligt_och_odds_behalls_nar_de_ar_facit(conn):
     fyll_syntetiskt(conn, facit="odds")
     r = statistik.kor(conn)

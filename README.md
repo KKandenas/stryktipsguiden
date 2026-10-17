@@ -342,6 +342,11 @@ men utan strecken:
 
 - **Startvikt 0,1** för en ny tipsare. Från 30 avgjorda matcher skattas en egen vikt, med straff mot
   startvikten (`l2 = 5`), så att lite data bara flyttar vikten lite.
+- **Tak för startvikterna:** tipsare som står kvar på startvikten får tillsammans högst vikten 0,4 i en
+  match (`TAK_STARTVIKT_TIPS`, som fyra tipsare). Sajterna läser ofta samma odds och varandra, så utan tak
+  skulle varje ny sajt flytta förslaget mer mot favoriten. En tipsare med skattad vikt ligger utanför taket,
+  eftersom regressionen då själv delar vikten mellan källor som tipsar likadant. Taket släpper alltså av sig
+  självt allteftersom sajterna får 30 avgjorda matcher.
 - Vikterna tränas om varje söndag. Historiken backtestas walk-forward precis som ensemble-v1, och
   `tips-v1` mäts i modellstatistiken bredvid odds-v2.
 - Tips som bara anger tecken räknas om till sannolikheter (80 % på valda tecken).

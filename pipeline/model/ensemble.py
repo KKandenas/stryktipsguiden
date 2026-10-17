@@ -136,10 +136,20 @@ def anpassa(data: List[Observation], iterationer: int = 25, kallor_att_prova: Op
     return Vikter((0.0, theta[0], theta[1]), dict(zip(kallor, theta[2:])), len(data))
 
 
-def prognos(v: Vikter, o: Observation, extra_vikter: Optional[Dict[str, float]] = None) -> Optional[Tripel]:
+def prognos(v: Vikter, o: Observation, extra_vikter: Optional[Dict[str, float]] = None,
+            extra_tak: Optional[float] = None) -> Optional[Tripel]:
     """extra_vikter: vikter för källor som inte skattats ännu (för lite data) – används bara om
-    källan saknas i v.w."""
-    w_alla = {**(extra_vikter or {}), **v.w}
+    källan saknas i v.w.
+
+    extra_tak: högsta sammanlagda startvikt för de oskattade källor som finns för matchen. Tipsare läser
+    ofta samma odds och varandra; utan tak skulle varje ny sajt öka flytten mot favoriten. När en källas
+    vikt har skattats (då hanteras samvariationen av regressionen) ligger den utanför taket."""
+    extra = {s: w for s, w in (extra_vikter or {}).items() if s not in v.w}
+    if extra_tak is not None:
+        summa = sum(w for s, w in extra.items() if s in o.kallor)
+        if summa > extra_tak:
+            extra = {s: w * extra_tak / summa for s, w in extra.items()}
+    w_alla = {**extra, **v.w}
     if not any(s in o.kallor for s in w_alla):
         return None
     z = [v.a[k] + sum(w * _logp(o.kallor.get(s))[k] for s, w in w_alla.items()) for k in range(3)]
