@@ -37,7 +37,7 @@ from .model.modeller import (MODELLER, EnsembleModell, aktiv_modell, berakna_pro
                              ladda_modell)
 from .modeller import Match, ValideringsFel
 from .sources import oddsapi, svenskaspel
-from .tid import nu_utc, till_utc
+from .tid import nu_utc, parse_iso, till_utc
 
 log = logging.getLogger("pipeline")
 
@@ -366,7 +366,10 @@ def main(argv=None) -> int:
     if args.kommando == "auto":
         kritiskt_ok = kor_auto(conn)
     elif args.kommando == "planerad":
-        tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], datetime.now(timezone.utc))
+        nu = datetime.now(timezone.utc)
+        spelstopp = [parse_iso(r[0]) for r in conn.execute(
+            "SELECT spelstopp FROM omgangar WHERE spelstopp > ?", ((nu - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ"),))]
+        tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp)
         if tid is None:
             log.info("Planerad: inget att göra – den senaste planerade uppdateringen är redan körd")
         else:

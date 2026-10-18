@@ -9,6 +9,7 @@ on:
   schedule:
     - cron: "17 * * * *"          # varje timme
     - cron: "37,57 8-15 * * 6"    # lördagar 10–17 / 09–16 svensk tid: tätare inför spelstopp
+    - cron: "37,57 8-15 * * 0"    # söndagar likadant, för omgångar som stänger på söndagen
   workflow_dispatch:
     inputs:
       kommando:

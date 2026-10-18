@@ -8,7 +8,7 @@ några API:er.
 from __future__ import annotations
 
 from datetime import datetime, time, timedelta, timezone
-from typing import List, Optional, Tuple
+from typing import Iterable, List, Optional, Tuple
 from zoneinfo import ZoneInfo
 
 SVENSK_TID = ZoneInfo("Europe/Stockholm")
@@ -27,8 +27,16 @@ PLANERADE: List[Tuple[int, str]] = [
 ]
 
 
-def senaste_planerade(nu: datetime) -> datetime:
-    """Den senaste planerade tiden som har passerat (UTC)."""
+# Tider i förhållande till omgångens spelstopp. Vissa omgångar stänger på söndagen eller en helgdag; då
+# hamnar uppdateringarna före och efter spelstopp ändå rätt. För en vanlig lördag 15:59 sammanfaller de
+# med lördagstiderna ovan (10:30, 11:30, 12:30, 14:00, 15:00, 15:25, 16:20 och 19:30).
+RELATIVA: List[timedelta] = [timedelta(hours=h, minutes=m) for h, m in
+                             [(-5, -29), (-4, -29), (-3, -29), (-1, -59), (0, -59), (0, -34), (0, 21), (3, 31)]]
+
+
+def senaste_planerade(nu: datetime, spelstopp: Iterable[datetime] = ()) -> datetime:
+    """Den senaste planerade tiden som har passerat (UTC). spelstopp: kommande och nyligen passerade
+    spelstopp, som ger extra tider enligt RELATIVA."""
     lokal = nu.astimezone(SVENSK_TID)
     kandidater = []
     for dagar_bakat in range(8):
@@ -39,12 +47,14 @@ def senaste_planerade(nu: datetime) -> datetime:
                 t = datetime.combine(dag, time(h, m), tzinfo=SVENSK_TID)
                 if t <= lokal:
                     kandidater.append(t)
+    for stopp in spelstopp:
+        kandidater += [stopp + d for d in RELATIVA if stopp + d <= nu]
     return max(kandidater).astimezone(timezone.utc)
 
 
-def forfallen(senast_kord: Optional[str], nu: datetime) -> Optional[datetime]:
+def forfallen(senast_kord: Optional[str], nu: datetime, spelstopp: Iterable[datetime] = ()) -> Optional[datetime]:
     """Den planerade tid som ska köras nu, eller None om den senaste redan är körd."""
-    tid = senaste_planerade(nu)
+    tid = senaste_planerade(nu, spelstopp)
     if senast_kord:
         kord = datetime.fromisoformat(senast_kord.replace("Z", "+00:00"))
         if kord >= tid:

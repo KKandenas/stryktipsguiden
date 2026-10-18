@@ -91,6 +91,9 @@ tid) har passerats och inte körts än. Annars avslutas den direkt utan API-anro
 | Lör 16:20 och 19:30 | Slutstreck efter spelstopp, och resultat och utdelning samma kväll |
 | Sön 10:00 och 20:00 | Resultat och utdelning om de inte kom på lördagen (fas 5: källstatistik) |
 
+Stänger en omgång en annan dag än lördag (söndag eller helgdag) läggs samma tider i förhållande till det
+verkliga spelstoppet (`schema.RELATIVA`), och på söndagar startas pipelinen lika tätt som på lördagar.
+
 GitHub-cron kan vara försenad 5–30 minuter. Därför finns det flera lördagskörningar, och en stängd
 omgång hämtas om i upp till 48 timmar så att slutstrecken alltid kommer med. Alla steg är idempotenta,
 så det är ofarligt att köra något två gånger. Du kan också köra manuellt under **Actions → Pipeline →
