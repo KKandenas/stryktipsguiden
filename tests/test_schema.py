@@ -43,3 +43,13 @@ def test_lordag_med_relativa_tider_blir_som_forut():
     stopp = [utc("2026-10-31T14:59:00")]                                          # 15:59 vintertid
     for nu in ("2026-10-31T13:10:00", "2026-10-31T14:30:00", "2026-10-31T15:30:00"):
         assert schema.senaste_planerade(utc(nu), stopp) == schema.senaste_planerade(utc(nu))
+
+
+def test_resultat_hamtas_nar_sista_matchen_ar_slut():
+    # Spelstopp lördag 27 juni 2026, sista matchen söndag kväll 21:00 svensk tid
+    stopp, sista = [utc("2026-06-27T13:59:00")], [utc("2026-06-28T19:00:00")]
+    nu = utc("2026-06-28T21:40:00")
+    assert schema.senaste_planerade(nu, stopp) == utc("2026-06-28T18:00:00")            # söndag 20:00
+    assert schema.senaste_planerade(nu, stopp, sista) == utc("2026-06-28T21:30:00")     # 2,5 h efter avspark
+    assert schema.forfallen("2026-06-28T18:00:00Z", nu, stopp, sista) == utc("2026-06-28T21:30:00")
+    assert schema.senaste_planerade(utc("2026-06-28T23:40:00"), stopp, sista) == utc("2026-06-28T23:30:00")  # nytt försök

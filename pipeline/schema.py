@@ -34,9 +34,17 @@ RELATIVA: List[timedelta] = [timedelta(hours=h, minutes=m) for h, m in
                              [(-5, -29), (-4, -29), (-3, -29), (-1, -59), (0, -59), (0, -34), (0, 21), (3, 31)]]
 
 
-def senaste_planerade(nu: datetime, spelstopp: Iterable[datetime] = ()) -> datetime:
+# Resultatet hämtas också när sista matchen bör vara slut, ifall den spelas efter lördagen (söndag, eller
+# natten mot måndag i amerikanska ligor). Svenska Spel publicerar oftast strax efter slutsignalen; det andra
+# försöket tar det om publiceringen dröjer.
+EFTER_SISTA_MATCHEN = [timedelta(hours=2, minutes=30), timedelta(hours=4, minutes=30)]
+
+
+def senaste_planerade(nu: datetime, spelstopp: Iterable[datetime] = (),
+                      sista_avspark: Iterable[datetime] = ()) -> datetime:
     """Den senaste planerade tiden som har passerat (UTC). spelstopp: kommande och nyligen passerade
-    spelstopp, som ger extra tider enligt RELATIVA."""
+    spelstopp, som ger extra tider enligt RELATIVA. sista_avspark: varje omgångs sista avspark, som ger en
+    resultathämtning EFTER_SISTA_MATCHEN senare."""
     lokal = nu.astimezone(SVENSK_TID)
     kandidater = []
     for dagar_bakat in range(8):
@@ -49,12 +57,14 @@ def senaste_planerade(nu: datetime, spelstopp: Iterable[datetime] = ()) -> datet
                     kandidater.append(t)
     for stopp in spelstopp:
         kandidater += [stopp + d for d in RELATIVA if stopp + d <= nu]
+    kandidater += [a + d for a in sista_avspark for d in EFTER_SISTA_MATCHEN if a + d <= nu]
     return max(kandidater).astimezone(timezone.utc)
 
 
-def forfallen(senast_kord: Optional[str], nu: datetime, spelstopp: Iterable[datetime] = ()) -> Optional[datetime]:
+def forfallen(senast_kord: Optional[str], nu: datetime, spelstopp: Iterable[datetime] = (),
+              sista_avspark: Iterable[datetime] = ()) -> Optional[datetime]:
     """Den planerade tid som ska köras nu, eller None om den senaste redan är körd."""
-    tid = senaste_planerade(nu, spelstopp)
+    tid = senaste_planerade(nu, spelstopp, sista_avspark)
     if senast_kord:
         kord = datetime.fromisoformat(senast_kord.replace("Z", "+00:00"))
         if kord >= tid:

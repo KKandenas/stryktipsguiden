@@ -367,9 +367,12 @@ def main(argv=None) -> int:
         kritiskt_ok = kor_auto(conn)
     elif args.kommando == "planerad":
         nu = datetime.now(timezone.utc)
-        spelstopp = [parse_iso(r[0]) for r in conn.execute(
-            "SELECT spelstopp FROM omgangar WHERE spelstopp > ?", ((nu - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ"),))]
-        tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp)
+        rader = conn.execute(
+            """SELECT o.spelstopp, MAX(m.avspark) FROM omgangar o LEFT JOIN matcher m ON m.omgang_id = o.id
+               WHERE o.spelstopp > ? GROUP BY o.id""", ((nu - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ"),)).fetchall()
+        spelstopp = [parse_iso(r[0]) for r in rader]
+        sista = [parse_iso(r[1]) for r in rader if r[1]]
+        tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp, sista)
         if tid is None:
             log.info("Planerad: inget att göra – den senaste planerade uppdateringen är redan körd")
         else:
