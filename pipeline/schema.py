@@ -22,6 +22,7 @@ PLANERADE: List[Tuple[int, str]] = [
     (5, "10:30"), (5, "11:30"), (5, "12:30"),   # lördag förmiddag
     (5, "14:00"), (5, "15:00"), (5, "15:25"),   # lördag fram till spelstopp 15:59
     (5, "16:20"),                  # lördag efter spelstopp: slutstreck
+    (5, "19:30"),                  # lördag kväll: resultat och utdelning (Svenska Spel publicerar runt 18–19)
     (6, "10:00"), (6, "20:00"),    # söndag: resultat, utdelning, statistik
 ]
 

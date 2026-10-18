@@ -380,7 +380,10 @@ def main(argv=None) -> int:
     elif args.kommando == "odds":
         steg_odds(conn)
     elif args.kommando == "resultat":
+        # Resultat, statistik och export: appen visar rättningen direkt, utan AI och oddskrediter
         kritiskt_ok = steg_resultat(conn)
+        steg_statistik(conn)
+        kritiskt_ok &= steg_export(conn)
     elif args.kommando == "backfill":
         kritiskt_ok = backfill(conn, args.fran, args.till)
     elif args.kommando == "tips":

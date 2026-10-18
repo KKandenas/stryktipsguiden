@@ -88,7 +88,8 @@ tid) har passerats och inte körts än. Annars avslutas den direkt utan API-anro
 | Ons, tor, fre 19:00 / 18:00 | Uppdaterade streck, odds och tips |
 | Lör 10:30, 11:30, 12:30 / 09:30, 10:30, 11:30 | Förmiddagsuppdateringar före lunch |
 | Lör 14:00, 15:00, 15:25 (vintertid även 15:20) | Sista streck och odds före spelstopp 15:59 |
-| Sön 10:00 och 20:00 | Resultat och utdelning (fas 5: källstatistik) |
+| Lör 16:20 och 19:30 | Slutstreck efter spelstopp, och resultat och utdelning samma kväll |
+| Sön 10:00 och 20:00 | Resultat och utdelning om de inte kom på lördagen (fas 5: källstatistik) |
 
 GitHub-cron kan vara försenad 5–30 minuter. Därför finns det flera lördagskörningar, och en stängd
 omgång hämtas om i upp till 48 timmar så att slutstrecken alltid kommer med. Alla steg är idempotenta,

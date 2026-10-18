@@ -27,4 +27,4 @@ def test_forfallen_kor_bara_en_gang_per_planerad_tid():
 
 def test_lordagens_tider_fram_till_spelstopp():
     tider = [t for d, t in schema.PLANERADE if d == 5]
-    assert "15:25" in tider and all(t < "15:59" for t in tider if t != "16:20")
+    assert "15:25" in tider and all(t < "15:59" for t in tider if t not in ("16:20", "19:30"))
