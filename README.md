@@ -226,6 +226,13 @@ node --test tests/js/*.test.mjs
 ```
 Körs automatiskt i GitHub Actions. Lokalt krävs Node 18 eller senare.
 
+Förutom modultesterna finns två kontroller av själva appen, båda utan beroenden:
+- `identifierare.test.mjs` – statisk kontroll att alla namn som används i `docs/*.js` är deklarerade,
+  importerade eller globala i webbläsaren (fångar t.ex. en hjälpfunktion som aldrig definierats).
+- `app.test.mjs` och `app-demo.test.mjs` – röktest som laddar `docs/index.html` och `docs/app.js` i en liten
+  DOM (`minidom.mjs`) med kupongen som öppen, stängd, avgjord och inställd, klickar runt och besöker alla vyer.
+  Testet fallerar om något fel kastas eller loggas med `console.error`.
+
 ## Tipssajter och AI (fas 4)
 
 AI anropas bara från pipelinen (`pipeline/ai/`), aldrig från appen. **Gemini** är förvalt

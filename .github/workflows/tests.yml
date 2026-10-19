@@ -27,4 +27,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "24"
-      - run: node --test tests/js/*.test.mjs
+      # Modultesterna, kontrollen av odefinierade namn i docs/*.js (identifierare.test.mjs) och röktestet som
+      # laddar index.html + app.js i omgångens alla lägen (app.test.mjs, app-demo.test.mjs)
+      - name: JS-tester och röktest av appen
+        run: node --test tests/js/*.test.mjs
