@@ -28,7 +28,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, export, lagkoll, lagring, schema, tipsinsamling
+from . import config, db, export, lagkoll, lagring, schema, sidomatcher, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
@@ -231,6 +231,16 @@ def steg_tips(conn) -> bool:
     return True
 
 
+def steg_sidomatcher(conn) -> bool:
+    """Tips och resultat för matcher utanför kupongen (utan AI och oddskrediter), för tipsarnas vikter."""
+    try:
+        r = sidomatcher.uppdatera(conn)
+        log.info("Sidomatcher: nya artiklar %s, nya resultat %d", r["artiklar"] or "inga", r["resultat"])
+    except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
+        log.exception("Sidomatcher: oväntat fel: %s", e)
+    return True
+
+
 def steg_kommentarer(conn) -> bool:
     if not _ai_redo("Kommentarer"):
         return True
@@ -279,6 +289,7 @@ def kor_auto(conn) -> bool:
     steg_odds(conn)
     ok &= steg_resultat(conn)
     steg_tips(conn)
+    steg_sidomatcher(conn)
     steg_prognos(conn)
     steg_statistik(conn)
     steg_kommentarer(conn)
@@ -339,7 +350,8 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipsguidens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "kommentarer", "lagkoll", "tabeller", "statistik",
+    for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "sidomatcher", "kommentarer", "lagkoll",
+                 "tabeller", "statistik",
                  "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
@@ -367,9 +379,10 @@ def main(argv=None) -> int:
         kritiskt_ok = kor_auto(conn)
     elif args.kommando == "planerad":
         nu = datetime.now(timezone.utc)
+        fran = (nu - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ")
         rader = conn.execute(
             """SELECT o.spelstopp, MAX(m.avspark) FROM omgangar o LEFT JOIN matcher m ON m.omgang_id = o.id
-               WHERE o.spelstopp > ? GROUP BY o.id""", ((nu - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ"),)).fetchall()
+               WHERE o.spelstopp > ? GROUP BY o.id""", (fran,)).fetchall()
         spelstopp = [parse_iso(r[0]) for r in rader]
         sista = [parse_iso(r[1]) for r in rader if r[1]]
         tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp, sista)
@@ -394,6 +407,9 @@ def main(argv=None) -> int:
         kritiskt_ok = backfill(conn, args.fran, args.till)
     elif args.kommando == "tips":
         steg_tips(conn)
+    elif args.kommando == "sidomatcher":
+        steg_sidomatcher(conn)
+        kritiskt_ok = steg_statistik(conn, tvinga=True) and steg_export(conn)
     elif args.kommando == "kommentarer":
         steg_kommentarer(conn)
     elif args.kommando == "tabeller":

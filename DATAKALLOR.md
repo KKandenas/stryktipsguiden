@@ -77,6 +77,17 @@ Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att häm
 - Fixturen `tests/fixtures/oddsapi_soccer_epl.json` är handskriven efter API-dokumentationen
   (vi hade ingen nyckel när koden skrevs). Ersätt den med ett riktigt svar när du har en nyckel.
 
+## football-data.co.uk (matcher utanför kupongen)
+
+`https://www.football-data.co.uk/mmz4281/{säsong}/{liga}.csv`, till exempel `2627/E1.csv` för Championship
+2026/27. Ingen nyckel krävs, och robots.txt tillåter hämtning. Filen uppdateras ett par gånger i veckan och
+innehåller spelade matcher med resultat (`FTR`) och snittodds före avspark (`AvgH`/`AvgD`/`AvgA`). Ligorna är
+E0–E3, SC0, D1, SP1, I1 och F1 (`pipeline/sources/footballdata.py`).
+
+Används bara för matcher utanför kupongen: tillsammans med Sports Moles och FootballPredictions tips (lästa ur
+texten utan AI, `pipeline/sidomatcher.py`) lär de tipsarnas vikter i Med experter snabbare. Inga
+oddskrediter används.
+
 ## Exportformat för egna rader
 
 > Används inte i appen just nu (nedladdningen togs bort 2026-10-10). Sparat som referens.

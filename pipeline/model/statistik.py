@@ -51,8 +51,16 @@ def _upsert(conn, sql_insert: str, params: tuple) -> int:
 
 # ---------- 1. källstatistik ----------
 
-def kallstatistik(conn, data) -> int:
+UTANFOR = "Utanför kupongen"     # källstatistik för matcher utanför kupongen (se pipeline/sidomatcher.py)
+
+
+def kallstatistik(conn, data, sido=()) -> int:
     summor: Dict[Tuple[str, str], List[Tuple[float, bool]]] = defaultdict(list)
+    # Utanför kupongen räknas för sig, så att träffsäkerheten där kan jämföras med kupongens ("Alla")
+    for _, o in sido:
+        for kalla, p in o.kallor.items():
+            if kalla != "odds":
+                summor[(kalla, UTANFOR)].append((brier(p, o.utfall), p[TECKEN.index(o.utfall)] >= max(p) - 1e-9))
     for _, _, _, liga, res, o in data:
         for kalla, p in o.kallor.items():
             if kalla == "odds":
@@ -110,7 +118,10 @@ def _utan_streck(o: ensemble.Observation) -> ensemble.Observation:
     return ensemble.Observation({k: v for k, v in o.kallor.items() if k != "streck"}, o.utfall)
 
 
-def walk_forward(conn, data, version: str = EnsembleModell.version) -> Tuple[int, Optional[ensemble.Vikter]]:
+def walk_forward(conn, data, version: str = EnsembleModell.version,
+                 sido: List[Tuple[str, ensemble.Observation]] = ()) -> Tuple[int, Optional[ensemble.Vikter]]:
+    """sido: (datum, observation) för matcher utanför kupongen. De används bara i träningen, och bara när de
+    spelats före omgångens spelstopp, så att backtestet förblir ärligt."""
     install = TRANING[version]
     extra, tak = EXTRA.get(version), EXTRA_TAK.get(version)
     if version == TipsModell.version:
@@ -122,8 +133,12 @@ def walk_forward(conn, data, version: str = EnsembleModell.version) -> Tuple[int
 
     tran: List[ensemble.Observation] = []
     vikter, sedan, nu, sparade = None, OMTRANA_VAR, nu_utc(), 0
+    sido, i_sido = sorted(sido, key=lambda x: x[0]), 0
     with conn:
-        for _, oid in omgangar:
+        for stopp, oid in omgangar:
+            while i_sido < len(sido) and sido[i_sido][0] < stopp[:10]:
+                tran.append(sido[i_sido][1])
+                i_sido += 1
             rader = per_omgang[oid]
             if len(tran) >= MIN_TRANING:
                 if vikter is None or sedan >= OMTRANA_VAR:
@@ -134,6 +149,7 @@ def walk_forward(conn, data, version: str = EnsembleModell.version) -> Tuple[int
                         sparade += _spara_prognos(conn, mid, version, ensemble.prognos(vikter, o, extra, tak), nu)
             tran += [o for *_, o in rader if "odds" in o.kallor]
 
+        tran += [o for _, o in sido[i_sido:]]
         slutlig = ensemble.anpassa(tran, **install) if len(tran) >= MIN_TRANING else None
         if slutlig is not None:
             parametrar = json.dumps(slutlig.till_dict(), sort_keys=True)
@@ -223,15 +239,17 @@ def behover_koras(conn) -> bool:
 
 def kor(conn: sqlite3.Connection) -> dict:
     data = _avgjorda(conn)
-    k = kallstatistik(conn, data)
+    from .. import sidomatcher
+    sido = sidomatcher.observationer(conn)
+    k = kallstatistik(conn, data, sido)
     n, vikter = walk_forward(conn, data)
-    n_tips, vikter_tips = walk_forward(conn, data, TipsModell.version)
+    n_tips, vikter_tips = walk_forward(conn, data, TipsModell.version, sido)
     totalt = modellstatistik(conn, data)
     val = valj_modell(conn, data)
     with conn:
         conn.execute("""INSERT INTO installningar (nyckel, varde, uppdaterad) VALUES ('statistik_till_omgang', ?, ?)
                         ON CONFLICT(nyckel) DO UPDATE SET varde = excluded.varde, uppdaterad = excluded.uppdaterad""",
                      (str(senaste_avgjorda(conn) or 0), nu_utc()))
-    return {"matcher": len(data), "kallstatistik": k, "ensemble_prognoser": n,
+    return {"matcher": len(data), "sidomatcher": len(sido), "kallstatistik": k, "ensemble_prognoser": n,
             "vikter": vikter.till_dict() if vikter else None, "modeller": totalt, "aktiv": val,
             "tips_prognoser": n_tips, "tipsvikter": vikter_tips.till_dict() if vikter_tips else None}

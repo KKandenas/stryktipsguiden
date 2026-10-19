@@ -479,12 +479,18 @@ def bygg_statistik(conn: sqlite3.Connection, version: str, antal_omgangar: int =
     alla_kallor = {r[0]: (r[1], r[2], r[3]) for r in conn.execute(
         """SELECT k.namn, s.traff, s.brier, s.antal_matcher FROM kallstatistik s JOIN kallor k ON k.id = s.kalla_id
            WHERE s.liga = 'Alla'""")}
+    # Matcher utanför kupongen (Sports Mole, FootballPredictions): egen träffsäkerhet för jämförelse
+    utanfor = {r[0]: (r[1], r[2]) for r in conn.execute(
+        """SELECT k.namn, s.traff, s.antal_matcher FROM kallstatistik s JOIN kallor k ON k.id = s.kalla_id
+           WHERE s.liga = 'Utanför kupongen'""")}
     tipsare = []
     for namn in TIPSKALLOR:
         skattad = v is not None and namn in v.w
         t, b, n = alla_kallor.get(namn, (None, None, 0))
+        ut_t, ut_n = utanfor.get(namn, (None, 0))
         tipsare.append({"namn": namn, "vikt": round(v.w[namn], 3) if skattad else STARTVIKT_TIPS,
-                        "skattad": skattad, "traff": round(t, 3) if t is not None else None, "antal": n or 0})
+                        "skattad": skattad, "traff": round(t, 3) if t is not None else None, "antal": n or 0,
+                        "utanfor_traff": round(ut_t, 3) if ut_t is not None else None, "utanfor_antal": ut_n or 0})
     oddsvikt = round(v.w.get("odds", 1.0), 3) if v else 1.0
 
     return {"aktiv_modell": version, "modeller": modeller, "kallor": kallor, "ligor": ligor, "senaste": senaste,

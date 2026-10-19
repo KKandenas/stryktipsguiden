@@ -53,6 +53,12 @@ som talar för dem.
 - [ ] Håll nere antalet manuella körningar, så att Geminis gratiskvot räcker till de schemalagda. Kommandot
   `tabeller` uppdaterar appen utan AI och utan oddskrediter.
 
+### Matcher utanför kupongen (från 19 oktober 2026)
+- Sports Moles och FootballPredictions tips på alla matcher i ligorna samlas in, med odds och resultat från
+  football-data.co.uk. De används bara när tipsarnas vikter lärs, inte i prognoserna.
+- [ ] Efter 4–6 veckor: jämför träffsäkerheten på och utanför kupongen (Statistik → Visa detaljer → tipsarnas
+  vikt). Skiljer de sig mycket bör matcherna utanför kupongen vägas ner eller tas bort.
+
 ### December–januari (efter 8–12 omgångar): första avstämningen
 - [ ] Lagkoll mot Oddsen på cirka 100–150 matcher. Det ger en fingervisning, inte ett beslut.
 - [ ] Skrällchans i verkligheten: gick skrällarna in ungefär som i backtestet, cirka 29 %?

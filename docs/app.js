@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261018a";
-import * as konto from "./konto.js?v=20261018a";
+} from "./optimizer.js?v=20261019a";
+import * as konto from "./konto.js?v=20261019a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261018a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261018a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261018a";
+} from "./spelbolag.js?v=20261019a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261019a";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261019a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -1986,14 +1986,16 @@ function renderaStatistik() {
     det.append(el("h3", { text: "Tipsarnas vikt i förslaget Med experter" }));
     const t = el("table", { class: "stat-tabell" },
       el("thead", {}, el("tr", {}, el("th", { text: "Tipsare" }), el("th", { class: "tal", text: "Träff" }),
-        el("th", { class: "tal", text: "Matcher" }), el("th", { class: "tal", text: "Vikt" }))));
+        el("th", { class: "tal", text: "Matcher" }), el("th", { class: "tal", text: "Utanför kupongen" }),
+        el("th", { class: "tal", text: "Vikt" }))));
     const b = el("tbody");
     b.append(el("tr", {}, el("td", { text: "Bookmakerodds" }), el("td", { class: "tal", text: "–" }),
-      el("td", { class: "tal", text: "–" }), el("td", { class: "tal", text: dec(st.tips_oddsvikt ?? 1) })));
+      el("td", { class: "tal", text: "–" }), el("td", { class: "tal", text: "–" }), el("td", { class: "tal", text: dec(st.tips_oddsvikt ?? 1) })));
     for (const tp of st.tipsare) {
       b.append(el("tr", {}, el("td", {}, tp.namn, tp.skattad ? null : el("span", { class: "dampad", text: " (startvikt)" })),
         el("td", { class: "tal", text: tp.traff != null ? pct(tp.traff) : "–" }),
         el("td", { class: "tal", text: tp.antal.toLocaleString("sv-SE") }),
+        el("td", { class: "tal", text: tp.utanfor_antal ? `${pct(tp.utanfor_traff)} · ${tp.utanfor_antal.toLocaleString("sv-SE")}` : "–" }),
         el("td", { class: "tal", text: dec(tp.vikt) })));
     }
     t.append(b);
@@ -2001,7 +2003,9 @@ function renderaStatistik() {
     det.append(el("p", { class: "forklaring-stat", text:
       "Vikten visar hur mycket tipsaren flyttar sannolikheterna jämfört med oddsen (0 = ingen påverkan). " +
       "Nya tipsare börjar på en liten startvikt och får en egen, inlärd vikt när de har minst 30 avgjorda matcher. " +
-      "Vikterna lärs om varje söndag – tipsare som ofta har rätt där oddsen har fel får mer att säga till om." }));
+      "Vikterna lärs om varje söndag – tipsare som ofta har rätt där oddsen har fel får mer att säga till om. " +
+      "Sports Mole och FootballPredictions tipsar alla matcher i ligorna, så deras tips på matcher utanför kupongen " +
+      "(träff · antal) räknas också in när vikten lärs. Odds och resultat för dem kommer från football-data.co.uk." }));
   }
 
   if (blk.ligor?.length) {
