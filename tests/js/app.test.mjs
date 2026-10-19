@@ -66,6 +66,36 @@ for (const fall of FALL) {
   });
 }
 
+test("vald flik i matchdetaljen gäller alla matcher och är förval för nya", async () => {
+  const miljo = await laddaApp(kupong("oppen"));
+  try {
+    const d = miljo.document;
+    const huvud = (nr) => d.querySelector(`#matcher .match-huvud[data-nr="${nr}"]`);
+    const valdFlik = (nr) => huvud(nr).closest(".match").querySelector('.detaljflikar [aria-selected="true"]')?.textContent;
+    const flik = (nr, namn) => huvud(nr).closest(".match").querySelectorAll(".detaljflikar [role=tab]")
+      .find((b) => b.textContent === namn);
+
+    huvud(1).click();
+    huvud(2).click();
+    assert.equal(valdFlik(1), "Översikt");
+    assert.equal(valdFlik(2), "Översikt");
+
+    flik(1, "Lagen").click();                  // byte i en match …
+    assert.equal(valdFlik(1), "Lagen");
+    assert.equal(valdFlik(2), "Lagen");        // … slår igenom på de andra utfällda
+
+    huvud(3).click();                          // ny match öppnas med samma flik
+    assert.equal(valdFlik(3), "Lagen");
+
+    flik(3, "Odds").click();
+    assert.deepEqual([1, 2, 3].map(valdFlik), ["Odds", "Odds", "Odds"]);
+    assert.equal(JSON.parse(localStorage.getItem("stryktipshjalpen")).detaljFlik, "odds");   // sparas till nästa besök
+    assert.equal(felText(miljo), "");
+  } finally {
+    miljo.avsluta();
+  }
+});
+
 test("appen faller tillbaka på exempelkupongen när kupong.json saknas", async () => {
   const miljo = await laddaApp(undefined);
   try {

@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261019a";
-import * as konto from "./konto.js?v=20261019a";
+} from "./optimizer.js?v=20261019b";
+import * as konto from "./konto.js?v=20261019b";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261019a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261019a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261019a";
+} from "./spelbolag.js?v=20261019b";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261019b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261019b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -22,7 +22,7 @@ const state = {
   oppna: new Set(),    // matcher med utfälld kommentar
   aktivMatch: null,    // senast öppnade matchen: visas i nyhetskolumnen på breda skärmar
   oddsOppna: new Set(), // matcher där alla bolags odds är utfällda
-  detaljFlik: {},      // vald flik i matchdetaljen, per matchnummer
+  detaljFlik: "oversikt", // vald flik i matchdetaljen, samma för alla matcher
   resultat: null,      // senaste optimeringen
   historik: null,      // historik.json, laddas först när backtestet öppnas
   btBudget: null,      // vald budget i backtestet
@@ -113,6 +113,7 @@ function sparaLagring() {
     const d = lasLagring();
     d.budget = state.budget;
     d.kalla = state.kalla;
+    d.detaljFlik = state.detaljFlik;
     d.lasningar = d.lasningar || {};
     const id = state.kupong.omgang.id;
     if (Object.keys(state.lasningar).length) d.lasningar[id] = state.lasningar;
@@ -160,6 +161,7 @@ async function start() {
   const lagrat = lasLagring();
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
   if (FORSLAG[lagrat.kalla] && (lagrat.kalla !== "tips" || harTips(state.kupong))) state.kalla = lagrat.kalla;
+  if (DETALJFLIKAR.some(([k]) => k === lagrat.detaljFlik)) state.detaljFlik = lagrat.detaljFlik;
   for (const b of document.querySelectorAll(".forslag button")) {
     b.disabled = b.dataset.kalla === "tips" && !harTips(state.kupong);
     b.addEventListener("click", () => {
@@ -390,16 +392,24 @@ const DETALJFLIKAR = [["oversikt", "Översikt"], ["lagen", "Lagen"], ["experter"
 function detaljer(m, v, skrall = null) {
   const d = el("div", { class: "detaljer" });
   const visa = () => {
-    const flik = state.detaljFlik[m.nr] || "oversikt";
+    const flik = state.detaljFlik;
     const rad = el("div", { class: "detaljflikar", role: "tablist", "aria-label": `Match ${m.nr}` },
       ...DETALJFLIKAR.map(([k, namn]) => {
         const b = el("button", { type: "button", role: "tab", "aria-selected": String(k === flik), text: namn });
-        b.addEventListener("click", (e) => { e.stopPropagation(); state.detaljFlik[m.nr] = k; visa(); });
+        b.addEventListener("click", (e) => {
+          e.stopPropagation();
+          state.detaljFlik = k;
+          sparaLagring();
+          // Fliken gäller alla matcher: rita om varje utfälld match (kupongen, rättningen och nyhetskolumnen)
+          for (const x of document.querySelectorAll(".detaljer")) x.dispatchEvent(new Event("bytflik"));
+          d.querySelector('[role="tab"][aria-selected="true"]')?.focus();
+        });
         return b;
       }));
     const innehall = { oversikt: detaljOversikt, lagen: detaljLagen, experter: detaljExperter, odds: detaljOdds }[flik](m, v, skrall);
     d.replaceChildren(rad, el("div", { class: "detaljflik", role: "tabpanel" }, ...innehall));
   };
+  d.addEventListener("bytflik", visa);
   visa();
   return d;
 }

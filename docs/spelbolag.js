@@ -23,7 +23,7 @@
 // tar kassan emot spelens insatser och vinster. I turordning betalar veckans spelare insatsen och får vinsten
 // utbetald av Svenska Spel – det bokförs som att hen betalat respektive tagit emot.
 
-import { ratta } from "./minaspel.js?v=20261019a";
+import { ratta } from "./minaspel.js?v=20261019b";
 
 export const SPELFORMER = { kassa: "Kassa", tur: "Turordning" };
 export const POSTTYPER = { inbetalning: "Inbetalning", utbetalning: "Utbetalning", vinst: "Vinst utanför appen", insats: "Spel utanför appen" };
