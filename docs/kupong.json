@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-19T18:03:58Z",
+ "genererad": "2026-10-21T18:48:20Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -11,7 +11,7 @@
   "spelstopp": "2026-10-24T13:59:00Z",
   "status": "oppen",
   "frusen": null,
-  "omsattning": 562131.0,
+  "omsattning": 1463574.0,
   "radpris": 1,
   "utdelning": null,
   "vinnare": null
@@ -25,126 +25,140 @@
    "land": "England",
    "avspark": "2026-10-24T16:30:00Z",
    "chans": {
-    "1": 0.5455,
-    "X": 0.2291,
-    "2": 0.2254
+    "1": 0.5604,
+    "X": 0.2257,
+    "2": 0.2139
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 54.0,
-    "X": 22.0,
-    "2": 24.0
+    "1": 61.0,
+    "X": 21.0,
+    "2": 18.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": 0.0055,
-    "X": 0.0091,
-    "2": -0.0146
+    "1": -0.0496,
+    "X": 0.0157,
+    "2": 0.0339
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.5832,
-    "X": 0.2092,
-    "2": 0.2076
+    "1": 0.7345,
+    "X": 0.1351,
+    "2": 0.1303
    },
    "varde_tips": {
-    "1": 0.0432,
-    "X": -0.0108,
-    "2": -0.0324
+    "1": 0.1245,
+    "X": -0.0749,
+    "2": -0.0497
    },
    "odds": {
-    "antal_bolag": 42,
+    "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.74,
-     "X": 4.11,
-     "2": 4.18
+     "1": 1.69,
+     "X": 4.19,
+     "2": 4.41
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.75,
-      "X": 4.28,
-      "2": 4.31
+      "1": 1.69,
+      "X": 4.4,
+      "2": 4.57
      },
      {
       "bolag": "svenskaspel",
-      "1": 1.8,
-      "X": 4.3,
-      "2": 4.25
+      "1": 1.74,
+      "X": 4.35,
+      "2": 4.6
      },
      {
       "bolag": "betsson",
-      "1": 1.7,
-      "X": 4.18,
-      "2": 4.46
+      "1": 1.63,
+      "X": 4.6,
+      "2": 4.51
      },
      {
       "bolag": "nordicbet",
-      "1": 1.7,
-      "X": 4.2,
-      "2": 4.45
+      "1": 1.62,
+      "X": 4.6,
+      "2": 4.5
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.77,
-      "X": 4.5,
-      "2": 4.5
+      "1": 1.76,
+      "X": 4.4,
+      "2": 4.7
      },
      {
       "bolag": "williamhill",
-      "1": 1.75,
-      "X": 3.9,
-      "2": 4.0
+      "1": 1.67,
+      "X": 4.0,
+      "2": 4.33
      },
      {
       "bolag": "coolbet",
-      "1": 1.75,
-      "X": 4.1,
-      "2": 4.21
+      "1": 1.73,
+      "X": 4.38,
+      "2": 4.65
      },
      {
       "bolag": "marathonbet",
-      "1": 1.76,
-      "X": 4.2,
-      "2": 4.25
+      "1": 1.71,
+      "X": 4.3,
+      "2": 4.45
      },
      {
       "bolag": "sport888",
-      "1": 1.75,
-      "X": 3.9,
-      "2": 4.0
+      "1": 1.67,
+      "X": 4.0,
+      "2": 4.33
      },
      {
       "bolag": "betano_uk",
-      "1": 1.7,
-      "X": 4.0,
-      "2": 4.2
+      "1": 1.65,
+      "X": 4.1,
+      "2": 4.4
+     },
+     {
+      "bolag": "betanysports",
+      "1": 1.68,
+      "X": 4.17,
+      "2": 4.45
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.66,
-      "X": 3.95,
-      "2": 4.1
-     },
-     {
-      "bolag": "betfair_ex_uk",
-      "1": 1.77,
-      "X": 4.5,
-      "2": 4.5
+      "1": 1.6,
+      "X": 3.93,
+      "2": 4.2
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Chelsea har två dagars längre vila och inledde oktober med två raka segrar. Tottenham tog visserligen säsongens första seger senast, men en ny sådan mot formstarka Chelsea känns långsökt.",
+     "system": "1",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Chelsea tippas vinna med 2-1 mot Tottenham.",
+     "text": "Chelsea har sett vassare ut efter att Cole Palmer och Joao Pedro återvänt, och laget har vunnit 83% av sina hemmamatcher. Tottenham har en svag bortastform och dras med osäkerhet kring spelare som Omar Marmoush och Andy Robertson.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1",
+     "text": "Chelsea övertygar tillräckligt och gör mycket mål, medan Spurs visserligen vann senast men mot en enkel motståndare.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Oddsen håller Chelsea som knapp favorit till 55 %. Svenska folket ligger helt i linje med oddssättarna och något spelvärde saknas. Tipsaren förväntar sig hemmaseger.",
+   "kommentar": "Oddsen ger Chelsea ett tydligt favoritskap (56 %), och svenska folket streckar 1 något högre på 61 %. Samtliga tipsare tror på hemmaseger.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -160,20 +174,77 @@
      "form": "WWLDLW"
     },
     "borta": {
-     "plats": 20,
+     "plats": 16,
      "antal_lag": 20,
-     "spelade": 6,
-     "vunna": 0,
+     "spelade": 7,
+     "vunna": 1,
      "oavgjorda": 3,
      "forlorade": 3,
-     "gjorda": 3,
-     "inslappta": 9,
-     "poang": 3,
-     "form": "DLDDLL"
+     "gjorda": 6,
+     "inslappta": 10,
+     "poang": 6,
+     "form": "WDLDDL"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Reece James",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Malo Gusto",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Har vunnit 83% av sina hemmamatcher i urvalet.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "smäll",
+       "spelare": "Omar Marmoush",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "smäll",
+       "spelare": "Andy Robertson",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Tränas av Roberto De Zerbi och har gjort endast 0,50 mål per bortamatch.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -185,71 +256,71 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.6832,
-    "X": 0.2031,
-    "2": 0.1137
+    "1": 0.6809,
+    "X": 0.2055,
+    "2": 0.1136
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 54.0,
-    "X": 23.0,
-    "2": 23.0
+    "1": 68.0,
+    "X": 19.0,
+    "2": 13.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": 0.1432,
-    "X": -0.0269,
-    "2": -0.1163
+    "1": 0.0009,
+    "X": 0.0155,
+    "2": -0.0164
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7093,
-    "X": 0.1837,
-    "2": 0.107
+    "1": 0.7225,
+    "X": 0.1887,
+    "2": 0.0888
    },
    "varde_tips": {
-    "1": 0.1693,
-    "X": -0.0463,
-    "2": -0.123
+    "1": 0.0425,
+    "X": -0.0013,
+    "2": -0.0412
    },
    "odds": {
-    "antal_bolag": 43,
+    "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 1.39,
-     "X": 4.66,
-     "2": 8.27
+     "X": 4.62,
+     "2": 8.32
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.41,
-      "X": 4.55,
-      "2": 9.06
+      "1": 1.43,
+      "X": 4.43,
+      "2": 8.63
      },
      {
       "bolag": "svenskaspel",
-      "1": 1.42,
-      "X": 4.9,
-      "2": 8.5
+      "1": 1.4,
+      "X": 5.0,
+      "2": 9.5
      },
      {
       "bolag": "betsson",
-      "1": 1.38,
-      "X": 4.68,
-      "2": 8.7
+      "1": 1.4,
+      "X": 4.51,
+      "2": 8.46
      },
      {
       "bolag": "nordicbet",
-      "1": 1.38,
-      "X": 4.7,
-      "2": 8.7
+      "1": 1.4,
+      "X": 4.5,
+      "2": 8.5
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.42,
-      "X": 5.0,
-      "2": 9.8
+      "1": 1.44,
+      "X": 4.8,
+      "2": 9.4
      },
      {
       "bolag": "williamhill",
@@ -259,15 +330,15 @@
      },
      {
       "bolag": "coolbet",
-      "1": 1.39,
-      "X": 4.5,
+      "1": 1.43,
+      "X": 4.68,
       "2": 9.25
      },
      {
       "bolag": "marathonbet",
-      "1": 1.39,
-      "X": 4.8,
-      "2": 8.7
+      "1": 1.42,
+      "X": 4.6,
+      "2": 8.2
      },
      {
       "bolag": "sport888",
@@ -279,32 +350,46 @@
       "bolag": "betano_uk",
       "1": 1.36,
       "X": 4.6,
-      "2": 8.5
+      "2": 8.0
+     },
+     {
+      "bolag": "betanysports",
+      "1": 1.42,
+      "X": 4.53,
+      "2": 8.99
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.36,
-      "X": 4.5,
+      "1": 1.33,
+      "X": 4.4,
       "2": 7.0
-     },
-     {
-      "bolag": "betfair_ex_uk",
-      "1": 1.42,
-      "X": 5.0,
-      "2": 9.8
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X",
+     "text": "Arsenal har en tuff match mot Bayern München i benen vilket kan leda till trötthet. Everton har en skadefri trupp som vilat upp sig och blir svårslagna.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Arsenal förutspås vinna matchen med resultatet 2–0. Laget förväntas hålla nollan och ta hem segern.",
+     "text": "Arsenal har imponerande hemmaform och har vunnit varje hemmamatch den här säsongen, medan Everton har haft det svårt i anfallet på sistone.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1X",
+     "text": "Arsenal har haft en del svaga insatser på rad i PL, och Everton är svårslagna med bara en förlust den här säsongen.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Arsenal är tydlig favorit till 68 %, men svenska folket streckar bara 54 %. Det ger ett fint spelvärde på ettan, vilket även är tipset.",
+   "kommentar": "Arsenal är stora favoriter till 68 %, vilket speglas perfekt av strecken. Bettingstugan och Tipsmedoss varnar dock och väljer 1X.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -335,19 +420,60 @@
    },
    "lagnytt": {
     "hemma": {
-     "franvaro": [],
+     "franvaro": [
+      {
+       "nyckelspelare": true,
+       "orsak": "skada",
+       "spelare": "William Saliba",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Piero Hincapie",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Tzolis",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
      "sammanhang": [
       {
-       "text": "Arsenal har vunnit samtliga fyra senaste hemmamatcher.",
+       "text": "Regerande mästarna har vunnit alla hemmamatcher den här säsongen.",
        "kalla": "footballpredictions.com",
-       "tid": "2026-10-19T10:52:05Z"
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "text": "Har haft ett flertal svaga insatser på rad i PL.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
       }
      ],
      "tranarbyte": null
     },
     "borta": {
      "franvaro": [],
-     "sammanhang": [],
+     "sammanhang": [
+      {
+       "text": "Kommer från en 2-0-förlust mot Chelsea och har haft svårt i sista tredjedelen.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "text": "Mycket svårslagna med bara en förlust i ligan denna säsong.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
      "tranarbyte": null
     }
    },
@@ -362,83 +488,83 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.3242,
-    "X": 0.2688,
-    "2": 0.407
+    "1": 0.3198,
+    "X": 0.2725,
+    "2": 0.4077
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 43.0,
-    "X": 25.0,
-    "2": 32.0
+    "1": 39.0,
+    "X": 26.0,
+    "2": 35.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.1058,
-    "X": 0.0188,
-    "2": 0.087
+    "1": -0.0702,
+    "X": 0.0125,
+    "2": 0.0577
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3707,
-    "X": 0.2527,
-    "2": 0.3766
+    "1": 0.2914,
+    "X": 0.2504,
+    "2": 0.4582
    },
    "varde_tips": {
-    "1": -0.0593,
-    "X": 0.0027,
-    "2": 0.0566
+    "1": -0.0986,
+    "X": -0.0096,
+    "2": 0.1082
    },
    "odds": {
-    "antal_bolag": 42,
+    "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.91,
-     "X": 3.52,
+     "1": 2.95,
+     "X": 3.48,
      "2": 2.32
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 3.02,
-      "X": 3.57,
-      "2": 2.37
+      "1": 3.09,
+      "X": 3.55,
+      "2": 2.33
      },
      {
       "bolag": "svenskaspel",
-      "1": 3.0,
+      "1": 2.95,
       "X": 3.7,
-      "2": 2.38
+      "2": 2.43
      },
      {
       "bolag": "betsson",
-      "1": 2.93,
-      "X": 3.52,
-      "2": 2.34
+      "1": 3.04,
+      "X": 3.51,
+      "2": 2.28
      },
      {
       "bolag": "nordicbet",
-      "1": 2.92,
+      "1": 3.05,
       "X": 3.5,
-      "2": 2.35
+      "2": 2.28
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 3.05,
-      "X": 3.6,
-      "2": 2.48
+      "1": 3.15,
+      "X": 3.55,
+      "2": 2.44
      },
      {
       "bolag": "williamhill",
       "1": 2.9,
-      "X": 3.4,
-      "2": 2.25
+      "X": 3.3,
+      "2": 2.3
      },
      {
       "bolag": "coolbet",
-      "1": 2.93,
+      "1": 3.11,
       "X": 3.52,
-      "2": 2.36
+      "2": 2.41
      },
      {
       "bolag": "marathonbet",
@@ -449,55 +575,69 @@
      {
       "bolag": "sport888",
       "1": 2.9,
-      "X": 3.4,
-      "2": 2.25
+      "X": 3.3,
+      "2": 2.3
      },
      {
       "bolag": "betano_uk",
-      "1": 2.88,
+      "1": 2.9,
       "X": 3.5,
       "2": 2.25
      },
      {
-      "bolag": "betclic_fr",
-      "1": 2.82,
-      "X": 3.4,
-      "2": 2.22
+      "bolag": "betanysports",
+      "1": 3.0,
+      "X": 3.55,
+      "2": 2.38
      },
      {
-      "bolag": "betfair_ex_uk",
-      "1": 3.05,
-      "X": 3.6,
-      "2": 2.48
+      "bolag": "betclic_fr",
+      "1": 2.8,
+      "X": 3.3,
+      "2": 2.17
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "2",
+     "text": "Coventry föll i måndags och möter ett Fulham som tog sin första seger nyligen. Jack Rudoni är i fin form för hemmalaget, men gästerna från London gillas som favoriter.",
+     "system": "X2",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
-     "tecken": "1",
-     "text": "Skribenten tippar att Coventry vinner matchen med 2-1 mot Fulham.",
+     "tecken": "1X",
+     "text": "Coventry siktar på att studsa tillbaka efter förlusten mot Tottenham, medan Fulham kommer från en 1-0-seger mot Hull. Skador hos hemmalaget och viss ojämnhet borta gör att Fulham har kvalitet att undvika förlust, men hemmastyrkan ger värde på dubbelchansen.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "12",
+     "text": "Fulham är svårlästa men har kapacitet, och Coventry kan mycket väl skrälla i en öppen tillställning.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Fulham är favorit enligt oddsen till 41 %, men folket tror mer på Coventry. Tipsaren går emot strecken och håller hemmalaget som segrare.",
+   "kommentar": "Fulham är knappa knappa favoriter (41 %), men streckas lägre vilket gör 2 till ett fint värdetecken. Tipsarna spretar mellan 2, 1X och 12.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 16,
+     "plats": 17,
      "antal_lag": 20,
-     "spelade": 6,
+     "spelade": 7,
      "vunna": 2,
      "oavgjorda": 0,
-     "forlorade": 4,
-     "gjorda": 5,
-     "inslappta": 11,
+     "forlorade": 5,
+     "gjorda": 6,
+     "inslappta": 14,
      "poang": 6,
-     "form": "WWLLLL"
+     "form": "LWWLLL"
     },
     "borta": {
-     "plats": 17,
+     "plats": 18,
      "antal_lag": 20,
      "spelade": 7,
      "vunna": 1,
@@ -512,19 +652,75 @@
    },
    "lagnytt": {
     "hemma": {
-     "franvaro": [],
+     "franvaro": [
+      {
+       "nyckelspelare": true,
+       "orsak": "skada",
+       "spelare": "Haji Wright",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Amenda",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Woolfenden",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
      "sammanhang": [
       {
-       "text": "Coventry har vunnit de två senaste inbördes mötena mot Fulham.",
+       "text": "Kommer från en 3-1-förlust mot Tottenham men har en tidigare 4-1-seger hemma mot Newcastle i bagaget.",
        "kalla": "footballpredictions.com",
-       "tid": "2026-10-19T10:52:05Z"
+       "tid": "2026-10-21T18:42:59Z"
       }
      ],
      "tranarbyte": null
     },
     "borta": {
-     "franvaro": [],
-     "sammanhang": [],
+     "franvaro": [
+      {
+       "nyckelspelare": true,
+       "orsak": "avstängning",
+       "spelare": "Ryan Sessegnon",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "känning",
+       "spelare": "Joshua King",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "känning",
+       "spelare": "Oscar Bobb",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Tog äntligen säsongens första seger i förra omgången efter 1-0 mot Hull City.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
      "tranarbyte": null
     }
    },
@@ -539,40 +735,40 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.3489,
-    "X": 0.2911,
-    "2": 0.36
+    "1": 0.3497,
+    "X": 0.291,
+    "2": 0.3594
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 45.0,
-    "X": 26.0,
-    "2": 29.0
+    "1": 46.0,
+    "X": 27.0,
+    "2": 27.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.1011,
-    "X": 0.0311,
-    "2": 0.07
+    "1": -0.1103,
+    "X": 0.021,
+    "2": 0.0894
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3952,
-    "X": 0.271,
-    "2": 0.3338
+    "1": 0.3967,
+    "X": 0.2902,
+    "2": 0.3131
    },
    "varde_tips": {
-    "1": -0.0548,
-    "X": 0.011,
-    "2": 0.0438
+    "1": -0.0633,
+    "X": 0.0202,
+    "2": 0.0431
    },
    "odds": {
-    "antal_bolag": 39,
+    "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 2.66,
      "X": 3.2,
-     "2": 2.58
+     "2": 2.59
     },
     "bolag": [
      {
@@ -583,15 +779,27 @@
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.75,
+      "1": 2.7,
       "X": 3.4,
-      "2": 2.65
+      "2": 2.7
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.75,
+      "X": 3.2,
+      "2": 2.6
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.76,
+      "X": 3.2,
+      "2": 2.61
      },
      {
       "bolag": "betfair_ex_eu",
       "1": 2.8,
-      "X": 3.3,
-      "2": 2.72
+      "X": 3.35,
+      "2": 2.68
      },
      {
       "bolag": "williamhill",
@@ -601,9 +809,9 @@
      },
      {
       "bolag": "coolbet",
-      "1": 2.7,
+      "1": 2.65,
       "X": 3.3,
-      "2": 2.65
+      "2": 2.7
      },
      {
       "bolag": "marathonbet",
@@ -632,33 +840,35 @@
      {
       "bolag": "betfair_ex_uk",
       "1": 2.8,
-      "X": 3.3,
-      "2": 2.72
-     },
-     {
-      "bolag": "betfair_sb_uk",
-      "1": 2.63,
-      "X": 3.3,
-      "2": 2.63
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 2.75,
-      "X": 3.3,
-      "2": 2.62
+      "X": 3.35,
+      "2": 2.68
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X",
+     "text": "Blackburn har varit snäppet vassare än Wrexham efter 11 omgångar. Wrexham har svårt på bortaplan, men med hemmastöd och formstarka spelare räcker 1X.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten tippar att matchen slutar med en 2–1-seger för Blackburn.",
+     "text": "Skribenten tippar att Blackburn Rovers vinner matchen med 2-1.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "X2",
+     "text": "Matchen är helt jämn på förhand men Wrexham har plockat poäng i 8 av 11 matcher.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Oddsen antyder en helt öppen match, men svenska folket visar en övertro på Blackburn. Det finns värde i tvåan, trots att tipsaren tror på hemmaseger.",
+   "kommentar": "Helt visst jämnt odds- och chansmässigt, men svenska folket överstreckar 1 till 46 %. Tipsmedoss rekommenderar X2 på grund av det.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -687,7 +897,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har plockat poäng i 8 av 11 matcher och vann stort senast.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -699,71 +926,83 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.3708,
-    "X": 0.2545,
-    "2": 0.3747
+    "1": 0.3592,
+    "X": 0.2549,
+    "2": 0.3859
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 41.0,
+    "1": 33.0,
     "X": 27.0,
-    "2": 32.0
+    "2": 40.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.0392,
-    "X": -0.0155,
-    "2": 0.0547
+    "1": 0.0292,
+    "X": -0.0151,
+    "2": -0.0141
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3515,
-    "X": 0.2645,
-    "2": 0.384
+    "1": 0.3608,
+    "X": 0.321,
+    "2": 0.3182
    },
    "varde_tips": {
-    "1": -0.0585,
-    "X": -0.0055,
-    "2": 0.064
+    "1": 0.0308,
+    "X": 0.051,
+    "2": -0.0818
    },
    "odds": {
-    "antal_bolag": 38,
+    "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.5,
+     "1": 2.59,
      "X": 3.64,
-     "2": 2.48
+     "2": 2.42
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.52,
+      "1": 2.63,
       "X": 3.76,
-      "2": 2.58
+      "2": 2.48
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.55,
-      "X": 3.8,
-      "2": 2.65
+      "1": 2.75,
+      "X": 3.7,
+      "2": 2.5
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.65,
+      "X": 3.6,
+      "2": 2.45
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.66,
+      "X": 3.62,
+      "2": 2.47
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.68,
-      "X": 3.9,
-      "2": 2.56
+      "1": 2.8,
+      "X": 3.95,
+      "2": 2.48
      },
      {
       "bolag": "williamhill",
-      "1": 2.45,
+      "1": 2.5,
       "X": 3.5,
-      "2": 2.5
+      "2": 2.45
      },
      {
       "bolag": "coolbet",
       "1": 2.55,
-      "X": 3.85,
-      "2": 2.5
+      "X": 3.75,
+      "2": 2.55
      },
      {
       "bolag": "marathonbet",
@@ -773,52 +1012,54 @@
      },
      {
       "bolag": "sport888",
-      "1": 2.45,
+      "1": 2.5,
       "X": 3.5,
-      "2": 2.5
+      "2": 2.45
      },
      {
       "bolag": "betano_uk",
-      "1": 2.5,
+      "1": 2.55,
       "X": 3.6,
-      "2": 2.45
+      "2": 2.4
      },
      {
       "bolag": "betclic_fr",
       "1": 2.43,
-      "X": 3.4,
-      "2": 2.3
+      "X": 3.43,
+      "2": 2.28
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.68,
-      "X": 3.9,
-      "2": 2.56
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 2.6,
-      "X": 3.75,
-      "2": 2.5
-     },
-     {
-      "bolag": "betonlineag",
-      "1": 2.52,
-      "X": 3.77,
-      "2": 2.58
+      "1": 2.8,
+      "X": 3.95,
+      "2": 2.48
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X",
+     "text": "Cardiff har imponerat offensivt och har hemmaplan som fördel. Birmingham har tre raka segrar, men den sviten väntas brytas här.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
-     "tecken": "X2",
-     "text": "Skribenten förutspår att matchen mellan Cardiff och Birmingham City slutar 1-1 och rekommenderar dubbelchans X2.",
+     "tecken": "X",
+     "text": "Skribenten tippar att matchen slutar 1-1 mellan Cardiff och Birmingham City.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1X",
+     "text": "Cardiff är obesegrade på hemmaplan och visar styrka, vilket gör att 1X väljs trots Brentfords/Birminghams form.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Oddsen ser matchen som helt jämn mellan lagen. Tipsaren väljer en annan väg än majoriteten och garderar ettan med X2.",
+   "kommentar": "Jämn match där 2 är knappa oddsfavoriter (39 %) men streckas högst av folket. Tipsarna lutar åt 1X eller oavgjort.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -847,7 +1088,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Obesegrade på hemmaplan och visar på en välmående grupp.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -860,58 +1118,70 @@
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
     "1": 0.3224,
-    "X": 0.2726,
-    "2": 0.4051
+    "X": 0.273,
+    "2": 0.4045
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 43.0,
-    "X": 24.0,
-    "2": 33.0
+    "1": 36.0,
+    "X": 27.0,
+    "2": 37.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.1076,
-    "X": 0.0326,
-    "2": 0.0751
+    "1": -0.0376,
+    "X": 0.003,
+    "2": 0.0345
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3308,
-    "X": 0.2828,
-    "2": 0.3864
+    "1": 0.2398,
+    "X": 0.2703,
+    "2": 0.4899
    },
    "varde_tips": {
-    "1": -0.0992,
-    "X": 0.0428,
-    "2": 0.0564
+    "1": -0.1202,
+    "X": 0.0003,
+    "2": 0.1199
    },
    "odds": {
-    "antal_bolag": 38,
+    "antal_bolag": 40,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.87,
+     "1": 2.88,
      "X": 3.4,
      "2": 2.3
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.96,
+      "1": 2.91,
       "X": 3.58,
-      "2": 2.31
+      "2": 2.34
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.9,
-      "X": 3.55,
-      "2": 2.45
+      "1": 2.95,
+      "X": 3.5,
+      "2": 2.43
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.95,
+      "X": 3.45,
+      "2": 2.3
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.95,
+      "X": 3.48,
+      "2": 2.32
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 3.1,
+      "1": 3.05,
       "X": 3.5,
-      "2": 2.34
+      "2": 2.4
      },
      {
       "bolag": "williamhill",
@@ -951,34 +1221,36 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 3.1,
+      "1": 3.05,
       "X": 3.5,
-      "2": 2.34
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 2.88,
-      "X": 3.6,
-      "2": 2.3
-     },
-     {
-      "bolag": "betonlineag",
-      "1": 2.96,
-      "X": 3.58,
-      "2": 2.31
+      "2": 2.4
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "2",
+     "text": "Lincoln saknar avstängda spelare och har stora defensiva bekymmer med många insläppta mål på sistone. Burnley kommer från Premier League och har ett anfallsspel som bör räcka till vinst.",
+     "system": "2",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
-     "tecken": "1X",
-     "text": "Matchen förväntas bli jämn och spelas till 1-1, och skribenten rekommenderar dubbelchansen 1X.",
+     "tecken": "X",
+     "text": "Skribenten förutspår ett oavgjort resultat med siffrorna 1-1.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "X2",
+     "text": "Lincoln har släppt in 11 mål på de 3 senaste matcherna, och Burnley bör vara på väg att vända sin svaga inledning.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Burnley är oddsfavorit till 41 %, men folket streckar Lincoln som favorit. Tipsaren tror på hemmalaget och väljer 1X.",
+   "kommentar": "Burnley är knappa favoriter (40 %) och streckas sunt av svenska folket. Bettingstugan spikar 2, medan andra stugor drar till med X och X2.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1007,7 +1279,44 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "utvisad/avstängning",
+       "spelare": "Deji Elerewe",
+       "status": "borta",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "sammanhang": [
+      {
+       "text": "Präglat av avstängningar och stora defensiva problem.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
+       "text": "11 insläppta mål på de 3 senaste matcherna.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har haft en svag säsongsstart och har bara två lag under sig i tabellen.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1019,70 +1328,82 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.2563,
-    "X": 0.2647,
-    "2": 0.479
+    "1": 0.2578,
+    "X": 0.2631,
+    "2": 0.4791
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 38.0,
-    "X": 25.0,
-    "2": 37.0
+    "1": 25.0,
+    "X": 23.0,
+    "2": 52.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.1237,
-    "X": 0.0147,
-    "2": 0.109
+    "1": 0.0078,
+    "X": 0.0331,
+    "2": -0.0409
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.268,
-    "X": 0.2767,
-    "2": 0.4554
+    "1": 0.1767,
+    "X": 0.2217,
+    "2": 0.6016
    },
    "varde_tips": {
-    "1": -0.112,
-    "X": 0.0267,
-    "2": 0.0854
+    "1": -0.0733,
+    "X": -0.0083,
+    "2": 0.0816
    },
    "odds": {
-    "antal_bolag": 39,
+    "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 3.58,
-     "X": 3.48,
-     "2": 1.94
+     "1": 3.6,
+     "X": 3.53,
+     "2": 1.95
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 3.76,
-      "X": 3.71,
-      "2": 1.93
+      "1": 3.63,
+      "X": 3.69,
+      "2": 1.98
      },
      {
       "bolag": "svenskaspel",
-      "1": 3.6,
+      "1": 3.7,
       "X": 3.65,
-      "2": 2.08
+      "2": 2.04
+     },
+     {
+      "bolag": "betsson",
+      "1": 3.65,
+      "X": 3.6,
+      "2": 1.95
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 3.69,
+      "X": 3.63,
+      "2": 1.96
      },
      {
       "bolag": "betfair_ex_eu",
       "1": 3.95,
-      "X": 3.55,
-      "2": 1.96
+      "X": 3.75,
+      "2": 2.02
      },
      {
       "bolag": "williamhill",
-      "1": 3.6,
-      "X": 3.25,
-      "2": 2.0
+      "1": 3.5,
+      "X": 3.4,
+      "2": 1.95
      },
      {
       "bolag": "coolbet",
-      "1": 3.75,
-      "X": 3.6,
+      "1": 3.6,
+      "X": 3.75,
       "2": 1.98
      },
      {
@@ -1093,52 +1414,54 @@
      },
      {
       "bolag": "sport888",
-      "1": 3.6,
-      "X": 3.25,
-      "2": 2.0
+      "1": 3.5,
+      "X": 3.4,
+      "2": 1.95
      },
      {
       "bolag": "betano_uk",
       "1": 3.6,
-      "X": 3.5,
-      "2": 1.91
+      "X": 3.4,
+      "2": 1.93
      },
      {
       "bolag": "betclic_fr",
       "1": 3.38,
-      "X": 3.25,
-      "2": 1.86
+      "X": 3.3,
+      "2": 1.84
      },
      {
       "bolag": "betfair_ex_uk",
       "1": 3.95,
-      "X": 3.55,
-      "2": 1.96
-     },
-     {
-      "bolag": "betfair_sb_uk",
-      "1": 3.75,
-      "X": 3.5,
-      "2": 1.95
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 3.75,
-      "X": 3.6,
-      "2": 1.95
+      "X": 3.75,
+      "2": 2.02
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "2",
+     "text": "Preston har nio förluster på elva matcher och ligans sämsta försvar. West Bromwich har rykt upp sig och gästerna spikas.",
+     "system": "2",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
-     "tecken": "1X",
-     "text": "Skribenten förutspår ett oavgjort resultat (1-1) och rekommenderar dubbelchans 1X baserat på matchstatistik och oddsmarknaden.",
+     "tecken": "X",
+     "text": "Skribenten tippar att matchen slutar 1-1.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "2",
+     "text": "Tabelljumbon Preston har nio förluster på elva matcher, medan West Bromwich ser allt bättre ut.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "West Bromwich är klar favorit till 48 %, men folket tvekar. Tipsaren går emot oddsen och föreslår 1X baserat på ett förväntat kryss.",
+   "kommentar": "West Bromwich är klara favoriter (48 %), men folket streckar dem ännu högre (52 %). Bettingstugan och Tipsmedoss spikar ändå 2.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1167,7 +1490,30 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Tabelljumbo med 9 förluster på 11 matcher.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har rest sig och presterat riktigt bra på sistone.",
+       "kalla": "bettingstugan.se",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1179,65 +1525,77 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.3879,
-    "X": 0.278,
-    "2": 0.334
+    "1": 0.3926,
+    "X": 0.2796,
+    "2": 0.3278
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 44.0,
-    "X": 28.0,
-    "2": 28.0
+    "1": 41.0,
+    "X": 27.0,
+    "2": 32.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.0521,
-    "X": -0.002,
-    "2": 0.054
+    "1": -0.0174,
+    "X": 0.0096,
+    "2": 0.0078
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3672,
-    "X": 0.2879,
-    "2": 0.345
+    "1": 0.43,
+    "X": 0.2714,
+    "2": 0.2987
    },
    "varde_tips": {
-    "1": -0.0728,
-    "X": 0.0079,
-    "2": 0.065
+    "1": 0.02,
+    "X": 0.0014,
+    "2": -0.0213
    },
    "odds": {
-    "antal_bolag": 37,
+    "antal_bolag": 40,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.38,
+     "1": 2.36,
      "X": 3.34,
-     "2": 2.79
+     "2": 2.84
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.54,
-      "X": 3.4,
-      "2": 2.77
+      "1": 2.48,
+      "X": 3.35,
+      "2": 2.88
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.3,
-      "X": 3.55,
-      "2": 3.15
+      "1": 2.38,
+      "X": 3.5,
+      "2": 3.05
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.45,
+      "X": 3.3,
+      "2": 2.85
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.47,
+      "X": 3.3,
+      "2": 2.86
      },
      {
       "bolag": "betfair_ex_eu",
       "1": 2.54,
-      "X": 3.35,
-      "2": 2.74
+      "X": 3.45,
+      "2": 3.0
      },
      {
       "bolag": "williamhill",
-      "1": 2.45,
+      "1": 2.4,
       "X": 3.2,
-      "2": 2.75
+      "2": 2.8
      },
      {
       "bolag": "coolbet",
@@ -1247,58 +1605,60 @@
      },
      {
       "bolag": "marathonbet",
-      "1": 2.38,
-      "X": 3.36,
-      "2": 2.8
+      "1": 2.32,
+      "X": 3.34,
+      "2": 2.9
      },
      {
       "bolag": "sport888",
-      "1": 2.45,
+      "1": 2.4,
       "X": 3.2,
-      "2": 2.75
+      "2": 2.8
      },
      {
       "bolag": "betano_uk",
-      "1": 2.45,
-      "X": 3.25,
-      "2": 2.7
+      "1": 2.3,
+      "X": 3.3,
+      "2": 2.8
      },
      {
       "bolag": "betclic_fr",
-      "1": 2.3,
+      "1": 2.2,
       "X": 3.13,
-      "2": 2.57
+      "2": 2.72
      },
      {
       "bolag": "betfair_ex_uk",
       "1": 2.54,
-      "X": 3.35,
-      "2": 2.74
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 2.4,
-      "X": 3.5,
-      "2": 2.8
-     },
-     {
-      "bolag": "betonlineag",
-      "1": 2.44,
-      "X": 3.43,
-      "2": 2.87
+      "X": 3.45,
+      "2": 3.0
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "QPR krossade Derby senast och visar fin bredd i truppen. Swansea toppar tabellen men har haft marginalerna med sig, och här tar lyckan slut.",
+     "system": "1X",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "X2",
-     "text": "Skribenten förutspår att matchen slutar 1-1 och rekommenderar dubbelchans X2 baserat på lagens statistik och tidigare möten.",
+     "text": "Matchen förväntas bli jämn och slutresultatet tipps till 1-1. Skribenten rekommenderar dubbelchans X2 baserat på statistiken.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1X2",
+     "text": "Tabelltoppen Swansea förlorade senast och QPR är ojämna men har en hög höjd på hemmaplan.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "QPR är knapp favorit enligt oddsen, men svenska folket streckar hemmalaget något hårt. Tipsaren letar värde i X2.",
+   "kommentar": "Oddsen håller QPR som knappa favoriter (39 %). Tipsarna är oeniga där vi hittar både 1, X2 och helgardering.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1327,7 +1687,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Toppar tabellen på 23 poäng trots en förlust senast.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1339,65 +1716,77 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.4102,
-    "X": 0.2755,
-    "2": 0.3143
+    "1": 0.407,
+    "X": 0.2771,
+    "2": 0.316
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 49.0,
-    "X": 23.0,
-    "2": 28.0
+    "1": 59.0,
+    "X": 21.0,
+    "2": 20.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.0798,
-    "X": 0.0455,
-    "2": 0.0343
+    "1": -0.183,
+    "X": 0.0671,
+    "2": 0.1159
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4553,
-    "X": 0.2544,
-    "2": 0.2904
+    "1": 0.4691,
+    "X": 0.247,
+    "2": 0.2839
    },
    "varde_tips": {
-    "1": -0.0347,
-    "X": 0.0244,
-    "2": 0.0104
+    "1": -0.1209,
+    "X": 0.037,
+    "2": 0.0839
    },
    "odds": {
-    "antal_bolag": 39,
+    "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.27,
-     "X": 3.37,
+     "1": 2.28,
+     "X": 3.36,
      "2": 2.95
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.3,
-      "X": 3.45,
-      "2": 3.08
+      "1": 2.41,
+      "X": 3.38,
+      "2": 2.96
      },
      {
       "bolag": "svenskaspel",
       "1": 2.38,
-      "X": 3.55,
+      "X": 3.5,
       "2": 3.05
      },
      {
-      "bolag": "betfair_ex_eu",
+      "bolag": "betsson",
+      "1": 2.35,
+      "X": 3.35,
+      "2": 2.95
+     },
+     {
+      "bolag": "nordicbet",
       "1": 2.36,
-      "X": 3.55,
-      "2": 3.15
+      "X": 3.38,
+      "2": 2.95
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 2.4,
+      "X": 3.6,
+      "2": 3.1
      },
      {
       "bolag": "williamhill",
-      "1": 2.25,
-      "X": 3.2,
-      "2": 3.0
+      "1": 2.3,
+      "X": 3.1,
+      "2": 2.9
      },
      {
       "bolag": "coolbet",
@@ -1413,9 +1802,9 @@
      },
      {
       "bolag": "sport888",
-      "1": 2.25,
-      "X": 3.2,
-      "2": 3.0
+      "1": 2.3,
+      "X": 3.1,
+      "2": 2.9
      },
      {
       "bolag": "betano_uk",
@@ -1431,34 +1820,36 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.36,
-      "X": 3.55,
-      "2": 3.15
-     },
-     {
-      "bolag": "betfair_sb_uk",
-      "1": 2.3,
-      "X": 3.4,
-      "2": 2.88
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 2.38,
-      "X": 3.5,
-      "2": 2.88
+      "1": 2.4,
+      "X": 3.6,
+      "2": 3.1
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "X2",
+     "text": "Stoke har gått bra på sistone men spelet har varit en blandad kompott. Bristol City kommer från två raka uddamålsförluster och kräver en reaktion.",
+     "system": "X2",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten förutspår en hemmaseger med 2-1. Analysen bygger på statistiska trender och historisk data.",
+     "text": "Skribenten förutspår en 2-1-seger för Stoke City mot Bristol City.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1",
+     "text": "Stoke har fyra vinster på de fem senaste omgångarna och stark hemmaplansfördel.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Stoke streckas till 49 %, vilket är högre än oddschansen på 41 %. Trots detta håller tipsaren fast vid ettan.",
+   "kommentar": "Stoke är knappa favoriter (41 %), men svenska folket överstreckar ettan rejält till 59 %. Bettingstugan gillar värdet på X2.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1487,7 +1878,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Fyra vinster på de fem senaste omgångarna.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1499,47 +1907,47 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.5566,
-    "X": 0.223,
-    "2": 0.2204
+    "1": 0.5592,
+    "X": 0.2236,
+    "2": 0.2173
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 49.0,
-    "X": 25.0,
-    "2": 26.0
+    "1": 59.0,
+    "X": 23.0,
+    "2": 18.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": 0.0666,
-    "X": -0.027,
-    "2": -0.0396
+    "1": -0.0308,
+    "X": -0.0064,
+    "2": 0.0373
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.5934,
-    "X": 0.2037,
-    "2": 0.203
+    "1": 0.6207,
+    "X": 0.1842,
+    "2": 0.195
    },
    "varde_tips": {
-    "1": 0.1034,
-    "X": -0.0463,
-    "2": -0.057
+    "1": 0.0307,
+    "X": -0.0458,
+    "2": 0.015
    },
    "odds": {
-    "antal_bolag": 38,
+    "antal_bolag": 40,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 1.66,
-     "X": 4.15,
-     "2": 4.22
+     "X": 4.16,
+     "2": 4.28
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.7,
-      "X": 4.3,
-      "2": 4.29
+      "1": 1.67,
+      "X": 4.32,
+      "2": 4.45
      },
      {
       "bolag": "svenskaspel",
@@ -1548,16 +1956,28 @@
       "2": 4.6
      },
      {
+      "bolag": "betsson",
+      "1": 1.68,
+      "X": 4.15,
+      "2": 4.4
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.69,
+      "X": 4.18,
+      "2": 4.44
+     },
+     {
       "bolag": "betfair_ex_eu",
-      "1": 1.71,
-      "X": 4.3,
-      "2": 4.2
+      "1": 1.74,
+      "X": 4.4,
+      "2": 4.5
      },
      {
       "bolag": "williamhill",
-      "1": 1.7,
+      "1": 1.67,
       "X": 4.0,
-      "2": 4.0
+      "2": 4.2
      },
      {
       "bolag": "coolbet",
@@ -1573,9 +1993,9 @@
      },
      {
       "bolag": "sport888",
-      "1": 1.7,
+      "1": 1.67,
       "X": 4.0,
-      "2": 4.0
+      "2": 4.2
      },
      {
       "bolag": "betano_uk",
@@ -1591,34 +2011,36 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.71,
-      "X": 4.3,
-      "2": 4.2
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 1.7,
-      "X": 4.2,
-      "2": 4.33
-     },
-     {
-      "bolag": "betonlineag",
-      "1": 1.7,
-      "X": 4.32,
-      "2": 4.31
+      "1": 1.74,
+      "X": 4.4,
+      "2": 4.5
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "12",
+     "text": "Southampton har minuspoäng men hög kapacitet och är farliga som underdogs. West Ham är formstarka med divisionens bästa offensiv och jagar en tredje rak seger.",
+     "system": "12",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten förutspår en seger för West Ham baserat på ett 2-1-resultat. Hemmalaget har även en högre vinstprocent (60%) än gästerna (25% borta).",
+     "text": "Skribenten tippar att West Ham vinner matchen med 2-1 mot Southampton.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1X",
+     "text": "West Ham streckas högt men Southampton är obesegrade i tre raka omgångar och har noll insläppta mål på dessa matcher.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "West Ham är tydlig oddsfavorit till 56 %, men folket streckar betydligt lägre. Det finns ett tydligt spelvärde på ettan, vilket även är tipset.",
+   "kommentar": "West Ham är favoriter med 56 %, men streckas i nivå med oddsen. Tipsarna är oense och väljer allt från ettan till 12 och 1X.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -1634,7 +2056,7 @@
      "form": "WWDDWW"
     },
     "borta": {
-     "plats": 7,
+     "plats": 8,
      "antal_lag": 24,
      "spelade": 11,
      "vunna": 6,
@@ -1663,6 +2085,11 @@
      "franvaro": [],
      "sammanhang": [
       {
+       "text": "Obesegrade i tre raka omgångar och noll insläppta mål på dessa matcher.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      },
+      {
        "text": "Har en svagare form på bortaplan med 25% vinstchans och i snitt 1.0 insläppta mål per match.",
        "kalla": "footballpredictions.com",
        "tid": "2026-10-19T10:52:05Z"
@@ -1682,139 +2109,153 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.6343,
-    "X": 0.2116,
-    "2": 0.1541
+    "1": 0.6954,
+    "X": 0.1861,
+    "2": 0.1185
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 51.0,
-    "X": 23.0,
-    "2": 26.0
+    "1": 66.0,
+    "X": 18.0,
+    "2": 16.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": 0.1243,
-    "X": -0.0184,
-    "2": -0.1059
+    "1": 0.0354,
+    "X": 0.0061,
+    "2": -0.0415
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6647,
-    "X": 0.1919,
-    "2": 0.1434
+    "1": 0.828,
+    "X": 0.1035,
+    "2": 0.0685
    },
    "varde_tips": {
-    "1": 0.1547,
-    "X": -0.0381,
-    "2": -0.1166
+    "1": 0.168,
+    "X": -0.0765,
+    "2": -0.0915
    },
    "odds": {
-    "antal_bolag": 33,
+    "antal_bolag": 39,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.36,
-     "X": 4.49,
-     "2": 6.69
+     "1": 1.34,
+     "X": 5.02,
+     "2": 7.87
     },
     "bolag": [
      {
+      "bolag": "pinnacle",
+      "1": 1.34,
+      "X": 5.26,
+      "2": 8.3
+     },
+     {
       "bolag": "svenskaspel",
-      "1": 1.46,
-      "X": 4.9,
-      "2": 7.0
+      "1": 1.38,
+      "X": 5.3,
+      "2": 8.0
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.33,
+      "X": 5.25,
+      "2": 8.2
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.34,
+      "X": 5.27,
+      "2": 8.31
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.12,
-      "X": 1.12,
-      "2": 1.13
+      "1": 1.42,
+      "X": 5.2,
+      "2": 9.0
      },
      {
       "bolag": "williamhill",
       "1": 1.36,
-      "X": 4.5,
+      "X": 4.75,
       "2": 7.5
      },
      {
       "bolag": "coolbet",
-      "1": 1.4,
-      "X": 4.75,
-      "2": 8.0
+      "1": 1.35,
+      "X": 5.25,
+      "2": 8.5
      },
      {
       "bolag": "marathonbet",
-      "1": 1.35,
-      "X": 4.95,
-      "2": 7.6
+      "1": 1.31,
+      "X": 5.1,
+      "2": 8.6
      },
      {
       "bolag": "sport888",
       "1": 1.36,
-      "X": 4.5,
+      "X": 4.75,
       "2": 7.5
      },
      {
       "bolag": "betano_uk",
-      "1": 1.33,
-      "X": 4.75,
-      "2": 7.5
+      "1": 1.3,
+      "X": 5.0,
+      "2": 8.5
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.3,
-      "X": 4.55,
-      "2": 6.6
+      "1": 1.29,
+      "X": 4.6,
+      "2": 6.9
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.12,
-      "X": 1.12,
-      "2": 1.13
-     },
-     {
-      "bolag": "betfair_sb_uk",
-      "1": 1.36,
-      "X": 4.75,
-      "2": 7.5
-     },
-     {
-      "bolag": "betfred_uk",
-      "1": 1.4,
-      "X": 4.6,
-      "2": 8.0
-     },
-     {
-      "bolag": "betvictor",
-      "1": 1.33,
-      "X": 4.75,
-      "2": 7.5
+      "1": 1.42,
+      "X": 5.2,
+      "2": 9.0
      }
     ]
    },
    "tips": [
     {
+     "kalla": "bettingstugan.se",
+     "tecken": "1",
+     "text": "Wolverhampton har oftast vunnit under sin nya tränare även om spelet har hackat. Watford tog sig nyligen upp från bottensträsket men förväntas inte hålla segerspåret.",
+     "system": "1",
+     "system_rader": 1152
+    },
+    {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Skribenten förutspår att Wolverhampton vinner matchen med 2–1.",
+     "text": "Skribenten tippar att Wolverhampton vinner med 2-1 mot Watford.",
+     "system": null,
+     "system_rader": null
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1",
+     "text": "Wolves är det klart bättre laget och Watford har endast tagit en poäng på bortaplan.",
      "system": null,
      "system_rader": null
     }
    ],
-   "kommentar": "Wolverhampton är stor favorit till 63 %, men svenska folket tvekar och streckar 51 %. Det ger ett fint spelvärde på ettan, som också är tipset.",
+   "kommentar": "Wolverhampton är omgångens största oddsfavorit (70 %) och streckas sunt till 66 %. Samtliga tipsare är därmed inne på ettan.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 8,
+     "plats": 7,
      "antal_lag": 24,
-     "spelade": 10,
+     "spelade": 11,
      "vunna": 5,
-     "oavgjorda": 2,
+     "oavgjorda": 3,
      "forlorade": 3,
-     "gjorda": 18,
-     "inslappta": 15,
-     "poang": 17,
-     "form": "WLLWWD"
+     "gjorda": 19,
+     "inslappta": 16,
+     "poang": 18,
+     "form": "DWLLWW"
     },
     "borta": {
      "plats": 20,
@@ -1830,7 +2271,24 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har bara tagit en poäng på fem bortamatcher.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1842,147 +2300,179 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.3522,
-    "X": 0.2962,
-    "2": 0.3516
+    "1": 0.3893,
+    "X": 0.2624,
+    "2": 0.3483
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 44.0,
-    "X": 27.0,
+    "1": 43.0,
+    "X": 28.0,
     "2": 29.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.0878,
-    "X": 0.0262,
-    "2": 0.0616
+    "1": -0.0407,
+    "X": -0.0176,
+    "2": 0.0583
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3498,
-    "X": 0.2976,
-    "2": 0.3526
+    "1": 0.3937,
+    "X": 0.2709,
+    "2": 0.3354
    },
    "varde_tips": {
-    "1": -0.0902,
-    "X": 0.0276,
-    "2": 0.0626
+    "1": -0.0363,
+    "X": -0.0091,
+    "2": 0.0454
    },
    "odds": {
-    "antal_bolag": 26,
+    "antal_bolag": 34,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.47,
-     "X": 3.27,
-     "2": 2.47
+     "1": 2.38,
+     "X": 3.54,
+     "2": 2.68
     },
     "bolag": [
      {
+      "bolag": "pinnacle",
+      "1": 2.51,
+      "X": 3.63,
+      "2": 2.62
+     },
+     {
       "bolag": "svenskaspel",
-      "1": 2.6,
-      "X": 3.55,
-      "2": 2.55
+      "1": 2.32,
+      "X": 3.5,
+      "2": 2.85
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.42,
+      "X": 3.45,
+      "2": 2.62
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.42,
+      "X": 3.45,
+      "2": 2.62
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.12,
-      "X": 1.13,
-      "2": 2.12
+      "1": 2.5,
+      "X": 3.7,
+      "2": 2.82
      },
      {
       "bolag": "williamhill",
-      "1": 2.5,
-      "X": 3.3,
-      "2": 2.5
+      "1": 2.4,
+      "X": 3.5,
+      "2": 2.6
+     },
+     {
+      "bolag": "coolbet",
+      "1": 2.4,
+      "X": 3.6,
+      "2": 2.65
      },
      {
       "bolag": "marathonbet",
-      "1": 2.53,
-      "X": 3.52,
-      "2": 2.53
+      "1": 2.44,
+      "X": 3.6,
+      "2": 2.58
      },
      {
       "bolag": "sport888",
-      "1": 2.5,
-      "X": 3.3,
-      "2": 2.5
+      "1": 2.4,
+      "X": 3.5,
+      "2": 2.6
      },
      {
       "bolag": "betano_uk",
-      "1": 2.5,
-      "X": 3.4,
-      "2": 2.5
+      "1": 2.4,
+      "X": 3.5,
+      "2": 2.55
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.12,
-      "X": 1.13,
-      "2": 2.12
-     },
-     {
-      "bolag": "betfred_uk",
       "1": 2.5,
-      "X": 3.5,
-      "2": 2.5
+      "X": 3.7,
+      "2": 2.82
      },
      {
-      "bolag": "betvictor",
-      "1": 2.5,
-      "X": 3.4,
-      "2": 2.5
-     },
-     {
-      "bolag": "boylesports",
+      "bolag": "betfair_sb_uk",
       "1": 2.4,
-      "X": 3.6,
-      "2": 2.4
-     },
-     {
-      "bolag": "casumo",
-      "1": 2.55,
-      "X": 3.45,
-      "2": 2.48
-     },
-     {
-      "bolag": "codere_it",
-      "1": 2.43,
-      "X": 3.45,
-      "2": 2.5
+      "X": 3.7,
+      "2": 2.7
      }
     ]
    },
-   "tips": [],
-   "kommentar": "Oddsen pekar på en helt jämn match. Svenska folket har en tydlig tro på Cambridge, vilket gör att det finns spelvärde i tvåan.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X2",
+     "text": "Cambridge har bara en förlust på elva försök och är knappa favoriter. Plymouth är revanschsugna och går på knock, vilket gör matchen helgarderad.",
+     "system": "1X2",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "1X",
+     "text": "Lagen står på samma poäng men Cambridge har bara förlorat en av elva matcher hittills.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Cambridge är knappa favoriter i en vidöppen match. Plymouth streckas lite snålt, vilket ger värde på 2, medan tipsarna tvekar mellan 1X och helgardering.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 5,
-     "antal_lag": 24,
-     "spelade": 10,
-     "vunna": 5,
-     "oavgjorda": 4,
-     "forlorade": 1,
-     "gjorda": 16,
-     "inslappta": 12,
-     "poang": 19,
-     "form": "WWDDWD"
-    },
-    "borta": {
      "plats": 4,
      "antal_lag": 24,
      "spelade": 11,
-     "vunna": 6,
-     "oavgjorda": 1,
-     "forlorade": 4,
+     "vunna": 5,
+     "oavgjorda": 5,
+     "forlorade": 1,
      "gjorda": 18,
      "inslappta": 14,
+     "poang": 20,
+     "form": "DWWDDW"
+    },
+    "borta": {
+     "plats": 5,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 6,
+     "oavgjorda": 1,
+     "forlorade": 5,
+     "gjorda": 18,
+     "inslappta": 17,
      "poang": 19,
-     "form": "LWWLWW"
+     "form": "LLWWLW"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [],
+     "sammanhang": [
+      {
+       "text": "Har totalt sett bara förlorat en av elva matcher.",
+       "kalla": "tipsmedoss.com",
+       "tid": "2026-10-21T18:42:59Z"
+      }
+     ],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -1994,143 +2484,158 @@
    "land": "England",
    "avspark": "2026-10-24T14:00:00Z",
    "chans": {
-    "1": 0.3447,
-    "X": 0.2928,
-    "2": 0.3624
+    "1": 0.3469,
+    "X": 0.2878,
+    "2": 0.3652
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 41.0,
-    "X": 29.0,
-    "2": 30.0
+    "1": 36.0,
+    "X": 31.0,
+    "2": 33.0
    },
-   "streck_tid": "2026-10-19T10:51:42Z",
+   "streck_tid": "2026-10-21T18:41:55Z",
    "varde": {
-    "1": -0.0653,
-    "X": 0.0028,
-    "2": 0.0624
+    "1": -0.0131,
+    "X": -0.0222,
+    "2": 0.0352
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3428,
-    "X": 0.2944,
-    "2": 0.3628
+    "1": 0.3513,
+    "X": 0.2746,
+    "2": 0.3742
    },
    "varde_tips": {
-    "1": -0.0672,
-    "X": 0.0044,
-    "2": 0.0628
+    "1": -0.0087,
+    "X": -0.0354,
+    "2": 0.0442
    },
    "odds": {
-    "antal_bolag": 26,
+    "antal_bolag": 34,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.53,
-     "X": 3.05,
-     "2": 2.41
+     "1": 2.68,
+     "X": 3.23,
+     "2": 2.53
     },
     "bolag": [
      {
+      "bolag": "pinnacle",
+      "1": 2.69,
+      "X": 3.29,
+      "2": 2.64
+     },
+     {
       "bolag": "svenskaspel",
-      "1": 2.55,
+      "1": 2.8,
       "X": 3.25,
-      "2": 2.7
+      "2": 2.5
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.65,
+      "X": 3.2,
+      "2": 2.55
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.65,
+      "X": 3.2,
+      "2": 2.55
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.13,
-      "X": 1.13,
-      "2": 1.13
+      "1": 2.7,
+      "X": 3.25,
+      "2": 2.66
      },
      {
       "bolag": "williamhill",
       "1": 2.7,
-      "X": 3.1,
+      "X": 3.0,
       "2": 2.5
      },
      {
+      "bolag": "coolbet",
+      "1": 2.65,
+      "X": 3.3,
+      "2": 2.55
+     },
+     {
       "bolag": "marathonbet",
-      "1": 2.8,
-      "X": 3.28,
-      "2": 2.42
+      "1": 2.74,
+      "X": 3.22,
+      "2": 2.51
      },
      {
       "bolag": "sport888",
       "1": 2.7,
-      "X": 3.1,
+      "X": 3.0,
       "2": 2.5
      },
      {
       "bolag": "betano_uk",
-      "1": 2.75,
-      "X": 3.2,
-      "2": 2.4
-     },
-     {
-      "bolag": "betfair_ex_uk",
-      "1": 1.13,
-      "X": 1.13,
-      "2": 1.13
-     },
-     {
-      "bolag": "betfred_uk",
       "1": 2.62,
-      "X": 3.25,
+      "X": 3.2,
       "2": 2.5
      },
      {
-      "bolag": "betvictor",
-      "1": 2.75,
-      "X": 3.2,
-      "2": 2.4
-     },
-     {
-      "bolag": "boylesports",
+      "bolag": "betfair_ex_uk",
       "1": 2.7,
       "X": 3.25,
-      "2": 2.38
+      "2": 2.66
      },
      {
-      "bolag": "casumo",
-      "1": 2.55,
-      "X": 3.25,
-      "2": 2.7
-     },
-     {
-      "bolag": "codere_it",
+      "bolag": "betfair_sb_uk",
       "1": 2.7,
-      "X": 3.2,
-      "2": 2.39
+      "X": 3.4,
+      "2": 2.55
      }
     ]
    },
-   "tips": [],
-   "kommentar": "Oddsen håller matchen som oviss med en knapp fördel för Bradford. Svenska folket favoriserar dock Oxford, vilket ger spelvärde på tvåan.",
+   "tips": [
+    {
+     "kalla": "bettingstugan.se",
+     "tecken": "1X2",
+     "text": "Oxford har vind i seglet och ett vasst anfallsspel. Bradford är stabila som tabelltvåa och släpper knappt in några mål, vilket gör matchen helt öppen.",
+     "system": "1X2",
+     "system_rader": 1152
+    },
+    {
+     "kalla": "tipsmedoss.com",
+     "tecken": "12",
+     "text": "Båda lagen kliver in med segervittring och har nätat flitigt, vilket bäddar för en öppen gaffel.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Oddsen håller Bradford som knappa favoriter, men matchen är helt visst oviss. Tipsarna delar upp sig på 1X2 samt gaffeln 12.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
-     "plats": 8,
+     "plats": 7,
      "antal_lag": 24,
-     "spelade": 8,
-     "vunna": 4,
+     "spelade": 9,
+     "vunna": 5,
      "oavgjorda": 3,
      "forlorade": 1,
-     "gjorda": 16,
-     "inslappta": 9,
-     "poang": 15,
-     "form": "DWDWWL"
+     "gjorda": 18,
+     "inslappta": 10,
+     "poang": 18,
+     "form": "WDWDWW"
     },
     "borta": {
-     "plats": 1,
+     "plats": 3,
      "antal_lag": 24,
-     "spelade": 10,
+     "spelade": 11,
      "vunna": 6,
-     "oavgjorda": 2,
+     "oavgjorda": 3,
      "forlorade": 2,
      "gjorda": 10,
      "inslappta": 5,
-     "poang": 20,
-     "form": "WDDWWW"
+     "poang": 21,
+     "form": "DWDDWW"
     },
     "kalla": "BBC Sport"
    },
@@ -3328,19 +3833,20 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 12,
+   "lyckade": 14,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.8-flash": 4,
-    "gemini-3.5-flash-lite": 4,
-    "gemini-3.1-flash-lite": 4
+    "gemini-3.5-flash-lite": 10,
+    "gemini-3.6-flash": 2,
+    "gemini-3.1-flash-lite": 1,
+    "gemini-3.8-flash": 1
    },
    "stoppad": null,
-   "tid": "2026-10-19T10:53:48Z"
+   "tid": "2026-10-21T18:48:20Z"
   },
   "odds": {
-   "kvar": 416,
-   "tid": "2026-10-19T10:52:05Z"
+   "kvar": 410,
+   "tid": "2026-10-21T18:42:58Z"
   }
  },
  "tipsare_form": [
