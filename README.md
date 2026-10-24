@@ -101,6 +101,19 @@ omgång hämtas om i upp till 48 timmar så att slutstrecken alltid kommer med. 
 så det är ofarligt att köra något två gånger. Du kan också köra manuellt under **Actions → Pipeline →
 Run workflow**, inklusive backfill.
 
+**Extern start:** GitHub hoppar över många schemalagda starter utan förvarning. Därför startar cron-job.org
+(gratis) pipelinen var 15:e minut med ett anrop till GitHubs API:
+
+- URL: `https://api.github.com/repos/KKandenas/stryktipsguiden/actions/workflows/pipeline.yml/dispatches`
+- Metod: `POST`, body: `{"ref":"main"}` (utan parametrar blir kommandot `planerad`)
+- Headers: `Accept: application/vnd.github+json`, `X-GitHub-Api-Version: 2022-11-28`,
+  `Content-Type: application/json` och `Authorization: Bearer <nyckel>`
+- Nyckeln är en fine-grained personal access token som bara gäller det här repot, med behörigheten
+  **Actions: Read and write** och inget annat. Den ligger bara i cron-job.org. Svar 204 betyder att det fungerade.
+
+Starter som inte behövs avslutas efter cirka 20 sekunder utan API-anrop. Actions-minuter är gratis för
+publika repon. När nyckeln går ut slutar de externa starterna, och då gäller GitHubs egen cron igen.
+
 **Frysning:** vid varje körning medan omgången är öppen sparas en ögonblicksbild av kupongen
 (`frysta_kuponger`, migrering 009). Efter spelstopp visar appen den senaste bilden, alltså läget vid
 sista körningen före spelstopp, så att förslaget och rättningen inte ändras när slutstrecken kommer in.

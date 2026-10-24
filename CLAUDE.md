@@ -34,7 +34,9 @@ FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md och FIREBASE.md.
 - Kommandon utan AI och oddskrediter: `tabeller` (export), `resultat` (resultat, statistik och export) och
   `sidomatcher`. Starta med `gh workflow run pipeline.yml -f kommando=<namn>`.
 - Oddskrediter (The Odds API) är begränsade. Driftstatusen på Om-sidan visar läget.
-- Schemat: `pipeline/schema.py`. GitHub-cron är opålitlig, så pipelinen startas varje timme med `planerad`.
+- Schemat: `pipeline/schema.py`. GitHub-cron är opålitlig (hoppar över många starter), så pipelinen startas
+  med `planerad` både av GitHubs cron och var 15:e minut av cron-job.org (README, "Extern start"). Nyckeln där
+  sköter användaren själv. Startar inga körningar alls: kontrollera först om nyckeln har gått ut.
 
 ## Säkerhet och källor
 

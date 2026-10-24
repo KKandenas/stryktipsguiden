@@ -5,6 +5,10 @@ name: Pipeline
 # bara när en tid i pipeline/schema.py (svensk tid) har passerats och inte körts än – annars avslutas den
 # direkt utan att anropa några API:er eller ändra någon data. Udda minuter, eftersom GitHub är mest
 # belastat på hela timmar.
+#
+# GitHub hoppar ändå över många schemalagda starter (i oktober 2026 kördes ungefär var fjärde). Därför
+# startas pipelinen också var 15:e minut utifrån, av cron-job.org via GitHubs API (workflow_dispatch utan
+# parametrar = `planerad`). Se README, "Extern start".
 on:
   schedule:
     - cron: "17 * * * *"          # varje timme
@@ -15,8 +19,8 @@ on:
       kommando:
         description: "Vad ska köras?"
         type: choice
-        default: auto
-        options: [auto, planerad, svenskaspel, odds, resultat, tips, sidomatcher, kommentarer, lagkoll, tabeller, backfill]
+        default: planerad       # externa starter utan parametrar får aldrig bli en full körning
+        options: [planerad, auto, svenskaspel, odds, resultat, tips, sidomatcher, kommentarer, lagkoll, tabeller, backfill]
       fran:
         description: "backfill: första omgång (t.ex. 4900)"
         required: false
