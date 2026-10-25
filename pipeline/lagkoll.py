@@ -303,14 +303,15 @@ def analysera(conn: sqlite3.Connection, anropa: Anropare, nu: Optional[str] = No
             with conn:
                 conn.execute(
                     """INSERT INTO lagkoll (match_id, tidpunkt, underlag_hash, p1, px, p2, skrallrisk, motivering,
-                           faktorer, underlag) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                           faktorer, underlag, odds) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                        ON CONFLICT(match_id) DO UPDATE SET tidpunkt = excluded.tidpunkt,
                            underlag_hash = excluded.underlag_hash, p1 = excluded.p1, px = excluded.px,
                            p2 = excluded.p2, skrallrisk = excluded.skrallrisk, motivering = excluded.motivering,
-                           faktorer = excluded.faktorer, underlag = excluded.underlag""",
+                           faktorer = excluded.faktorer, underlag = excluded.underlag, odds = excluded.odds""",
                     (m["id"], nu, h, *svar["p"], svar["skrallrisk"], svar["motivering"],
                      json.dumps(svar["faktorer"], ensure_ascii=False),
-                     json.dumps({"hemma": hemma, "borta": borta}, ensure_ascii=False)))
+                     json.dumps({"hemma": hemma, "borta": borta}, ensure_ascii=False),
+                     json.dumps([round(x, 4) for x in odds])))
             stat["analyserade"] += 1
             log.info("Lagkoll: %s – %s → %s (skrällrisk %s)", m["hemmalag"], m["bortalag"],
                      "/".join(_procent(x) for x in svar["p"]), svar["skrallrisk"])

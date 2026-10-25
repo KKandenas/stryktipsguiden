@@ -429,6 +429,11 @@ Ett "minne" per lag och en AI-jämförelse av lagen före varje omgång (`pipeli
 - Fantasy Premier League används inte. Sajten har ingen giltig robots.txt, och vår kontroll räknar det
   som en spärr.
 
+**Historik:** `lagfakta` och `lagkoll` skrivs över, men varje ny eller ändrad nyhet och varje ny analys
+loggas också i `lagfakta_historik` och `lagkoll_historik` (migrering 013, med triggers), med tidpunkten då den
+först dök upp och oddsen som analysen utgick från. Jämfört med oddsens historik går det senare att se vilka
+nyheter marknaden redan kände till och vilka typer av nyheter som påverkar resultatet.
+
 **Analys:** när spelstoppet är högst 36 timmar bort, alltså vid fredagskvällens och lördagens körningar,
 får AI-modellen oddsens sannolikheter och båda lagens profiler. Den justerar sannolikheterna, med högst
 12 procentenheter per tecken, och anger skrällrisk, motivering och faktorer. Analysen görs bara om

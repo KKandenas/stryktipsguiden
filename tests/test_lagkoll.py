@@ -101,6 +101,31 @@ def test_analys_sparas_begransas_och_gors_inte_om(conn, monkeypatch):
     assert k["matcher"][1]["lagkoll"] is None
 
 
+
+def test_historiken_sparar_nyheter_och_analyser_med_tidpunkt(conn, monkeypatch):
+    _forbered(conn, monkeypatch)
+
+    def ai(system, fraga, schema, max_tokens):
+        return {"p1": 0.40, "px": 0.30, "p2": 0.30, "skrallrisk": "låg", "motivering": "", "faktorer": []}
+
+    kid = lagring.kalla_id(conn, "sportsmole.co.uk")
+    fakta = {"franvaro": [{"spelare": "Bruno Fernandes", "orsak": "avstängd", "status": "borta",
+                           "nyckelspelare": True}], "form": "WWDWW", "tabellplats": None, "sammanhang": None}
+    # Samma nyheter igen från samma källa: ingen ny rad i historiken
+    lagring.spara_lagfakta(conn, 4974, kid, "2026-10-10T10:00:00Z", [(1, "hemma", fakta)])
+    assert [r[0] for r in conn.execute("SELECT tidpunkt FROM lagfakta_historik")] == ["2026-10-10T09:00:00Z"]
+    lagkoll.analysera(conn, ai, nu=INNAN)
+    rad = conn.execute("SELECT odds, p1 FROM lagkoll_historik").fetchall()
+    assert len(rad) == 1 and len(json.loads(rad[0][0])) == 3 and rad[0][1] > 0
+    # En ny nyhet: den loggas med sin tidpunkt, och den nya analysen läggs till (den gamla finns kvar)
+    fakta["franvaro"].append({"spelare": "Casemiro", "orsak": "skada", "status": "osaker", "nyckelspelare": False})
+    lagring.spara_lagfakta(conn, 4974, kid, "2026-10-10T11:00:00Z", [(1, "hemma", fakta)])
+    assert [r[0] for r in conn.execute("SELECT tidpunkt FROM lagfakta_historik ORDER BY id")] == [
+        "2026-10-10T09:00:00Z", "2026-10-10T11:00:00Z"]
+    lagkoll.analysera(conn, ai, nu=INNAN)
+    assert conn.execute("SELECT COUNT(*) FROM lagkoll_historik").fetchone()[0] == 2
+    assert conn.execute("SELECT COUNT(*) FROM lagkoll").fetchone()[0] == 1
+
 def test_analysen_vantar_tills_spelstopp_narmar_sig(conn, monkeypatch):
     _forbered(conn, monkeypatch)
     anrop = []
