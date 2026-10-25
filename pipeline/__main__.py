@@ -242,11 +242,14 @@ def steg_sidomatcher(conn) -> bool:
 
 
 def steg_expertarkiv(conn, max_sidor: int = 1) -> bool:
-    """Experternas kommentar per match ur Tipsmedoss arkiv (utan AI). Vanliga körningar läser bara första
-    arkivsidan; kommandot expertarkiv läser hela arkivet sedan december 2020."""
+    """Experternas kommentar per match ur Tipsmedoss arkiv (utan AI), plus övriga sajters sammanfattningar
+    när omgången stängt. Vanliga körningar läser bara första arkivsidan; kommandot expertarkiv hela arkivet."""
     try:
         r = expertarkiv.uppdatera(conn, max_sidor=max_sidor)
         log.info("Expertarkiv: %(artiklar)d nya artiklar, %(matcher)d matcher, %(utan_omgang)d utan omgång", r)
+        n = expertarkiv.kopiera_sammanfattningar(conn)
+        if n:
+            log.info("Expertarkiv: %d nya sammanfattningar från övriga sajter", n)
     except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
         log.exception("Expertarkiv: oväntat fel: %s", e)
     return True

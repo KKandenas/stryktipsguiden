@@ -101,6 +101,10 @@ motivation, tät matchning, derby) och vilket lag temat gäller. Ett anrop per o
 21:00–07:30 och högst 40 anrop per natt, så att märkningen bara använder det som är kvar av Geminis dagskvot
 innan den nollställs klockan 09. Temalistan ändras inte medan märkningen pågår.
 
+Övriga sajter saknar arkiv. Deras kommentarer är AI:ns sammanfattning per match från tipsinsamlingen
+(`tips.sammanfattning`), som kopieras till `expertkommentarer` med `typ = 'sammanfattning'` när omgången har
+stängt, och märks på samma sätt. De finns från oktober 2026 och redovisas för sig i analysen.
+
 ## Exportformat för egna rader
 
 > Används inte i appen just nu (nedladdningen togs bort 2026-10-10). Sparat som referens.

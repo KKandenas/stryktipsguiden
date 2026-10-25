@@ -73,3 +73,21 @@ def test_datum_ur_adressen():
     lista = '<a href="https://tipsmedoss.com/2021/stryktipsforslag/stryktipset-11-9-stryktipsforslag-analys/">'
     url, ar, dag, manad = expertarkiv.ARTIKEL.findall(lista)[0]
     assert date(int(ar), int(manad), int(dag)) == date(2021, 9, 11)
+
+
+def test_ovriga_sajters_sammanfattningar_kopieras_efter_spelstopp(conn):
+    lagring.spara_kupong(conn, tolka_kupong(las_fixture("svs_draw_4974.json")["draw"], "2026-10-10T07:00:00Z"))
+    mid = conn.execute("SELECT id FROM matcher WHERE matchnr = 1").fetchone()[0]
+    for namn, text in [("hurbra.se", "Hemmalaget saknar sin kapten."), ("Tio tidningars tips", None),
+                       (expertarkiv.KALLA, "AI-sammanfattning av Tipsmedoss.")]:
+        conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken, sammanfattning) VALUES (?, ?, ?, '1', ?)",
+                     (mid, lagring.kalla_id(conn, namn), "2026-10-09T10:00:00Z", text))
+    conn.execute("INSERT INTO expertkommentarer (match_id, kalla_id, tecken, text, url) VALUES (?, ?, '1', 'Original.', 'u')",
+                 (mid, lagring.kalla_id(conn, expertarkiv.KALLA)))
+    assert expertarkiv.kopiera_sammanfattningar(conn, nu="2026-10-09T12:00:00Z") == 0        # före spelstopp
+    assert expertarkiv.kopiera_sammanfattningar(conn, nu="2026-10-11T12:00:00Z") == 1
+    rader = {r[0]: (r[1], r[2]) for r in conn.execute(
+        "SELECT k.namn, e.text, e.typ FROM expertkommentarer e JOIN kallor k ON k.id = e.kalla_id")}
+    assert rader == {"hurbra.se": ("Hemmalaget saknar sin kapten.", "sammanfattning"),
+                     expertarkiv.KALLA: ("Original.", "original")}
+    assert expertarkiv.kopiera_sammanfattningar(conn, nu="2026-10-11T12:00:00Z") == 0

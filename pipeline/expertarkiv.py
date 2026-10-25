@@ -119,13 +119,28 @@ def uppdatera(conn: sqlite3.Connection, max_sidor: int = MAX_SIDOR, max_artiklar
             stat["utan_omgang"] += 1
         with conn:
             for mid, (tecken, kommentar) in kopplade.items():
-                conn.execute("""INSERT INTO expertkommentarer (match_id, kalla_id, tecken, text, url)
-                                VALUES (?, ?, ?, ?, ?)
+                conn.execute("""INSERT INTO expertkommentarer (match_id, kalla_id, tecken, text, url, typ)
+                                VALUES (?, ?, ?, ?, ?, 'original')
                                 ON CONFLICT(match_id, kalla_id) DO UPDATE SET tecken = excluded.tecken,
-                                    text = excluded.text, url = excluded.url""",
+                                    text = excluded.text, url = excluded.url, typ = 'original'""",
                              (mid, kid, tecken or None, kommentar, url))
             conn.execute("""INSERT INTO arkivartiklar (url, kalla_id, omgang_id, matcher, hamtad) VALUES (?, ?, ?, ?, ?)
                             ON CONFLICT(url) DO UPDATE SET omgang_id = excluded.omgang_id, matcher = excluded.matcher,
                                 hamtad = excluded.hamtad""", (url, kid, oid, len(kopplade), nu_utc()))
         stat["matcher"] += len(kopplade)
     return stat
+
+
+def kopiera_sammanfattningar(conn: sqlite3.Connection, nu: Optional[str] = None) -> int:
+    """Övriga sajters kommentarer: AI:ns sammanfattning per match från tipsinsamlingen (tips.sammanfattning),
+    kopierad när omgången har stängt så att det är den slutliga versionen. Originaltext (arkivet) skrivs
+    aldrig över. Returnerar antal nya kommentarer."""
+    nu = nu or nu_utc()
+    with conn:
+        return conn.execute("""
+            INSERT OR IGNORE INTO expertkommentarer (match_id, kalla_id, tecken, text, url, typ)
+            SELECT t.match_id, t.kalla_id, t.tecken, t.sammanfattning, '', 'sammanfattning'
+            FROM tips t JOIN kallor k ON k.id = t.kalla_id JOIN matcher m ON m.id = t.match_id
+            JOIN omgangar o ON o.id = m.omgang_id
+            WHERE o.spelstopp < ? AND t.sammanfattning IS NOT NULL AND TRIM(t.sammanfattning) != ''
+              AND k.namn NOT IN ('Tio tidningars tips', ?)""", (nu, KALLA)).rowcount
