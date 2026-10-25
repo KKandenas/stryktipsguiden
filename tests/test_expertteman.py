@@ -23,11 +23,13 @@ def test_nattfonster_son_till_tor():
 
 
 def test_validering_av_svaret():
-    svar = {"matcher": [{"nr": 1, "teman": [{"tema": "svag_form", "lag": "hemma"}, {"tema": "svag_form", "lag": "hemma"},
-                                            {"tema": "påhittat", "lag": "hemma"}, {"tema": "derby", "lag": "bada"}]},
-                        {"nr": 99, "teman": [{"tema": "derby", "lag": "bada"}]}]}
-    assert expertteman.validera(svar, [1, 2]) == {1: [{"tema": "svag_form", "lag": "hemma"}, {"tema": "derby", "lag": "bada"}],
-                                                  2: []}
+    svar = {"matcher": [{"nr": 1, "teman": [{"tema": "svag_form", "lag": "Watford"}, {"tema": "svag_form", "lag": "Watford FC"},
+                                            {"tema": "stark_form", "lag": "Bristol C"}, {"tema": "påhittat", "lag": "Watford"},
+                                            {"tema": "derby", "lag": "båda"}, {"tema": "motivation", "lag": "Arsenal"}]},
+                        {"nr": 99, "teman": [{"tema": "derby", "lag": "båda"}]}]}
+    assert expertteman.validera(svar, {1: ("Watford", "Bristol C"), 2: ("A", "B")}) == {
+        1: [{"tema": "svag_form", "lag": "hemma"}, {"tema": "stark_form", "lag": "borta"}, {"tema": "derby", "lag": "bada"}],
+        2: []}
 
 
 def _fyll(conn):
@@ -45,7 +47,8 @@ def test_marka_en_omgang_per_anrop_och_rakna_natten(conn):
 
     def ai(system, fraga, schema, max_tokens):
         fragor.append(fraga)
-        return {"matcher": [{"nr": 1, "teman": [{"tema": "svag_form", "lag": "hemma"}]}]}
+        hemma = conn.execute("SELECT hemmalag FROM matcher WHERE matchnr = 1").fetchone()[0]
+        return {"matcher": [{"nr": 1, "teman": [{"tema": "svag_form", "lag": hemma}]}]}
     nu = utc("2026-10-20T20:00:00")                                    # tisdag 22:00
     assert expertteman.kvar_i_natt(conn, nu) == expertteman.MAX_PER_NATT
     stat = expertteman.marka(conn, ai, max_anrop=5, nu=nu)
