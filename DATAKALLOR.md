@@ -96,6 +96,11 @@ per match utan AI ("1. Lag – Lag, 1X" följt av kommentaren) och sparar kommen
 `expertkommentarer`. Kommandot `expertarkiv` läser hela arkivet (cirka 10 minuter); vanliga körningar läser bara
 första sidan. Underlaget för analysen av vad experterna skriver om matcher som skräller.
 
+Kommentarerna märks av AI med en fast temalista (`pipeline/expertteman.py`, till exempel svag form, frånvaro,
+motivation, tät matchning, derby) och vilket lag temat gäller. Ett anrop per omgång, bara nattetid söndag–torsdag
+21:00–07:30 och högst 40 anrop per natt, så att märkningen bara använder det som är kvar av Geminis dagskvot
+innan den nollställs klockan 09. Temalistan ändras inte medan märkningen pågår.
+
 ## Exportformat för egna rader
 
 > Används inte i appen just nu (nedladdningen togs bort 2026-10-10). Sparat som referens.

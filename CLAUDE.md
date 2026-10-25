@@ -31,6 +31,8 @@ FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md och FIREBASE.md.
 
 - **AI: bara Geminis gratisnivå.** Användaren har tagit bort betalningen och vill inte betala. Kvoten räknas
   per modell och dag, så undvik onödiga manuella körningar med AI (`tips`, `kommentarer`, `lagkoll`, `auto`).
+- Nattetid söndag–torsdag (21:00–07:30) märker `planerad` experternas kommentarer med AI (`expertteman.py`,
+  högst 40 anrop per natt) med kvoten som annars går förlorad. Kör inte `expertteman` manuellt fredag–lördag.
 - Kommandon utan AI och oddskrediter: `tabeller` (export), `resultat` (resultat, statistik och export) och
   `sidomatcher`. Starta med `gh workflow run pipeline.yml -f kommando=<namn>`.
 - Oddskrediter (The Odds API) är begränsade. Driftstatusen på Om-sidan visar läget.

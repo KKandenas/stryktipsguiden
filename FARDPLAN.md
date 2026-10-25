@@ -59,6 +59,13 @@ som talar för dem.
 - [ ] Efter 4–6 veckor: jämför träffsäkerheten på och utanför kupongen (Statistik → Visa detaljer → tipsarnas
   vikt). Skiljer de sig mycket bör matcherna utanför kupongen vägas ner eller tas bort.
 
+### Vad experterna skriver om skrällar (från 25 oktober 2026)
+- [x] Steg 1: Tipsmedoss arkiv hämtat, 3 912 matcher från 303 omgångar (december 2020–oktober 2026).
+- [ ] Steg 2: AI-märkning med fast temalista, nattetid inom gratiskvoten (cirka två veckor).
+- [ ] Steg 3: analysen. Frågorna är bestämda i förväg: förlorar favoriten oftare än oddsen säger när ett tema
+  nämns, och överstreckar folket favoriten mer då? Testas före 2024 och kontrolleras 2024–2026. Bara mönster
+  som håller i båda perioderna och ger bättre utdelning blir förslag till Skrällchans.
+
 ### December–januari (efter 8–12 omgångar): första avstämningen
 - [ ] Lagkoll mot Oddsen på cirka 100–150 matcher. Det ger en fingervisning, inte ett beslut.
 - [ ] Skrällchans i verkligheten: gick skrällarna in ungefär som i backtestet, cirka 29 %?

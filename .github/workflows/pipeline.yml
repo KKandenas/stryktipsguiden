@@ -20,7 +20,7 @@ on:
         description: "Vad ska köras?"
         type: choice
         default: planerad       # externa starter utan parametrar får aldrig bli en full körning
-        options: [planerad, auto, svenskaspel, odds, resultat, tips, sidomatcher, expertarkiv, kommentarer, lagkoll, tabeller, backfill]
+        options: [planerad, auto, svenskaspel, odds, resultat, tips, sidomatcher, expertarkiv, expertteman, kommentarer, lagkoll, tabeller, backfill]
       fran:
         description: "backfill: första omgång (t.ex. 4900)"
         required: false

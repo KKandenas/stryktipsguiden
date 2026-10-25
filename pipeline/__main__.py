@@ -28,7 +28,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, expertarkiv, export, lagkoll, lagring, schema, sidomatcher, tipsinsamling
+from . import config, db, expertarkiv, expertteman, export, lagkoll, lagring, schema, sidomatcher, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
@@ -252,6 +252,20 @@ def steg_expertarkiv(conn, max_sidor: int = 1) -> bool:
     return True
 
 
+def steg_expertteman(conn, max_anrop: int) -> bool:
+    """AI-märkning av experternas kommentarer (se expertteman.py). Får aldrig stoppa pipelinen."""
+    if max_anrop <= 0 or not expertteman.omarkta(conn) or not _ai_redo("Expertteman"):
+        return True
+    try:
+        with ai_klient.steg("Expertteman"):
+            r = expertteman.marka(conn, ai_klient.anropa_json, max_anrop)
+        log.info("Expertteman: %(anrop)d anrop, %(matcher)d matcher märkta, %(fel)d fel – %(kvar)d kvar",
+                 {**r, "kvar": expertteman.omarkta(conn)})
+    except Exception as e:
+        log.exception("Expertteman: oväntat fel: %s", e)
+    return True
+
+
 def steg_kommentarer(conn) -> bool:
     if not _ai_redo("Kommentarer"):
         return True
@@ -363,7 +377,7 @@ def main(argv=None) -> int:
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
     for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "sidomatcher", "expertarkiv",
-                 "kommentarer", "lagkoll", "tabeller", "statistik",
+                 "expertteman", "kommentarer", "lagkoll", "tabeller", "statistik",
                  "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
@@ -400,6 +414,9 @@ def main(argv=None) -> int:
         tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp, sista)
         if tid is None:
             log.info("Planerad: inget att göra – den senaste planerade uppdateringen är redan körd")
+            # Nattetid sön–tor: märk experternas kommentarer med det som är kvar av Geminis dagskvot
+            if expertteman.nattfonster(nu):
+                steg_expertteman(conn, min(expertteman.MAX_PER_KORNING, expertteman.kvar_i_natt(conn, nu)))
         else:
             log.info("Planerad: kör uppdateringen för %s (svensk tid)",
                      tid.astimezone(schema.SVENSK_TID).strftime("%a %d %b %H:%M"))
@@ -424,6 +441,8 @@ def main(argv=None) -> int:
         kritiskt_ok = steg_statistik(conn, tvinga=True) and steg_export(conn)
     elif args.kommando == "expertarkiv":
         steg_expertarkiv(conn, max_sidor=expertarkiv.MAX_SIDOR)
+    elif args.kommando == "expertteman":
+        steg_expertteman(conn, expertteman.MAX_PER_KORNING)
     elif args.kommando == "kommentarer":
         steg_kommentarer(conn)
     elif args.kommando == "tabeller":

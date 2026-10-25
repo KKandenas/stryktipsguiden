@@ -41,7 +41,7 @@ MAX_FEL_I_RAD = 3                  # så många misslyckade anrop i rad → AI h
 # Högsta AI-tid per steg, så att ett steg inte äter upp hela budgeten. Tipsen kommer först och kan ta lång
 # tid (många artiklar, 503 och minutgränser); utan tak hann Lagkoll aldrig börja. Steg som inte står här
 # får det som är kvar av AI_TIDSBUDGET.
-STEGBUDGET = {"Tips": 9 * 60, "Kommentarer": 3 * 60}
+STEGBUDGET = {"Tips": 9 * 60, "Kommentarer": 3 * 60, "Expertteman": 5 * 60}
 
 _start: Optional[float] = None
 _fel_i_rad = 0
