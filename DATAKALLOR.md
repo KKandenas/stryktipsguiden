@@ -88,6 +88,14 @@ Används bara för matcher utanför kupongen: tillsammans med Sports Moles och F
 texten utan AI, `pipeline/sidomatcher.py`) lär de tipsarnas vikter i Med experter snabbare. Inga
 oddskrediter används.
 
+## Tipsmedoss arkiv (experternas kommentarer)
+
+`https://tipsmedoss.com/category/stryktipsforslag/` (med `page/N/`) listar en analys per Stryktipsomgång sedan
+2018. robots.txt tillåter allt. `pipeline/expertarkiv.py` läser artiklarna sedan december 2020, delar upp dem
+per match utan AI ("1. Lag – Lag, 1X" följt av kommentaren) och sparar kommentar och tecken i
+`expertkommentarer`. Kommandot `expertarkiv` läser hela arkivet (cirka 10 minuter); vanliga körningar läser bara
+första sidan. Underlaget för analysen av vad experterna skriver om matcher som skräller.
+
 ## Exportformat för egna rader
 
 > Används inte i appen just nu (nedladdningen togs bort 2026-10-10). Sparat som referens.

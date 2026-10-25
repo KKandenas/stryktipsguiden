@@ -28,7 +28,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, export, lagkoll, lagring, schema, sidomatcher, tipsinsamling
+from . import config, db, expertarkiv, export, lagkoll, lagring, schema, sidomatcher, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
@@ -241,6 +241,17 @@ def steg_sidomatcher(conn) -> bool:
     return True
 
 
+def steg_expertarkiv(conn, max_sidor: int = 1) -> bool:
+    """Experternas kommentar per match ur Tipsmedoss arkiv (utan AI). Vanliga körningar läser bara första
+    arkivsidan; kommandot expertarkiv läser hela arkivet sedan december 2020."""
+    try:
+        r = expertarkiv.uppdatera(conn, max_sidor=max_sidor)
+        log.info("Expertarkiv: %(artiklar)d nya artiklar, %(matcher)d matcher, %(utan_omgang)d utan omgång", r)
+    except Exception as e:  # valfri källa – får aldrig stoppa pipelinen
+        log.exception("Expertarkiv: oväntat fel: %s", e)
+    return True
+
+
 def steg_kommentarer(conn) -> bool:
     if not _ai_redo("Kommentarer"):
         return True
@@ -290,6 +301,7 @@ def kor_auto(conn) -> bool:
     ok &= steg_resultat(conn)
     steg_tips(conn)
     steg_sidomatcher(conn)
+    steg_expertarkiv(conn)
     steg_prognos(conn)
     steg_statistik(conn)
     steg_kommentarer(conn)
@@ -350,8 +362,8 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline", description="Stryktipsguidens datapipeline")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="kommando", required=True)
-    for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "sidomatcher", "kommentarer", "lagkoll",
-                 "tabeller", "statistik",
+    for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "sidomatcher", "expertarkiv",
+                 "kommentarer", "lagkoll", "tabeller", "statistik",
                  "migrera"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
@@ -410,6 +422,8 @@ def main(argv=None) -> int:
     elif args.kommando == "sidomatcher":
         steg_sidomatcher(conn)
         kritiskt_ok = steg_statistik(conn, tvinga=True) and steg_export(conn)
+    elif args.kommando == "expertarkiv":
+        steg_expertarkiv(conn, max_sidor=expertarkiv.MAX_SIDOR)
     elif args.kommando == "kommentarer":
         steg_kommentarer(conn)
     elif args.kommando == "tabeller":
