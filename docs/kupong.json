@@ -1,5801 +1,1997 @@
 {
  "formatversion": 1,
- "genererad": "2026-10-24T19:01:21Z",
+ "genererad": "2026-10-25T19:02:25Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
  },
  "omgang": {
-  "id": 4976,
-  "datum": "2026-10-24",
-  "spelstopp": "2026-10-24T13:59:00Z",
-  "status": "avgjord",
-  "frusen": "2026-10-24T13:33:02Z",
-  "omsattning": 27643404.0,
+  "id": 4977,
+  "datum": "2026-10-31",
+  "spelstopp": "2026-10-31T14:59:00Z",
+  "status": "oppen",
+  "frusen": null,
+  "omsattning": 452846.0,
   "radpris": 1,
-  "utdelning": {
-   "13": 399293.0,
-   "12": 6043.0,
-   "11": 371.0,
-   "10": 99.0
-  },
-  "vinnare": {
-   "13": 18,
-   "12": 446,
-   "11": 5811,
-   "10": 45068
-  }
+  "utdelning": null,
+  "vinnare": null
  },
  "matcher": [
   {
    "nr": 1,
-   "hemmalag": "Chelsea",
-   "bortalag": "Tottenham",
-   "liga": "Premier League",
-   "land": "England",
-   "avspark": "2026-10-24T16:30:00Z",
-   "chans": {
-    "1": 0.5011,
-    "2": 0.2518,
-    "X": 0.2471
-   },
-   "chans_kalla": "modell",
-   "streck": {
-    "1": 61.0,
-    "2": 16.0,
-    "X": 23.0
-   },
-   "streck_tid": "2026-10-24T13:29:54Z",
-   "varde": {
-    "1": -0.1089,
-    "2": 0.0918,
-    "X": 0.0171
-   },
-   "osaker": false,
-   "chans_tips": {
-    "1": 0.607,
-    "2": 0.2036,
-    "X": 0.1894
-   },
-   "varde_tips": {
-    "1": -0.003,
-    "2": 0.0436,
-    "X": -0.0406
-   },
-   "odds": {
-    "antal_bolag": 44,
-    "bara_svenskaspel": false,
-    "bolag": [
-     {
-      "1": 1.95,
-      "2": 3.87,
-      "X": 3.87,
-      "bolag": "pinnacle"
-     },
-     {
-      "1": 1.95,
-      "2": 3.85,
-      "X": 3.95,
-      "bolag": "svenskaspel"
-     },
-     {
-      "1": 1.89,
-      "2": 3.83,
-      "X": 3.8,
-      "bolag": "betsson"
-     },
-     {
-      "1": 1.9,
-      "2": 3.85,
-      "X": 3.8,
-      "bolag": "nordicbet"
-     },
-     {
-      "1": 1.96,
-      "2": 4.1,
-      "X": 3.95,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 1.91,
-      "2": 3.7,
-      "X": 3.7,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 1.94,
-      "2": 3.97,
-      "X": 3.95,
-      "bolag": "coolbet"
-     },
-     {
-      "1": 1.94,
-      "2": 3.85,
-      "X": 3.9,
-      "bolag": "marathonbet"
-     },
-     {
-      "1": 1.85,
-      "2": 3.7,
-      "X": 3.7,
-      "bolag": "sport888"
-     },
-     {
-      "1": 1.87,
-      "2": 3.6,
-      "X": 3.8,
-      "bolag": "betano_uk"
-     },
-     {
-      "1": 1.93,
-      "2": 3.82,
-      "X": 3.86,
-      "bolag": "betanysports"
-     },
-     {
-      "1": 1.85,
-      "2": 3.55,
-      "X": 3.75,
-      "bolag": "betclic_fr"
-     }
-    ],
-    "snitt": {
-     "1": 1.9,
-     "2": 3.76,
-     "X": 3.85
-    }
-   },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1",
-     "system_rader": 1152,
-     "tecken": "1",
-     "text": "Chelsea har två dagars längre vila och inledde oktober med två raka segrar. Tottenham tog visserligen säsongens första seger senast, men en ny sådan mot formstarka Chelsea känns långsökt."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Chelsea har hittat formen efter segrar mot Bournemouth och Everton, samt starkt hemmafacit. Tottenham har svårt på bortaplan och dras med frågetecken kring spelare som Omar Marmoush och Andy Robertson."
-    },
-    {
-     "kalla": "gamblingcabin.se",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Tottenham fick det att lossna senast med seger mot Coventry, men ställs nu borta mot Chelsea i ett Londonderby där det ligger mycket prestige. Chelsea har brister i defensiven och skribenten har en utgång på tvåan."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "12",
-     "system_rader": 384,
-     "tecken": "12",
-     "text": "Chelsea har två raka ligasegrar medan Tottenham kommer från en seger mot Coventry. Chelsea saknar målvakten Emiliano Martínez och Tottenham har fått tillbaka Dejan Kulusevski och James Maddison i truppen."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X2",
-     "text": "Tottenham har börjat göra bättre prestationer och fick in Kulusevski efterlängtad comeback senast. Chelsea är vassa framåt men långt ifrån felfria bakåt och saknar dessutom Emi Martínez."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "1X2",
-     "system_rader": 432,
-     "tecken": "1X2",
-     "text": "Chelsea blir övervärderade trots två raka segrar. Tottenham bröt sin segertorka och kan bjuda upp till dans."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Chelsea har radat upp sex raka segrar mot Tottenham och har dessutom vunnit sina två senaste ligamatcher. Tottenham har haft en svag säsongsstart och inte vunnit någon av sina fyra senaste bortamatcher."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Chelsea är favoriter tack vare sin starka hemmaform och historiska dominans i inbördes möten mot Tottenham. De har dessutom visat upp en betydligt vassare offensiv under säsongsinledningen."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Chelsea övertygar tillräckligt för att motivera en etta på hemmaplan mot Tottenham. De gör mycket mål vilket blir avgörande."
-    }
-   ],
-   "kommentar": "Oddsbolagen ger Chelsea 50 % chans som favoriter. Svenska folket streckar ettan högre till 61 %, medan tvåan (25 %) ger fint värde. Flera tipsare varnar för att Chelsea är övervärderade och lyfter fram tvåan eller garderingar.",
-   "lagkoll": {
-    "borta": {
-     "form": "WDLDDL",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "smäll",
-       "spelare": "Omar Marmoush",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "smäll",
-       "spelare": "Andy Robertson",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Kevin Danso",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Rodrigo Bentancur",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Destiny Udogie",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Muscle",
-       "spelare": "Savio",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Lucas Bergvall",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Cruciate ligament",
-       "spelare": "Xavi Simons",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 20,
-      "forlorade": 3,
-      "gjorda": 6,
-      "inslappta": 10,
-      "oavgjorda": 3,
-      "plats": 17,
-      "poang": 6,
-      "spelade": 7,
-      "vunna": 1
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.53,
-     "2": 0.23,
-     "X": 0.24
-    },
-    "faktorer": [
-     "Tottenham saknar en rad nyckelspelare och har flera osäkra kort.",
-     "Chelsea har sex raka ligasegrar mot Tottenham.",
-     "Tottenham har endast en vinst på de senaste 34 besöken på Stamford Bridge.",
-     "Chelsea kommer till matchen med två raka ligasegrar."
-    ],
-    "hemma": {
-     "form": "WWLDLW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Axel Disasi",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Pep Chavarria",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Illness",
-       "spelare": "Malo Gusto",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Head",
-       "spelare": "Emiliano Martinez",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Emanuel Emegha",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Reece James",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Jamie Gittens",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Mykhaylo Mudryk",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "speltips.se",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 20,
-      "forlorade": 2,
-      "gjorda": 17,
-      "inslappta": 13,
-      "oavgjorda": 1,
-      "plats": 4,
-      "poang": 13,
-      "spelade": 7,
-      "vunna": 4
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Chelsea har ett starkt inbördes grepp och Tottenham dras med omfattande skadebekymmer samt svag bortastatistik.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T13:32:38Z"
-   },
-   "tabell": {
-    "borta": {
-     "antal_lag": 20,
-     "forlorade": 3,
-     "form": "WDLDDL",
-     "gjorda": 6,
-     "inslappta": 10,
-     "oavgjorda": 3,
-     "plats": 17,
-     "poang": 6,
-     "spelade": 7,
-     "vunna": 1
-    },
-    "hemma": {
-     "antal_lag": 20,
-     "forlorade": 2,
-     "form": "WWLDLW",
-     "gjorda": 17,
-     "inslappta": 13,
-     "oavgjorda": 1,
-     "plats": 4,
-     "poang": 13,
-     "spelade": 7,
-     "vunna": 4
-    },
-    "kalla": "BBC Sport"
-   },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "smäll",
-       "spelare": "Omar Marmoush",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "smäll",
-       "spelare": "Andy Robertson",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Kevin Danso",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Rodrigo Bentancur",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Destiny Udogie",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Muscle",
-       "spelare": "Savio",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Lucas Bergvall",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Cruciate ligament",
-       "spelare": "Xavi Simons",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Wilson Odobert",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "otillgänglig/vristskada",
-       "spelare": "Mykhaylo Mudryk",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "hurbra.se",
-       "text": "Kommer från sin första ligaseger för säsongen.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har haft det oerhört svårt historiskt på Stamford Bridge med endast en vinst på de senaste 34 besöken.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Tottenham kommer från en viktig seger mot Coventry och spelar ett Londonderby.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Svag bortastatistik och har haft det tufft på resande fot.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Axel Disasi",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Pep Chavarria",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Illness",
-       "spelare": "Malo Gusto",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Head",
-       "spelare": "Emiliano Martinez",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Emanuel Emegha",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Reece James",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Jamie Gittens",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Mykhaylo Mudryk",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "hurbra.se",
-       "text": "Kommer med två raka ligasegrar.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har en vinstsvit på sex matcher mot Tottenham i ligan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Chelsea har brister i defensiven och spelar ett prestigehögt Londonderby.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Kommer från segrar mot Bournemouth och Everton, och har vunnit 83% av sina hemmamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "2",
-   "mal": "0-2"
-  },
-  {
-   "nr": 2,
-   "hemmalag": "Arsenal",
-   "bortalag": "Everton",
-   "liga": "Premier League",
-   "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
-   "chans": {
-    "1": 0.6888,
-    "2": 0.1169,
-    "X": 0.1943
-   },
-   "chans_kalla": "modell",
-   "streck": {
-    "1": 79.0,
-    "2": 5.0,
-    "X": 16.0
-   },
-   "streck_tid": "2026-10-24T13:00:49Z",
-   "varde": {
-    "1": -0.1012,
-    "2": 0.0669,
-    "X": 0.0343
-   },
-   "osaker": false,
-   "chans_tips": {
-    "1": 0.789,
-    "2": 0.0771,
-    "X": 0.1339
-   },
-   "varde_tips": {
-    "1": -0.001,
-    "2": 0.0271,
-    "X": -0.0261
-   },
-   "odds": {
-    "antal_bolag": 44,
-    "bara_svenskaspel": false,
-    "bolag": [
-     {
-      "1": 1.4,
-      "2": 8.35,
-      "X": 5.05,
-      "bolag": "pinnacle"
-     },
-     {
-      "1": 1.42,
-      "2": 9.0,
-      "X": 4.9,
-      "bolag": "svenskaspel"
-     },
-     {
-      "1": 1.38,
-      "2": 8.41,
-      "X": 4.77,
-      "bolag": "betsson"
-     },
-     {
-      "1": 1.39,
-      "2": 8.1,
-      "X": 4.8,
-      "bolag": "nordicbet"
-     },
-     {
-      "1": 1.38,
-      "2": 9.8,
-      "X": 5.6,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 1.4,
-      "2": 7.0,
-      "X": 4.5,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 1.37,
-      "2": 9.55,
-      "X": 5.35,
-      "bolag": "coolbet"
-     },
-     {
-      "1": 1.41,
-      "2": 8.2,
-      "X": 5.0,
-      "bolag": "marathonbet"
-     },
-     {
-      "1": 1.36,
-      "2": 7.0,
-      "X": 4.75,
-      "bolag": "sport888"
-     },
-     {
-      "1": 1.36,
-      "2": 7.5,
-      "X": 4.75,
-      "bolag": "betano_uk"
-     },
-     {
-      "1": 1.37,
-      "2": 9.0,
-      "X": 5.15,
-      "bolag": "betanysports"
-     },
-     {
-      "1": 1.38,
-      "2": 7.0,
-      "X": 4.4,
-      "bolag": "betclic_fr"
-     }
-    ],
-    "snitt": {
-     "1": 1.38,
-     "2": 8.11,
-     "X": 4.86
-    }
-   },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1X",
-     "system_rader": 1152,
-     "tecken": "1X",
-     "text": "Arsenal har en tuff match mot Bayern München i benen vilket kan leda till trötthet. Everton har en skadefri trupp som vilat upp sig och blir svårslagna."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Arsenal har imponerande hemmaform med vinster i alla hemmamatcher den här säsongen, medan Everton ställs mot svårigheter i anfallet efter en 2-0-förlust mot Chelsea."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1",
-     "system_rader": 384,
-     "tecken": "1",
-     "text": "Arsenal är kupongens näst största favorit men saknar skadade Bukayo Saka. Trots överstreckning spikas ettan som ett praktiskt systemval."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Arsenal har haft svårt mot lägre stående motstånd och åkte på en kännbar skada på Saka senast. Everton är svårslagna och har bra status i truppen."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "1",
-     "system_rader": 432,
-     "tecken": "1",
-     "text": "Arsenal har fin chans trots Sakas skada. Everton räckte inte till mot Chelsea och får svårt att stå emot på Emirates."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Arsenal är mycket starka på hemmaplan med sex raka vinster. De är stora favoriter och förväntas kontrollera matchen."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Arsenal har vunnit sina senaste matcher och är starka på hemmaplan, medan Everton kommer från en förlust mot Chelsea och har haft svårt att vinna på sistone."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Arsenal har radat upp svaga insatser i ligan på sista tiden, och Everton är mycket svårslagna. Ettan vinner nog till slut men krysset rekommenderas till låg procent."
-    }
-   ],
-   "kommentar": "Arsenal är stora favoriter med 69 % chans, men streckas ännu högre till 79 %. Tvåan till 5 % ger spelvärde. Tipsarna är delade men flera rekommenderar 1X eller krysset för att gardera den hårt streckade favoriten.",
-   "lagkoll": {
-    "borta": {
-     "form": "LDWDDD",
-     "franvaro": [],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "sportsmole.co.uk",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 20,
-      "forlorade": 1,
-      "gjorda": 8,
-      "inslappta": 7,
-      "oavgjorda": 4,
-      "plats": 8,
-      "poang": 10,
-      "spelade": 7,
-      "vunna": 2
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.65,
-     "2": 0.13,
-     "X": 0.22
-    },
-    "faktorer": [
-     "William Saliba saknas på grund av skada",
-     "Bukayo Saka och Piero Hincapie är osäkra till spel",
-     "Arsenal spelade i Champions League i onsdags",
-     "Everton har bara förlorat en Premier League-match för säsongen"
-    ],
-    "hemma": {
-     "form": "WWLWWW",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "Low back",
-       "spelare": "William Saliba",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Christos Tzolis",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Bukayo Saka",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "ankle problem",
-       "spelare": "Piero Hincapie",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "speltips.se",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 20,
-      "forlorade": 1,
-      "gjorda": 11,
-      "inslappta": 5,
-      "oavgjorda": 0,
-      "plats": 2,
-      "poang": 18,
-      "spelade": 7,
-      "vunna": 6
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Arsenal har flera tunga avbräck och osäkra nyckelspelare samt tight spelschema efter Champions League, medan Everton är svårslagna.",
-    "skrallrisk": "medel",
-    "tid": "2026-10-24T13:01:47Z"
-   },
-   "tabell": {
-    "borta": {
-     "antal_lag": 20,
-     "forlorade": 1,
-     "form": "LDWDDD",
-     "gjorda": 8,
-     "inslappta": 7,
-     "oavgjorda": 4,
-     "plats": 8,
-     "poang": 10,
-     "spelade": 7,
-     "vunna": 2
-    },
-    "hemma": {
-     "antal_lag": 20,
-     "forlorade": 1,
-     "form": "WWLWWW",
-     "gjorda": 11,
-     "inslappta": 5,
-     "oavgjorda": 0,
-     "plats": 2,
-     "poang": 18,
-     "spelade": 7,
-     "vunna": 6
-    },
-    "kalla": "BBC Sport"
-   },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Everton har undvikit förlust i sina tre senaste bortamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Kommer från en 2-0-förlust mot Chelsea och har haft det svårt i sista tredjedelen.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Moyes gäng var obesegrade innan förlusten mot Chelsea senast och har bra status i truppen.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "tipsmedoss.com",
-       "text": "Everton har bara förlorat en PL-fight den här säsongen och är mycket svårslagna.",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": true,
-       "orsak": "Low back",
-       "spelare": "William Saliba",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Christos Tzolis",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "speltips.se",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Bukayo Saka",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "ankle problem",
-       "spelare": "Piero Hincapie",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "speltips.se",
-       "text": "Klarade oavgjort i Champions League mot Bayern München så sent som i onsdags.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Arsenal har vunnit sex raka hemmamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Kupongens näst största favorit.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "De regerande mästarna har vunnit varje hemmamatch den här säsongen.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "1",
-   "mal": "2-0"
-  },
-  {
-   "nr": 3,
-   "hemmalag": "Coventry",
+   "hemmalag": "Aston Villa",
    "bortalag": "Fulham",
    "liga": "Premier League",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T20:00:00Z",
    "chans": {
-    "1": 0.2947,
-    "2": 0.4334,
-    "X": 0.272
+    "1": 0.4945,
+    "X": 0.2538,
+    "2": 0.2518
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 27.0,
-    "2": 47.0,
-    "X": 26.0
+    "1": 52.0,
+    "X": 22.0,
+    "2": 26.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": 0.0247,
-    "2": -0.0366,
-    "X": 0.012
+    "1": -0.0255,
+    "X": 0.0338,
+    "2": -0.0082
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.2331,
-    "2": 0.5592,
-    "X": 0.2077
+    "1": 0.4898,
+    "X": 0.2537,
+    "2": 0.2565
    },
    "varde_tips": {
-    "1": -0.0369,
-    "2": 0.0892,
-    "X": -0.0523
+    "1": -0.0302,
+    "X": 0.0337,
+    "2": -0.0035
    },
    "odds": {
-    "antal_bolag": 44,
+    "antal_bolag": 42,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.91,
+     "X": 3.71,
+     "2": 3.73
+    },
     "bolag": [
      {
-      "1": 3.41,
-      "2": 2.21,
-      "X": 3.53,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 1.87,
+      "X": 3.86,
+      "2": 3.86
      },
      {
-      "1": 3.3,
-      "2": 2.28,
-      "X": 3.5,
-      "bolag": "svenskaspel"
+      "bolag": "svenskaspel",
+      "1": 1.96,
+      "X": 3.8,
+      "2": 3.85
      },
      {
-      "1": 3.25,
-      "2": 2.17,
-      "X": 3.53,
-      "bolag": "betsson"
+      "bolag": "betsson",
+      "1": 1.89,
+      "X": 3.76,
+      "2": 3.88
      },
      {
-      "1": 3.25,
-      "2": 2.15,
-      "X": 3.5,
-      "bolag": "nordicbet"
+      "bolag": "nordicbet",
+      "1": 1.9,
+      "X": 3.75,
+      "2": 3.9
      },
      {
-      "1": 3.45,
-      "2": 2.26,
+      "bolag": "betfair_ex_eu",
+      "1": 2.0,
+      "X": 3.85,
+      "2": 4.1
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.85,
+      "X": 3.75,
+      "2": 3.4
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.92,
+      "X": 3.77,
+      "2": 3.8
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.94,
+      "X": 3.78,
+      "2": 3.8
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.85,
+      "X": 3.75,
+      "2": 3.4
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.87,
       "X": 3.7,
-      "bolag": "betfair_ex_eu"
+      "2": 3.7
      },
      {
-      "1": 3.1,
-      "2": 2.2,
-      "X": 3.4,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 3.41,
-      "2": 2.19,
-      "X": 3.69,
-      "bolag": "coolbet"
-     },
-     {
-      "1": 3.16,
-      "2": 2.25,
-      "X": 3.54,
-      "bolag": "marathonbet"
-     },
-     {
-      "1": 3.1,
-      "2": 2.2,
-      "X": 3.3,
-      "bolag": "sport888"
-     },
-     {
-      "1": 3.1,
-      "2": 2.15,
+      "bolag": "betclic_fr",
+      "1": 1.8,
       "X": 3.5,
-      "bolag": "betano_uk"
+      "2": 3.58
      },
      {
-      "1": 3.32,
-      "2": 2.21,
-      "X": 3.55,
-      "bolag": "betanysports"
-     },
-     {
-      "1": 3.13,
-      "2": 2.1,
-      "X": 3.4,
-      "bolag": "betclic_fr"
+      "bolag": "betfair_ex_uk",
+      "1": 2.0,
+      "X": 3.85,
+      "2": 4.1
      }
-    ],
-    "snitt": {
-     "1": 3.21,
-     "2": 2.2,
-     "X": 3.49
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "X2",
-     "system_rader": 1152,
-     "tecken": "2",
-     "text": "Coventry föll i måndags och möter ett Fulham som tog sin första seger nyligen. Jack Rudoni är i fin form för hemmalaget, men gästerna från London gillas som favoriter."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Coventry har defensiva bekymmer och skador, medan Fulham har mer rutin. Fulham eller oavgjort bedöms som ett spelvärt alternativ."
-    },
-    {
-     "kalla": "gamblingcabin.se",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Coventry kommer från en tung förlust mot Tottenham och verkar få verkligheten ikapp sig. Fulham är ett bättre lag i grunden och kommer från en helt rättvis seger mot Hull."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "2",
-     "system_rader": 384,
-     "tecken": "2",
-     "text": "Coventry har besegrat både Nottingham Forest och Newcastle hemma men har ett besvärligt skadeläge. Fulham kan få tillbaka Hugo Larsson och Emile Smith Rowe."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Fulham har dominerat sina senaste matcher spelmässigt och har stundtals förtjänat mer. Nykomlingen Coventry har haft det tufft i anfallsspel och den underliggande datan är inte smickrande."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "2",
-     "system_rader": 432,
-     "tecken": "2",
-     "text": "Fulham tog en viktig seger mot Hull och kan fortsätta på inslagen väg. Coventry förlorade mot Tottenham och har problem defensivt."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Skribenten rekommenderar Coventry med ett +0.25 Asian Handicap eftersom hemmalaget brukar ha lätt att undvika förlust på hemmaplan samtidigt som Fulham har svårt på bortaplan."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Coventry förväntas dra nytta av hemmaplan för att vinna. En jämn match väntas mellan två lag som desperat behöver klättra från bottenstriden."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "2",
-     "system_rader": 288,
-     "tecken": "2",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "12",
-     "text": "Fulham är svårtippade men har en förlust i sig mot Coventry samtidigt som de är kapabla att vinna. En öppen tillställning motiverar en gaffel."
-    }
-   ],
-   "kommentar": "Fulham är knappa favoriter med 43 % chans och streckas på 47 %. Streckfördelningen ligger nära oddsen, men flertalet tipsare väljer tvåan eller X2 med hänvisning till Coventrys defensiva problem.",
-   "lagkoll": {
-    "borta": {
-     "form": "WLDDLL",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Ryan Sessegnon",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Skada (knocks)",
-       "spelare": "Joshua King",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Skada (knocks)",
-       "spelare": "Oscar Bobb",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 20,
-      "forlorade": 4,
-      "gjorda": 7,
-      "inslappta": 10,
-      "oavgjorda": 2,
-      "plats": 19,
-      "poang": 5,
-      "spelade": 7,
-      "vunna": 1
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.31,
-     "2": 0.41,
-     "X": 0.28
-    },
-    "faktorer": [
-     "Coventry saknar flera spelare som Haji Wright och Luke Woolfenden",
-     "Fulham har åtta raka bortamatcher i ligan utan seger",
-     "Fulham kan få tillbaka Hugo Larsson och Emile Smith Rowe"
-    ],
-    "hemma": {
-     "form": "LWWLLL",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Luke Woolfenden",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Josh Eccles",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Haji Wright",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Calf",
-       "spelare": "Aurele Amenda",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com"
-     ],
-     "tabell": {
-      "antal_lag": 20,
-      "forlorade": 5,
-      "gjorda": 6,
-      "inslappta": 14,
-      "oavgjorda": 0,
-      "plats": 18,
-      "poang": 6,
-      "spelade": 7,
-      "vunna": 2
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Oddsen speglar väl att två formsvaga bottenlag ställs mot varandra, där Fulham har svagt bortafacit men Coventry dras med tunga skador.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T13:32:38Z"
-   },
+   "tips": [],
+   "kommentar": "Aston Villa är knappa favoriter med 49 % on oddsbolagen och streckas ungefär därefter på 52 %. X ger visst värde på 3 %.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 20,
-     "forlorade": 4,
-     "form": "WLDDLL",
-     "gjorda": 7,
-     "inslappta": 10,
-     "oavgjorda": 2,
-     "plats": 19,
-     "poang": 5,
-     "spelade": 7,
-     "vunna": 1
-    },
     "hemma": {
+     "plats": 9,
      "antal_lag": 20,
-     "forlorade": 5,
-     "form": "LWWLLL",
-     "gjorda": 6,
-     "inslappta": 14,
-     "oavgjorda": 0,
-     "plats": 18,
-     "poang": 6,
-     "spelade": 7,
-     "vunna": 2
+     "spelade": 8,
+     "vunna": 3,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 9,
+     "inslappta": 12,
+     "poang": 11,
+     "form": "WWDWLD"
+    },
+    "borta": {
+     "plats": 15,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 2,
+     "forlorade": 4,
+     "gjorda": 8,
+     "inslappta": 10,
+     "poang": 8,
+     "form": "WWLDDL"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Red card",
-       "spelare": "Ryan Sessegnon",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "Skada (knocks)",
-       "spelare": "Joshua King",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "Skada (knocks)",
-       "spelare": "Oscar Bobb",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Tränas av Alvaro Arbeloa och tog en knapp seger senast mot Hull City.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Kan få tillbaka Hugo Larsson och Emile Smith Rowe.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Vann senast mot Hull men är utan seger i sina senaste åtta bortamatcher i ligan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Fulham har börjat säsongen tufft men kommer från en dominant seger mot Hull.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Luke Woolfenden",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Josh Eccles",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Haji Wright",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Calf",
-       "spelare": "Aurele Amenda",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Tränas av Frank Lampard och ligger näst sist i ligan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har tidigare besegrat både Nottingham Forest och Newcastle hemma.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har haft svårt att vinna men siktar på att återupptäcka förra säsongens starka hemmaform.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Coventry kommer från en tung förlust mot Tottenham och väntas få verkligheten ikapp sig.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 2,
+   "hemmalag": "Tottenham",
+   "bortalag": "Crystal Palace",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-31T17:30:00Z",
+   "chans": {
+    "1": 0.6199,
+    "X": 0.2114,
+    "2": 0.1687
    },
-   "resultat": "2",
-   "mal": "0-1"
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 48.0,
+    "X": 26.0,
+    "2": 26.0
+   },
+   "streck_tid": "2026-10-25T19:00:42Z",
+   "varde": {
+    "1": 0.1399,
+    "X": -0.0486,
+    "2": -0.0913
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.612,
+    "X": 0.2133,
+    "2": 0.1746
+   },
+   "varde_tips": {
+    "1": 0.132,
+    "X": -0.0467,
+    "2": -0.0854
+   },
+   "odds": {
+    "antal_bolag": 42,
+    "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.52,
+     "X": 4.43,
+     "2": 5.56
+    },
+    "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 1.5,
+      "X": 4.72,
+      "2": 5.68
+     },
+     {
+      "bolag": "svenskaspel",
+      "1": 1.58,
+      "X": 4.5,
+      "2": 5.5
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.5,
+      "X": 4.54,
+      "2": 6.04
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.5,
+      "X": 4.55,
+      "2": 6.0
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.56,
+      "X": 4.8,
+      "2": 6.2
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.53,
+      "X": 4.0,
+      "2": 5.0
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.52,
+      "X": 4.6,
+      "2": 5.8
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.54,
+      "X": 4.5,
+      "2": 5.85
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.53,
+      "X": 4.0,
+      "2": 5.0
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.5,
+      "X": 4.33,
+      "2": 5.75
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.45,
+      "X": 4.2,
+      "2": 5.25
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.56,
+      "X": 4.8,
+      "2": 6.2
+     }
+    ]
+   },
+   "tips": [],
+   "kommentar": "Tottenham är stora favoriter med 62 % på oddsen men är klart understreckade till 48 %, vilket ger ett fint värde på ettan.",
+   "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 14,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 3,
+     "forlorade": 3,
+     "gjorda": 8,
+     "inslappta": 10,
+     "poang": 9,
+     "form": "WWDLDD"
+    },
+    "borta": {
+     "plats": 17,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 1,
+     "forlorade": 5,
+     "gjorda": 9,
+     "inslappta": 19,
+     "poang": 7,
+     "form": "LLWDLW"
+    },
+    "kalla": "BBC Sport"
+   },
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 3,
+   "hemmalag": "Manchester City",
+   "bortalag": "Brighton",
+   "liga": "Premier League",
+   "land": "England",
+   "avspark": "2026-10-31T15:00:00Z",
+   "chans": {
+    "1": 0.5681,
+    "X": 0.2187,
+    "2": 0.2132
+   },
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 45.0,
+    "X": 25.0,
+    "2": 30.0
+   },
+   "streck_tid": "2026-10-25T19:00:42Z",
+   "varde": {
+    "1": 0.1181,
+    "X": -0.0313,
+    "2": -0.0868
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.5612,
+    "X": 0.2201,
+    "2": 0.2187
+   },
+   "varde_tips": {
+    "1": 0.1112,
+    "X": -0.0299,
+    "2": -0.0813
+   },
+   "odds": {
+    "antal_bolag": 42,
+    "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.66,
+     "X": 4.29,
+     "2": 4.42
+    },
+    "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 1.66,
+      "X": 4.4,
+      "2": 4.42
+     },
+     {
+      "bolag": "svenskaspel",
+      "1": 1.7,
+      "X": 4.35,
+      "2": 4.6
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.66,
+      "X": 4.31,
+      "2": 4.6
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.65,
+      "X": 4.3,
+      "2": 4.6
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.7,
+      "X": 4.8,
+      "2": 4.7
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.67,
+      "X": 4.0,
+      "2": 4.33
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.66,
+      "X": 4.52,
+      "2": 4.42
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.69,
+      "X": 4.33,
+      "2": 4.55
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.67,
+      "X": 4.0,
+      "2": 4.33
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.65,
+      "X": 4.1,
+      "2": 4.4
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.58,
+      "X": 4.0,
+      "2": 4.2
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.7,
+      "X": 4.8,
+      "2": 4.7
+     }
+    ]
+   },
+   "tips": [],
+   "kommentar": "Manchester City är klara favoriter med 57 % mot Brightons 21 %. Ettan är värdemässigt intressant då den streckas på 45 %.",
+   "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 1,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 7,
+     "oavgjorda": 0,
+     "forlorade": 1,
+     "gjorda": 20,
+     "inslappta": 9,
+     "poang": 21,
+     "form": "LWWWWW"
+    },
+    "borta": {
+     "plats": 3,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 5,
+     "oavgjorda": 1,
+     "forlorade": 2,
+     "gjorda": 23,
+     "inslappta": 7,
+     "poang": 16,
+     "form": "LWWWWD"
+    },
+    "kalla": "BBC Sport"
+   },
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 4,
-   "hemmalag": "Blackburn",
-   "bortalag": "Wrexham",
-   "liga": "Championship",
+   "hemmalag": "Bournemouth",
+   "bortalag": "Leeds",
+   "liga": "Premier League",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.3138,
-    "2": 0.3965,
-    "X": 0.2897
+    "1": 0.4442,
+    "X": 0.2738,
+    "2": 0.282
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 38.0,
-    "2": 33.0,
-    "X": 29.0
+    "1": 46.0,
+    "X": 26.0,
+    "2": 28.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": -0.0662,
-    "2": 0.0665,
-    "X": -0.0003
+    "1": -0.0158,
+    "X": 0.0138,
+    "2": 0.002
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3288,
-    "2": 0.3664,
-    "X": 0.3048
+    "1": 0.4411,
+    "X": 0.2728,
+    "2": 0.286
    },
    "varde_tips": {
-    "1": -0.0512,
-    "2": 0.0364,
-    "X": 0.0148
+    "1": -0.0189,
+    "X": 0.0128,
+    "2": 0.006
    },
    "odds": {
-    "antal_bolag": 41,
+    "antal_bolag": 42,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 2.13,
+     "X": 3.46,
+     "2": 3.34
+    },
     "bolag": [
      {
-      "1": 3.18,
-      "2": 2.37,
-      "X": 3.36,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 2.15,
+      "X": 3.37,
+      "2": 3.46
      },
      {
-      "1": 2.95,
-      "2": 2.55,
+      "bolag": "svenskaspel",
+      "1": 2.14,
+      "X": 3.6,
+      "2": 3.45
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.15,
+      "X": 3.38,
+      "2": 3.44
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.15,
+      "X": 3.35,
+      "2": 3.45
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 2.2,
+      "X": 3.6,
+      "2": 3.6
+     },
+     {
+      "bolag": "williamhill",
+      "1": 2.15,
       "X": 3.3,
-      "bolag": "svenskaspel"
+      "2": 3.3
      },
      {
-      "1": 3.05,
-      "2": 2.32,
-      "X": 3.3,
-      "bolag": "betsson"
+      "bolag": "coolbet",
+      "1": 2.15,
+      "X": 3.43,
+      "2": 3.42
      },
      {
-      "1": 3.07,
-      "2": 2.33,
-      "X": 3.31,
-      "bolag": "nordicbet"
+      "bolag": "marathonbet",
+      "1": 2.18,
+      "X": 3.42,
+      "2": 3.42
      },
      {
-      "1": 3.25,
-      "2": 2.48,
-      "X": 3.4,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 3.0,
-      "2": 2.3,
-      "X": 3.1,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 3.0,
-      "2": 2.35,
-      "X": 3.4,
-      "bolag": "coolbet"
-     },
-     {
-      "1": 3.04,
-      "2": 2.32,
-      "X": 3.18,
-      "bolag": "marathonbet"
-     },
-     {
-      "1": 3.0,
-      "2": 2.3,
-      "X": 3.1,
-      "bolag": "sport888"
-     },
-     {
-      "1": 3.0,
-      "2": 2.3,
+      "bolag": "sport888",
+      "1": 2.15,
       "X": 3.25,
-      "bolag": "betano_uk"
+      "2": 3.3
      },
      {
-      "1": 2.88,
-      "2": 2.2,
-      "X": 3.15,
-      "bolag": "betclic_fr"
+      "bolag": "betano_uk",
+      "1": 2.1,
+      "X": 3.5,
+      "2": 3.2
      },
      {
-      "1": 3.25,
-      "2": 2.46,
-      "X": 3.4,
-      "bolag": "betfair_ex_uk"
+      "bolag": "betclic_fr",
+      "1": 2.02,
+      "X": 3.25,
+      "2": 3.15
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 2.2,
+      "X": 3.6,
+      "2": 3.6
      }
-    ],
-    "snitt": {
-     "1": 2.97,
-     "2": 2.37,
-     "X": 3.24
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1X",
-     "system_rader": 1152,
-     "tecken": "1X",
-     "text": "Blackburn har varit snäppet vassare än Wrexham efter 11 omgångar. Wrexham har svårt på bortaplan, men med hemmastöd och formstarka spelare räcker 1X."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X",
-     "text": "Blackburn vill studsa tillbaka efter förlusten mot West Bromwich, medan Wrexham kommer till matchen stärkta av en 4-1-seger mot Preston. Skribenten tippar att matchen slutar oavgjort 2-2."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "X2",
-     "system_rader": 384,
-     "tecken": "X2",
-     "text": "Blackburn har två raka hemmasegrar, men Wrexham har inte förlorat på sina senaste sju ligabesök på Ewood Park. Blackburn är dessutom något överstreckat."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Wrexham är svårslagna trots en hel del oavgjorda resultat. Blackburn har lägst expected points i hela serien och streckas orimligt högt som favoriter."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "X2",
-     "system_rader": 432,
-     "tecken": "X2",
-     "text": "Blackburn har alarmerande underliggande siffror och riskerar bottenstrid. Wrexham har ett passande omställningsläge framför sig."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Blackburn har två raka hemmasegrar i ligan och har täckt handikappet i 7 av sina 10 senaste hemmamatcher. De bedöms vara kapabla att undvika förlust."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Blackburn har varit en av säsongens positiva överraskningar trots en förlust senast, och antas besegra Wrexham på hemmaplan."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Matchen känns helt jämn men Blackburn streckas högt. Wrexham har plockat poäng i 8 av 11 matcher och vann stort senast."
-    }
-   ],
-   "kommentar": "Oddsen håller Wrexham som knappa favoriter med 40 % chans, medan svenska folket streckar Blackburn högst på 38 %. Det gör tvåan till ett värdetecken. Tipsarna lutar ofta åt X2 på grund av Blackburns svaga underliggande siffror.",
-   "lagkoll": {
-    "borta": {
-     "form": "WLDWLD",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "ankelskada",
-       "spelare": "Josh Windass",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada/frånvaro",
-       "spelare": "George Thomason",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada/frånvaro",
-       "spelare": "Ben Sheaf",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Nathan Broadhead",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 3,
-      "gjorda": 15,
-      "inslappta": 16,
-      "oavgjorda": 5,
-      "plats": 14,
-      "poang": 14,
-      "spelade": 11,
-      "vunna": 3
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.32,
-     "2": 0.38,
-     "X": 0.3
-    },
-    "faktorer": [
-     "Wrexham har inte förlorat på de sju senaste besöken på Ewood Park",
-     "Blackburn har ligans lägsta expected points",
-     "Wrexham saknar skadade Josh Windass",
-     "Blackburn har två raka hemmasegrar i ryggen"
-    ],
-    "hemma": {
-     "form": "LWWDWL",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Ryoya Morishita",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Lewis Miller",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 4,
-      "gjorda": 17,
-      "inslappta": 16,
-      "oavgjorda": 3,
-      "plats": 10,
-      "poang": 15,
-      "spelade": 11,
-      "vunna": 4
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Wrexham har stark inbördes statistik på bortaplan mot Blackburn, men svag bortatform gör att oddsen i stort speglar matchen väl.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T13:32:38Z"
-   },
+   "tips": [],
+   "kommentar": "En mycket jämn på förhand där Bournemouth hålls som knappa favoriter med 44 %. Strecken ligger i stort sett helt i linje med oddsen.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 3,
-     "form": "WLDWLD",
-     "gjorda": 15,
-     "inslappta": 16,
-     "oavgjorda": 5,
-     "plats": 14,
-     "poang": 14,
-     "spelade": 11,
-     "vunna": 3
-    },
     "hemma": {
-     "antal_lag": 24,
-     "forlorade": 4,
-     "form": "LWWDWL",
-     "gjorda": 17,
-     "inslappta": 16,
+     "plats": 13,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
      "oavgjorda": 3,
-     "plats": 10,
-     "poang": 15,
-     "spelade": 11,
-     "vunna": 4
+     "forlorade": 3,
+     "gjorda": 12,
+     "inslappta": 13,
+     "poang": 9,
+     "form": "WWLLDD"
+    },
+    "borta": {
+     "plats": 7,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 5,
+     "forlorade": 1,
+     "gjorda": 9,
+     "inslappta": 6,
+     "poang": 11,
+     "form": "DDLDWD"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "ankelskada",
-       "spelare": "Josh Windass",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "skada/frånvaro",
-       "spelare": "George Thomason",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "skada/frånvaro",
-       "spelare": "Ben Sheaf",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Nathan Broadhead",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Wrexham har gått utan bortavinst i de tre senaste matcherna.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har inte förlorat någon av de senaste sju ligabesök på Blackburns hemmaplan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Kommer från en 4-1-seger mot Preston och har svagare bortastatistik.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Parkinsons gäng är svårslaget med poäng i åtta av elva ligamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Ryoya Morishita",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Lewis Miller",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Blackburn har två raka hemmasegrar i ligan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Kommer från två raka hemmasegrar.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Kommer från en 3-2-förlust mot West Bromwich Albion.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Har lägst expected points i hela serien.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "1",
-   "mal": "2-0"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 5,
-   "hemmalag": "Cardiff",
-   "bortalag": "Birmingham",
-   "liga": "Championship",
+   "hemmalag": "Coventry",
+   "bortalag": "Sunderland",
+   "liga": "Premier League",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.3685,
-    "2": 0.3779,
-    "X": 0.2535
+    "1": 0.3338,
+    "X": 0.2794,
+    "2": 0.3869
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 29.0,
-    "2": 46.0,
-    "X": 25.0
+    "1": 43.0,
+    "X": 28.0,
+    "2": 29.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": 0.0785,
-    "2": -0.0821,
-    "X": 0.0035
+    "1": -0.0962,
+    "X": -0.0006,
+    "2": 0.0969
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3776,
-    "2": 0.3842,
-    "X": 0.2382
+    "1": 0.3341,
+    "X": 0.2779,
+    "2": 0.3881
    },
    "varde_tips": {
-    "1": 0.0876,
-    "2": -0.0758,
-    "X": -0.0118
+    "1": -0.0959,
+    "X": -0.0021,
+    "2": 0.0981
    },
    "odds": {
-    "antal_bolag": 41,
+    "antal_bolag": 42,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 2.81,
+     "X": 3.38,
+     "2": 2.44
+    },
     "bolag": [
      {
-      "1": 2.61,
-      "2": 2.56,
-      "X": 3.85,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 2.84,
+      "X": 3.42,
+      "2": 2.47
      },
      {
-      "1": 2.63,
-      "2": 2.6,
-      "X": 3.75,
-      "bolag": "svenskaspel"
+      "bolag": "svenskaspel",
+      "1": 2.88,
+      "X": 3.55,
+      "2": 2.48
      },
      {
-      "1": 2.6,
-      "2": 2.5,
-      "X": 3.6,
-      "bolag": "betsson"
+      "bolag": "betsson",
+      "1": 2.87,
+      "X": 3.33,
+      "2": 2.48
      },
      {
-      "1": 2.61,
-      "2": 2.51,
-      "X": 3.62,
-      "bolag": "nordicbet"
+      "bolag": "nordicbet",
+      "1": 2.88,
+      "X": 3.3,
+      "2": 2.48
      },
      {
-      "1": 2.7,
-      "2": 2.62,
-      "X": 3.9,
-      "bolag": "betfair_ex_eu"
+      "bolag": "betfair_ex_eu",
+      "1": 3.1,
+      "X": 3.4,
+      "2": 2.5
      },
      {
-      "1": 2.5,
-      "2": 2.45,
-      "X": 3.6,
-      "bolag": "williamhill"
+      "bolag": "williamhill",
+      "1": 2.8,
+      "X": 3.3,
+      "2": 2.45
      },
      {
-      "1": 2.55,
-      "2": 2.5,
-      "X": 3.85,
-      "bolag": "coolbet"
+      "bolag": "coolbet",
+      "1": 2.92,
+      "X": 3.35,
+      "2": 2.45
      },
      {
-      "1": 2.43,
-      "2": 2.55,
-      "X": 3.68,
-      "bolag": "marathonbet"
+      "bolag": "marathonbet",
+      "1": 2.88,
+      "X": 3.44,
+      "2": 2.47
      },
      {
-      "1": 2.5,
-      "2": 2.45,
-      "X": 3.6,
-      "bolag": "sport888"
+      "bolag": "sport888",
+      "1": 2.75,
+      "X": 3.25,
+      "2": 2.45
      },
      {
-      "1": 2.5,
-      "2": 2.45,
-      "X": 3.7,
-      "bolag": "betano_uk"
+      "bolag": "betano_uk",
+      "1": 2.75,
+      "X": 3.4,
+      "2": 2.4
      },
      {
-      "1": 2.48,
-      "2": 2.28,
-      "X": 3.58,
-      "bolag": "betclic_fr"
+      "bolag": "betclic_fr",
+      "1": 2.68,
+      "X": 3.2,
+      "2": 2.3
      },
      {
-      "1": 2.7,
-      "2": 2.62,
-      "X": 3.9,
-      "bolag": "betfair_ex_uk"
+      "bolag": "betfair_ex_uk",
+      "1": 3.1,
+      "X": 3.4,
+      "2": 2.5
      }
-    ],
-    "snitt": {
-     "1": 2.54,
-     "2": 2.48,
-     "X": 3.69
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1X",
-     "system_rader": 1152,
-     "tecken": "1X",
-     "text": "Cardiff har imponerat offensivt och har hemmaplan som fördel. Birmingham har tre raka segrar, men den sviten väntas brytas här."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Skribenten rekommenderar bortaseger (1-2) då Birmingham är i utmärkt form med tre raka vinster. Cardiff har inte hållit nollan på tio matcher och saknar avstängde försvararen Gabriel Osho."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1",
-     "system_rader": 384,
-     "tecken": "1",
-     "text": "Birmingham kommer med tre raka segrar utan insläppt mål, men Cardiff har nio raka hemmamatcher utan förlust. Cardiff saknar avstängde Gabriel Osho men har Yousef Salech tillbaka."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X2",
-     "text": "Birmingham har tre raka segrar och fin form på offensiva spelare. Cardiff har dock presterat bättre än tabellplaceringen skvallrar om och det här känns helt vidöppet."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "12",
-     "system_rader": 432,
-     "tecken": "12",
-     "text": "Cardiff har imponerat spelmässigt och dominerar ofta bollinnehavet. Birmingham har ett bättre lag i grunden men blir lite väl betrott."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Cardiff är starka på hemmaplan och har täckt handikapplinan i nio matcher i rad hemma, medan Birmingham haft det svårt på bortaplan. Skribenten rekommenderar Cardiff med ett +0.25 Asian Handicap."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X",
-     "text": "Birmingham är i utmärkt form och bör nå minst oavgjort. Cardiff är dock obesegrade på hemmaplan i sina fem senaste ligamatcher."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "2",
-     "system_rader": 288,
-     "tecken": "2",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Cardiff är obesegrade hemma och visar styrka genom att stå emot starkt mot bättre motstånd. Vi väljer 1X och ignorerar Birmingham."
-    }
-   ],
-   "kommentar": "Det är helt jämnt enligt oddsen där Cardiff har 37 % och Birmingham 38 % chans. Folket överstreckar Birmingham till 46 %, vilket ger värde på ettan (29 %). Tipsarna är splittrade men många föredrar 1X.",
-   "lagkoll": {
-    "borta": {
-     "form": "WWWDWL",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Marc Leonard",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "muskelskada",
-       "spelare": "Paik Seung-Ho",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 1,
-      "gjorda": 20,
-      "inslappta": 11,
-      "oavgjorda": 5,
-      "plats": 4,
-      "poang": 20,
-      "spelade": 11,
-      "vunna": 5
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.35,
-     "2": 0.38,
-     "X": 0.27
-    },
-    "faktorer": [
-     "Cardiff är obesegrade i nio raka hemmamatcher",
-     "Birmingham har tre raka segrar utan insläppta mål",
-     "Cardiff har inte hållit nollan på 10 matcher",
-     "Gabriel Osho (Cardiff) avstängd"
-    ],
-    "hemma": {
-     "form": "DWLWLD",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängd",
-       "spelare": "Gabriel Osho",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "lårskada",
-       "spelare": "Dylan Lawlor",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "knäskada",
-       "spelare": "Calum Chambers",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 4,
-      "gjorda": 18,
-      "inslappta": 17,
-      "oavgjorda": 5,
-      "plats": 19,
-      "poang": 11,
-      "spelade": 11,
-      "vunna": 2
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Trots Birminghams imponerande form är Cardiff extremt svårslagna hemma, vilket gör oavgjort till ett mer troligt utfall än vad oddsen antyder.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T13:32:38Z"
-   },
+   "tips": [],
+   "kommentar": "Sunderland är favoriter på oddsen med 39 %, men svenska folket streckar Coventry högst till 43 %. Tvåan ger därmed fint värde.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 1,
-     "form": "WWWDWL",
-     "gjorda": 20,
-     "inslappta": 11,
-     "oavgjorda": 5,
-     "plats": 4,
-     "poang": 20,
-     "spelade": 11,
-     "vunna": 5
-    },
     "hemma": {
-     "antal_lag": 24,
-     "forlorade": 4,
-     "form": "DWLWLD",
-     "gjorda": 18,
-     "inslappta": 17,
-     "oavgjorda": 5,
      "plats": 19,
-     "poang": 11,
-     "spelade": 11,
-     "vunna": 2
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 0,
+     "forlorade": 6,
+     "gjorda": 6,
+     "inslappta": 15,
+     "poang": 6,
+     "form": "LLWWLL"
+    },
+    "borta": {
+     "plats": 20,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 1,
+     "oavgjorda": 2,
+     "forlorade": 5,
+     "gjorda": 6,
+     "inslappta": 14,
+     "poang": 5,
+     "form": "DLLLLD"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Ankle",
-       "spelare": "Marc Leonard",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "muskelskada",
-       "spelare": "Paik Seung-Ho",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Birmingham kommer från tre raka segrar.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Kommer med tre raka segrar och tre hållna nollor.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Har tre raka segrar och söker sin fjärde raka hålla nolla.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Tre raka segrar och 8-0 i målskillnad efter landslagsuppehållet.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "avstängd",
-       "spelare": "Gabriel Osho",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "lårskada",
-       "spelare": "Dylan Lawlor",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "knäskada",
-       "spelare": "Calum Chambers",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Cardiff har inte förlorat någon av sina senaste nio hemmamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har nio raka hemmamatcher utan förlust.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Har inte hållit nollan på sina senaste 10 matcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Presterar bättre än tabellplaceringen antyder och kommer från 2-2 borta mot Middlesbrough.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "1",
-   "mal": "1-0"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 6,
-   "hemmalag": "Lincoln",
-   "bortalag": "Burnley",
-   "liga": "Championship",
+   "hemmalag": "Brentford",
+   "bortalag": "Nottingham",
+   "liga": "Premier League",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.3375,
-    "2": 0.386,
-    "X": 0.2765
+    "1": 0.4786,
+    "X": 0.2549,
+    "2": 0.2665
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 25.0,
-    "2": 48.0,
-    "X": 27.0
+    "1": 45.0,
+    "X": 25.0,
+    "2": 30.0
    },
-   "streck_tid": "2026-10-24T13:00:49Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": 0.0875,
-    "2": -0.094,
-    "X": 0.0065
+    "1": 0.0286,
+    "X": 0.0049,
+    "2": -0.0335
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.277,
-    "2": 0.4889,
-    "X": 0.2342
+    "1": 0.4744,
+    "X": 0.2547,
+    "2": 0.2709
    },
    "varde_tips": {
-    "1": 0.027,
-    "2": 0.0089,
-    "X": -0.0358
+    "1": 0.0244,
+    "X": 0.0047,
+    "2": -0.0291
    },
    "odds": {
-    "antal_bolag": 40,
+    "antal_bolag": 42,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.98,
+     "X": 3.7,
+     "2": 3.52
+    },
     "bolag": [
      {
-      "1": 2.84,
-      "2": 2.53,
-      "X": 3.51,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 1.95,
+      "X": 3.86,
+      "2": 3.56
      },
      {
-      "1": 2.95,
-      "2": 2.45,
+      "bolag": "svenskaspel",
+      "1": 2.04,
+      "X": 3.85,
+      "2": 3.5
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.93,
+      "X": 3.81,
+      "2": 3.69
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.92,
+      "X": 3.8,
+      "2": 3.7
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 2.02,
+      "X": 3.85,
+      "2": 3.9
+     },
+     {
+      "bolag": "williamhill",
+      "1": 2.05,
       "X": 3.5,
-      "bolag": "svenskaspel"
+      "2": 3.4
      },
      {
-      "1": 2.75,
-      "2": 2.5,
-      "X": 3.35,
-      "bolag": "betsson"
+      "bolag": "coolbet",
+      "1": 1.95,
+      "X": 3.82,
+      "2": 3.65
      },
      {
-      "1": 2.75,
-      "2": 2.51,
-      "X": 3.38,
-      "bolag": "nordicbet"
+      "bolag": "marathonbet",
+      "1": 2.01,
+      "X": 3.78,
+      "2": 3.55
      },
      {
-      "1": 3.0,
-      "2": 2.56,
-      "X": 3.55,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 2.75,
-      "2": 2.4,
-      "X": 3.3,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 2.75,
-      "2": 2.5,
+      "bolag": "sport888",
+      "1": 2.0,
       "X": 3.5,
-      "bolag": "coolbet"
+      "2": 3.3
      },
      {
-      "1": 2.65,
-      "2": 2.47,
-      "X": 3.42,
-      "bolag": "marathonbet"
+      "bolag": "betano_uk",
+      "1": 1.93,
+      "X": 3.6,
+      "2": 3.6
      },
      {
-      "1": 2.75,
-      "2": 2.4,
-      "X": 3.3,
-      "bolag": "sport888"
+      "bolag": "betclic_fr",
+      "1": 1.86,
+      "X": 3.47,
+      "2": 3.4
      },
      {
-      "1": 2.7,
-      "2": 2.45,
-      "X": 3.4,
-      "bolag": "betano_uk"
-     },
-     {
-      "1": 2.62,
-      "2": 2.3,
-      "X": 3.28,
-      "bolag": "betclic_fr"
-     },
-     {
-      "1": 3.0,
-      "2": 2.56,
-      "X": 3.55,
-      "bolag": "betfair_ex_uk"
+      "bolag": "betfair_ex_uk",
+      "1": 2.02,
+      "X": 3.85,
+      "2": 3.9
      }
-    ],
-    "snitt": {
-     "1": 2.78,
-     "2": 2.43,
-     "X": 3.39
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "2",
-     "system_rader": 1152,
-     "tecken": "2",
-     "text": "Lincoln saknar avstängda spelare och har stora defensiva bekymmer med många insläppta mål på sistone. Burnley kommer från Premier League och har ett anfallsspel som bör räcka till vinst."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Lincoln har haft det tufft på hemmaplan men ställs mot ett Burnley som lider av enorma skadeproblem med 15 spelare borta. Skribenten rekommenderar Lincoln eller oavgjort (1X) samt förutspår resultatet 1-1."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1X",
-     "system_rader": 384,
-     "tecken": "1X",
-     "text": "Burnley har stora skadebekymmer med nio spelare borta, däribland Jamie Vardy och Jacob Bruun Larsen. Lincoln har dock inte vunnit hemma i ligan den här säsongen."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Burnley har en slagkraftig trupp trots en del skador och nyförvärvet Vardy i laget. Lincoln håller inte samma nivå och har bara tagit en poäng på de fyra senaste."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "12",
-     "system_rader": 432,
-     "tecken": "2",
-     "text": "Burnley är rättmätiga favoriter och Vardy har kommit igång. Nykomlingen Lincoln står dock upp bra."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Burnley spås vinna matchen med 2-1. Analysen förutspår även att det blir över 2.5 mål i matchen."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Burnley visar tecken på förbättring och gästernas offensiv späs avgöra mot ett Lincoln som har det tufft defensivt och dras med avstängningar."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "2",
-     "system_rader": 288,
-     "tecken": "2",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Lincoln har släppt in hela 11 mål på sina 3 sista matcher. Burnley har sett bättre ut på sistone och vändningen bör vara nära."
-    }
-   ],
-   "kommentar": "Burnley är favoriter med 39 % chans och streckas hårt på 48 %. Etta ger därmed värde (25 % mot 34 % chans). Tipsarna lutar ändå mest åt tvåan eller X2 tack vare Burnleys trupp.",
-   "lagkoll": {
-    "borta": {
-     "form": "LDWDLD",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Jamie Vardy",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Jacob Bruun Larsen",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Bashir Humphreys",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Hannibal Mejbri",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Zeki Amdouni",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 5,
-      "gjorda": 16,
-      "inslappta": 21,
-      "oavgjorda": 5,
-      "plats": 22,
-      "poang": 8,
-      "spelade": 11,
-      "vunna": 1
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.33,
-     "2": 0.37,
-     "X": 0.3
-    },
-    "faktorer": [
-     "Burnley har enorma skadeproblem med upp till 15 spelare borta",
-     "Lincoln har tre spelare avstängda (bl.a. Draper och Hamer)",
-     "Lincoln saknar fortfarande sin första hemmaseger för säsongen",
-     "Burnley har åtta förluster på sina tio senaste bortamatcher"
-    ],
-    "hemma": {
-     "form": "DLLLWW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängd",
-       "spelare": "Tom Hamer",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängd",
-       "spelare": "Deji Elerewe",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängd efter rött kort",
-       "spelare": "Deji Elewere",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängd (fem gula kort)",
-       "spelare": "Freddie Draper",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com",
-      "bettingstugan.se"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 5,
-      "gjorda": 9,
-      "inslappta": 19,
-      "oavgjorda": 3,
-      "plats": 18,
-      "poang": 12,
-      "spelade": 11,
-      "vunna": 3
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Burnley dras med en enorm skadelista där upp till 15 spelare saknas, samtidigt som Lincoln har tre viktiga avstängningar. Med båda lagen ur slag och i botten av tabellen ökar chansen för ett oavgjort resultat.",
-    "skrallrisk": "medel",
-    "tid": "2026-10-24T10:48:58Z"
-   },
+   "tips": [],
+   "kommentar": "Brentford är knappa favoriter med 48 % på oddsen och streckas ganska jämnt på 45 %. Litet värde finns på ettan.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 5,
-     "form": "LDWDLD",
-     "gjorda": 16,
-     "inslappta": 21,
-     "oavgjorda": 5,
-     "plats": 22,
-     "poang": 8,
-     "spelade": 11,
-     "vunna": 1
-    },
     "hemma": {
-     "antal_lag": 24,
-     "forlorade": 5,
-     "form": "DLLLWW",
-     "gjorda": 9,
-     "inslappta": 19,
-     "oavgjorda": 3,
+     "plats": 6,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 5,
+     "forlorade": 1,
+     "gjorda": 14,
+     "inslappta": 9,
+     "poang": 11,
+     "form": "DLDWDD"
+    },
+    "borta": {
      "plats": 18,
-     "poang": 12,
-     "spelade": 11,
-     "vunna": 3
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 1,
+     "oavgjorda": 3,
+     "forlorade": 4,
+     "gjorda": 6,
+     "inslappta": 10,
+     "poang": 6,
+     "form": "DLLLWD"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "hurbra.se",
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Jamie Vardy",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Jacob Bruun Larsen",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Bashir Humphreys",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Hannibal Mejbri",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Zeki Amdouni",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Burnley har haft stora svårigheter på bortaplan med åtta förluster på sina tio senaste bortamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har totalt nio skador i truppen.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Har en omfattande frånvarolista med 15 spelare otillgängliga och har bara vunnit en av sina tio senaste matcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Dras med en del skador men har en slagkraftig trupp med Vardy i laget.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "avstängd",
-       "spelare": "Tom Hamer",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "avstängd",
-       "spelare": "Deji Elerewe",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "avstängd efter rött kort",
-       "spelare": "Deji Elewere",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "avstängd (fem gula kort)",
-       "spelare": "Freddie Draper",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Lincoln har inte vunnit någon av sina fem senaste hemmamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har ännu inte vunnit hemma i ligan den här säsongen.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Har en fyra matcher lång svit utan seger på hemmaplan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Har bara tagit en pinne i de fyra senaste matcherna.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "1",
-   "mal": "4-1"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 7,
-   "hemmalag": "Preston",
-   "bortalag": "West Bromwich",
-   "liga": "Championship",
+   "hemmalag": "Hull",
+   "bortalag": "Ipswich",
+   "liga": "Premier League",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.2464,
-    "2": 0.4883,
-    "X": 0.2653
+    "1": 0.3657,
+    "X": 0.275,
+    "2": 0.3593
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 14.0,
-    "2": 67.0,
-    "X": 19.0
+    "1": 42.0,
+    "X": 26.0,
+    "2": 32.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": 0.1064,
-    "2": -0.1817,
-    "X": 0.0753
+    "1": -0.0543,
+    "X": 0.015,
+    "2": 0.0393
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.1933,
-    "2": 0.5993,
-    "X": 0.2073
+    "1": 0.365,
+    "X": 0.2737,
+    "2": 0.3613
    },
    "varde_tips": {
-    "1": 0.0533,
-    "2": -0.0707,
-    "X": 0.0173
+    "1": -0.055,
+    "X": 0.0137,
+    "2": 0.0413
    },
    "odds": {
-    "antal_bolag": 41,
+    "antal_bolag": 42,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 2.57,
+     "X": 3.43,
+     "2": 2.62
+    },
     "bolag": [
      {
-      "1": 4.02,
-      "2": 1.96,
-      "X": 3.62,
-      "bolag": "pinnacle"
-     },
-     {
-      "1": 3.7,
-      "2": 2.05,
-      "X": 3.65,
-      "bolag": "svenskaspel"
-     },
-     {
-      "1": 3.9,
-      "2": 1.92,
-      "X": 3.45,
-      "bolag": "betsson"
-     },
-     {
-      "1": 3.93,
-      "2": 1.94,
-      "X": 3.48,
-      "bolag": "nordicbet"
-     },
-     {
-      "1": 4.2,
-      "2": 2.0,
-      "X": 3.75,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 3.8,
-      "2": 1.91,
+      "bolag": "pinnacle",
+      "1": 2.63,
       "X": 3.4,
-      "bolag": "williamhill"
+      "2": 2.66
      },
      {
-      "1": 4.0,
-      "2": 1.93,
+      "bolag": "svenskaspel",
+      "1": 2.6,
       "X": 3.6,
-      "bolag": "coolbet"
+      "2": 2.7
      },
      {
-      "1": 3.82,
-      "2": 1.88,
-      "X": 3.56,
-      "bolag": "marathonbet"
+      "bolag": "betsson",
+      "1": 2.66,
+      "X": 3.33,
+      "2": 2.66
      },
      {
-      "1": 3.8,
-      "2": 1.91,
-      "X": 3.4,
-      "bolag": "sport888"
+      "bolag": "nordicbet",
+      "1": 2.65,
+      "X": 3.35,
+      "2": 2.65
      },
      {
-      "1": 3.8,
-      "2": 1.9,
+      "bolag": "betfair_ex_eu",
+      "1": 2.7,
       "X": 3.5,
-      "bolag": "betano_uk"
+      "2": 2.74
      },
      {
-      "1": 3.63,
-      "2": 1.82,
+      "bolag": "williamhill",
+      "1": 2.62,
+      "X": 3.3,
+      "2": 2.62
+     },
+     {
+      "bolag": "coolbet",
+      "1": 2.65,
       "X": 3.4,
-      "bolag": "betclic_fr"
+      "2": 2.65
      },
      {
-      "1": 4.2,
-      "2": 2.0,
-      "X": 3.75,
-      "bolag": "betfair_ex_uk"
+      "bolag": "marathonbet",
+      "1": 2.62,
+      "X": 3.5,
+      "2": 2.66
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.6,
+      "X": 3.25,
+      "2": 2.6
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 2.5,
+      "X": 3.5,
+      "2": 2.6
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 2.38,
+      "X": 3.28,
+      "2": 2.53
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 2.7,
+      "X": 3.5,
+      "2": 2.74
      }
-    ],
-    "snitt": {
-     "1": 3.79,
-     "2": 1.93,
-     "X": 3.53
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "2",
-     "system_rader": 1152,
-     "tecken": "2",
-     "text": "Preston har nio förluster på elva matcher och ligans sämsta försvar. West Bromwich har rykt upp sig och gästerna spikas."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Preston har tre raka förluster och svagt hemmafacit medan West Bromwich kommer med två raka segrar. West Brom har dessutom vunnit 11 av de senaste 16 mötena mellan lagen."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1X",
-     "system_rader": 384,
-     "tecken": "1X",
-     "text": "Preston har förlorat fem av sina sex senaste ligamatcher och West Bromwich har vunnit sex av de sju senaste inbördes mötena. West Bromwich är dock hårt överstreckade."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X2",
-     "text": "Preston är jumbo men har otur med den underliggande datan. West Bromwich gillas för hårt av tipparna trots negativa xG-siffror och ojämnt bortaspel."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "1X2",
-     "system_rader": 432,
-     "tecken": "1X2",
-     "text": "Preston kämpar i botten men har fin underliggande data. West Bromwich överpresterar och är ingen pålitlig favorit."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Preston ligger sist i tabellen och har förlorat sina tre senaste matcher. West Brom kommer från två raka segrar i ligan och bedöms som klara favoriter."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Preston saknar självförtroende och brottas med stora skadeproblem efter en tung inledning. West Brom kommer från två raka segrar och tippas vinna igen."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "2",
-     "system_rader": 288,
-     "tecken": "2",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "Tabelljumbon Preston har nio förluster på elva matcher och krossades senast. West Brom ser allt bättre ut och jagar tredje raka."
-    }
-   ],
-   "kommentar": "West Bromwich är tydliga favoriter med 49 % chans, men svenska folket överstreckar dem kraftigt till 67 %. Etta och kryss ger därmed fint värde. Flera tipsare gillar tvåan, men vissa varnar för gästernas höga streck.",
-   "lagkoll": {
-    "borta": {
-     "form": "WWLLDW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Toby Collyer",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "knä",
-       "spelare": "Noah Galves",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com",
-      "bettingstugan.se"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 3,
-      "gjorda": 15,
-      "inslappta": 12,
-      "oavgjorda": 2,
-      "plats": 5,
-      "poang": 20,
-      "spelade": 11,
-      "vunna": 6
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.22,
-     "2": 0.52,
-     "X": 0.26
-    },
-    "faktorer": [
-     "Preston ligger sist i ligan med nio förluster på elva matcher",
-     "West Bromwich kommer från två raka segrar och ligger på femte plats",
-     "West Bromwich har vunnit sex av de senaste sju inbördes mötena",
-     "Preston saknar bland annat McCann, Gibbs och Clarke"
-    ],
-    "hemma": {
-     "form": "LLLDLL",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "hamstring",
-       "spelare": "Harry Clarke",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "muskel",
-       "spelare": "Liam Gibbs",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "långtidsskadad",
-       "spelare": "Ali McCann",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "träning efter skada",
-       "spelare": "Caleb Wiley",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 9,
-      "gjorda": 9,
-      "inslappta": 24,
-      "oavgjorda": 1,
-      "plats": 24,
-      "poang": 4,
-      "spelade": 11,
-      "vunna": 1
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Preston är jumbo i tabellen med nio förluster på elva matcher och har stora bekymmer både offensivt och defensivt. West Bromwich har bra form med två raka segrar och har dessutom vunnit sex av de senaste sju inbördes mötena.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T10:48:58Z"
-   },
+   "tips": [],
+   "kommentar": "Ett öppet möte där Hull är knappa favoriter med 37 % mot Ipswich på 36 %. Gästerna är något understreckade till 32 %.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 3,
-     "form": "WWLLDW",
-     "gjorda": 15,
-     "inslappta": 12,
-     "oavgjorda": 2,
-     "plats": 5,
-     "poang": 20,
-     "spelade": 11,
-     "vunna": 6
-    },
     "hemma": {
-     "antal_lag": 24,
-     "forlorade": 9,
-     "form": "LLLDLL",
+     "plats": 10,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 2,
+     "oavgjorda": 4,
+     "forlorade": 2,
      "gjorda": 9,
-     "inslappta": 24,
+     "inslappta": 8,
+     "poang": 10,
+     "form": "DLDLDD"
+    },
+    "borta": {
+     "plats": 12,
+     "antal_lag": 20,
+     "spelade": 8,
+     "vunna": 3,
      "oavgjorda": 1,
-     "plats": 24,
-     "poang": 4,
-     "spelade": 11,
-     "vunna": 1
+     "forlorade": 4,
+     "gjorda": 12,
+     "inslappta": 16,
+     "poang": 10,
+     "form": "DLWLWL"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Toby Collyer",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "knä",
-       "spelare": "Noah Galves",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Har radat upp två raka segrar inför mötet.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har vunnit sex av de sju senaste inbördes mötena mot Preston.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Har två raka segrar och gott självförtroende.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Har negativa xG-siffror och har varit extremt ojämna på bortagräs.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "hamstring",
-       "spelare": "Harry Clarke",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "muskel",
-       "spelare": "Liam Gibbs",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "långtidsskadad",
-       "spelare": "Ali McCann",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "träning efter skada",
-       "spelare": "Caleb Wiley",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Ligger sist i tabellen och har förlorat åtta av sina tio senaste ligamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har förlorat fem av sina sex senaste ligamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Har förlorat fyra av sina fem första hemmamatcher i Championship denna säsong. Stanley Mills är tillbaka från avstängning.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Jumbo i tabellen och fick coach Heckingbottom sparkad i mitten av september.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "X",
-   "mal": "1-1"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 8,
-   "hemmalag": "Queens Park Rangers",
-   "bortalag": "Swansea",
-   "liga": "Championship",
-   "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
-   "chans": {
-    "1": 0.3926,
-    "2": 0.3295,
-    "X": 0.278
-   },
-   "chans_kalla": "modell",
-   "streck": {
-    "1": 41.0,
-    "2": 33.0,
-    "X": 26.0
-   },
-   "streck_tid": "2026-10-24T13:00:49Z",
-   "varde": {
-    "1": -0.0174,
-    "2": -0.0005,
-    "X": 0.018
-   },
-   "osaker": false,
-   "chans_tips": {
-    "1": 0.467,
-    "2": 0.2925,
-    "X": 0.2405
-   },
-   "varde_tips": {
-    "1": 0.057,
-    "2": -0.0375,
-    "X": -0.0195
-   },
-   "odds": {
-    "antal_bolag": 41,
-    "bara_svenskaspel": false,
-    "bolag": [
-     {
-      "1": 2.47,
-      "2": 2.96,
-      "X": 3.45,
-      "bolag": "pinnacle"
-     },
-     {
-      "1": 2.45,
-      "2": 2.95,
-      "X": 3.55,
-      "bolag": "svenskaspel"
-     },
-     {
-      "1": 2.4,
-      "2": 2.85,
-      "X": 3.35,
-      "bolag": "betsson"
-     },
-     {
-      "1": 2.42,
-      "2": 2.86,
-      "X": 3.39,
-      "bolag": "nordicbet"
-     },
-     {
-      "1": 2.48,
-      "2": 3.1,
-      "X": 3.55,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 2.4,
-      "2": 2.8,
-      "X": 3.2,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 2.4,
-      "2": 2.85,
-      "X": 3.5,
-      "bolag": "coolbet"
-     },
-     {
-      "1": 2.42,
-      "2": 2.79,
-      "X": 3.3,
-      "bolag": "marathonbet"
-     },
-     {
-      "1": 2.3,
-      "2": 2.88,
-      "X": 3.25,
-      "bolag": "sport888"
-     },
-     {
-      "1": 2.4,
-      "2": 2.8,
-      "X": 3.3,
-      "bolag": "betano_uk"
-     },
-     {
-      "1": 2.27,
-      "2": 2.7,
-      "X": 3.23,
-      "bolag": "betclic_fr"
-     },
-     {
-      "1": 2.48,
-      "2": 3.1,
-      "X": 3.55,
-      "bolag": "betfair_ex_uk"
-     }
-    ],
-    "snitt": {
-     "1": 2.39,
-     "2": 2.84,
-     "X": 3.38
-    }
-   },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1X",
-     "system_rader": 1152,
-     "tecken": "1",
-     "text": "QPR krossade Derby senast och visar fin bredd i truppen. Swansea toppar tabellen men har haft marginalerna med sig, och här tar lyckan slut."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "QPR är svårslagna hemma på Loftus Road med bara en förlust denna säsong, och man tippas spela 1-1 mot ett formstarkt Swansea. Skribenten ser därför stort spelvärde i QPR eller oavgjort (1X)."
-    },
-    {
-     "kalla": "gamblingcabin.se",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "QPR kommer från en förlust mot Birmingham men har i grunden en stabil nivå och får troligen tillbaka ovärderliga Chair. Motståndaren Swansea toppar visserligen lorden men underliggande siffror talar för att de tillhör den övre halvan snarare än toppen."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1X2",
-     "system_rader": 384,
-     "tecken": "1X2",
-     "text": "QPR har bara vunnit en av sina sju senaste ligamatcher medan Swansea har vunnit sex av sina åtta senaste bortamatcher. Streckfördelningen ligger mycket nära oddsens sannolikheter."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X2",
-     "text": "QPR har varit svårslagna men saknar skadade Chair. Serieledande Swansea har haft lite trögt sprut i offensiven och ställs mot ett solitt hemmalag."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "1",
-     "system_rader": 432,
-     "tecken": "1",
-     "text": "QPR har bara förlorat två matcher och har god segerchans. Serieledande Swansea har tagit för många poäng sett till underliggande siffror."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Swansea är i stark form med fem raka matcher som täcker handikapplinan och har goda chanser att undvika förlust mot QPR borta på Loftus Road."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "2",
-     "text": "QPR är hårt skadedrabbade och kommer från en förlust, medan serieledande Swansea förväntas studsa tillbaka efter sin senaste förlust."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X2",
-     "text": "Tabellcekan Swansea kommer från en tung förlust men toppar ligan. QPR har dock en hög nivå och slog Derby med 4-1 senast, vilket gör matchen helt öppen."
-    }
-   ],
-   "kommentar": "QPR ges 39 % chans mot Swanseas 33 % och strecken ligger mycket nära oddsen. Tipsarna är oeniga: flera litar på QPR mot ett serieledande Swansea som överpresterat, medan andra garderar brett.",
-   "lagkoll": {
-    "borta": {
-     "form": "LWWWWL",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "korsbandsskada",
-       "spelare": "Cameron Burgess",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "muskelbristning",
-       "spelare": "Josh Key",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "speltips.se",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 2,
-      "gjorda": 16,
-      "inslappta": 8,
-      "oavgjorda": 2,
-      "plats": 2,
-      "poang": 23,
-      "spelade": 11,
-      "vunna": 7
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.35,
-     "2": 0.37,
-     "X": 0.28
-    },
-    "faktorer": [
-     "QPR saknar flera nyckelspelare på grund av skador",
-     "Swansea är serietvåa och starka på bortaplan",
-     "QPR kommer från en 3-0-förlust mot Birmingham",
-     "Swansea har sex raka obesegrade matcher på Loftus Road"
-    ],
-    "hemma": {
-     "form": "LWDDDD",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "muskelskada",
-       "spelare": "Ilias Chair",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Karamoko Dembele",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Tariq Lamptey",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Nicolas Madsen",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Rumarn Burrell",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "knäproblem",
-       "spelare": "Amadou Mbengue",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängning",
-       "spelare": "Dennis Cirkin",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 2,
-      "gjorda": 15,
-      "inslappta": 12,
-      "oavgjorda": 5,
-      "plats": 9,
-      "poang": 17,
-      "spelade": 11,
-      "vunna": 4
-     },
-     "tranarbyte": null
-    },
-    "motivering": "QPR brottas med omfattande skador på nyckelspelare trots en stark tabellplacering, medan topplaget Swansea har ett mycket starkt bortafacit.",
-    "skrallrisk": "medel",
-    "tid": "2026-10-24T12:03:51Z"
-   },
-   "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 2,
-     "form": "LWWWWL",
-     "gjorda": 16,
-     "inslappta": 8,
-     "oavgjorda": 2,
-     "plats": 2,
-     "poang": 23,
-     "spelade": 11,
-     "vunna": 7
-    },
-    "hemma": {
-     "antal_lag": 24,
-     "forlorade": 2,
-     "form": "LWDDDD",
-     "gjorda": 15,
-     "inslappta": 12,
-     "oavgjorda": 5,
-     "plats": 9,
-     "poang": 17,
-     "spelade": 11,
-     "vunna": 4
-    },
-    "kalla": "BBC Sport"
-   },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "korsbandsskada",
-       "spelare": "Cameron Burgess",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "muskelbristning",
-       "spelare": "Josh Key",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "hurbra.se",
-       "text": "Har vunnit sex av sina åtta senaste bortamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Swansea leder serien och har ett starkt facit på Loftus Road med sex raka obesegrade matcher där.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Swansea toppar ligan men underliggande statistik tyder på att de snarare tillhör den övre halvan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Fick sin vinstsvit på fyra matcher bruten mot West Ham senast, men har vunnit tre av sina fyra senaste bortamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": true,
-       "orsak": "muskelskada",
-       "spelare": "Ilias Chair",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Karamoko Dembele",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Tariq Lamptey",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Nicolas Madsen",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Rumarn Burrell",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "knäproblem",
-       "spelare": "Amadou Mbengue",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "avstängning",
-       "spelare": "Dennis Cirkin",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "hurbra.se",
-       "text": "Har bara vunnit en av sina sju senaste ligamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Laget är hårt drabbat av skador på nyckelspelare.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "QPR kommer från en 3-0-förlust mot Birmingham där individuella misstag fällde avgörandet.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Söker återhämtning efter en 3-0-förlust mot Birmingham i sin strävan efter en playoff-plats.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "1",
-   "mal": "5-0"
-  },
-  {
-   "nr": 9,
-   "hemmalag": "Stoke",
+   "hemmalag": "Bolton",
    "bortalag": "Bristol City",
    "liga": "Championship",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.3979,
-    "2": 0.3137,
-    "X": 0.2884
+    "1": 0.3367,
+    "X": 0.2658,
+    "2": 0.3976
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 59.0,
-    "2": 18.0,
-    "X": 23.0
+    "1": 44.0,
+    "X": 28.0,
+    "2": 28.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": -0.1921,
-    "2": 0.1337,
-    "X": 0.0584
+    "1": -0.1033,
+    "X": -0.0142,
+    "2": 0.1176
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4191,
-    "2": 0.2956,
-    "X": 0.2854
+    "1": 0.3369,
+    "X": 0.2647,
+    "2": 0.3984
    },
    "varde_tips": {
-    "1": -0.1709,
-    "2": 0.1156,
-    "X": 0.0554
+    "1": -0.1031,
+    "X": -0.0153,
+    "2": 0.1184
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 2.75,
+     "X": 3.48,
+     "2": 2.33
+    },
     "bolag": [
      {
-      "1": 2.45,
-      "2": 3.12,
-      "X": 3.28,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 2.83,
+      "X": 3.63,
+      "2": 2.38
      },
      {
-      "1": 2.4,
-      "2": 3.05,
+      "bolag": "svenskaspel",
+      "1": 2.9,
+      "X": 3.6,
+      "2": 2.43
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.85,
       "X": 3.45,
-      "bolag": "svenskaspel"
+      "2": 2.35
      },
      {
-      "1": 2.38,
-      "2": 3.05,
-      "X": 3.2,
-      "bolag": "betsson"
+      "bolag": "nordicbet",
+      "1": 2.86,
+      "X": 3.49,
+      "2": 2.37
      },
      {
-      "1": 2.38,
-      "2": 3.07,
-      "X": 3.21,
-      "bolag": "nordicbet"
+      "bolag": "betfair_ex_eu",
+      "1": 2.78,
+      "X": 3.6,
+      "2": 2.4
      },
      {
-      "1": 2.46,
-      "2": 3.25,
+      "bolag": "williamhill",
+      "1": 2.7,
       "X": 3.4,
-      "bolag": "betfair_ex_eu"
+      "2": 2.38
      },
      {
-      "1": 2.4,
-      "2": 2.9,
-      "X": 3.0,
-      "bolag": "williamhill"
+      "bolag": "coolbet",
+      "1": 2.8,
+      "X": 3.6,
+      "2": 2.4
      },
      {
-      "1": 2.45,
-      "2": 2.9,
+      "bolag": "marathonbet",
+      "1": 2.72,
+      "X": 3.54,
+      "2": 2.35
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.7,
       "X": 3.4,
-      "bolag": "coolbet"
+      "2": 2.38
      },
      {
-      "1": 2.36,
-      "2": 2.97,
-      "X": 3.18,
-      "bolag": "marathonbet"
-     },
-     {
-      "1": 2.4,
-      "2": 2.9,
-      "X": 3.1,
-      "bolag": "sport888"
-     },
-     {
-      "1": 2.3,
-      "2": 3.0,
-      "X": 3.25,
-      "bolag": "betano_uk"
-     },
-     {
-      "1": 2.23,
-      "2": 2.82,
-      "X": 3.13,
-      "bolag": "betclic_fr"
-     },
-     {
-      "1": 2.46,
-      "2": 3.25,
+      "bolag": "betano_uk",
+      "1": 2.75,
       "X": 3.4,
-      "bolag": "betfair_ex_uk"
+      "2": 2.3
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 2.7,
+      "X": 3.3,
+      "2": 2.15
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 2.78,
+      "X": 3.6,
+      "2": 2.4
      }
-    ],
-    "snitt": {
-     "1": 2.36,
-     "2": 2.98,
-     "X": 3.26
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "X2",
-     "system_rader": 1152,
-     "tecken": "X2",
-     "text": "Stoke har gått bra på sistone men spelet har varit en blandad kompott. Bristol City kommer från två raka uddamålsförluster och kräver en reaktion."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Stoke har vunnit fyra av sina senaste fem ligamatcher och har bra form på hemmaplan. Bristol City har åkt på två raka 1-0-förluster."
-    },
-    {
-     "kalla": "gamblingcabin.se",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Stoke överpresterar enligt de underliggande siffrorna trots en fin resultatrad. Bristol City har haft det tufft men har underliggande siffror som är nära nog jämngoda med Stokes."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "X2",
-     "system_rader": 384,
-     "tecken": "X2",
-     "text": "Stoke har vunnit sex av sina åtta senaste matcher men är kraftigt överstreckade av folket. Bristol City har förlorat två raka men bortasegern bedöms som mer sannolik än strecken antyder."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Stoke presterar spelmässigt som ett bottengäng och räddas ofta av målvakten Viktor Johansson. Bristol City håller en stabil nivå och trivs bra på bortaplan."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "X2",
-     "system_rader": 432,
-     "tecken": "X2",
-     "text": "Stoke är överstreckade och ser ut som ett bottenlag sett till datan. Bristol City kan störa och högersidan spelas helt."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Skribenten tror på Stoke-seger och föreslår ett 1-0-resultat. Stoke vann sin senaste ligamatch medan Bristol City kommer från två raka förluster."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X",
-     "text": "Stoke har hittat formen och är svårslagna, men Bristol City förväntas kunna knipa en poäng. Artikeln förutspår resultatet 1-1."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Stoke studsade direkt tillbaka med seger mot Derby och har fyra vinster på de fem senaste. Hemmaplansfördelen fäller avgörandet."
-    }
-   ],
-   "kommentar": "Stoke är knappa favoriter till 40 % chans, men streckas upp till 59 %. Det gör högersidan X2 till ett starkt värdeval som flera tipsare rekommenderar på grund av Stokes svaga underliggande statistik.",
-   "lagkoll": {
-    "borta": {
-     "form": "LLDWLL",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Noah Eile",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Lorent Tolaj",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 5,
-      "gjorda": 12,
-      "inslappta": 15,
-      "oavgjorda": 2,
-      "plats": 15,
-      "poang": 14,
-      "spelade": 11,
-      "vunna": 4
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.43,
-     "2": 0.29,
-     "X": 0.28
-    },
-    "faktorer": [
-     "Stoke har vunnit sex av sina åtta senaste matcher",
-     "Viktor Johansson räddar Stoke i kritiska lägen",
-     "Bristol City kommer från två raka 0-1-förluster",
-     "Stoke har genomfört taktisk justering till 3-backslinje"
-    ],
-    "hemma": {
-     "form": "WLWWWD",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "minor injury",
-       "spelare": "Eric Bocat",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Ato Ampah",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Sam Gallagher",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "gamblingcabin.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 4,
-      "gjorda": 18,
-      "inslappta": 16,
-      "oavgjorda": 1,
-      "plats": 6,
-      "poang": 19,
-      "spelade": 11,
-      "vunna": 6
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Stoke har visat en stark vinnarmentalitet och formkurva trots underliggande siffror som antyder att de överpresterar. Bristol City är inne i en negativ spiral och har haft svårt att göra mål, vilket gör det svårt att motivera en hög skrallrisk.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T10:48:58Z"
-   },
+   "tips": [],
+   "kommentar": "Bristol City är favoriter på oddsen med 40 %, men speglar inte svenska folket som streckar Bolton högst till 44 %. Tvåan ger bra värde.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
+    "hemma": {
+     "plats": 18,
      "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 4,
+     "oavgjorda": 2,
+     "forlorade": 6,
+     "gjorda": 16,
+     "inslappta": 23,
+     "poang": 14,
+     "form": "LDWLWW"
+    },
+    "borta": {
+     "plats": 14,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 4,
+     "oavgjorda": 3,
      "forlorade": 5,
-     "form": "LLDWLL",
      "gjorda": 12,
      "inslappta": 15,
-     "oavgjorda": 2,
-     "plats": 15,
-     "poang": 14,
-     "spelade": 11,
-     "vunna": 4
-    },
-    "hemma": {
-     "antal_lag": 24,
-     "forlorade": 4,
-     "form": "WLWWWD",
-     "gjorda": 18,
-     "inslappta": 16,
-     "oavgjorda": 1,
-     "plats": 6,
-     "poang": 19,
-     "spelade": 11,
-     "vunna": 6
+     "poang": 15,
+     "form": "DLLDWL"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Noah Eile",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Lorent Tolaj",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Kommer från två raka förluster i Championship.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Kommer från två raka förluster med 0-1.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Bristol City har ett par tuffa resultat bakom sig men har underliggande statistik nära Stoke.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Bristol City har förlorat sina två senaste matcher med 1-0 och förväntas göra ändringar i startelvan.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "minor injury",
-       "spelare": "Eric Bocat",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Ato Ampah",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Sam Gallagher",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "hurbra.se",
-       "text": "Har vunnit sex av sina åtta senaste matcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "gamblingcabin.se",
-       "text": "Stoke har en imponerande resultatrad och Viktor Johansson i mål, men de underliggande siffrorna matchar inte fullt ut.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Stoke har vunnit fyra av sina senaste fem ligamatcher och har gjort 2.00 mål per hemmamatch på sista tiden.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Presterar spelmässigt som ett bottengäng men räddas av målvakten Viktor Johansson.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "X",
-   "mal": "0-0"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
-   "nr": 10,
-   "hemmalag": "West Ham",
-   "bortalag": "Southampton",
+   "nr": 9,
+   "hemmalag": "Burnley",
+   "bortalag": "Portsmouth",
    "liga": "Championship",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.5633,
-    "2": 0.2111,
-    "X": 0.2256
+    "1": 0.4633,
+    "X": 0.2735,
+    "2": 0.2633
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 68.0,
-    "2": 12.0,
-    "X": 20.0
+    "1": 45.0,
+    "X": 25.0,
+    "2": 30.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": -0.1167,
-    "2": 0.0911,
-    "X": 0.0256
+    "1": 0.0133,
+    "X": 0.0235,
+    "2": -0.0367
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6772,
-    "2": 0.1592,
-    "X": 0.1636
+    "1": 0.4597,
+    "X": 0.2726,
+    "2": 0.2677
    },
    "varde_tips": {
-    "1": -0.0028,
-    "2": 0.0392,
-    "X": -0.0364
+    "1": 0.0097,
+    "X": 0.0226,
+    "2": -0.0323
    },
    "odds": {
     "antal_bolag": 40,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.98,
+     "X": 3.42,
+     "2": 3.48
+    },
     "bolag": [
      {
-      "1": 1.7,
-      "2": 4.61,
-      "X": 4.34,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 2.05,
+      "X": 3.44,
+      "2": 3.65
      },
      {
-      "1": 1.71,
-      "2": 4.6,
-      "X": 4.3,
-      "bolag": "svenskaspel"
+      "bolag": "svenskaspel",
+      "1": 2.0,
+      "X": 3.75,
+      "2": 3.75
      },
      {
-      "1": 1.65,
-      "2": 4.6,
-      "X": 4.15,
-      "bolag": "betsson"
+      "bolag": "betsson",
+      "1": 2.02,
+      "X": 3.5,
+      "2": 3.55
      },
      {
-      "1": 1.66,
-      "2": 4.66,
-      "X": 4.16,
-      "bolag": "nordicbet"
+      "bolag": "nordicbet",
+      "1": 2.03,
+      "X": 3.5,
+      "2": 3.56
      },
      {
-      "1": 1.76,
-      "2": 4.8,
-      "X": 4.3,
-      "bolag": "betfair_ex_eu"
+      "bolag": "betfair_ex_eu",
+      "1": 2.04,
+      "X": 3.45,
+      "2": 3.65
      },
      {
-      "1": 1.67,
-      "2": 4.33,
-      "X": 4.0,
-      "bolag": "williamhill"
+      "bolag": "williamhill",
+      "1": 2.0,
+      "X": 3.3,
+      "2": 3.5
      },
      {
-      "1": 1.68,
-      "2": 4.4,
-      "X": 4.4,
-      "bolag": "coolbet"
+      "bolag": "coolbet",
+      "1": 2.05,
+      "X": 3.6,
+      "2": 3.5
      },
      {
-      "1": 1.65,
-      "2": 4.33,
-      "X": 4.2,
-      "bolag": "marathonbet"
+      "bolag": "marathonbet",
+      "1": 2.01,
+      "X": 3.48,
+      "2": 3.44
      },
      {
-      "1": 1.67,
-      "2": 4.33,
-      "X": 4.0,
-      "bolag": "sport888"
+      "bolag": "sport888",
+      "1": 2.0,
+      "X": 3.3,
+      "2": 3.5
      },
      {
-      "1": 1.65,
-      "2": 4.4,
-      "X": 4.1,
-      "bolag": "betano_uk"
+      "bolag": "betano_uk",
+      "1": 2.0,
+      "X": 3.4,
+      "2": 3.4
      },
      {
-      "1": 1.58,
-      "2": 4.25,
-      "X": 4.0,
-      "bolag": "betclic_fr"
+      "bolag": "betclic_fr",
+      "1": 1.89,
+      "X": 3.25,
+      "2": 3.32
      },
      {
-      "1": 1.76,
-      "2": 4.8,
-      "X": 4.3,
-      "bolag": "betfair_ex_uk"
+      "bolag": "betfair_ex_uk",
+      "1": 2.04,
+      "X": 3.45,
+      "2": 3.65
      }
-    ],
-    "snitt": {
-     "1": 1.66,
-     "2": 4.43,
-     "X": 4.16
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "12",
-     "system_rader": 1152,
-     "tecken": "12",
-     "text": "Southampton har minuspoäng men hög kapacitet och är farliga som underdogs. West Ham är formstarka med divisionens bästa offensiv och jagar en tredje rak seger."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "West Ham jagar tredje raka segern och har varit starka på hemmaplan, medan Southampton har svårt på bortaplan trots en offensiv som skapar chanser."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1",
-     "system_rader": 384,
-     "tecken": "1",
-     "text": "West Ham har gjort flest mål i ligan (30 stycken) och har ett bättre skadeläge än Southampton. Southampton har i sin tur släppt in tio mål."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "West Ham har seriens starkaste material och dominerar sina matcher. Southampton saknar skadade Downes och har ett svagare bortaspel."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "1X2",
-     "system_rader": 432,
-     "tecken": "1X2",
-     "text": "Toppmöte där West Ham blir för hårt streckade. Southampton har en tacksam matchbild med sitt vassa omställningsspel."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "West Ham har tagit två raka segrar i ligan och är i fin form. Southampton spelade 0-0 senast mot Bolton."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "West Ham kommer från två raka bortasegrar och är fulla av självförtroende. Southampton har förbättrat defensiven, men skribenten förväntar sig en knapp hemmaseger."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "West Ham streckas högt men Southampton är obesegrade i tre raka och har hållit nollan i dessa. Krysset kittlar när West Ham närmar sig 60%."
-    }
-   ],
-   "kommentar": "West Ham är favoriter med 56 % chans men streckas hårt till 68 %. Tvåan till 12 % ger spelvärde. Tipsarna är inne på hemmaseger men flera lyfter krysset eller tvåan som rensande tecken.",
-   "lagkoll": {
-    "borta": {
-     "form": "DWWLWW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Mads Roerslev",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "frågetecken",
-       "spelare": "Cyle Larin",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "frågetecken",
-       "spelare": "Flynn Downes",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 2,
-      "gjorda": 21,
-      "inslappta": 10,
-      "oavgjorda": 3,
-      "plats": 8,
-      "poang": 17,
-      "spelade": 11,
-      "vunna": 6
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.58,
-     "2": 0.2,
-     "X": 0.22
-    },
-    "faktorer": [
-     "West Ham har gjort flest mål i serien (30 stycken)",
-     "West Ham har nio raka matcher utan förlust",
-     "Southampton har hållit nollan i tre raka matcher",
-     "Mads Roerslev är skadad för Southampton"
-    ],
-    "hemma": {
-     "form": "WWDDWW",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "tillgänglig",
-       "spelare": "Pablo",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "tillgänglig",
-       "spelare": "Solomon",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "tillgänglig",
-       "spelare": "Bowen",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "injury",
-       "spelare": "Keiber Lamadrid",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 1,
-      "gjorda": 30,
-      "inslappta": 12,
-      "oavgjorda": 4,
-      "plats": 3,
-      "poang": 22,
-      "spelade": 11,
-      "vunna": 6
-     },
-     "tranarbyte": null
-    },
-    "motivering": "West Ham är ligans mest offensiva lag och har en mycket stark formkurva som gör dem till berättigade favoriter trots Southamptons solida defensiv.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T10:48:58Z"
-   },
+   "tips": [],
+   "kommentar": "Burnley är knappa favoriter med 46 % på oddsen och streckas likartat på 45 %. Matchen är jämnt streckad i förhållande till oddsen.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 2,
-     "form": "DWWLWW",
-     "gjorda": 21,
-     "inslappta": 10,
-     "oavgjorda": 3,
-     "plats": 8,
-     "poang": 17,
-     "spelade": 11,
-     "vunna": 6
-    },
     "hemma": {
+     "plats": 22,
      "antal_lag": 24,
-     "forlorade": 1,
-     "form": "WWDDWW",
-     "gjorda": 30,
-     "inslappta": 12,
-     "oavgjorda": 4,
-     "plats": 3,
-     "poang": 22,
-     "spelade": 11,
-     "vunna": 6
+     "spelade": 12,
+     "vunna": 1,
+     "oavgjorda": 5,
+     "forlorade": 6,
+     "gjorda": 17,
+     "inslappta": 25,
+     "poang": 8,
+     "form": "LLDWDL"
+    },
+    "borta": {
+     "plats": 11,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 5,
+     "oavgjorda": 3,
+     "forlorade": 4,
+     "gjorda": 16,
+     "inslappta": 15,
+     "poang": 18,
+     "form": "WDWWLD"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsgambler.com",
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Mads Roerslev",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "nyckelspelare": false,
-       "orsak": "frågetecken",
-       "spelare": "Cyle Larin",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "nyckelspelare": false,
-       "orsak": "frågetecken",
-       "spelare": "Flynn Downes",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Kommer från ett mållöst oavgjort resultat mot Bolton på hemmaplan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har varit defensivt stabilt och bara släppt in tio mål.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har tre raka nollor men fick sin 100-procentiga hemmaförlustfria svit förstörd senast. Ligger med i uppflyttningsstriden trots poängavdrag.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Saints är fast beslutna att behålla sin slutspelsplats efter 0-0 mot Bolton.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "tillgänglig",
-       "spelare": "Pablo",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "tillgänglig",
-       "spelare": "Solomon",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "tillgänglig",
-       "spelare": "Bowen",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "injury",
-       "spelare": "Keiber Lamadrid",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Har radat upp starka insatser och siktar på att fortsätta sin fina form på hemmaplan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har gjort 30 mål på de elva första matcherna, flest i serien.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Ligger på andra plats i ligan och har nio raka matcher utan förlust i ligan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "The Hammers är ute efter att gå förbi Swansea i toppen av tabellen.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    }
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
+  },
+  {
+   "nr": 10,
+   "hemmalag": "Millwall",
+   "bortalag": "Derby",
+   "liga": "Championship",
+   "land": "England",
+   "avspark": "2026-10-31T15:00:00Z",
+   "chans": {
+    "1": 0.5517,
+    "X": 0.2478,
+    "2": 0.2005
    },
-   "resultat": "2",
-   "mal": "2-3"
+   "chans_kalla": "modell",
+   "streck": {
+    "1": 45.0,
+    "X": 27.0,
+    "2": 28.0
+   },
+   "streck_tid": "2026-10-25T19:00:42Z",
+   "varde": {
+    "1": 0.1017,
+    "X": -0.0222,
+    "2": -0.0795
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.5456,
+    "X": 0.2484,
+    "2": 0.206
+   },
+   "varde_tips": {
+    "1": 0.0956,
+    "X": -0.0216,
+    "2": -0.074
+   },
+   "odds": {
+    "antal_bolag": 40,
+    "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.69,
+     "X": 3.73,
+     "2": 4.58
+    },
+    "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 1.67,
+      "X": 3.93,
+      "2": 4.94
+     },
+     {
+      "bolag": "svenskaspel",
+      "1": 1.78,
+      "X": 3.9,
+      "2": 4.7
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.68,
+      "X": 3.85,
+      "2": 4.85
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.68,
+      "X": 3.86,
+      "2": 4.91
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.67,
+      "X": 3.8,
+      "2": 5.2
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.7,
+      "X": 3.6,
+      "2": 4.6
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.75,
+      "X": 3.85,
+      "2": 4.5
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.71,
+      "X": 3.74,
+      "2": 4.5
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.7,
+      "X": 3.6,
+      "2": 4.6
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.67,
+      "X": 3.7,
+      "2": 4.6
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.6,
+      "X": 3.58,
+      "2": 4.3
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.67,
+      "X": 3.8,
+      "2": 5.2
+     }
+    ]
+   },
+   "tips": [],
+   "kommentar": "Millwall är tydliga favoriter med 55 % på oddsen. Eftersom de bara streckas på 45 % är ettan ett klart intressant värdetecken.",
+   "lagkoll": null,
+   "tabell": {
+    "hemma": {
+     "plats": 13,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 4,
+     "oavgjorda": 3,
+     "forlorade": 5,
+     "gjorda": 19,
+     "inslappta": 20,
+     "poang": 15,
+     "form": "LDLWDD"
+    },
+    "borta": {
+     "plats": 23,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 1,
+     "oavgjorda": 4,
+     "forlorade": 7,
+     "gjorda": 10,
+     "inslappta": 21,
+     "poang": 7,
+     "form": "DLLDDL"
+    },
+    "kalla": "BBC Sport"
+   },
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 11,
-   "hemmalag": "Wolverhampton",
-   "bortalag": "Watford",
+   "hemmalag": "Southampton",
+   "bortalag": "Queens Park Rangers",
    "liga": "Championship",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.6613,
-    "2": 0.1386,
-    "X": 0.2001
+    "1": 0.5483,
+    "X": 0.2331,
+    "2": 0.2186
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 80.0,
-    "2": 7.0,
-    "X": 13.0
+    "1": 44.0,
+    "X": 26.0,
+    "2": 30.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": -0.1387,
-    "2": 0.0686,
-    "X": 0.0701
+    "1": 0.1083,
+    "X": -0.0269,
+    "2": -0.0814
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.78,
-    "2": 0.0873,
-    "X": 0.1326
+    "1": 0.5421,
+    "X": 0.2339,
+    "2": 0.224
    },
    "varde_tips": {
-    "1": -0.02,
-    "2": 0.0173,
-    "X": 0.0026
+    "1": 0.1021,
+    "X": -0.0261,
+    "2": -0.076
    },
    "odds": {
-    "antal_bolag": 39,
+    "antal_bolag": 41,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.68,
+     "X": 3.98,
+     "2": 4.23
+    },
     "bolag": [
      {
-      "1": 1.45,
-      "2": 6.91,
-      "X": 4.85,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 1.74,
+      "X": 4.08,
+      "2": 4.28
      },
      {
-      "1": 1.42,
-      "2": 8.0,
-      "X": 5.0,
-      "bolag": "svenskaspel"
+      "bolag": "svenskaspel",
+      "1": 1.78,
+      "X": 4.2,
+      "2": 4.3
      },
      {
-      "1": 1.43,
-      "2": 6.8,
-      "X": 4.55,
-      "bolag": "betsson"
+      "bolag": "betsson",
+      "1": 1.72,
+      "X": 4.05,
+      "2": 4.25
      },
      {
-      "1": 1.44,
-      "2": 6.9,
-      "X": 4.59,
-      "bolag": "nordicbet"
+      "bolag": "nordicbet",
+      "1": 1.73,
+      "X": 4.06,
+      "2": 4.27
      },
      {
-      "1": 1.49,
-      "2": 7.4,
-      "X": 5.0,
-      "bolag": "betfair_ex_eu"
+      "bolag": "betfair_ex_eu",
+      "1": 1.73,
+      "X": 3.9,
+      "2": 4.4
      },
      {
-      "1": 1.44,
-      "2": 6.0,
-      "X": 4.4,
-      "bolag": "williamhill"
+      "bolag": "williamhill",
+      "1": 1.7,
+      "X": 3.8,
+      "2": 4.2
      },
      {
-      "1": 1.44,
-      "2": 7.0,
-      "X": 4.75,
-      "bolag": "coolbet"
+      "bolag": "coolbet",
+      "1": 1.68,
+      "X": 4.2,
+      "2": 4.5
      },
      {
-      "1": 1.4,
-      "2": 6.85,
-      "X": 4.65,
-      "bolag": "marathonbet"
+      "bolag": "marathonbet",
+      "1": 1.69,
+      "X": 4.15,
+      "2": 4.15
      },
      {
-      "1": 1.44,
-      "2": 6.0,
-      "X": 4.4,
-      "bolag": "sport888"
+      "bolag": "sport888",
+      "1": 1.7,
+      "X": 3.8,
+      "2": 4.2
      },
      {
-      "1": 1.4,
-      "2": 7.0,
-      "X": 4.6,
-      "bolag": "betano_uk"
+      "bolag": "betano_uk",
+      "1": 1.67,
+      "X": 4.0,
+      "2": 4.2
      },
      {
-      "1": 1.38,
-      "2": 5.9,
-      "X": 4.4,
-      "bolag": "betclic_fr"
+      "bolag": "betclic_fr",
+      "1": 1.57,
+      "X": 3.8,
+      "2": 4.15
      },
      {
-      "1": 1.49,
-      "2": 7.4,
-      "X": 5.0,
-      "bolag": "betfair_ex_uk"
+      "bolag": "betfair_ex_uk",
+      "1": 1.73,
+      "X": 3.9,
+      "2": 4.4
      }
-    ],
-    "snitt": {
-     "1": 1.42,
-     "2": 6.77,
-     "X": 4.68
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1",
-     "system_rader": 1152,
-     "tecken": "1",
-     "text": "Wolverhampton har oftast vunnit under sin nya tränare även om spelet har hackat. Watford tog sig nyligen upp från bottensträsket men förväntas inte hålla segerspåret."
-    },
-    {
-     "kalla": "footballpredictions.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Wolverhampton är favoriter på hemmaplan trots skadeproblem, mycket på grund av Watfords svaga bortastatistik med fyra raka förluster."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "1",
-     "system_rader": 384,
-     "tecken": "1",
-     "text": "Watford har förlorat nio av sina tio senaste bortamatcher i ligan och bara gjort fem mål. Wolverhampton ges högst segerchans enligt oddsen och spikas."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Wolverhampton har en stark trupp byggd för Premier League och tar emot ett Watford med svagt bortaspel. Hemmalaget saknar visserligen Armstrong och Jiménez på skadelistan."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "1",
-     "system_rader": 432,
-     "tecken": "1",
-     "text": "Wolverhampton är i bra slag och klart bättre än Watford. Watford är i fritt fall och saknar dessutom sin bästa spelare."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Skribenten rekommenderar Watford med +1.5 på Asian Handicap eftersom de har täckt den linjen i många matcher, medan Wolves har haft svårt att vinna med större marginaler. Watford har dock haft det svårt på bortaplan."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X",
-     "text": "Wolves har svårt att göra mål trots att de är favoriter, och Watford har precis brutit sin förlustsvit."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Wolverhampton är det klart bättre laget medan Watford har stora problem på bortaplan med endast en poäng på fem matcher."
-    }
-   ],
-   "kommentar": "Wolverhampton är stora favoriter med 66 % chans och streckas tungt på 80 %. X och 2 ger därmed visst värde, även om de flesta tipsare spikar ettan på hemmaplan.",
-   "lagkoll": {
-    "borta": {
-     "form": "WLLLLW",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Edoardo Bove",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Kwadwo Baah",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "osäker",
-       "spelare": "Iker Bravo",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Jeremy Ngakia",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "speltips.se",
-      "sportsgambler.com",
-      "hurbra.se",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 6,
-      "gjorda": 10,
-      "inslappta": 19,
-      "oavgjorda": 2,
-      "plats": 20,
-      "poang": 11,
-      "spelade": 11,
-      "vunna": 3
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.68,
-     "2": 0.12,
-     "X": 0.2
-    },
-    "faktorer": [
-     "Watford har förlorat fyra raka bortamatcher i ligan",
-     "Wolves har vunnit de senaste två inbördes mötena",
-     "Watford saknar skadade nyckelspelaren Edoardo Bove",
-     "Wolverhampton har flera tunga avbräck som Raul Jimenez och osäkerhet kring Kieran Trippier"
-    ],
-    "hemma": {
-     "form": "DWLLWW",
-     "franvaro": [
-      {
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Raul Jimenez",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "ljumskskada",
-       "spelare": "Kieran Trippier",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Armstrong",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Traore",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Gomes",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "footballpredictions.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 3,
-      "gjorda": 19,
-      "inslappta": 16,
-      "oavgjorda": 3,
-      "plats": 7,
-      "poang": 18,
-      "spelade": 11,
-      "vunna": 5
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Wolwerhampton är starka hemma och ställs mot ett formsvagt Watford som har stora problem på bortaplan.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T13:01:47Z"
-   },
+   "tips": [],
+   "kommentar": "Southampton är favoriter med 55 % på oddsen men streckas lägre på 44 %, vilket ger ett fint värde på ettan.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 6,
-     "form": "WLLLLW",
-     "gjorda": 10,
-     "inslappta": 19,
-     "oavgjorda": 2,
-     "plats": 20,
-     "poang": 11,
-     "spelade": 11,
-     "vunna": 3
-    },
     "hemma": {
+     "plats": 6,
      "antal_lag": 24,
-     "forlorade": 3,
-     "form": "DWLLWW",
-     "gjorda": 19,
-     "inslappta": 16,
+     "spelade": 12,
+     "vunna": 7,
      "oavgjorda": 3,
-     "plats": 7,
-     "poang": 18,
-     "spelade": 11,
-     "vunna": 5
+     "forlorade": 2,
+     "gjorda": 24,
+     "inslappta": 12,
+     "poang": 20,
+     "form": "WDWWLW"
+    },
+    "borta": {
+     "plats": 8,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 5,
+     "oavgjorda": 5,
+     "forlorade": 2,
+     "gjorda": 20,
+     "inslappta": 12,
+     "poang": 20,
+     "form": "WLWDDD"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "speltips.se",
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Edoardo Bove",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Kwadwo Baah",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "osäker",
-       "spelare": "Iker Bravo",
-       "status": "osaker",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Jeremy Ngakia",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "speltips.se",
-       "text": "Är i fritt fall och brottas med interna stridigheter.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Watford har förlorat sina fyra senaste bortamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har förlorat nio av sina tio senaste bortamatcher i ligan och bara gjort fem mål.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Bröt en fyramatchars förlustsvit med 2-0 mot Charlton senast, men har förlorat alla sina fyra senaste bortamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": true,
-       "orsak": "skada",
-       "spelare": "Raul Jimenez",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": true,
-       "orsak": "ljumskskada",
-       "spelare": "Kieran Trippier",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Armstrong",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Traore",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Gomes",
-       "status": "borta",
-       "tid": "2026-10-24T10:38:22Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Wolves är storfavoriter enligt odds och har vunnit de senaste två inbördes mötena.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "footballpredictions.com",
-       "text": "Kommer från oavgjort 1-1 mot Portsmouth men har gjort 1.75 mål per match hemma.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Truppen är byggd för att ta sig tillbaka till Premier League.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har nio matcher i rad i alla tävlingar utan att göra fler än två mål i en match.",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "1",
-   "mal": "1-0"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 12,
-   "hemmalag": "Cambridge",
-   "bortalag": "Plymouth",
-   "liga": "League One",
+   "hemmalag": "Swansea",
+   "bortalag": "Blackburn",
+   "liga": "Championship",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.3937,
-    "2": 0.3409,
-    "X": 0.2654
+    "1": 0.5356,
+    "X": 0.2563,
+    "2": 0.2081
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 47.0,
-    "2": 27.0,
-    "X": 26.0
+    "1": 45.0,
+    "X": 26.0,
+    "2": 29.0
    },
-   "streck_tid": "2026-10-24T12:00:17Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": -0.0763,
-    "2": 0.0709,
-    "X": 0.0054
+    "1": 0.0856,
+    "X": -0.0037,
+    "2": -0.0819
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4561,
-    "2": 0.306,
-    "X": 0.2379
+    "1": 0.53,
+    "X": 0.2565,
+    "2": 0.2135
    },
    "varde_tips": {
-    "1": -0.0139,
-    "2": 0.036,
-    "X": -0.0221
+    "1": 0.08,
+    "X": -0.0035,
+    "2": -0.0765
    },
    "odds": {
-    "antal_bolag": 35,
+    "antal_bolag": 40,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.73,
+     "X": 3.61,
+     "2": 4.44
+    },
     "bolag": [
      {
-      "1": 2.46,
-      "2": 2.79,
-      "X": 3.65,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 1.76,
+      "X": 3.72,
+      "2": 4.58
      },
      {
-      "1": 2.32,
-      "2": 2.85,
-      "X": 3.5,
-      "bolag": "svenskaspel"
+      "bolag": "svenskaspel",
+      "1": 1.85,
+      "X": 3.75,
+      "2": 4.4
      },
      {
-      "1": 2.35,
-      "2": 2.72,
-      "X": 3.45,
-      "bolag": "betsson"
-     },
-     {
-      "1": 2.35,
-      "2": 2.72,
-      "X": 3.45,
-      "bolag": "nordicbet"
-     },
-     {
-      "1": 2.5,
-      "2": 2.9,
-      "X": 3.7,
-      "bolag": "betfair_ex_eu"
-     },
-     {
-      "1": 2.4,
-      "2": 2.62,
-      "X": 3.4,
-      "bolag": "williamhill"
-     },
-     {
-      "1": 2.4,
-      "2": 2.65,
+      "bolag": "betsson",
+      "1": 1.75,
       "X": 3.6,
-      "bolag": "coolbet"
+      "2": 4.65
      },
      {
-      "1": 2.35,
-      "2": 2.71,
-      "X": 3.56,
-      "bolag": "marathonbet"
+      "bolag": "nordicbet",
+      "1": 1.76,
+      "X": 3.63,
+      "2": 4.67
      },
      {
-      "1": 2.4,
-      "2": 2.62,
-      "X": 3.4,
-      "bolag": "sport888"
+      "bolag": "betfair_ex_eu",
+      "1": 1.73,
+      "X": 3.8,
+      "2": 4.8
      },
      {
-      "1": 2.4,
-      "2": 2.75,
+      "bolag": "williamhill",
+      "1": 1.73,
       "X": 3.5,
-      "bolag": "betano_uk"
+      "2": 4.6
      },
      {
-      "1": 2.5,
-      "2": 2.9,
+      "bolag": "coolbet",
+      "1": 1.75,
+      "X": 3.75,
+      "2": 4.75
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.72,
       "X": 3.7,
-      "bolag": "betfair_ex_uk"
+      "2": 4.5
      },
      {
-      "1": 2.4,
-      "2": 2.8,
+      "bolag": "sport888",
+      "1": 1.73,
       "X": 3.5,
-      "bolag": "betfair_sb_uk"
+      "2": 4.6
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.73,
+      "X": 3.5,
+      "2": 4.4
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.65,
+      "X": 3.38,
+      "2": 4.2
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.73,
+      "X": 3.8,
+      "2": 4.8
      }
-    ],
-    "snitt": {
-     "1": 2.37,
-     "2": 2.74,
-     "X": 3.52
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1X2",
-     "system_rader": 1152,
-     "tecken": "1X2",
-     "text": "Cambridge har bara en förlust på elva försök och är knappa favoriter. Plymouth är revanschsugna och går på knock, vilket gör matchen helgarderad."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "X2",
-     "system_rader": 384,
-     "tecken": "X2",
-     "text": "Cambridge är obesegrat i åtta raka ligamatcher men är något överstreckade i förhållande till oddsen. Plymouths bortaseger spelas via X2."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Plymouth har tappat fart och släpper in en del mål trots en vass offensiv. Cambridge har bara en förlust på elva omgångar och har hållit en jämnare nivå."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "12",
-     "system_rader": 432,
-     "tecken": "12",
-     "text": "Nykomlingen Cambridge har bara torskat en match så här långt. Plymouth är samtidigt ett av seriens mest offensiva lag med stark xG."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Cambridge rekommenderas som ett spel då de har en stark chans på hemmaplan. Plymouth har förlorat sina två senaste ligamatcher."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Cambridge är i fin form med tio raka matcher utan förlust i alla tävlingar, medan Plymouth har svajat på sistone med två raka förluster i ligan."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1X",
-     "text": "Lagen ligger jämnt till i tabellen men Cambridge har bara förlorat en match hittills. Hemmaplansfördelen gör 1X till ett naturligt val."
-    }
-   ],
-   "kommentar": "Oddsen ser matchen som helt visst öppen med 39 % för Cambridge och 34 % för Plymouth. Folket streckar Cambridge till 47 %, vilket ger värde på tvåan. Tipsarna spretar mellan alla tecken och garderingar.",
-   "lagkoll": {
-    "borta": {
-     "form": "LLWWLW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "severe hamstring injury",
-       "spelare": "Michael Baidoo",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "ankle issue",
-       "spelare": "Owen Oseni",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "knee problem",
-       "spelare": "Malachi Boateng",
-       "status": "osaker"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "infected foot",
-       "spelare": "Mathias Ross",
-       "status": "osaker"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 5,
-      "gjorda": 18,
-      "inslappta": 17,
-      "oavgjorda": 1,
-      "plats": 5,
-      "poang": 19,
-      "spelade": 12,
-      "vunna": 6
-     },
-     "tranarbyte": null
-    },
-    "chans": {
-     "1": 0.43,
-     "2": 0.3,
-     "X": 0.27
-    },
-    "faktorer": [
-     "Cambridge är obesegrat i åtta raka ligamatcher",
-     "Plymouth har förlorat två raka ligamatcher",
-     "Plymouth saknar skadade nyckelspelaren Michael Baidoo",
-     "Cambridge har bara en förlust på elva matcher"
-    ],
-    "hemma": {
-     "form": "DWWDDW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "calf injury",
-       "spelare": "Shane McLoughlin",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "undisclosed problem",
-       "spelare": "Callum Perry",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "severe ankle issue",
-       "spelare": "Callum Stead",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 1,
-      "gjorda": 18,
-      "inslappta": 14,
-      "oavgjorda": 5,
-      "plats": 4,
-      "poang": 20,
-      "spelade": 11,
-      "vunna": 5
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Cambridge har stark form och är obesegrade i åtta raka ligamatcher, medan Plymouth har två raka förluster i bagaget.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T10:48:58Z"
-   },
+   "tips": [],
+   "kommentar": "Swansea är favoriter med 54 % på oddsen. Folket streckar dem lägre till 45 %, vilket gör ettan till ett intressant val.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 5,
-     "form": "LLWWLW",
-     "gjorda": 18,
-     "inslappta": 17,
-     "oavgjorda": 1,
-     "plats": 5,
-     "poang": 19,
-     "spelade": 12,
-     "vunna": 6
-    },
     "hemma": {
+     "plats": 2,
      "antal_lag": 24,
-     "forlorade": 1,
-     "form": "DWWDDW",
-     "gjorda": 18,
-     "inslappta": 14,
-     "oavgjorda": 5,
-     "plats": 4,
-     "poang": 20,
-     "spelade": 11,
-     "vunna": 5
+     "spelade": 12,
+     "vunna": 7,
+     "oavgjorda": 2,
+     "forlorade": 3,
+     "gjorda": 16,
+     "inslappta": 13,
+     "poang": 23,
+     "form": "LLWWWW"
+    },
+    "borta": {
+     "plats": 10,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 5,
+     "oavgjorda": 3,
+     "forlorade": 4,
+     "gjorda": 19,
+     "inslappta": 16,
+     "poang": 18,
+     "form": "WLWWDW"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "severe hamstring injury",
-       "spelare": "Michael Baidoo",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "ankle issue",
-       "spelare": "Owen Oseni",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "knee problem",
-       "spelare": "Malachi Boateng",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "infected foot",
-       "spelare": "Mathias Ross",
-       "status": "osaker",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Har förlorat två raka ligamatcher.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Tappat fart efter förluster mot Huddersfield och Stevenage.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har tappat formen något efter två raka förluster och fallit till femte plats.",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "tipsmedoss.com",
-       "text": "Skiljer bara en poäng upp till Cambridge i tabellen.",
-       "tid": "2026-10-22T18:35:57Z"
-      }
-     ],
-     "tranarbyte": null
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "calf injury",
-       "spelare": "Shane McLoughlin",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "undisclosed problem",
-       "spelare": "Callum Perry",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "severe ankle issue",
-       "spelare": "Callum Stead",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Har inte förlorat på fyra raka hemmamatcher och har ett övertag i inbördes möten på hemmaplan.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Är obesegrat i åtta raka ligamatcher (fyra segrar och fyra oavgjorda).",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Nykomling som bara har en förlust efter elva omgångar.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har inlett säsongen starkt och är 4:a i tabellen med 20 poäng.",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "2",
-   "mal": "2-3"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   },
   {
    "nr": 13,
-   "hemmalag": "Oxford",
-   "bortalag": "Bradford",
-   "liga": "League One",
+   "hemmalag": "West Ham",
+   "bortalag": "West Bromwich",
+   "liga": "Championship",
    "land": "England",
-   "avspark": "2026-10-24T14:00:00Z",
+   "avspark": "2026-10-31T15:00:00Z",
    "chans": {
-    "1": 0.371,
-    "2": 0.3506,
-    "X": 0.2784
+    "1": 0.608,
+    "X": 0.2179,
+    "2": 0.1741
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 29.0,
-    "2": 36.0,
-    "X": 35.0
+    "1": 44.0,
+    "X": 28.0,
+    "2": 28.0
    },
-   "streck_tid": "2026-10-24T13:29:54Z",
+   "streck_tid": "2026-10-25T19:00:42Z",
    "varde": {
-    "1": 0.081,
-    "2": -0.0094,
-    "X": -0.0716
+    "1": 0.168,
+    "X": -0.0621,
+    "2": -0.1059
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3919,
-    "2": 0.3599,
-    "X": 0.2482
+    "1": 0.6004,
+    "X": 0.2196,
+    "2": 0.18
    },
    "varde_tips": {
-    "1": 0.1019,
-    "2": -0.0001,
-    "X": -0.1018
+    "1": 0.1604,
+    "X": -0.0604,
+    "2": -0.1
    },
    "odds": {
-    "antal_bolag": 35,
+    "antal_bolag": 40,
     "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.53,
+     "X": 4.25,
+     "2": 5.31
+    },
     "bolag": [
      {
-      "1": 2.52,
-      "2": 2.79,
-      "X": 3.54,
-      "bolag": "pinnacle"
+      "bolag": "pinnacle",
+      "1": 1.54,
+      "X": 4.46,
+      "2": 5.52
      },
      {
-      "1": 2.65,
-      "2": 2.6,
-      "X": 3.3,
-      "bolag": "svenskaspel"
+      "bolag": "svenskaspel",
+      "1": 1.6,
+      "X": 4.4,
+      "2": 5.5
      },
      {
-      "1": 2.45,
-      "2": 2.72,
-      "X": 3.3,
-      "bolag": "betsson"
+      "bolag": "betsson",
+      "1": 1.52,
+      "X": 4.3,
+      "2": 5.85
      },
      {
-      "1": 2.45,
-      "2": 2.72,
-      "X": 3.3,
-      "bolag": "nordicbet"
+      "bolag": "nordicbet",
+      "1": 1.52,
+      "X": 4.35,
+      "2": 5.91
      },
      {
-      "1": 2.6,
-      "2": 2.92,
-      "X": 3.55,
-      "bolag": "betfair_ex_eu"
+      "bolag": "betfair_ex_eu",
+      "1": 1.58,
+      "X": 4.5,
+      "2": 5.8
      },
      {
-      "1": 2.5,
-      "2": 2.62,
-      "X": 3.25,
-      "bolag": "williamhill"
+      "bolag": "williamhill",
+      "1": 1.55,
+      "X": 4.0,
+      "2": 5.0
      },
      {
-      "1": 2.6,
-      "2": 2.55,
-      "X": 3.4,
-      "bolag": "coolbet"
+      "bolag": "coolbet",
+      "1": 1.55,
+      "X": 4.4,
+      "2": 5.75
      },
      {
-      "1": 2.54,
-      "2": 2.64,
-      "X": 3.3,
-      "bolag": "marathonbet"
+      "bolag": "marathonbet",
+      "1": 1.52,
+      "X": 4.33,
+      "2": 5.35
      },
      {
-      "1": 2.5,
-      "2": 2.62,
-      "X": 3.25,
-      "bolag": "sport888"
+      "bolag": "sport888",
+      "1": 1.53,
+      "X": 4.0,
+      "2": 5.0
      },
      {
-      "1": 2.5,
-      "2": 2.7,
-      "X": 3.4,
-      "bolag": "betano_uk"
+      "bolag": "betano_uk",
+      "1": 1.5,
+      "X": 4.1,
+      "2": 5.5
      },
      {
-      "1": 2.6,
-      "2": 2.92,
-      "X": 3.55,
-      "bolag": "betfair_ex_uk"
+      "bolag": "betclic_fr",
+      "1": 1.45,
+      "X": 3.98,
+      "2": 4.95
      },
      {
-      "1": 2.45,
-      "2": 2.8,
-      "X": 3.4,
-      "bolag": "betfair_sb_uk"
+      "bolag": "betfair_ex_uk",
+      "1": 1.58,
+      "X": 4.5,
+      "2": 5.8
      }
-    ],
-    "snitt": {
-     "1": 2.54,
-     "2": 2.66,
-     "X": 3.36
-    }
+    ]
    },
-   "tips": [
-    {
-     "kalla": "bettingstugan.se",
-     "system": "1X2",
-     "system_rader": 1152,
-     "tecken": "1X2",
-     "text": "Oxford har vind i seglet och ett vasst anfallsspel. Bradford är stabila som tabelltvåa och släpper knappt in några mål, vilket gör matchen helt öppen."
-    },
-    {
-     "kalla": "hurbra.se",
-     "system": "12",
-     "system_rader": 384,
-     "tecken": "12",
-     "text": "Oxford har fyra segrar på de sex senaste matcherna och Bradford är obesegrat i sju raka. Krysset är överstreckat i förhållande till sannolikheten."
-    },
-    {
-     "kalla": "rekatochklart.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X2",
-     "text": "Bradford är extremt svåra att få hål på och har tre raka hållna nollor. Oxford har överpresterat en del gällande expected points."
-    },
-    {
-     "kalla": "speltips.se",
-     "system": "2",
-     "system_rader": 432,
-     "tecken": "2",
-     "text": "Oxford visar nedslående underliggande siffror. Bradford har en fortsatt solid defensiv och ses som en fin spik."
-    },
-    {
-     "kalla": "sportsgambler.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "1",
-     "text": "Oxford har täckt handikapplinjen i många raka matcher och har fin form hemma på Kassam Stadium. Bradford har haft svårt att täcka motsvarande linje på bortaplan den senaste tiden."
-    },
-    {
-     "kalla": "sportsmole.co.uk",
-     "system": null,
-     "system_rader": null,
-     "tecken": "X",
-     "text": "Båda lagen är i stark form i toppen av tabellen, men Bradfords täta defensiv och Oxfords starka hemmaform bäddar för ett oavgjort resultat."
-    },
-    {
-     "kalla": "tippat.se",
-     "system": "1",
-     "system_rader": 288,
-     "tecken": "1",
-     "text": null
-    },
-    {
-     "kalla": "tipsmedoss.com",
-     "system": null,
-     "system_rader": null,
-     "tecken": "12",
-     "text": "Båda lagen kliver in med segervittring och har nätat frekvent i inledningen. Målen och den jämna streckfördelningen talar för en gaffel."
-    }
-   ],
-   "kommentar": "Oxford och Bradford står nära varandra i oddsen (37 mot 35 %). Krysset är överstreckat till 35 %, medan ettan ger värde. Tipsarna är oense och flera väljer gaffeln 12 eller helgardering.",
-   "lagkoll": {
-    "borta": {
-     "form": "DWDDWW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Tyreik Wright",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Josh Neufville",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 2,
-      "gjorda": 10,
-      "inslappta": 5,
-      "oavgjorda": 3,
-      "plats": 3,
-      "poang": 21,
-      "spelade": 11,
-      "vunna": 6
-     },
-     "tranarbyte": {
-      "avgaende": "Graham Alexander",
-      "lag": "Bradford City",
-      "ledigt": "28 September 2026",
-      "satt": "Signed by Preston North End",
-      "tilltradande": "Mark Trueman & Colin Doyle (interim)",
-      "tilltradde": "28 September 2026"
-     }
-    },
-    "chans": {
-     "1": 0.35,
-     "2": 0.36,
-     "X": 0.29
-    },
-    "faktorer": [
-     "Oxford obesegrade i sex raka matcher",
-     "Bradford har hållit nollan i tre raka matcher",
-     "Bradford har endast släppt in fem mål på 11 omgångar",
-     "Oxford saknar skadade McDonnell, Roosken och Jeon"
-    ],
-    "hemma": {
-     "form": "WDWDWW",
-     "franvaro": [
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Jamie McDonnell",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Ruben Roosken",
-       "status": "borta"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Jeon Jin-Woo",
-       "status": "borta"
-      }
-     ],
-     "kallor": [
-      "BBC Sport",
-      "sportsgambler.com",
-      "hurbra.se",
-      "rekatochklart.com",
-      "sportsmole.co.uk",
-      "tipsmedoss.com"
-     ],
-     "tabell": {
-      "antal_lag": 24,
-      "forlorade": 1,
-      "gjorda": 18,
-      "inslappta": 10,
-      "oavgjorda": 3,
-      "plats": 8,
-      "poang": 18,
-      "spelade": 9,
-      "vunna": 5
-     },
-     "tranarbyte": null
-    },
-    "motivering": "Matchningen är mycket jämn mellan två lag i form, men Bradfords defensiva disciplin under en längre period väger något tyngre än Oxfords överprestation i tabellen. Oddsen är väl balanserade och speglar den höga kvaliteten hos båda lagen väl.",
-    "skrallrisk": "låg",
-    "tid": "2026-10-24T13:32:38Z"
-   },
+   "tips": [],
+   "kommentar": "West Ham är omgångens största favoriter med 61 % på oddsen. De är kraftigt understreckade på 44 %, vilket ger omgångens bästa värde på ettan.",
+   "lagkoll": null,
    "tabell": {
-    "borta": {
-     "antal_lag": 24,
-     "forlorade": 2,
-     "form": "DWDDWW",
-     "gjorda": 10,
-     "inslappta": 5,
-     "oavgjorda": 3,
-     "plats": 3,
-     "poang": 21,
-     "spelade": 11,
-     "vunna": 6
-    },
     "hemma": {
+     "plats": 3,
      "antal_lag": 24,
-     "forlorade": 1,
-     "form": "WDWDWW",
-     "gjorda": 18,
-     "inslappta": 10,
+     "spelade": 12,
+     "vunna": 6,
+     "oavgjorda": 4,
+     "forlorade": 2,
+     "gjorda": 32,
+     "inslappta": 15,
+     "poang": 22,
+     "form": "LWWDDW"
+    },
+    "borta": {
+     "plats": 5,
+     "antal_lag": 24,
+     "spelade": 12,
+     "vunna": 6,
      "oavgjorda": 3,
-     "plats": 8,
-     "poang": 18,
-     "spelade": 9,
-     "vunna": 5
+     "forlorade": 3,
+     "gjorda": 16,
+     "inslappta": 13,
+     "poang": 21,
+     "form": "DWWLLD"
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": {
-    "borta": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Tyreik Wright",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Josh Neufville",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Bradford spelade 0-0 borta mot Burton i sin senaste match och tränas av Michael Duff.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Är obesegrat i sju raka och har bara släppt in ett mål under perioden.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Har hållit nollan i tre raka ligamatcher och släppt in fem mål på elva omgångar.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Har släppt in endast fem mål på 11 matcher och har Michael Duff som ny tränare.",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "tranarbyte": {
-      "avgaende": "Graham Alexander",
-      "lag": "Bradford City",
-      "ledigt": "28 September 2026",
-      "satt": "Signed by Preston North End",
-      "tilltradande": "Mark Trueman & Colin Doyle (interim)",
-      "tilltradde": "28 September 2026"
-     }
-    },
-    "hemma": {
-     "franvaro": [
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Jamie McDonnell",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Ruben Roosken",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Jeon Jin-Woo",
-       "status": "borta",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "sammanhang": [
-      {
-       "kalla": "sportsgambler.com",
-       "text": "Oxford kommer från en 2-1-seger hemma mot Wigan och är orörda på de fem senaste hemmamatcherna.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "hurbra.se",
-       "text": "Har fyra segrar och två oavgjorda på de sex senaste ligamatcherna.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "rekatochklart.com",
-       "text": "Kioso och O'Donkor är tillbaka från botbänken; har överpresterat en del i expected points.",
-       "tid": "2026-10-24T10:38:22Z"
-      },
-      {
-       "kalla": "sportsmole.co.uk",
-       "text": "Laget har sex raka matcher utan förlust och tränas nu av Aaron Ramsey.",
-       "tid": "2026-10-23T18:26:17Z"
-      }
-     ],
-     "tranarbyte": null
-    }
-   },
-   "resultat": "X",
-   "mal": "0-0"
+   "lagnytt": null,
+   "resultat": null,
+   "mal": null
   }
  ],
  "statistik": {
@@ -7185,18 +3381,17 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 6,
+   "lyckade": 1,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.5-flash-lite": 4,
-    "gemini-3.1-flash-lite": 2
+    "gemini-3.5-flash-lite": 1
    },
    "stoppad": null,
-   "tid": "2026-10-24T13:33:02Z"
+   "tid": "2026-10-25T19:02:25Z"
   },
   "odds": {
-   "kvar": 374,
-   "tid": "2026-10-24T13:30:57Z"
+   "kvar": 370,
+   "tid": "2026-10-25T19:01:11Z"
   }
  },
  "tipsare_form": [
