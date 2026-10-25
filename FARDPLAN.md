@@ -65,6 +65,8 @@ som talar för dem.
 - [ ] Steg 3: analysen. Frågorna är bestämda i förväg: förlorar favoriten oftare än oddsen säger när ett tema
   nämns, och överstreckar folket favoriten mer då? Testas före 2024 och kontrolleras 2024–2026. Bara mönster
   som håller i båda perioderna och ger bättre utdelning blir förslag till Skrällchans.
+- [ ] I samband med steg 3: jämför ordlistorna med AI-märkningen. Stämmer de bra kan ordlistorna märka nya
+  kommentarer varje vecka utan AI-anrop.
 
 ### December–januari (efter 8–12 omgångar): första avstämningen
 - [ ] Lagkoll mot Oddsen på cirka 100–150 matcher. Det ger en fingervisning, inte ett beslut.
