@@ -106,7 +106,9 @@ def test_historiken_sparar_nyheter_och_analyser_med_tidpunkt(conn, monkeypatch):
     _forbered(conn, monkeypatch)
 
     def ai(system, fraga, schema, max_tokens):
-        return {"p1": 0.40, "px": 0.30, "p2": 0.30, "skrallrisk": "låg", "motivering": "", "faktorer": []}
+        return {"p1": 0.40, "px": 0.30, "p2": 0.30, "skrallrisk": "låg", "motivering": "", "faktorer": [],
+                "delar": [{"typ": "nyckelspelare_borta", "lag": "hemma", "gynnar": "2", "procentenheter": 4},
+                          {"typ": "påhittad", "lag": "x", "gynnar": "1", "procentenheter": 99}]}
 
     kid = lagring.kalla_id(conn, "sportsmole.co.uk")
     fakta = {"franvaro": [{"spelare": "Bruno Fernandes", "orsak": "avstängd", "status": "borta",
@@ -117,6 +119,9 @@ def test_historiken_sparar_nyheter_och_analyser_med_tidpunkt(conn, monkeypatch):
     lagkoll.analysera(conn, ai, nu=INNAN)
     rad = conn.execute("SELECT odds, p1 FROM lagkoll_historik").fetchall()
     assert len(rad) == 1 and len(json.loads(rad[0][0])) == 3 and rad[0][1] > 0
+    delar = json.loads(conn.execute("SELECT delar FROM lagkoll_historik").fetchone()[0])
+    assert delar == [{"typ": "nyckelspelare_borta", "lag": "hemma", "gynnar": "2", "procentenheter": 4.0},
+                     {"typ": "ovrigt", "lag": "bada", "gynnar": "1", "procentenheter": 12.0}]   # okänt → övrigt, kapat
     # En ny nyhet: den loggas med sin tidpunkt, och den nya analysen läggs till (den gamla finns kvar)
     fakta["franvaro"].append({"spelare": "Casemiro", "orsak": "skada", "status": "osaker", "nyckelspelare": False})
     lagring.spara_lagfakta(conn, 4974, kid, "2026-10-10T11:00:00Z", [(1, "hemma", fakta)])

@@ -35,6 +35,10 @@ MIN_LIKHET = 0.75
 TRANARBYTE_DAGAR = 60       # tränarbyten äldre än så räknas som kända av marknaden
 MAX_JUSTERING = 0.12         # högsta tillåtna ändring mot oddsen per tecken
 SKRALLRISKER = ("låg", "medel", "hög")
+# Typer av faktorer i analysens uppdelning (delar), för att senare kunna mäta vilka nyheter som påverkar
+FAKTORTYPER = ("nyckelspelare_borta", "ovrig_franvaro", "tranarbyte", "form", "tabell", "tat_matchning",
+               "motivation", "ovrigt")
+MAX_DELAR = 6
 
 SYSTEM = """Du är en noggrann fotbollsanalytiker som hjälper till med Stryktipset.
 
@@ -46,7 +50,8 @@ Svara med:
 - p1, px, p2: dina sannolikheter för hemmaseger, oavgjort och bortaseger (andelar som summerar till 1).
 - skrallrisk: "låg", "medel" eller "hög" – hur mycket större risken är att favoriten inte vinner än vad oddsen anger. "låg" om du inte ser något särskilt.
 - motivering: högst två korta meningar på svenska om vad som avgjorde din bedömning.
-- faktorer: högst fyra korta punkter på svenska, t.ex. "Hemmalaget saknar skyttekungen Andersson". Bara sådant som står i underlaget."""
+- faktorer: högst fyra korta punkter på svenska, t.ex. "Hemmalaget saknar skyttekungen Andersson". Bara sådant som står i underlaget.
+- delar: samma justering uppdelad per faktor, en post per faktor som flyttade sannolikheterna: typ (nyckelspelare_borta, ovrig_franvaro, tranarbyte, form, tabell, tat_matchning, motivation eller ovrigt), lag ("hemma", "borta" eller "bada"), gynnar (det tecken faktorn gör troligare: "1", "X" eller "2") och procentenheter (ungefär hur mycket den flyttade det tecknet). Tom lista om du behöll oddsens sannolikheter."""
 
 SCHEMA = {
     "type": "object",
@@ -55,8 +60,19 @@ SCHEMA = {
         "skrallrisk": {"type": "string", "enum": list(SKRALLRISKER)},
         "motivering": {"type": "string"},
         "faktorer": {"type": "array", "items": {"type": "string"}},
+        "delar": {"type": "array", "items": {
+            "type": "object",
+            "properties": {
+                "typ": {"type": "string", "enum": list(FAKTORTYPER)},
+                "lag": {"type": "string", "enum": ["hemma", "borta", "bada"]},
+                "gynnar": {"type": "string", "enum": ["1", "X", "2"]},
+                "procentenheter": {"type": "number"},
+            },
+            "required": ["typ", "lag", "gynnar", "procentenheter"],
+            "additionalProperties": False,
+        }},
     },
-    "required": ["p1", "px", "p2", "skrallrisk", "motivering", "faktorer"],
+    "required": ["p1", "px", "p2", "skrallrisk", "motivering", "faktorer", "delar"],
     "additionalProperties": False,
 }
 
@@ -261,7 +277,23 @@ def validera(svar: dict, odds: tuple) -> dict:
     risk = svar.get("skrallrisk") if svar.get("skrallrisk") in SKRALLRISKER else "låg"
     faktorer = [str(f).strip()[:120] for f in (svar.get("faktorer") or []) if str(f).strip()][:4]
     return {"p": tuple(p), "skrallrisk": risk, "motivering": str(svar.get("motivering") or "").strip()[:400],
-            "faktorer": faktorer}
+            "faktorer": faktorer, "delar": validera_delar(svar.get("delar"))}
+
+
+def validera_delar(delar) -> list:
+    """Uppdelningen per faktor: okänd typ blir "ovrigt", procentenheterna kapas till 0–MAX_JUSTERING."""
+    ut = []
+    for d in delar if isinstance(delar, list) else []:
+        if not isinstance(d, dict) or d.get("gynnar") not in ("1", "X", "2"):
+            continue
+        try:
+            pe = float(d.get("procentenheter") or 0)
+        except (TypeError, ValueError):
+            continue
+        ut.append({"typ": d.get("typ") if d.get("typ") in FAKTORTYPER else "ovrigt",
+                   "lag": d.get("lag") if d.get("lag") in ("hemma", "borta", "bada") else "bada",
+                   "gynnar": d["gynnar"], "procentenheter": round(min(max(pe, 0.0), MAX_JUSTERING * 100), 1)})
+    return ut[:MAX_DELAR]
 
 
 def _avrunda(p: tuple) -> list:
@@ -303,15 +335,17 @@ def analysera(conn: sqlite3.Connection, anropa: Anropare, nu: Optional[str] = No
             with conn:
                 conn.execute(
                     """INSERT INTO lagkoll (match_id, tidpunkt, underlag_hash, p1, px, p2, skrallrisk, motivering,
-                           faktorer, underlag, odds) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                           faktorer, underlag, odds, delar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                        ON CONFLICT(match_id) DO UPDATE SET tidpunkt = excluded.tidpunkt,
                            underlag_hash = excluded.underlag_hash, p1 = excluded.p1, px = excluded.px,
                            p2 = excluded.p2, skrallrisk = excluded.skrallrisk, motivering = excluded.motivering,
-                           faktorer = excluded.faktorer, underlag = excluded.underlag, odds = excluded.odds""",
+                           faktorer = excluded.faktorer, underlag = excluded.underlag, odds = excluded.odds,
+                           delar = excluded.delar""",
                     (m["id"], nu, h, *svar["p"], svar["skrallrisk"], svar["motivering"],
                      json.dumps(svar["faktorer"], ensure_ascii=False),
                      json.dumps({"hemma": hemma, "borta": borta}, ensure_ascii=False),
-                     json.dumps([round(x, 4) for x in odds])))
+                     json.dumps([round(x, 4) for x in odds]),
+                     json.dumps(svar["delar"], ensure_ascii=False)))
             stat["analyserade"] += 1
             log.info("Lagkoll: %s – %s → %s (skrällrisk %s)", m["hemmalag"], m["bortalag"],
                      "/".join(_procent(x) for x in svar["p"]), svar["skrallrisk"])

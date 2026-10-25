@@ -433,6 +433,9 @@ Ett "minne" per lag och en AI-jämförelse av lagen före varje omgång (`pipeli
 loggas också i `lagfakta_historik` och `lagkoll_historik` (migrering 013, med triggers), med tidpunkten då den
 först dök upp och oddsen som analysen utgick från. Jämfört med oddsens historik går det senare att se vilka
 nyheter marknaden redan kände till och vilka typer av nyheter som påverkar resultatet.
+Analysen delar dessutom upp sin justering per faktor (`delar`, migrering 014): typ (`lagkoll.FAKTORTYPER`,
+till exempel nyckelspelare borta, tränarbyte, form eller tät matchning), vilket lag, vilket tecken den gynnar
+och ungefär hur många procentenheter. Det kostar inga extra AI-anrop.
 
 **Analys:** när spelstoppet är högst 36 timmar bort, alltså vid fredagskvällens och lördagens körningar,
 får AI-modellen oddsens sannolikheter och båda lagens profiler. Den justerar sannolikheterna, med högst

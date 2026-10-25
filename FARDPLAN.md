@@ -67,6 +67,9 @@ som talar för dem.
 ### Mars–april 2027 (ungefär en halv säsong): beslut om Lagkoll
 - [ ] Med cirka 300 jämförbara matcher: behåll Lagkoll som eget förslag, väg in den i Oddsen eller ta bort den.
 - [ ] Testa Lagkollens skrällrisk (låg/medel/hög) som filter när Skrällchans väljer skrällar.
+- [ ] Vilka nyheter är värda något? Med `lagfakta_historik`, `lagkoll_historik` (från 25 oktober 2026, med
+  uppdelning per faktor) och oddsens historik: vilka typer av faktorer går emot oddsen, om sena nyheter är
+  mer värda än tidiga, och vilka av Lagkolls justeringar som hjälper. Kan förklara om Lagkoll ligger under Oddsen.
 - [ ] Allsvenskan startar i april: kontrollera svenska tabeller, tipssajter och lagnamn (`lagnamn.py`).
 
 ### Hösten 2027 (en hel säsong): längre analyser
