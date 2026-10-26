@@ -915,3 +915,20 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .gast-form { display: flex; gap: 8px; margin-top: 8px; }
 .gast-form input { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--linje);
   background: var(--yta); color: inherit; }
+
+/* Spela varje vecka: hur många rätt och rätt och pengar per år */
+.rattruta-del { margin-top: 18px; }
+.rattruta-del > p { margin: 0 0 8px; }
+.stapelruta { margin-top: 14px; }
+.stapelruta svg { display: block; width: 100%; height: auto; }
+.stapelruta .axel { fill: var(--dampad); font-size: 10px; }
+.stapelruta .etikett { fill: var(--dampad); font-size: 9px; }
+.stapelruta .grid { stroke: var(--linje); stroke-width: 1; }
+.stapel-legend { display: flex; gap: 14px; font-size: 12px; color: var(--dampad); margin-top: 2px; }
+.stapel-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.stapel-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.arstabell tr.arsrad td { padding-top: 10px; padding-bottom: 2px; font-size: 13px; }
+.arstabell tr.serierad td { border-top: 0; padding: 3px 0; }
+.arstabell tr.total td { border-top: 2px solid var(--linje); }
+.arstabell td.tal, .arstabell th.tal { width: auto; padding-left: 8px; white-space: nowrap; }
+.arstabell .namn { display: inline-flex; align-items: center; gap: 6px; }

@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261019b";
-import * as konto from "./konto.js?v=20261019b";
+} from "./optimizer.js?v=20261026a";
+import * as konto from "./konto.js?v=20261026a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261019b";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261019b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261019b";
+} from "./spelbolag.js?v=20261026a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261026a";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261026a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -2299,6 +2299,7 @@ function renderaBacktest() {
   }
   box.append(kort);
   box.append(diagram(serier));
+  box.append(rattRuta(serier, state.btBudget));
   box.append(arstabell(serier));
   box.append(storlekstabell(urval));
 
@@ -2411,23 +2412,101 @@ function storlekstabell(urval) {
       "hellre storlekar med varandra än att läsa ut ett exakt facit." }));
 }
 
+const decimal = (x) => x.toFixed(1).replace(".", ",");
+const andel = (n, av) => `${Math.round((100 * n) / (av || 1))} %`;
+
+/** Antal rätt per vecka (systemets bästa rad): snitt, andel veckor med minst 10–12 och 13 rätt. */
+function rattStat(omgangar) {
+  const n = omgangar.length || 1;
+  const minst = (k) => omgangar.filter((o) => o.basta >= k).length;
+  return { snitt: omgangar.reduce((s, o) => s + o.basta, 0) / n, minst10: minst(10), minst11: minst(11),
+    minst12: minst(12), tretton: minst(13), n: omgangar.length };
+}
+
+/** "Hur många rätt": rutor per serie och fördelningen som grupperade staplar. */
+function rattRuta(serier, rader) {
+  const ruta = el("section", { class: "rattruta-del" }, el("h3", { text: "Hur många rätt" }),
+    el("p", { class: "dampad liten", text: `Systemets bästa rad varje vecka, ${rader} rader.` }));
+  const kort = el("div", { class: "bt-kort" });
+  for (const s of serier) {
+    const r = rattStat(s.res.omgangar);
+    kort.append(el("div", { class: "bt-ruta" },
+      el("span", { class: "namn" }, el("i", { class: `nyckel ${s.klass}`, "aria-hidden": "true" }), s.namn),
+      el("div", { class: "netto", text: `${decimal(r.snitt)} rätt` }),
+      el("p", { text: "i snitt per vecka" }),
+      el("p", { text: `Minst 10 rätt: ${andel(r.minst10, r.n)} av veckorna` }),
+      el("p", { text: `11: ${andel(r.minst11, r.n)} · 12: ${andel(r.minst12, r.n)} · 13: ` +
+        (r.tretton ? `${r.tretton} ${r.tretton === 1 ? "gång" : "gånger"}` : "aldrig") })));
+  }
+  ruta.append(kort, rattStaplar(serier));
+  return ruta;
+}
+
+function rattStaplar(serier) {
+  const grupper = ["≤8", "9", "10", "11", "12", "13"];
+  const grupp = (b) => (b <= 8 ? "≤8" : String(b));
+  const andelar = serier.map((s) => {
+    const n = s.res.omgangar.length || 1;
+    return grupper.map((g) => (100 * s.res.omgangar.filter((o) => grupp(o.basta) === g).length) / n);
+  });
+  const topp = Math.max(25, Math.ceil(Math.max(...andelar.flat()) / 25) * 25);
+  const W = 320, H = 170, V = 30, Y0 = 140, YT = 20, BRED = 18, MELLAN = 2, STEG = (W - V - 4) / grupper.length;
+  const y = (p) => Y0 - (p / topp) * (Y0 - YT);
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = (tag, attrs = {}, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; return e; };
+  const rot = svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Andel veckor per antal rätt. " +
+    serier.map((s, si) => `${s.namn}: ${grupper.map((g, gi) => `${g} rätt ${Math.round(andelar[si][gi])} %`).join(", ")}`).join(". ") });
+  for (let v = 0; v <= topp; v += 25) {
+    rot.append(svg("line", { class: "grid", x1: V, x2: W - 4, y1: y(v), y2: y(v) }));
+    rot.append(svg("text", { class: "axel", x: V - 4, y: y(v) + 3, "text-anchor": "end" }, `${v} %`));
+  }
+  grupper.forEach((g, gi) => {
+    const x0 = V + gi * STEG + (STEG - 2 * BRED - MELLAN) / 2;
+    serier.forEach((s, si) => {
+      const p = andelar[si][gi], x = x0 + si * (BRED + MELLAN);
+      const h = p > 0 ? Math.max(Y0 - y(p), 1.5) : 0, top = Y0 - h, r = Math.min(3, h);
+      if (h) {
+        rot.append(svg("path", { fill: s.farg,
+          d: `M${x},${Y0} V${top + r} Q${x},${top} ${x + r},${top} H${x + BRED - r} Q${x + BRED},${top} ${x + BRED},${top + r} V${Y0} Z` }));
+      }
+      rot.append(svg("text", { class: "etikett", x: x + BRED / 2, y: top - 3, "text-anchor": "middle" },
+        p >= 10 || p === 0 ? String(Math.round(p)) : decimal(p)));
+    });
+    rot.append(svg("text", { class: "axel", x: x0 + BRED + MELLAN / 2, y: H - 14, "text-anchor": "middle" }, g === "≤8" ? "≤8 rätt" : g));
+  });
+  return el("div", { class: "stapelruta" }, rot,
+    el("div", { class: "stapel-legend" }, ...serier.map((s) => el("span", {},
+      el("i", { style: `background:${s.farg}`, "aria-hidden": "true" }), s.namn))));
+}
+
+/** Rätt och pengar per år: en rubrikrad per år och en rad per serie, plus totalt. */
 function arstabell(serier) {
   const ar = {};
   serier.forEach((s, si) => s.res.omgangar.forEach((o) => {
-    const a = (ar[o.datum.slice(0, 4)] ||= { insats: 0, vinst: [0, 0] });
-    if (si === 0) a.insats += o.insats;
-    a.vinst[si] += o.vinst;
+    const a = (ar[o.datum.slice(0, 4)] ||= serier.map(() => []));
+    a[si].push(o);
   }));
-  const t = el("table", { class: "stat-tabell" },
-    el("thead", {}, el("tr", {}, el("th", { text: "År" }), el("th", { class: "tal", text: "Insats" }),
-      ...serier.map((s) => el("th", { class: "tal", text: s.namn })))));
   const b = el("tbody");
-  for (const [a, v] of Object.entries(ar)) {
-    b.append(el("tr", {}, el("td", { text: a }), el("td", { class: "tal", text: kr(v.insats) }),
-      ...v.vinst.map((w) => el("td", { class: "tal", text: kr(w) }))));
-  }
-  t.append(b);
-  return el("div", {}, el("h3", { text: "Tillbaka per år" }), t);
+  const block = (rubrik, perSerie) => {
+    const forsta = perSerie[0];
+    const insats = forsta.reduce((s, o) => s + o.insats, 0);
+    b.append(el("tr", { class: `arsrad${rubrik === "Totalt" ? " total" : ""}` }, el("td", { colspan: 5 }, el("b", { text: rubrik }),
+      el("span", { class: "dampad", text: ` · ${forsta.length} ${forsta.length === 1 ? "omgång" : "omgångar"} · insats ${kr(insats)}` }))));
+    perSerie.forEach((omg, si) => {
+      const r = rattStat(omg), vinst = omg.reduce((s, o) => s + o.vinst, 0);
+      b.append(el("tr", { class: "serierad" },
+        el("td", {}, el("span", { class: "namn" }, el("i", { class: `nyckel ${serier[si].klass}`, "aria-hidden": "true" }), serier[si].namn)),
+        el("td", { class: "tal", text: decimal(r.snitt) }), el("td", { class: "tal", text: andel(r.minst10, r.n) }),
+        el("td", { class: "tal", text: kr(vinst) }), el("td", { class: "tal", text: andel(vinst, insats) })));
+    });
+  };
+  for (const [a, perSerie] of Object.entries(ar)) block(a, perSerie);
+  if (Object.keys(ar).length > 1) block("Totalt", serier.map((s) => s.res.omgangar));
+  const t = el("table", { class: "stat-tabell arstabell" },
+    el("thead", {}, el("tr", {}, el("th", {}), ...["Snitt rätt", "Minst 10", "Tillbaka", "%"].map((x) => el("th", { class: "tal", text: x })))), b);
+  return el("div", {}, el("h3", { text: "Rätt och pengar per år" }), t,
+    el("p", { class: "bt-not", text: "Antal rätt och pengar är inte samma sak. Två förslag kan få lika många rätt i snitt men " +
+      "olika mycket tillbaka: det som avgör är om raderna går in när få andra har dem. 10 rätt ger ofta låg eller ingen utdelning." }));
 }
 
 function uppdatera() {
