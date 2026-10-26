@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261026a";
-import * as konto from "./konto.js?v=20261026a";
+} from "./optimizer.js?v=20261026b";
+import * as konto from "./konto.js?v=20261026b";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261026a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261026a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261026a";
+} from "./spelbolag.js?v=20261026b";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261026b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261026b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -2295,10 +2295,12 @@ function renderaBacktest() {
       el("div", { class: "netto", text: plusKr(vinst - insats) }),
       el("p", { text: `Insats ${kr(insats)}` }),
       el("p", { text: `Tillbaka ${kr(vinst)} (${Math.round((100 * vinst) / insats)} %)` }),
+      el("p", { text: `Utan största vinsten: ${andel(matt(s.res.omgangar).utan, 1)}` }),
       el("p", { text: `13 rätt: ${antal[13]} · 12: ${antal[12]} · 11: ${antal[11]} · 10: ${antal[10]}` })));
   }
   box.append(kort);
   box.append(diagram(serier));
+  box.append(jamforForslag(allaAr, harTipsHist));
   box.append(rattRuta(serier, state.btBudget));
   box.append(arstabell(serier));
   box.append(storlekstabell(urval));
@@ -2413,6 +2415,65 @@ function storlekstabell(urval) {
 }
 
 const decimal = (x) => x.toFixed(1).replace(".", ",");
+
+/** Mått som inte luras av en enda storvinst: tillbaka utan största vinsten, vinstveckor och längsta torka.
+ *  tillbaka och utan är andelar av insatsen. */
+function matt(omgangar) {
+  const insats = omgangar.reduce((s, o) => s + o.insats, 0) || 1;
+  const vinster = omgangar.map((o) => o.vinst);
+  const vinst = vinster.reduce((s, v) => s + v, 0);
+  let torka = 0, nu = 0;
+  for (const o of omgangar) { nu = o.vinst > 0 ? 0 : nu + 1; torka = Math.max(torka, nu); }
+  return { tillbaka: vinst / insats, utan: (vinst - Math.max(0, ...vinster)) / insats,
+    vinstveckor: omgangar.filter((o) => o.vinst > 0).length / (omgangar.length || 1), torka };
+}
+
+/** Alla förslag sida vid sida för valt antal rader och period, sorterade på tillbaka utan största vinsten. */
+function jamforForslag(period, harTipsHist) {
+  const MIN_LAGKOLL = 20;
+  const rader = [], saknas = [];
+  for (const [k, f] of [...Object.entries(FORSLAG), ["folket", { kort: "Folket" }]]) {
+    if (k === "tips" && !harTipsHist) continue;
+    const urval = k === "lagkoll" ? medLagkoll(period) : period;
+    if (k === "lagkoll" && urval.omgangar.length < MIN_LAGKOLL) {
+      saknas.push(`${f.kort} – ${urval.omgangar.length} ${urval.omgangar.length === 1 ? "omgång" : "omgångar"} hittills, visas från ${MIN_LAGKOLL}.`);
+      continue;
+    }
+    const omg = backtesta(urval, state.btBudget, k).omgangar;
+    if (!omg.length) continue;
+    const fore = omg.filter((o) => o.datum < "2024"), efter = omg.filter((o) => o.datum >= "2024");
+    rader.push({ k, namn: f.kort, ...matt(omg),
+      perioder: fore.length >= 10 && efter.length >= 10 ? [matt(fore).tillbaka, matt(efter).tillbaka] : null });
+  }
+  rader.sort((a, b) => b.utan - a.utan);
+  const bast = Math.max(...rader.map((r) => r.utan));
+  const b = el("tbody");
+  for (const r of rader) {
+    const tr = el("tr", { class: r.k === state.kalla ? "vald" : "" },
+      el("td", {}, el("b", { text: r.namn }),
+        r.perioder ? el("span", { class: "under", text: `före 2024: ${andel(r.perioder[0], 1)} · efter: ${andel(r.perioder[1], 1)}` }) : null),
+      el("td", { text: andel(r.tillbaka, 1) }),
+      el("td", { class: r.utan === bast ? "bast" : "", text: andel(r.utan, 1) }),
+      el("td", { text: andel(r.vinstveckor, 1) }),
+      el("td", { text: `${r.torka} v` }));
+    if (r.k !== "folket") {
+      tr.classList.add("valbar");
+      tr.tabIndex = 0;
+      tr.setAttribute("aria-label", `Visa ${r.namn} i rutorna och diagrammet`);
+      const valj = () => { state.kalla = r.k; if (state.kupong) uppdatera(); renderaBacktest(); };
+      tr.addEventListener("click", valj);
+      tr.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); valj(); } });
+    }
+    b.append(tr);
+  }
+  for (const t of saknas) b.append(el("tr", { class: "saknas" }, el("td", { colspan: 5, text: t })));
+  return el("section", { class: "jamf-del" }, el("h3", { text: `Alla förslag, ${state.btBudget} rader` }),
+    el("p", { class: "dampad liten", text: "Sorterat på tillbaka utan största vinsten – det mått som säger mest om ett förslag är bra eller bara haft tur." }),
+    el("table", { class: "jamf-tabell" },
+      el("thead", {}, el("tr", {}, ...["Förslag", "Tillbaka", "Utan största vinsten", "Vinst­veckor", "Längsta torka"].map((t) => el("th", { text: t })))), b),
+    el("p", { class: "bt-not", text: "Tryck på ett förslag för att visa det i rutorna och diagrammet ovanför. Vinstveckor = andel veckor med " +
+      "någon utdelning. Längsta torka = flest veckor i rad utan vinst." }));
+}
 const andel = (n, av) => `${Math.round((100 * n) / (av || 1))} %`;
 
 /** Antal rätt per vecka (systemets bästa rad): snitt, andel veckor med minst 10–12 och 13 rätt. */

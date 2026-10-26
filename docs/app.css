@@ -932,3 +932,20 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .arstabell tr.total td { border-top: 2px solid var(--linje); }
 .arstabell td.tal, .arstabell th.tal { width: auto; padding-left: 8px; white-space: nowrap; }
 .arstabell .namn { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Spela varje vecka: alla förslag sida vid sida */
+.jamf-del { margin-top: 18px; }
+.jamf-del > p.dampad { margin: 0 0 6px; }
+.jamf-tabell { width: 100%; border-collapse: collapse; font-size: 14px; }
+.jamf-tabell th { font-size: 11px; font-weight: 600; color: var(--dampad); text-align: right; padding: 4px 0 6px 6px; line-height: 1.2; vertical-align: bottom; }
+.jamf-tabell th:first-child { text-align: left; padding-left: 0; }
+.jamf-tabell td { border-top: 1px solid var(--linje); padding: 8px 0 8px 6px; text-align: right; vertical-align: top; white-space: nowrap; }
+.jamf-tabell td:first-child { text-align: left; padding-left: 0; white-space: normal; }
+.jamf-tabell .under { display: block; font-size: 11px; color: var(--dampad); font-weight: 400; margin-top: 2px; }
+.jamf-tabell tr.valbar { cursor: pointer; }
+.jamf-tabell tr.valbar:hover td, .jamf-tabell tr.valbar:focus-visible td { background: var(--yta-2); }
+.jamf-tabell tr.valbar:focus-visible { outline: 2px solid var(--primar); outline-offset: -2px; }
+.jamf-tabell tr.vald td { background: var(--yta-2); }
+.jamf-tabell tr.vald td:first-child { box-shadow: inset 3px 0 0 var(--primar); padding-left: 8px; }
+.jamf-tabell .bast { font-weight: 800; color: var(--ratt); }
+.jamf-tabell tr.saknas td { color: var(--dampad); font-size: 13px; text-align: left; white-space: normal; }
