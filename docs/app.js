@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261026b";
-import * as konto from "./konto.js?v=20261026b";
+} from "./optimizer.js?v=20261030b";
+import * as konto from "./konto.js?v=20261030b";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261026b";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261026b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261026b";
+} from "./spelbolag.js?v=20261030b";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261030b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261030b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -33,6 +33,7 @@ const state = {
   formRang: [],        // tipsarnas form (kupong.json → tipsare_form), bäst först
   statAr: "alla",      // valt startår i "Så har modellen träffat"
   btAr: "alla",        // valt startår i backtestet
+  btVisaAlla: false,   // omgång för omgång: alla omgångar i stället för de 20 senaste
 };
 
 /** Rullgardin för startår: "Alla" först, sedan "Sedan premiären" (om med) och senaste året överst. */
@@ -2300,7 +2301,9 @@ function renderaBacktest() {
   }
   box.append(kort);
   box.append(diagram(serier));
-  box.append(jamforForslag(allaAr, harTipsHist));
+  const alla = allaForslag(allaAr, harTipsHist);
+  box.append(jamforForslag(alla));
+  box.append(omgangstabell(alla));
   box.append(rattRuta(serier, state.btBudget));
   box.append(arstabell(serier));
   box.append(storlekstabell(urval));
@@ -2428,21 +2431,30 @@ function matt(omgangar) {
     vinstveckor: omgangar.filter((o) => o.vinst > 0).length / (omgangar.length || 1), torka };
 }
 
-/** Alla förslag sida vid sida för valt antal rader och period, sorterade på tillbaka utan största vinsten. */
-function jamforForslag(period, harTipsHist) {
-  const MIN_LAGKOLL = 20;
-  const rader = [], saknas = [];
+/** Backtest av alla förslag och folket för valt antal rader och period: [{k, namn, omg}] och vilka som saknas.
+ *  Lagkoll tas med i omgång för omgång så fort den finns, men i jämförelsen först från MIN_LAGKOLL omgångar. */
+const MIN_LAGKOLL = 20;
+function allaForslag(period, harTipsHist) {
+  const serier = [];
   for (const [k, f] of [...Object.entries(FORSLAG), ["folket", { kort: "Folket" }]]) {
     if (k === "tips" && !harTipsHist) continue;
-    const urval = k === "lagkoll" ? medLagkoll(period) : period;
-    if (k === "lagkoll" && urval.omgangar.length < MIN_LAGKOLL) {
-      saknas.push(`${f.kort} – ${urval.omgangar.length} ${urval.omgangar.length === 1 ? "omgång" : "omgångar"} hittills, visas från ${MIN_LAGKOLL}.`);
+    const omg = backtesta(k === "lagkoll" ? medLagkoll(period) : period, state.btBudget, k).omgangar;
+    serier.push({ k, namn: f.kort, omg });
+  }
+  return serier;
+}
+
+/** Alla förslag sida vid sida för valt antal rader och period, sorterade på tillbaka utan största vinsten. */
+function jamforForslag(serier) {
+  const rader = [], saknas = [];
+  for (const { k, namn, omg } of serier) {
+    if (k === "lagkoll" && omg.length < MIN_LAGKOLL) {
+      saknas.push(`${namn} – ${omg.length} ${omg.length === 1 ? "omgång" : "omgångar"} hittills, visas från ${MIN_LAGKOLL}.`);
       continue;
     }
-    const omg = backtesta(urval, state.btBudget, k).omgangar;
     if (!omg.length) continue;
     const fore = omg.filter((o) => o.datum < "2024"), efter = omg.filter((o) => o.datum >= "2024");
-    rader.push({ k, namn: f.kort, ...matt(omg),
+    rader.push({ k, namn, ...matt(omg),
       perioder: fore.length >= 10 && efter.length >= 10 ? [matt(fore).tillbaka, matt(efter).tillbaka] : null });
   }
   rader.sort((a, b) => b.utan - a.utan);
@@ -2477,6 +2489,32 @@ function jamforForslag(period, harTipsHist) {
 const andel = (n, av) => `${Math.round((100 * n) / (av || 1))} %`;
 
 /** Antal rätt per vecka (systemets bästa rad): snitt, andel veckor med minst 10–12 och 13 rätt. */
+/** Omgång för omgång: antal rätt och tillbaka för varje förslag vid valt antal rader, senaste först. */
+function omgangstabell(serier) {
+  const visa = serier.filter((s) => s.omg.length);
+  const per = visa.map((s) => new Map(s.omg.map((o) => [o.id, o])));
+  const bas = visa.find((s) => s.k === "modell") || visa[0];
+  if (!bas) return el("div");
+  const omg = [...bas.omg].reverse();
+  const visas = state.btVisaAlla ? omg : omg.slice(0, 20);
+  // Antal rätt och, vid vinst, utdelningen på en egen rad – så får fem förslag plats i mobilbredd
+  const cell = (o) => (o ? el("td", { class: `tal${o.vinst > 0 ? " plus" : ""}` },
+    el("b", { text: String(o.basta) }), o.vinst > 0 ? el("span", { class: "utd", text: kr(o.vinst) }) : null)
+    : el("td", { class: "tal dampad", text: "–" }));
+  const datum = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString("sv-SE", { day: "numeric", month: "short", year: "2-digit" }).replace(".", "");
+  const knapp = omg.length > 20 ? el("button", { type: "button", class: "knapp",
+    text: state.btVisaAlla ? "Visa bara de 20 senaste" : `Visa alla ${omg.length} omgångar` }) : null;
+  knapp?.addEventListener("click", () => { state.btVisaAlla = !state.btVisaAlla; renderaBacktest(); });
+  return el("section", { class: "omgangar-del" },
+    el("h3", { text: `Omgång för omgång, ${state.btBudget} rader` }),
+    el("p", { class: "dampad liten", text: "Antal rätt och vad systemet gav tillbaka, senaste omgången först." }),
+    el("div", { class: "tabell-rull" }, el("table", { class: "stat-tabell omgangstabell" },
+      el("thead", {}, el("tr", {}, el("th", { text: "Datum" }), ...visa.map((s) => el("th", { class: "tal", text: s.namn })))),
+      el("tbody", {}, ...visas.map((o) => el("tr", {}, el("td", { text: datum(o.datum) }),
+        ...per.map((m) => cell(m.get(o.id)))))))),
+    knapp);
+}
+
 function rattStat(omgangar) {
   const n = omgangar.length || 1;
   const minst = (k) => omgangar.filter((o) => o.basta >= k).length;

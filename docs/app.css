@@ -949,3 +949,13 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .jamf-tabell tr.vald td:first-child { box-shadow: inset 3px 0 0 var(--primar); padding-left: 8px; }
 .jamf-tabell .bast { font-weight: 800; color: var(--ratt); }
 .jamf-tabell tr.saknas td { color: var(--dampad); font-size: 13px; text-align: left; white-space: normal; }
+
+/* Spela varje vecka: omgång för omgång */
+.omgangar-del { margin-top: 18px; }
+.omgangar-del > p.dampad { margin: 0 0 6px; }
+.omgangstabell td, .omgangstabell th { white-space: nowrap; vertical-align: top; }
+.omgangstabell td.tal, .omgangstabell th.tal { width: auto; padding-left: 8px; vertical-align: top; }
+.omgangstabell th { font-size: 11px; }
+.omgangstabell .utd { display: block; font-size: 11px; font-weight: 600; }
+.omgangstabell td.plus { color: var(--ratt); }
+.omgangar-del .knapp { margin-top: 8px; }
