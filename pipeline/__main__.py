@@ -417,7 +417,7 @@ def main(argv=None) -> int:
         tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp, sista)
         if tid is None:
             log.info("Planerad: inget att göra – den senaste planerade uppdateringen är redan körd")
-            # Nattetid sön–tor: märk experternas kommentarer med det som är kvar av Geminis dagskvot
+            # Nattetid lör–tor: märk experternas kommentarer med det som är kvar av Geminis dagskvot
             if expertteman.nattfonster(nu):
                 steg_expertteman(conn, min(expertteman.MAX_PER_KORNING, expertteman.kvar_i_natt(conn, nu)))
         else:
