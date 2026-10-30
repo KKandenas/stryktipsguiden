@@ -4,7 +4,7 @@ Ett anrop per omgång: omgångens kommentarer från en sajt skickas tillsammans,
 match vilka teman som nämns och vilket lag de gäller. Temalistan är bestämd i förväg och ändras inte medan
 märkningen pågår, så att analysen av vad som skrivs om matcher som skräller inte anpassas efter utfallet.
 
-Märkningen körs bara nattetid söndag–torsdag (NATTFONSTER), när veckans tips inte behöver Geminis gratiskvot.
+Märkningen körs bara nattetid lördag–torsdag (nattfonster), när veckans tips inte behöver Geminis gratiskvot.
 Kvoten nollställs klockan 09 svensk tid, så märkningen använder det som annars hade gått förlorat.
 """
 from __future__ import annotations
@@ -39,7 +39,7 @@ TEMAN = {
     "streckning": "experten kommenterar streckningen eller värdet (över- eller understreckat)",
 }
 LAG = ("hemma", "borta", "bada")
-MAX_PER_NATT = 40         # anrop per natt
+MAX_PER_NATT = 120        # anrop per natt (kvoten nollställs kl 09, efter att märkningen slutat)
 MAX_PER_KORNING = 8       # anrop per start (pipelinen startas var 15:e minut)
 
 SYSTEM = """Du märker experternas kommentarer om fotbollsmatcher inför Stryktipset med teman ur en fast lista.
@@ -69,12 +69,13 @@ SCHEMA = {
 
 
 def nattfonster(nu: datetime) -> bool:
-    """Söndag–torsdag från 21:00 till 07:30 nästa morgon, svensk tid."""
+    """Lördag–torsdag från 21:00 till 07:30 nästa morgon, svensk tid. Fredag kväll och lördag morgon behövs
+    kvoten till helgens tips och Lagkoll."""
     lokal = nu.astimezone(SVENSK_TID)
     if lokal.time() >= time(21, 0):
-        return lokal.weekday() in (6, 0, 1, 2, 3)         # sön–tor kväll
+        return lokal.weekday() in (5, 6, 0, 1, 2, 3)      # lör–tor kväll
     if lokal.time() < time(7, 30):
-        return lokal.weekday() in (0, 1, 2, 3, 4)         # mån–fre morgon (natten efter sön–tor)
+        return lokal.weekday() in (6, 0, 1, 2, 3, 4)      # sön–fre morgon (natten efter lör–tor)
     return False
 
 

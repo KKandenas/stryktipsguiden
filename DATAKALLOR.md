@@ -97,8 +97,8 @@ per match utan AI ("1. Lag – Lag, 1X" följt av kommentaren) och sparar kommen
 första sidan. Underlaget för analysen av vad experterna skriver om matcher som skräller.
 
 Kommentarerna märks av AI med en fast temalista (`pipeline/expertteman.py`, till exempel svag form, frånvaro,
-motivation, tät matchning, derby) och vilket lag temat gäller. Ett anrop per omgång, bara nattetid söndag–torsdag
-21:00–07:30 och högst 40 anrop per natt, så att märkningen bara använder det som är kvar av Geminis dagskvot
+motivation, tät matchning, derby) och vilket lag temat gäller. Ett anrop per omgång, bara nattetid lördag–torsdag
+21:00–07:30 och högst 120 anrop per natt, så att märkningen bara använder det som är kvar av Geminis dagskvot
 innan den nollställs klockan 09. Temalistan ändras inte medan märkningen pågår.
 
 Övriga sajter saknar arkiv. Deras kommentarer är AI:ns sammanfattning per match från tipsinsamlingen

@@ -11,7 +11,7 @@ def utc(s):
     return datetime.fromisoformat(s).replace(tzinfo=timezone.utc)
 
 
-def test_nattfonster_son_till_tor():
+def test_nattfonster_lor_till_tor():
     # Oktober 2026 = sommartid (UTC+2) till 25 okt
     assert expertteman.nattfonster(utc("2026-10-18T19:30:00"))       # söndag 21:30
     assert expertteman.nattfonster(utc("2026-10-20T04:00:00"))       # tisdag 06:00
@@ -19,6 +19,8 @@ def test_nattfonster_son_till_tor():
     assert not expertteman.nattfonster(utc("2026-10-20T15:00:00"))   # tisdag 17:00
     assert not expertteman.nattfonster(utc("2026-10-23T19:30:00"))   # fredag 21:30
     assert not expertteman.nattfonster(utc("2026-10-24T04:00:00"))   # lördag 06:00
+    assert expertteman.nattfonster(utc("2026-10-24T19:30:00"))       # lördag 21:30
+    assert expertteman.nattfonster(utc("2026-10-25T05:00:00"))       # söndag 06:00 (vintertid)
     assert expertteman.nattfonster(utc("2026-10-23T04:00:00"))       # fredag 06:00 (natten efter torsdag)
 
 
