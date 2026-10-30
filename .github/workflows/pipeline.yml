@@ -49,8 +49,9 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      # Cachade sidor från tipssajter (data/cache committas inte).
-      - uses: actions/cache@v5
+      # Cachade sidor från tipssajter (data/cache committas inte). Den senaste cachen läses alltid, men en ny
+      # sparas bara när körningen gav ny data – annars skulle varje start var 15:e minut spara ~10 MB.
+      - uses: actions/cache/restore@v5
         with:
           path: data/cache
           key: sidcache-${{ github.run_id }}
@@ -78,6 +79,7 @@ jobs:
 
       # Committa även om ett steg misslyckades: det som sparats är validerat.
       - name: Committa ny data
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -88,7 +90,14 @@ jobs:
             git commit -m "Data: $(date -u +'%Y-%m-%d %H:%M') UTC (${{ inputs.kommando || 'schema' }})"
             git pull --rebase
             git push
+            echo "ny_data=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - uses: actions/cache/save@v5
+        if: steps.commit.outputs.ny_data == 'true'
+        with:
+          path: data/cache
+          key: sidcache-${{ github.run_id }}
 
       - name: Markera körningen som misslyckad
         if: steps.pipeline.outcome == 'failure'
