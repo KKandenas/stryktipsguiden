@@ -41,8 +41,10 @@ som talar för dem.
 - [ ] Onsdag kväll: kontrollera i driftstatusen att AI-raden visar lyckade anrop med reservkedjan.
 - [x] Fredag 19 och lördag förmiddag: Lagkoll gör sina första analyser, och skrällchanserna dyker upp när
   strecken skiljer sig från oddsen. Det sker automatiskt.
-- [ ] Söndag eller måndag: gå igenom Lagkollens första analyser. Tolkades lagnyheterna rätt, och är
-  justeringarna rimliga mot hur matcherna slutade?
+- [x] Lagkollens första analyser genomgångna 1 november 2026 (39 matcher, tre omgångar). Påståendena finns i
+  underlaget (till exempel tränarbyten), faktorerna pekar åt rätt håll och justeringarna är små (oftast 1–5
+  procentenheter). Lagkoll mot slutoddsen: logloss 1,015 mot 0,995, lika många rätt (18). Mot oddsen vid
+  analysen (bara 31 oktober, 13 matcher): 1,000 mot 1,002. För tidigt att säga något; inga ändringar.
 
 ### Vecka 43–48 (oktober–november): inkörning
 - [ ] Titta på driftstatusen efter varje helg. Upprepade AI-avbrott eller låga oddskrediter är signalen att
