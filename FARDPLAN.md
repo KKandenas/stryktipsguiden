@@ -55,8 +55,14 @@ som talar för dem.
 ### Matcher utanför kupongen (från 19 oktober 2026)
 - Sports Moles och FootballPredictions tips på alla matcher i ligorna samlas in, med odds och resultat från
   football-data.co.uk. De används bara när tipsarnas vikter lärs, inte i prognoserna.
-- [ ] Efter 4–6 veckor: jämför träffsäkerheten på och utanför kupongen (Statistik → Visa detaljer → tipsarnas
-  vikt). Skiljer de sig mycket bör matcherna utanför kupongen vägas ner eller tas bort.
+- [x] Avstämning 1 november 2026 (204 matcher utanför kupongen med tips och resultat). Matcherna utanför är
+  lättare (oddsfavoriten vann 59–60 % mot 47–50 % på kupongen), men tipsarna står sig likadant mot oddsen:
+  när Sports Mole avviker från favoriten har favoriten rätt ungefär dubbelt så ofta, både på kupongen (7 mot 4)
+  och utanför (33 mot 16). FootballPredictions är ungefär jämn med favoriten när de avviker (2 mot 1 och 8 mot 7).
+  Behålls. FootballPredictions vikt (0,20, mot 0,04 utan matcherna utanför) bygger nästan helt på 50 matcher
+  utanför kupongen.
+- [ ] December, med den första avstämningen: kontrollera FootballPredictions vikt igen med fler matcher. Är den
+  fortfarande runt 0,2 och tipsen står sig på kupongen är allt i ordning; sjunker den kraftigt var det slump.
 
 ### Vad experterna skriver om skrällar (från 25 oktober 2026)
 - [x] Steg 1: Tipsmedoss arkiv hämtat, 3 912 matcher från 303 omgångar (december 2020–oktober 2026).
