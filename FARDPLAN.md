@@ -68,10 +68,10 @@ som talar för dem.
   (inte säkert) och 4,7 mindre 2024–2026. Folket överstreckar inte favoriten mer då, utan mindre (+5 mot
   +6,5 procentenheter): folket har redan läst samma sak. Ordlistorna hittar bara 4–57 % av det AI:n märker
   och kan inte ersätta AI-märkningen.
-- [ ] Steg 4: bland Skrällchans kandidater (kvot 1,25–1,5) gick de med varningstecken in 29,0 % före 2024 och
-  28,7 % 2024–2026, mot 23–24 % enligt oddsen. Kandidater utan varningstecken gick in som oddsen. Backtesta
-  med riktig utdelning om Skrällchans ska föredra kandidater med varningstecken. Obs: experternas tvivel
-  (tecknet) gav också högre träff men inte bättre utdelning.
+- [x] Steg 4 (1 november 2026): backtest med riktig utdelning. Bland de skrällar Skrällchans faktiskt väljer
+  gick de med varningstecken in oftare (33 % mot 29 %), men utdelningen blev sämre: folket har redan
+  streckat ner favoriten, så skrällen betalar mindre. Att föredra varningstecken gav 128 rader 40 % mot 51 %
+  utan största vinsten, och att bara ta skrällar med varningstecken låg nära Oddsen. Inte infört.
 
 ### December–januari (efter 8–12 omgångar): första avstämningen
 - [ ] Lagkoll mot Oddsen på cirka 100–150 matcher. Det ger en fingervisning, inte ett beslut.
@@ -109,6 +109,7 @@ Detaljerna finns i README.
 | Optimera mot förväntad utdelning | Modellen lovade för mycket, och det verkliga utfallet blev sämre. |
 | Skrällchans med kvot över 1,5 | Gick in 20 % mot 26 % enligt oddsen. Folket visste ofta något, därav taket 1,5. |
 | Experternas tvivel vid val av skrällar | Något högre träff, men samma eller något sämre utdelning (576 rader: 116 % mot 120 %). |
+| Experternas varningstecken vid val av skrällar | Högre träff (33 % mot 29 %) men sämre utdelning i båda perioderna. Folket har redan läst samma sak. |
 | Egen risknivå för 64–128 rader | Resultaten vände mellan perioderna, alltså brus. λ 0,45 och högre var klart sämre. |
 | Favoritfällan och jämna matcher | Oddsen var rätt kalibrerade i alla grupper. |
 
