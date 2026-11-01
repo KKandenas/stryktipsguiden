@@ -61,12 +61,17 @@ som talar för dem.
 
 ### Vad experterna skriver om skrällar (från 25 oktober 2026)
 - [x] Steg 1: Tipsmedoss arkiv hämtat, 3 912 matcher från 303 omgångar (december 2020–oktober 2026).
-- [ ] Steg 2: AI-märkning med fast temalista, nattetid inom gratiskvoten (cirka två veckor).
-- [ ] Steg 3: analysen. Frågorna är bestämda i förväg: förlorar favoriten oftare än oddsen säger när ett tema
-  nämns, och överstreckar folket favoriten mer då? Testas före 2024 och kontrolleras 2024–2026. Bara mönster
-  som håller i båda perioderna och ger bättre utdelning blir förslag till Skrällchans.
-- [ ] I samband med steg 3: jämför ordlistorna med AI-märkningen. Stämmer de bra kan ordlistorna märka nya
-  kommentarer varje vecka utan AI-anrop.
+- [x] Steg 2: AI-märkning med fast temalista, klar 1 november 2026 (4 201 kommentarer).
+- [x] Steg 3: analysen (1 november 2026, 3 233 matcher med odds, streck och resultat). Inget enskilt tema håller
+  i båda perioderna. Sammanslaget (varningstecken för favoriten, till exempel svag form, övertygar inte,
+  frånvaro eller underdogen i form) vinner favoriten 1,5 procentenheter mindre än oddsen säger före 2024
+  (inte säkert) och 4,7 mindre 2024–2026. Folket överstreckar inte favoriten mer då, utan mindre (+5 mot
+  +6,5 procentenheter): folket har redan läst samma sak. Ordlistorna hittar bara 4–57 % av det AI:n märker
+  och kan inte ersätta AI-märkningen.
+- [ ] Steg 4: bland Skrällchans kandidater (kvot 1,25–1,5) gick de med varningstecken in 29,0 % före 2024 och
+  28,7 % 2024–2026, mot 23–24 % enligt oddsen. Kandidater utan varningstecken gick in som oddsen. Backtesta
+  med riktig utdelning om Skrällchans ska föredra kandidater med varningstecken. Obs: experternas tvivel
+  (tecknet) gav också högre träff men inte bättre utdelning.
 
 ### December–januari (efter 8–12 omgångar): första avstämningen
 - [ ] Lagkoll mot Oddsen på cirka 100–150 matcher. Det ger en fingervisning, inte ett beslut.
