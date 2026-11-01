@@ -39,7 +39,7 @@ som talar för dem.
 
 ### Vecka 42 (12–18 oktober): första riktiga helgen
 - [ ] Onsdag kväll: kontrollera i driftstatusen att AI-raden visar lyckade anrop med reservkedjan.
-- [ ] Fredag 19 och lördag förmiddag: Lagkoll gör sina första analyser, och skrällchanserna dyker upp när
+- [x] Fredag 19 och lördag förmiddag: Lagkoll gör sina första analyser, och skrällchanserna dyker upp när
   strecken skiljer sig från oddsen. Det sker automatiskt.
 - [ ] Söndag eller måndag: gå igenom Lagkollens första analyser. Tolkades lagnyheterna rätt, och är
   justeringarna rimliga mot hur matcherna slutade?
@@ -48,8 +48,7 @@ som talar för dem.
 - [ ] Titta på driftstatusen efter varje helg. Upprepade AI-avbrott eller låga oddskrediter är signalen att
   agera.
 - [ ] Rätta Lagkollens instruktioner (`pipeline/lagkoll.py`, `ai/extraktion.py`) om den misstolkar artiklar.
-- [ ] Vintertid från 25 oktober: kontrollera lördag 31 oktober att sista körningen före spelstopp hamnar nära
-  15:59. Cron i `.github/workflows/pipeline.yml` går i UTC.
+- [x] Vintertid från 25 oktober: lördag 31 oktober hämtades sista oddsen 15:31, 28 minuter före spelstopp 15:59.
 - [ ] Håll nere antalet manuella körningar, så att Geminis gratiskvot räcker till de schemalagda. Kommandot
   `tabeller` uppdaterar appen utan AI och utan oddskrediter.
 
