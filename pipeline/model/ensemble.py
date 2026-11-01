@@ -97,15 +97,32 @@ def _los(A: List[List[float]], b: List[float]) -> List[float]:
 
 
 def anpassa(data: List[Observation], iterationer: int = 25, kallor_att_prova: Optional[List[str]] = None,
-            min_obs: int = MIN_OBS, l2: float = L2, startvikter: Optional[Dict[str, float]] = None) -> Vikter:
+            min_obs: int = MIN_OBS, l2: float = L2, startvikter: Optional[Dict[str, float]] = None,
+            ej_negativ: bool = False) -> Vikter:
     """Skatta vikter. Källor med färre än min_obs träningsmatcher utesluts (vikt 0).
 
-    startvikter: vikten varje källa dras mot (L2-straff) – standard är oddsvikt 1 och övriga 0."""
+    startvikter: vikten varje källa dras mot (L2-straff) – standard är oddsvikt 1 och övriga 0.
+    ej_negativ: källor (utom odds) som skattas negativt låses på 0 och resten skattas om. En negativ vikt
+    betyder "tro på motsatsen" och är med lite data nästan alltid brus."""
     startvikter = startvikter or {"odds": 1.0}
     data = [o for o in data if o.utfall in UTFALL]
     kallor = [s for s in (kallor_att_prova or KALLOR) if sum(1 for o in data if s in o.kallor) >= min_obs]
     if not data or not kallor:
         return Vikter(antal=len(data))
+    nollade: List[str] = []
+    while True:
+        v = _skatta(data, [s for s in kallor if s not in nollade], iterationer, l2, startvikter)
+        negativa = [s for s, w in v.w.items() if w < 0 and s != "odds"] if ej_negativ else []
+        if not negativa:
+            v.w.update({s: 0.0 for s in nollade})
+            return v
+        nollade += negativa
+
+
+def _skatta(data: List[Observation], kallor: List[str], iterationer: int, l2: float,
+            startvikter: Dict[str, float]) -> Vikter:
+    if not kallor:
+        return Vikter((0.0, 0.0, 0.0), {}, len(data))
     F = [_features(o, kallor) for o in data]
     y = [UTFALL[o.utfall] for o in data]
     P = 2 + len(kallor)

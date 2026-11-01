@@ -47,6 +47,24 @@ def test_kalla_som_saknas_paverkar_inte_och_fa_obs_utesluts():
     assert E.prognos(v, o) == pytest.approx(E.prognos(v, E.Observation({"odds": (0.5, 0.3, 0.2), "okänd": (1, 0, 0)})))
 
 
+
+def test_ej_negativ_lasar_motsatt_tipsare_pa_noll():
+    # En tipsare som alltid tippar fel tecken får negativ vikt, men med ej_negativ låses den på 0 (räknas bort)
+    rng = random.Random(4)
+    data = []
+    for _ in range(600):
+        p = _slump_p(rng)
+        utfall = _dra(rng, p)
+        fel = next(t for t in "1X2" if t != utfall)
+        data.append(E.Observation({"odds": p, "bettingstugan.se": E.pseudosannolikhet(fel)}, utfall))
+    assert E.anpassa(data, min_obs=30).w["bettingstugan.se"] < 0
+    v = E.anpassa(data, min_obs=30, ej_negativ=True)
+    assert v.w["bettingstugan.se"] == 0.0 and v.w["odds"] == pytest.approx(1.0, abs=0.2)
+    # Vikten 0 räknas som skattad: startvikten används inte längre
+    o = E.Observation({"odds": (0.5, 0.3, 0.2), "bettingstugan.se": (0.8, 0.1, 0.1)})
+    assert E.prognos(v, o, {"bettingstugan.se": 0.1}) == pytest.approx(E.prognos(v, E.Observation({"odds": (0.5, 0.3, 0.2)})))
+
+
 def fyll_syntetiskt(conn, n_omgangar=60, facit="odds", seed=3):
     """Omgångar med odds och streck. facit='odds': utfall dras från oddsen;
     facit='streck': strecken vet mer än oddsen (oddsen är brusiga)."""

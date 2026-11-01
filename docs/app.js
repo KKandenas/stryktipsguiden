@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261030b";
-import * as konto from "./konto.js?v=20261030b";
+} from "./optimizer.js?v=20261101a";
+import * as konto from "./konto.js?v=20261101a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261030b";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261030b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261030b";
+} from "./spelbolag.js?v=20261101a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261101a";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261101a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -2013,7 +2013,8 @@ function renderaStatistik() {
     det.append(t);
     det.append(el("p", { class: "forklaring-stat", text:
       "Vikten visar hur mycket tipsaren flyttar sannolikheterna jämfört med oddsen (0 = ingen påverkan). " +
-      "Nya tipsare börjar på en liten startvikt och får en egen, inlärd vikt när de har minst 30 avgjorda matcher. " +
+      "Nya tipsare börjar på en liten startvikt och får en egen, inlärd vikt när de har minst 100 avgjorda matcher. " +
+      "Vikten blir aldrig negativ: en tipsare som inte tillför något utöver oddsen får vikten 0. " +
       "Vikterna lärs om varje söndag – tipsare som ofta har rätt där oddsen har fel får mer att säga till om. " +
       "Sports Mole och FootballPredictions tipsar alla matcher i ligorna, så deras tips på matcher utanför kupongen " +
       "(träff · antal) räknas också in när vikten lärs. Odds och resultat för dem kommer från football-data.co.uk." }));

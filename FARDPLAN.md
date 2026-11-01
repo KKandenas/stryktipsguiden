@@ -83,7 +83,8 @@ som talar för dem.
 ### December–januari (efter 8–12 omgångar): första avstämningen
 - [ ] Lagkoll mot Oddsen på cirka 100–150 matcher. Det ger en fingervisning, inte ett beslut.
 - [ ] Skrällchans i verkligheten: gick skrällarna in ungefär som i backtestet, cirka 29 %?
-- [ ] Med experter: har vikterna för de nya tipssajterna flyttat sig från startvikten?
+- [ ] Med experter: från 1 november 2026 skattas en tipsares vikt först efter 100 matcher och aldrig negativt.
+  Kring årsskiftet når de nya sajterna 100 matcher: rimliga vikter, eller svänger de fortfarande?
 
 ### Mars–april 2027 (ungefär en halv säsong): beslut om Lagkoll
 - [ ] Med cirka 300 jämförbara matcher: behåll Lagkoll som eget förslag, väg in den i Oddsen eller ta bort den.

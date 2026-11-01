@@ -104,10 +104,11 @@ def _spara_prognos(conn, match_id: int, version: str, p, nu: str) -> int:
 
 
 # Inställningar per tränad modell: vilka källor, hur få matcher som räcker och hur hårt vikterna
-# hålls mot startvikten. tips-v1 får väga in tipsare tidigt (30 matcher) men med starkare straff.
+# hålls mot startvikten. tips-v1 skattar en tipsares vikt först efter 100 matcher (före dess gäller startvikten
+# med taket) och aldrig negativt: med 39 matcher svängde vikterna mellan +0,1 och −0,27 på en omgång (nov 2026).
 TRANING = {
     EnsembleModell.version: dict(),
-    TipsModell.version: dict(kallor_att_prova=["odds"] + TIPSKALLOR, min_obs=30, l2=5.0,
+    TipsModell.version: dict(kallor_att_prova=["odds"] + TIPSKALLOR, min_obs=100, l2=5.0, ej_negativ=True,
                              startvikter={"odds": 1.0, **{k: STARTVIKT_TIPS for k in TIPSKALLOR}}),
 }
 EXTRA = {TipsModell.version: {k: STARTVIKT_TIPS for k in TIPSKALLOR}}

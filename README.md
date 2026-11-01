@@ -367,13 +367,17 @@ Det väljs aldrig automatiskt. `tips-v1` väger ihop bookmakerodds (odds-v2) och
 tidningars tips, speltips.se, sportsgambler.com) med samma logistiska regression som ensemble-v1,
 men utan strecken:
 
-- **Startvikt 0,1** för en ny tipsare. Från 30 avgjorda matcher skattas en egen vikt, med straff mot
-  startvikten (`l2 = 5`), så att lite data bara flyttar vikten lite.
+- **Startvikt 0,1** för en ny tipsare. Från 100 avgjorda matcher (inklusive matcher utanför kupongen)
+  skattas en egen vikt, med straff mot startvikten (`l2 = 5`), så att lite data bara flyttar vikten lite.
+- **Aldrig negativ vikt** (`ej_negativ`): en tipsare som skattas negativt låses på 0 och räknas bort. Gränsen
+  var först 30 matcher, men efter 39 matcher svängde flera vikter från +0,1 till mellan −0,08 och −0,27 på en
+  enda omgång (1 november 2026), och en tipsare med vikt −0,27 sänkte chansen för sitt eget tecken med 13
+  procentenheter.
 - **Tak för startvikterna:** tipsare som står kvar på startvikten får tillsammans högst vikten 0,4 i en
   match (`TAK_STARTVIKT_TIPS`, som fyra tipsare). Sajterna läser ofta samma odds och varandra, så utan tak
   skulle varje ny sajt flytta förslaget mer mot favoriten. En tipsare med skattad vikt ligger utanför taket,
   eftersom regressionen då själv delar vikten mellan källor som tipsar likadant. Taket släpper alltså av sig
-  självt allteftersom sajterna får 30 avgjorda matcher.
+  självt allteftersom sajterna får 100 avgjorda matcher.
 - Vikterna tränas om varje söndag. Historiken backtestas walk-forward precis som ensemble-v1, och
   `tips-v1` mäts i modellstatistiken bredvid odds-v2.
 - Tips som bara anger tecken räknas om till sannolikheter (80 % på valda tecken).
@@ -388,7 +392,7 @@ Läget i oktober 2026: Tio tidningars tips har vikt 0,016 (3 692 matcher, tillf�
 oddsen). speltips.se, hurbra.se, bettingstugan.se, tippat.se, gamblingcabin.se, sportsgambler.com,
 sportsmole.co.uk och footballpredictions.com samlas in från och med nu (rekatochklart.com,
 dagensbastaspel.se och tipsmedoss.com från 17 oktober)
-och står på startvikten tills de har 30 avgjorda matcher, vilket tar ungefär 3–4 veckor.
+och står på startvikten tills de har 100 avgjorda matcher, vilket tar ungefär 8 veckor (januari 2027).
 
 ### Skuggmodeller och jämförelse mot oddsen
 
