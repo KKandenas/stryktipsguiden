@@ -118,6 +118,7 @@ Detaljerna finns i README.
 | Skrällchans med kvot över 1,5 | Gick in 20 % mot 26 % enligt oddsen. Folket visste ofta något, därav taket 1,5. |
 | Experternas tvivel vid val av skrällar | Något högre träff, men samma eller något sämre utdelning (576 rader: 116 % mot 120 %). |
 | Experternas varningstecken vid val av skrällar | Högre träff (33 % mot 29 %) men sämre utdelning i båda perioderna. Folket har redan läst samma sak. |
+| Förslag som bara bygger på experterna, utan odds | Tio tidningars tips (232 omgångar): samma favorit som oddsen i 93 % av matcherna, men som sannolikheter klart sämre (logloss 1,08–1,10 mot 1,01–1,02). 64–128 rader gav lägre utdelning än Oddsen utan största vinsten, och färre omgångar med 10+ rätt. |
 | Inlärda vikter per oddsbolag | 21 800 matcher från football-data (2019–2026), stängningsodds och tidiga odds: alla viktningar (bara Pinnacle, lika vikt, vår fasta viktning, inlärda vikter) inom 0,001 i logloss av varandra och av marknadssnittet. Inlärda vikter vann i träningsperioden men inte efteråt. Bolagen följer varandra; den fasta viktningen behålls. |
 | Egen risknivå för 64–128 rader | Resultaten vände mellan perioderna, alltså brus. λ 0,45 och högre var klart sämre. |
 | Favoritfällan och jämna matcher | Oddsen var rätt kalibrerade i alla grupper. |
