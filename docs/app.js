@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261101a";
-import * as konto from "./konto.js?v=20261101a";
+} from "./optimizer.js?v=20261103a";
+import * as konto from "./konto.js?v=20261103a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261101a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261101a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261101a";
+} from "./spelbolag.js?v=20261103a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103a";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -315,7 +315,8 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
           m.resultat ? el("span", { class: "chip resultat", text: slut.replace(" · ", "") }) : null,
           skrall ? el("span", { class: "chip skrall", text: `Skräll ${skrall.tecken}` }) : null,
           emot ? el("span", { class: "chip emot", text: `${emot} tips emot` }) : null,
-          skillnad?.skiljer[m.nr] ? el("span", { class: "chip annat", text: `${KORTNAMN_FORSLAG[skillnad.namn] || skillnad.namn}: ${skillnad.skiljer[m.nr]}` }) : null,
+          skillnad?.skiljer[m.nr] ? el("span", { class: "chip annat", title: `${skillnad.namn} spelar ${[...skillnad.skiljer[m.nr]].join(", ")} på den här matchen`,
+            text: `${KORTNAMN_FORSLAG[skillnad.namn] || skillnad.namn}: ${[...skillnad.skiljer[m.nr]].join("/")}` }) : null,
           m.osaker ? el("span", { class: "chip osaker", title: "Osäkrare: bara Svenska Spels odds", text: "⚠︎ osäker" }) : null),
         el("span", { class: "matchtid", text: [!m.resultat && m.avspark && kortFmt.format(new Date(m.avspark)), m.liga].filter(Boolean).join(" · ") }),
       ),
@@ -337,7 +338,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
       rutor.append(el(interaktiv ? "button" : "div", attr,
         arLast ? el("span", { class: "las", text: "🔒", "aria-hidden": "true" }) : null,
         el("span", { class: "tecken", text: t }),
-        el("span", { class: "siffror", text: `${chans ?? "–"} · ${streck ?? "–"}` }),
+        el("span", { class: "siffror", text: `${chans ?? "–"}·${streck ?? "–"}` }),
         harVarde ? el("i", { class: "prick", "aria-hidden": "true" }) : null,
       ));
     }
@@ -2619,7 +2620,7 @@ function uppdatera() {
   const nr = sk ? Object.keys(sk.skiljer) : [];
   skRad.hidden = !sk || (Boolean(info) && !nr.length);   // "samma som Oddsen" står redan i infon
   skRad.textContent = !sk ? "" : nr.length
-    ? `${sk.namn} skiljer sig på ${nr.length} ${nr.length === 1 ? "match" : "matcher"} (${nr.join(", ")}) – markerat på raderna.`
+    ? `${sk.namn} spelar annorlunda på ${nr.length} ${nr.length === 1 ? "match" : "matcher"} – se etiketten "${KORTNAMN_FORSLAG[sk.namn] || sk.namn}: …" på raderna.`
     : `${sk.namn} ger samma rader.`;
   for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
 

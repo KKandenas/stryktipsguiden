@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261101a">
-<script type="module" src="app.js?v=20261101a"></script>
+<link rel="stylesheet" href="app.css?v=20261103a">
+<script type="module" src="app.js?v=20261103a"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -32,7 +32,7 @@
       <a href="#kupong" data-flik="kupong">Kupong</a>
       <a href="#nyheter" data-flik="nyheter">Nyheter</a>
       <a href="#minaspel" data-flik="minaspel">Mina spel</a>
-      <a href="#statistik" data-flik="statistik">Statistik</a>
+      <a href="#backtest" data-flik="statistik">Statistik</a>
       <a href="#mer" data-flik="mer">Mer</a>
     </nav>
     <div class="topp-hoger">
@@ -78,7 +78,8 @@
       </section>
 
       <div id="banner" class="banner" hidden></div>
-      <p class="tips-rad">Tryck på ett tecken för att låsa det 🔒 · tryck på matchen för detaljer · <a href="#hjalp">Så läser du kupongen</a></p>
+      <p class="tips-rad"><span class="forklaring-siffror"><b>45·52</b> = chans · streck i % &nbsp;<i class="prick inline" aria-hidden="true"></i> = värde (chansen tydligt högre än strecken)</span>
+        Tryck på ett tecken för att låsa det 🔒 · tryck på matchen för detaljer · <a href="#hjalp">Så läser du kupongen</a></p>
       <section class="atgarder">
         <button id="rensa" class="knapp" type="button" hidden>Rensa låsningar</button>
       </section>
@@ -110,8 +111,8 @@
   <section class="vy" data-vy="rattning" hidden>
     <div class="innehall undermeny-ram">
       <nav class="undermeny" aria-label="Statistik">
-        <a href="#statistik" data-vy="statistik">Träffsäkerhet</a>
         <a href="#backtest" data-vy="backtest">Varje vecka</a>
+        <a href="#statistik" data-vy="statistik">Träffsäkerhet</a>
         <a href="#rattning" data-vy="rattning">Förra omgången</a>
       </nav>
     </div>
@@ -150,8 +151,8 @@
   <section class="vy innehall" data-vy="statistik" hidden>
     <h1 class="vy-rubrik">Statistik</h1>
     <nav class="undermeny" aria-label="Statistik">
-      <a href="#statistik" data-vy="statistik">Träffsäkerhet</a>
       <a href="#backtest" data-vy="backtest">Varje vecka</a>
+      <a href="#statistik" data-vy="statistik">Träffsäkerhet</a>
       <a href="#rattning" data-vy="rattning">Förra omgången</a>
     </nav>
     <section id="statistik" class="kort statistik">
@@ -163,8 +164,8 @@
   <section class="vy innehall" data-vy="backtest" hidden>
     <h1 class="vy-rubrik">Statistik</h1>
     <nav class="undermeny" aria-label="Statistik">
-      <a href="#statistik" data-vy="statistik">Träffsäkerhet</a>
       <a href="#backtest" data-vy="backtest">Varje vecka</a>
+      <a href="#statistik" data-vy="statistik">Träffsäkerhet</a>
       <a href="#rattning" data-vy="rattning">Förra omgången</a>
     </nav>
     <section class="kort statistik">
@@ -177,9 +178,9 @@
     <h1 class="vy-rubrik">Så läser du kupongen</h1>
     <section class="kort forklaring-inre">
       <div class="forklaring-exempel" aria-hidden="true">
-        <span class="ruta vald"><span class="tecken">1</span><span class="siffror">57 · 65</span></span>
-        <span class="ruta"><span class="tecken">X</span><span class="siffror">22 · 20</span><i class="prick"></i></span>
-        <span class="ruta last"><span class="las">🔒</span><span class="tecken">2</span><span class="siffror">21 · 15</span></span>
+        <span class="ruta vald"><span class="tecken">1</span><span class="siffror">57·65</span></span>
+        <span class="ruta"><span class="tecken">X</span><span class="siffror">22·20</span><i class="prick"></i></span>
+        <span class="ruta last"><span class="las">🔒</span><span class="tecken">2</span><span class="siffror">21·15</span></span>
       </div>
       <ul>
         <li>Under varje tecken står <b>chans · streck</b> i procent. Chansen kommer från bookmakerodds, strecken visar hur svenska folket spelat.</li>
@@ -485,7 +486,7 @@
   <a href="#kupong" data-flik="kupong"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M3 10h18M3 15h18"/></svg><span>Kupong</span></a>
   <a href="#nyheter" data-flik="nyheter"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5"/></svg><span>Nyheter</span></a>
   <a href="#minaspel" data-flik="minaspel"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg><span>Mina spel</span></a>
-  <a href="#statistik" data-flik="statistik"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Statistik</span></a>
+  <a href="#backtest" data-flik="statistik"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Statistik</span></a>
   <a href="#mer" data-flik="mer"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg><span>Mer</span></a>
 </nav>
 
