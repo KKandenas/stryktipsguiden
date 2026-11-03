@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-03T11:51:02Z",
+ "genererad": "2026-11-03T11:57:19Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -11,7 +11,7 @@
   "spelstopp": "2026-11-07T14:59:00Z",
   "status": "oppen",
   "frusen": null,
-  "omsattning": 676373.0,
+  "omsattning": 677648.0,
   "radpris": 1,
   "utdelning": null,
   "vinnare": null
@@ -25,40 +25,126 @@
    "land": "England",
    "avspark": "2026-11-07T17:30:00Z",
    "chans": {
-    "1": 0.41,
-    "X": 0.21,
-    "2": 0.38
+    "1": 0.2103,
+    "X": 0.2359,
+    "2": 0.5538
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 41.0,
     "X": 21.0,
     "2": 38.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.1997,
+    "X": 0.0259,
+    "2": 0.1738
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.2114,
+    "X": 0.2348,
+    "2": 0.5538
+   },
+   "varde_tips": {
+    "1": -0.1986,
+    "X": 0.0248,
+    "2": 0.1738
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 44,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 4.75,
-     "X": 4.25,
-     "2": 1.74
+     "1": 4.49,
+     "X": 4.01,
+     "2": 1.71
     },
     "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 4.54,
+      "X": 4.11,
+      "2": 1.76
+     },
      {
       "bolag": "svenskaspel",
       "1": 4.75,
       "X": 4.25,
       "2": 1.74
+     },
+     {
+      "bolag": "betsson",
+      "1": 4.61,
+      "X": 4.04,
+      "2": 1.7
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 4.6,
+      "X": 4.05,
+      "2": 1.7
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 4.9,
+      "X": 4.2,
+      "2": 1.79
+     },
+     {
+      "bolag": "williamhill",
+      "1": 4.2,
+      "X": 3.9,
+      "2": 1.73
+     },
+     {
+      "bolag": "coolbet",
+      "1": 4.71,
+      "X": 4.12,
+      "2": 1.71
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 4.45,
+      "X": 4.15,
+      "2": 1.73
+     },
+     {
+      "bolag": "sport888",
+      "1": 4.2,
+      "X": 3.9,
+      "2": 1.73
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 4.4,
+      "X": 4.0,
+      "2": 1.67
+     },
+     {
+      "bolag": "betanysports",
+      "1": 4.58,
+      "X": 4.06,
+      "2": 1.75
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 4.15,
+      "X": 3.75,
+      "2": 1.63
      }
     ]
    },
-   "tips": [],
-   "kommentar": null,
+   "tips": [
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": null,
+     "text": "Matchen har ingen angiven förutsägelse i artikeln.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Manchester City är favoriter med 55 % chans enligt oddsen. Svenska folket överstreckar ettan till 41 %, vilket gör tvåan till ett fint värdetecken.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -87,7 +173,52 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "N. Dominguez",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Calf Injury",
+       "spelare": "Igor Jesus",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Knee Injury",
+       "spelare": "N. Savona",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      }
+     ],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "Knee Injury",
+       "spelare": "A. Semenyo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      }
+     ],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -99,40 +230,126 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.61,
-    "X": 0.2,
-    "2": 0.19
+    "1": 0.8257,
+    "X": 0.1196,
+    "2": 0.0548
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 61.0,
     "X": 20.0,
     "2": 19.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": 0.2157,
+    "X": -0.0804,
+    "2": -0.1352
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.8238,
+    "X": 0.1201,
+    "2": 0.0561
+   },
+   "varde_tips": {
+    "1": 0.2138,
+    "X": -0.0799,
+    "2": -0.1339
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 44,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.17,
-     "X": 8.5,
-     "2": 21.0
+     "1": 1.15,
+     "X": 7.89,
+     "2": 17.34
     },
     "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 1.16,
+      "X": 8.41,
+      "2": 18.31
+     },
      {
       "bolag": "svenskaspel",
       "1": 1.17,
       "X": 8.5,
       "2": 21.0
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.15,
+      "X": 7.91,
+      "2": 18.79
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.15,
+      "X": 8.0,
+      "2": 19.0
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.18,
+      "X": 9.0,
+      "2": 20.0
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.15,
+      "X": 8.0,
+      "2": 17.0
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.15,
+      "X": 8.5,
+      "2": 19.0
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.15,
+      "X": 8.1,
+      "2": 19.0
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.15,
+      "X": 7.5,
+      "2": 17.0
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.13,
+      "X": 7.5,
+      "2": 17.0
+     },
+     {
+      "bolag": "betanysports",
+      "1": 1.16,
+      "X": 8.41,
+      "2": 18.75
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.12,
+      "X": 6.6,
+      "2": 14.0
      }
     ]
    },
-   "tips": [],
-   "kommentar": null,
+   "tips": [
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": null,
+     "text": "Artikeln ger inget färdigt tips för matchen.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "Arsenal är omgångens största favorit med 83 % chans på the odds. Svenska folket streckar ettan klart snålt på 61 %, vilket ger ett jättevärde.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -161,7 +378,92 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": true,
+       "orsak": "Thigh Injury",
+       "spelare": "B. Saka",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": true,
+       "orsak": "Back Injury",
+       "spelare": "W. Saliba",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      }
+     ],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "Back Injury",
+       "spelare": "I. Ansah",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Arm Injury",
+       "spelare": "J. Butland",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Calf Injury",
+       "spelare": "L. Gourna-Douath",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Groin Injury",
+       "spelare": "D. Gyabi",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Groin Injury",
+       "spelare": "C. Hughes",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Knee Injury",
+       "spelare": "E. Matazo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Ankle Injury",
+       "spelare": "M. Targett",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      }
+     ],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -173,40 +475,126 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.44,
+    "1": 0.4602,
     "X": 0.26,
-    "2": 0.3
+    "2": 0.2797
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 44.0,
     "X": 26.0,
     "2": 30.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": 0.0202,
+    "X": 0.0,
+    "2": -0.0203
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.4598,
+    "X": 0.2587,
+    "2": 0.2815
+   },
+   "varde_tips": {
+    "1": 0.0198,
+    "X": -0.0013,
+    "2": -0.0185
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 44,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.18,
-     "X": 3.65,
-     "2": 3.45
+     "1": 2.06,
+     "X": 3.63,
+     "2": 3.36
     },
     "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 2.08,
+      "X": 3.76,
+      "2": 3.5
+     },
      {
       "bolag": "svenskaspel",
       "1": 2.18,
       "X": 3.65,
       "2": 3.45
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.03,
+      "X": 3.67,
+      "2": 3.5
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.02,
+      "X": 3.65,
+      "2": 3.5
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 2.1,
+      "X": 3.8,
+      "2": 3.7
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.91,
+      "X": 3.7,
+      "2": 3.4
+     },
+     {
+      "bolag": "coolbet",
+      "1": 2.06,
+      "X": 3.7,
+      "2": 3.4
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 2.1,
+      "X": 3.78,
+      "2": 3.3
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.05,
+      "X": 3.5,
+      "2": 3.25
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 2.0,
+      "X": 3.7,
+      "2": 3.3
+     },
+     {
+      "bolag": "betanysports",
+      "1": 2.08,
+      "X": 3.74,
+      "2": 3.49
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.94,
+      "X": 3.47,
+      "2": 3.15
      }
     ]
    },
-   "tips": [],
-   "kommentar": null,
+   "tips": [
+    {
+     "kalla": "footballpredictions.com",
+     "tecken": null,
+     "text": "Artikeln ger ingen förutsägelse eller analys för matchen ännu.",
+     "system": null,
+     "system_rader": null
+    }
+   ],
+   "kommentar": "En jämn historia där Fulham är knappa favoriter på 46 %. Streckfördelningen följer oddsen väl och ligger i stort sett i linje med chanserna.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -235,7 +623,60 @@
     },
     "kalla": "BBC Sport"
    },
-   "lagnytt": null,
+   "lagnytt": {
+    "hemma": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "Red Card",
+       "spelare": "R. Sessegnon",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      }
+     ],
+     "sammanhang": [],
+     "tranarbyte": null
+    },
+    "borta": {
+     "franvaro": [
+      {
+       "nyckelspelare": false,
+       "orsak": "Illness",
+       "spelare": "M. Fernandez-Pardo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "E. Jaouen",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Knee Injury",
+       "spelare": "V. Livramento",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "L. Miley",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-03T11:54:20Z"
+      }
+     ],
+     "sammanhang": [],
+     "tranarbyte": null
+    }
+   },
    "resultat": null,
    "mal": null
   },
@@ -247,28 +688,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.41,
-    "X": 0.25,
-    "2": 0.34
+    "1": 0.1946,
+    "X": 0.2405,
+    "2": 0.5648
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 41.0,
     "X": 25.0,
     "2": 34.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.2154,
+    "X": -0.0095,
+    "2": 0.2248
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.1958,
+    "X": 0.2394,
+    "2": 0.5648
+   },
+   "varde_tips": {
+    "1": -0.2142,
+    "X": -0.0106,
+    "2": 0.2248
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 33,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 4.75,
-     "X": 4.1,
-     "2": 1.73
+     "1": 4.69,
+     "X": 3.93,
+     "2": 1.61
     },
     "bolag": [
      {
@@ -276,11 +729,77 @@
       "1": 4.75,
       "X": 4.1,
       "2": 1.73
+     },
+     {
+      "bolag": "betsson",
+      "1": 5.35,
+      "X": 4.15,
+      "2": 1.58
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 5.39,
+      "X": 4.17,
+      "2": 1.58
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 5.1,
+      "X": 2.62,
+      "2": 1.72
+     },
+     {
+      "bolag": "williamhill",
+      "1": 4.8,
+      "X": 4.0,
+      "2": 1.62
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 4.75,
+      "X": 4.1,
+      "2": 1.61
+     },
+     {
+      "bolag": "sport888",
+      "1": 4.8,
+      "X": 3.9,
+      "2": 1.61
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 4.5,
+      "X": 3.9,
+      "2": 1.51
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 5.1,
+      "X": 2.62,
+      "2": 1.72
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 4.6,
+      "X": 4.0,
+      "2": 1.57
+     },
+     {
+      "bolag": "betway",
+      "1": 4.33,
+      "X": 4.0,
+      "2": 1.61
+     },
+     {
+      "bolag": "boylesports",
+      "1": 4.5,
+      "X": 4.0,
+      "2": 1.57
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "West Ham är tydliga favoriter med 56 % chans. Svenska folket streckar dock tvåan till endast 34 %, vilket gör den mycket intressant.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -321,28 +840,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.44,
-    "X": 0.28,
-    "2": 0.28
+    "1": 0.4613,
+    "X": 0.2679,
+    "2": 0.2708
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 44.0,
     "X": 28.0,
     "2": 28.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": 0.0213,
+    "X": -0.0121,
+    "2": -0.0092
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.461,
+    "X": 0.2665,
+    "2": 0.2726
+   },
+   "varde_tips": {
+    "1": 0.021,
+    "X": -0.0135,
+    "2": -0.0074
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 33,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.18,
-     "X": 3.6,
-     "2": 3.4
+     "1": 1.94,
+     "X": 3.34,
+     "2": 3.32
     },
     "bolag": [
      {
@@ -350,11 +881,77 @@
       "1": 2.18,
       "X": 3.6,
       "2": 3.4
+     },
+     {
+      "bolag": "betsson",
+      "1": 1.98,
+      "X": 3.5,
+      "2": 3.7
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 1.99,
+      "X": 3.51,
+      "2": 3.72
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.1,
+      "X": 1.81,
+      "2": 1.73
+     },
+     {
+      "bolag": "williamhill",
+      "1": 2.0,
+      "X": 3.3,
+      "2": 3.6
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.96,
+      "X": 3.54,
+      "2": 3.54
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.0,
+      "X": 3.3,
+      "2": 3.5
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.84,
+      "X": 3.3,
+      "2": 3.38
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.1,
+      "X": 1.81,
+      "2": 1.73
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 1.95,
+      "X": 3.5,
+      "2": 3.3
+     },
+     {
+      "bolag": "betway",
+      "1": 1.95,
+      "X": 3.5,
+      "2": 3.3
+     },
+     {
+      "bolag": "boylesports",
+      "1": 1.91,
+      "X": 3.5,
+      "2": 3.4
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Birmingham hålls som knappa favoriter till 46 % chans av oddsen. Strecken ligger mycket nära sannolikheten över hela raden.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -395,28 +992,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.47,
-    "X": 0.25,
-    "2": 0.28
+    "1": 0.4139,
+    "X": 0.255,
+    "2": 0.3311
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 47.0,
     "X": 25.0,
     "2": 28.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.0561,
+    "X": 0.005,
+    "2": 0.0511
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.4137,
+    "X": 0.2536,
+    "2": 0.3326
+   },
+   "varde_tips": {
+    "1": -0.0563,
+    "X": 0.0036,
+    "2": 0.0526
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 35,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.28,
-     "X": 3.95,
-     "2": 2.95
+     "1": 2.14,
+     "X": 3.54,
+     "2": 2.69
     },
     "bolag": [
      {
@@ -424,11 +1033,77 @@
       "1": 2.28,
       "X": 3.95,
       "2": 2.95
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.2,
+      "X": 3.8,
+      "2": 2.88
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.21,
+      "X": 3.84,
+      "2": 2.9
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.1,
+      "X": 1.45,
+      "2": 1.29
+     },
+     {
+      "bolag": "williamhill",
+      "1": 2.3,
+      "X": 3.6,
+      "2": 2.8
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 2.25,
+      "X": 3.64,
+      "2": 2.81
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.25,
+      "X": 3.5,
+      "2": 2.75
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 2.25,
+      "X": 3.6,
+      "2": 2.75
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 2.1,
+      "X": 3.5,
+      "2": 2.65
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.1,
+      "X": 1.45,
+      "2": 1.29
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 2.2,
+      "X": 3.6,
+      "2": 2.75
+     },
+     {
+      "bolag": "betvictor",
+      "1": 2.25,
+      "X": 3.6,
+      "2": 2.75
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Cardiff är knappa favoriter enligt oddsen på 41 %. Svenska folket har dragit på ettan lite extra till 47 %, vilket ger tvåan svagt värde.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -469,28 +1144,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.37,
-    "X": 0.28,
-    "2": 0.35
+    "1": 0.3077,
+    "X": 0.2839,
+    "2": 0.4084
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 37.0,
     "X": 28.0,
     "2": 35.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.0623,
+    "X": 0.0039,
+    "2": 0.0584
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.3084,
+    "X": 0.2822,
+    "2": 0.4095
+   },
+   "varde_tips": {
+    "1": -0.0616,
+    "X": 0.0022,
+    "2": 0.0595
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 35,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 3.0,
-     "X": 3.5,
-     "2": 2.4
+     "1": 2.9,
+     "X": 3.24,
+     "2": 2.15
     },
     "bolag": [
      {
@@ -498,11 +1185,77 @@
       "1": 3.0,
       "X": 3.5,
       "2": 2.4
+     },
+     {
+      "bolag": "betsson",
+      "1": 3.2,
+      "X": 3.45,
+      "2": 2.18
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 3.21,
+      "X": 3.49,
+      "2": 2.18
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.32,
+      "X": 1.1,
+      "2": 1.32
+     },
+     {
+      "bolag": "williamhill",
+      "1": 3.0,
+      "X": 3.3,
+      "2": 2.25
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 3.12,
+      "X": 3.42,
+      "2": 2.16
+     },
+     {
+      "bolag": "sport888",
+      "1": 3.0,
+      "X": 3.3,
+      "2": 2.25
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 3.1,
+      "X": 3.3,
+      "2": 2.15
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 2.95,
+      "X": 3.27,
+      "2": 2.02
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.32,
+      "X": 1.1,
+      "2": 1.32
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 2.88,
+      "X": 3.4,
+      "2": 2.2
+     },
+     {
+      "bolag": "betvictor",
+      "1": 3.1,
+      "X": 3.3,
+      "2": 2.15
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Sheffield U är knappa favoriter med 41 % chans på oddsen. Svenska folket streckar ettan något högre än chanserna motiverar.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -543,28 +1296,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.35,
-    "X": 0.24,
-    "2": 0.41
+    "1": 0.1997,
+    "X": 0.2136,
+    "2": 0.5867
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 35.0,
     "X": 24.0,
     "2": 41.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.1503,
+    "X": -0.0264,
+    "2": 0.1767
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.2009,
+    "X": 0.2127,
+    "2": 0.5864
+   },
+   "varde_tips": {
+    "1": -0.1491,
+    "X": -0.0273,
+    "2": 0.1764
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 31,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 5.1,
-     "X": 4.5,
-     "2": 1.63
+     "1": 4.76,
+     "X": 4.22,
+     "2": 1.53
     },
     "bolag": [
      {
@@ -572,11 +1337,77 @@
       "1": 5.1,
       "X": 4.5,
       "2": 1.63
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 2.52,
+      "X": 3.9,
+      "2": 1.42
+     },
+     {
+      "bolag": "williamhill",
+      "1": 5.0,
+      "X": 4.0,
+      "2": 1.57
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 5.25,
+      "X": 4.4,
+      "2": 1.52
+     },
+     {
+      "bolag": "sport888",
+      "1": 5.0,
+      "X": 4.0,
+      "2": 1.57
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 4.7,
+      "X": 4.05,
+      "2": 1.47
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 2.52,
+      "X": 3.9,
+      "2": 1.42
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 5.0,
+      "X": 4.2,
+      "2": 1.53
+     },
+     {
+      "bolag": "betway",
+      "1": 4.75,
+      "X": 4.33,
+      "2": 1.5
+     },
+     {
+      "bolag": "boylesports",
+      "1": 4.75,
+      "X": 4.2,
+      "2": 1.5
+     },
+     {
+      "bolag": "casumo",
+      "1": 4.9,
+      "X": 4.25,
+      "2": 1.57
+     },
+     {
+      "bolag": "codere_it",
+      "1": 5.4,
+      "X": 4.4,
+      "2": 1.58
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Southampton är klara favoriter med 59 % chans enligt oddsen. Svenska folket streckar dem lägre på 41 %, vilket skapar ett fint spelvärde på tvåan.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -617,28 +1448,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.53,
-    "X": 0.23,
-    "2": 0.24
+    "1": 0.5002,
+    "X": 0.2761,
+    "2": 0.2237
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 53.0,
     "X": 23.0,
     "2": 24.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.0298,
+    "X": 0.0461,
+    "2": -0.0163
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.4997,
+    "X": 0.2747,
+    "2": 0.2256
+   },
+   "varde_tips": {
+    "1": -0.0303,
+    "X": 0.0447,
+    "2": -0.0144
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 31,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.91,
-     "X": 3.75,
-     "2": 4.1
+     "1": 1.76,
+     "X": 3.46,
+     "2": 3.89
     },
     "bolag": [
      {
@@ -646,11 +1489,77 @@
       "1": 1.91,
       "X": 3.75,
       "2": 4.1
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.2,
+      "X": 1.13,
+      "2": 3.3
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.83,
+      "X": 3.6,
+      "2": 3.9
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.79,
+      "X": 3.72,
+      "2": 4.05
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.83,
+      "X": 3.6,
+      "2": 3.9
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.68,
+      "X": 3.45,
+      "2": 3.9
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.2,
+      "X": 1.13,
+      "2": 3.3
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 1.8,
+      "X": 3.6,
+      "2": 3.75
+     },
+     {
+      "bolag": "betway",
+      "1": 1.8,
+      "X": 3.6,
+      "2": 3.8
+     },
+     {
+      "bolag": "boylesports",
+      "1": 1.75,
+      "X": 3.8,
+      "2": 3.75
+     },
+     {
+      "bolag": "casumo",
+      "1": 1.85,
+      "X": 3.6,
+      "2": 3.95
+     },
+     {
+      "bolag": "codere_it",
+      "1": 1.82,
+      "X": 3.7,
+      "2": 4.3
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Queens Park Rangers är favoriter med 50 % chans på oddsen. Svenska folket är inne på samma linje och streckar ettan till 53 %.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -691,28 +1600,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.36,
-    "X": 0.25,
-    "2": 0.39
+    "1": 0.1856,
+    "X": 0.2158,
+    "2": 0.5986
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 36.0,
     "X": 25.0,
     "2": 39.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.1744,
+    "X": -0.0342,
+    "2": 0.2086
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.1868,
+    "X": 0.215,
+    "2": 0.5983
+   },
+   "varde_tips": {
+    "1": -0.1732,
+    "X": -0.035,
+    "2": 0.2083
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 29,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 6.1,
-     "X": 4.8,
-     "2": 1.52
+     "1": 5.1,
+     "X": 4.29,
+     "2": 1.49
     },
     "bolag": [
      {
@@ -720,11 +1641,77 @@
       "1": 6.1,
       "X": 4.8,
       "2": 1.52
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 3.0,
+      "X": 2.86,
+      "2": 1.52
+     },
+     {
+      "bolag": "williamhill",
+      "1": 5.0,
+      "X": 4.33,
+      "2": 1.53
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 5.25,
+      "X": 4.4,
+      "2": 1.52
+     },
+     {
+      "bolag": "sport888",
+      "1": 5.0,
+      "X": 4.2,
+      "2": 1.53
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 4.75,
+      "X": 4.2,
+      "2": 1.45
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 3.0,
+      "X": 2.86,
+      "2": 1.52
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 5.5,
+      "X": 4.33,
+      "2": 1.44
+     },
+     {
+      "bolag": "betway",
+      "1": 4.75,
+      "X": 4.33,
+      "2": 1.53
+     },
+     {
+      "bolag": "boylesports",
+      "1": 4.75,
+      "X": 4.33,
+      "2": 1.5
+     },
+     {
+      "bolag": "casumo",
+      "1": 5.75,
+      "X": 4.5,
+      "2": 1.48
+     },
+     {
+      "bolag": "codere_it",
+      "1": 5.4,
+      "X": 4.5,
+      "2": 1.55
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Middlesbrough är stora favoriter med 60 % chans enligt oddsen. Tvåan är understreckad på 39 % och ger därmed ett tydligt värde.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -765,28 +1752,40 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.48,
-    "X": 0.27,
-    "2": 0.25
+    "1": 0.442,
+    "X": 0.2717,
+    "2": 0.2863
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 48.0,
     "X": 27.0,
     "2": 25.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
+   "varde": {
+    "1": -0.038,
+    "X": 0.0017,
+    "2": 0.0363
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.4418,
+    "X": 0.2702,
+    "2": 0.288
+   },
+   "varde_tips": {
+    "1": -0.0382,
+    "X": 0.0002,
+    "2": 0.038
+   },
    "odds": {
-    "antal_bolag": 1,
-    "bara_svenskaspel": true,
+    "antal_bolag": 31,
+    "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.14,
-     "X": 3.65,
-     "2": 3.45
+     "1": 1.95,
+     "X": 3.34,
+     "2": 3.14
     },
     "bolag": [
      {
@@ -794,11 +1793,77 @@
       "1": 2.14,
       "X": 3.65,
       "2": 3.45
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.12,
+      "X": 1.1,
+      "2": 1.1
+     },
+     {
+      "bolag": "williamhill",
+      "1": 2.05,
+      "X": 3.4,
+      "2": 3.3
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 2.05,
+      "X": 3.58,
+      "2": 3.24
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.05,
+      "X": 3.4,
+      "2": 3.3
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.87,
+      "X": 3.35,
+      "2": 3.25
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.12,
+      "X": 1.1,
+      "2": 1.1
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 2.0,
+      "X": 3.5,
+      "2": 3.2
+     },
+     {
+      "bolag": "betway",
+      "1": 2.0,
+      "X": 3.6,
+      "2": 3.1
+     },
+     {
+      "bolag": "boylesports",
+      "1": 1.95,
+      "X": 3.5,
+      "2": 3.1
+     },
+     {
+      "bolag": "casumo",
+      "1": 2.07,
+      "X": 3.5,
+      "2": 3.3
+     },
+     {
+      "bolag": "codere_it",
+      "1": 2.05,
+      "X": 3.55,
+      "2": 3.55
      }
     ]
    },
    "tips": [],
-   "kommentar": null,
+   "kommentar": "West Bromwich är knappa favoriter med 44 % chans. Streckfördelningen ligger mycket nära oddsens uppskattning över samtliga tecken.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -856,7 +1921,7 @@
    "varde_tips": null,
    "odds": null,
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Svenska folket streckar ettan till 45 %, krysset till 26 % och tvåan till 29 % i detta cupmöte utanOdds.",
    "lagkoll": null,
    "tabell": null,
    "lagnytt": null,
@@ -888,7 +1953,7 @@
    "varde_tips": null,
    "odds": null,
    "tips": [],
-   "kommentar": null,
+   "kommentar": "Oxford streckas som favoriter på 46 % före krysset på 29 % och tvåan på 25 % i en match helt utan odds.",
    "lagkoll": null,
    "tabell": null,
    "lagnytt": null,
@@ -2289,11 +3354,11 @@
     "gemini-3.5-flash-lite": 4
    },
    "stoppad": null,
-   "tid": "2026-10-31T14:31:15Z"
+   "tid": "2026-11-03T11:57:19Z"
   },
   "odds": {
-   "kvar": 330,
-   "tid": "2026-10-31T14:31:04Z"
+   "kvar": 496,
+   "tid": "2026-11-03T11:54:20Z"
   }
  },
  "tipsare_form": [
