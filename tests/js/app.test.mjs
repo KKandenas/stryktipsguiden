@@ -38,7 +38,7 @@ for (const fall of FALL) {
     try {
       assert.equal(felText(miljo), "");
       assert.match($(miljo, "rubrik").textContent, /^Stryktipset v\. \d+$/);
-      assert.match($(miljo, "underrubrik").textContent, /Omgång 4974$/);
+      assert.match($(miljo, "underrubrik").textContent, /Omgång 4974( · Omsatt \d+,\d mkr)?$/);
       assert.equal($(miljo, "status").textContent, fall.statusText);
       const banner = $(miljo, "banner");
       if (fall.banner) {
