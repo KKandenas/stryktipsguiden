@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261103c";
-import * as konto from "./konto.js?v=20261103c";
+} from "./optimizer.js?v=20261103e";
+import * as konto from "./konto.js?v=20261103e";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261103c";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103c";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103c";
+} from "./spelbolag.js?v=20261103e";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103e";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103e";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -231,8 +231,14 @@ function renderaTopp() {
   const { omgang, modell } = state.kupong;
   const stopp = new Date(omgang.spelstopp);
   $("rubrik").textContent = `Stryktipset v. ${vecka(stopp)}`;
-  const datum = datumFmt.format(stopp);
-  $("underrubrik").textContent = `${datum.charAt(0).toUpperCase() + datum.slice(1)} · Omgång ${omgang.id}`;
+  const datum = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, weekday: "long", day: "numeric", month: "short" })
+    .format(stopp).replace(".", "");
+  // Omsättningen uppdateras vid varje körning (ons–lör); medan omgången är öppen är den "hittills"
+  const mkr = (omgang.omsattning / 1e6).toLocaleString("sv-SE", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+  $("underrubrik").replaceChildren(`${datum.charAt(0).toUpperCase() + datum.slice(1)} · Omgång ${omgang.id}`,
+    omgang.omsattning && !state.exempel ? el("span", { class: "omsattning",
+      title: omgang.status === "oppen" ? "Omsättningen hittills, uppdateras vid varje körning" : "Omgångens omsättning",
+      text: ` · Omsatt ${mkr} mkr` }) : "");
 
   const statusText = state.exempel ? "Exempel" : { oppen: "Öppen", stangd: "Stängd", avgjord: "Avgjord", installd: "Inställd" }[omgang.status];
   const status = $("status");
