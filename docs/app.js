@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261103a";
-import * as konto from "./konto.js?v=20261103a";
+} from "./optimizer.js?v=20261103b";
+import * as konto from "./konto.js?v=20261103b";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261103a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103a";
+} from "./spelbolag.js?v=20261103b";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -178,6 +178,7 @@ async function start() {
   initKonto();
   $("matcher").addEventListener("click", klickMatch);
   $("rensa").addEventListener("click", () => { state.lasningar = {}; uppdatera(); });
+  initVeckolage();
   uppdatera();
   setInterval(renderaTopp, 60_000);   // håll nedräkningen till spelstopp aktuell
 }
@@ -2610,6 +2611,101 @@ function arstabell(serier) {
       "olika mycket tillbaka: det som avgör är om raderna går in när få andra har dem. 10 rätt ger ofta låg eller ingen utdelning." }));
 }
 
+const VECKOLAGE_STANGD = "stryktipsguiden-veckolage-stangd";
+
+/** Lagets namn för ett tecken: "Fulham 2", "Villa–Fulham X". */
+function teckenNamn(m, t) {
+  return t === "X" ? `${m.hemmalag}–${m.bortalag} X` : `${t === "1" ? m.hemmalag : m.bortalag} ${t}`;
+}
+
+/** Rutan "Veckans läge": överstreckade favoriter, värde, skrällchanser, Lagkoll och experterna i korthet.
+ *  Varje rad öppnar sin match. Allt räknas ur kupongen; inget nytt hämtas. */
+function renderaVeckolage() {
+  const ruta = $("veckolage"), inne = $("veckolage-innehall");
+  const ms = (state.kupong?.matcher || []).filter((m) => m.chans && m.streck);
+  ruta.hidden = !ms.length;
+  if (!ms.length) return;
+  const streckAndel = (m, t) => m.streck[t] / (TECKEN.reduce((a, x) => a + (m.streck[x] || 0), 0) || 100);
+  const lank = (m, text) => el("button", { type: "button", class: "vl-match", "data-nr": m.nr, text: `${m.nr}. ${text}` });
+  const rader = [];
+  const rad = (ikon, rubrik, delar, tom = null) => {
+    if (!delar.length && !tom) return;
+    const p = el("p", { class: "vl-text" });
+    if (!delar.length) p.append(tom);
+    delar.forEach((d, i) => p.append(...(i && !d.classList?.contains("vl-motiv") ? [" · ", d] : [d])));
+    rader.push(el("div", { class: "vl-rad" }, el("span", { class: `vl-ikon ${ikon}`, "aria-hidden": "true" }),
+      el("div", {}, el("b", { text: rubrik }), p)));
+  };
+  const cs = (m, t) => ` (${procent(m.chans[t])} / ${Math.round(100 * streckAndel(m, t))})`;
+
+  // Favoriter som folket streckat mest över chansen
+  const over = ms.map((m) => {
+    const f = TECKEN.reduce((a, t) => (m.chans[t] > m.chans[a] ? t : a), "1");
+    return { m, t: f, d: streckAndel(m, f) - m.chans[f] };
+  }).filter((x) => x.d >= 0.05).sort((a, b) => b.d - a.d).slice(0, 2);
+  rad("ned", "Mest överstreckat", over.map(({ m, t }) => lank(m, teckenNamn(m, t) + cs(m, t))));
+
+  // Tecken med störst värde (chans minus streck)
+  const varde = ms.flatMap((m) => TECKEN.map((t) => ({ m, t, v: m.varde?.[t] ?? 0 })))
+    .filter((x) => x.v >= VARDE_GRANS).sort((a, b) => b.v - a.v).slice(0, 2);
+  rad("varde", "Störst värde", varde.map(({ m, t }) => lank(m, teckenNamn(m, t) + cs(m, t))));
+
+  // Skrällchanser (samma som förslaget Skräll väljer bland)
+  const skrallar = Object.values(skrallchanser(skrallUnderlag(state.kupong.matcher))).sort((a, b) => b.kvot - a.kvot);
+  rad("skrall", "Skrällchans", skrallar.map((s) => {
+    const m = state.kupong.matcher.find((x) => x.nr === s.nr);
+    return lank(m, `${teckenNamn(m, s.tecken)} (${procent(s.chans)} / ${Math.round(100 * s.streck)})`);
+  }), "Inga den här veckan – inget tecken är tydligt understreckat utan att vara för osannolikt.");
+
+  // Lagkoll: matchen där analysen flyttat mest från oddsen
+  const lk = ms.filter((m) => m.lagkoll?.chans).map((m) => {
+    const t = TECKEN.reduce((a, x) => (Math.abs(m.lagkoll.chans[x] - m.chans[x]) > Math.abs(m.lagkoll.chans[a] - m.chans[a]) ? x : a), "1");
+    return { m, t, d: m.lagkoll.chans[t] - m.chans[t] };
+  }).sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0];
+  if (lk && Math.abs(lk.d) >= 0.02) {
+    const motiv = (lk.m.lagkoll.motivering || "").split(/(?<=\.)\s/)[0];
+    rad("lagkoll", "Lagkoll", [lank(lk.m, `${lk.m.hemmalag}–${lk.m.bortalag}: ${lk.d > 0 ? "+" : "−"}${Math.abs(procent(lk.d))} på ${lk.t}`),
+      ...(motiv ? [el("span", { class: "vl-motiv", text: motiv })] : [])]);
+  }
+
+  // Experterna: hur ofta Med experter spelar annorlunda, och var tipsarna är mest eniga
+  const delar = [];
+  const sk = state.skillnad;
+  if (sk && state.kalla === "modell") {
+    const n = Object.keys(sk.skiljer).length;
+    delar.push(n ? `Spelar annorlunda på ${n} ${n === 1 ? "match" : "matcher"}` : "Spelar samma rader som Oddsen");
+  }
+  const enig = ms.map((m) => {
+    const enkla = (m.tips || []).filter((t) => t.tecken && t.tecken.length === 1 && t.kalla !== "Tio tidningars tips");
+    const t = TECKEN.reduce((a, x) => (enkla.filter((y) => y.tecken === x).length > enkla.filter((y) => y.tecken === a).length ? x : a), "1");
+    return { m, t, n: enkla.filter((y) => y.tecken === t).length, av: (m.tips || []).filter((y) => y.tecken && y.kalla !== "Tio tidningars tips").length };
+  }).filter((x) => x.av >= 4).sort((a, b) => b.n / b.av - a.n / a.av || b.n - a.n)[0];
+  if (enig && enig.n >= 3) delar.push(el("span", {}, "mest eniga om ", lank(enig.m, `${teckenNamn(enig.m, enig.t)} (${enig.n} av ${enig.av})`)));
+  rad("experter", "Experterna", delar);
+
+  inne.replaceChildren(...rader);
+  ruta.hidden = !rader.length;
+}
+
+function initVeckolage() {
+  const ruta = $("veckolage");
+  try { if (localStorage.getItem(VECKOLAGE_STANGD) === "1") ruta.open = false; } catch { /* privat läge */ }
+  ruta.addEventListener("toggle", () => {
+    try { ruta.open ? localStorage.removeItem(VECKOLAGE_STANGD) : localStorage.setItem(VECKOLAGE_STANGD, "1"); } catch { /* privat läge */ }
+  });
+  $("veckolage-innehall").addEventListener("click", (e) => {
+    const b = e.target.closest(".vl-match");
+    if (!b) return;
+    const nr = Number(b.dataset.nr);
+    state.oppna.add(nr);
+    state.aktivMatch = nr;
+    renderaMatcher();
+    const h = document.querySelector(`.match-huvud[data-nr="${nr}"]`);
+    h?.scrollIntoView({ block: "start", behavior: "smooth" });
+    h?.focus({ preventScroll: true });
+  });
+}
+
 function uppdatera() {
   state.resultat = optimeraForslag(state.kupong, state.kalla, state.budget, state.lasningar);
   const info = forslagInfo(state.kupong, state.kalla, state.resultat);
@@ -2623,6 +2719,7 @@ function uppdatera() {
     ? `${sk.namn} spelar annorlunda på ${nr.length} ${nr.length === 1 ? "match" : "matcher"} – se etiketten "${KORTNAMN_FORSLAG[sk.namn] || sk.namn}: …" på raderna.`
     : `${sk.namn} ger samma rader.`;
   for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
+  renderaVeckolage();
 
   $("forslag-beskrivning").textContent = FORSLAG[state.kalla].under;
   for (const b of $("budgetknappar").children) {

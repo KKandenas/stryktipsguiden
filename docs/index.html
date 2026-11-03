@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Caveat:wght@600&display=swap">
 <link rel="preload" as="image" href="bilder/tavla-mobil.webp" media="(max-width: 700px)">
 <link rel="preload" as="image" href="bilder/tavla.webp" media="(min-width: 701px)">
-<link rel="stylesheet" href="app.css?v=20261103a">
-<script type="module" src="app.js?v=20261103a"></script>
+<link rel="stylesheet" href="app.css?v=20261103b">
+<script type="module" src="app.js?v=20261103b"></script>
 </head>
 <body data-vy="kupong">
 <header class="topp">
@@ -76,6 +76,11 @@
         <div id="budgetknappar" class="budgetknappar" role="radiogroup" aria-labelledby="budget-rubrik"></div>
         <p id="tur-info" class="tur-info" hidden></p>
       </section>
+
+      <details id="veckolage" class="kort veckolage" open hidden>
+        <summary>Veckans läge</summary>
+        <div id="veckolage-innehall"></div>
+      </details>
 
       <div id="banner" class="banner" hidden></div>
       <p class="tips-rad"><span class="forklaring-siffror"><b>45·52</b> = chans · streck i % &nbsp;<i class="prick inline" aria-hidden="true"></i> = värde (chansen tydligt högre än strecken)</span>
