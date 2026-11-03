@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from pipeline import schema
 
@@ -53,3 +53,19 @@ def test_resultat_hamtas_nar_sista_matchen_ar_slut():
     assert schema.senaste_planerade(nu, stopp, sista) == utc("2026-06-28T21:30:00")     # 2,5 h efter avspark
     assert schema.forfallen("2026-06-28T18:00:00Z", nu, stopp, sista) == utc("2026-06-28T21:30:00")
     assert schema.senaste_planerade(utc("2026-06-28T23:40:00"), stopp, sista) == utc("2026-06-28T23:30:00")  # nytt försök
+
+
+def test_kupongkoll_tills_nasta_omgang_finns(conn):
+    # Svenska Spel publicerar ibland nästa kupong efter måndagens körning: planerad tittar en gång i timmen
+    from pipeline import __main__ as huvud, lagring
+    from pipeline.sources.svenskaspel import tolka_kupong
+    from tests.conftest import las_fixture
+    lagring.spara_kupong(conn, tolka_kupong(las_fixture("svs_draw_4974.json")["draw"], "2026-10-10T07:00:00Z"))
+    stopp = conn.execute("SELECT spelstopp FROM omgangar").fetchone()[0]
+    fore = datetime.fromisoformat(stopp.replace("Z", "+00:00")) - timedelta(days=1)
+    efter = fore + timedelta(days=3)
+    assert not huvud.saknar_oppen_omgang(conn, fore) and huvud.saknar_oppen_omgang(conn, efter)
+    assert huvud.kupongkoll_dags(conn, efter)
+    huvud._satt_installning(conn, "senaste_kupongkoll", efter.strftime("%Y-%m-%dT%H:%M:%SZ"))
+    assert not huvud.kupongkoll_dags(conn, efter + timedelta(minutes=45))
+    assert huvud.kupongkoll_dags(conn, efter + timedelta(minutes=60))

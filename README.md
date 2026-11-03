@@ -96,6 +96,10 @@ verkliga spelstoppet (`schema.RELATIVA`), och på söndagar startas pipelinen li
 Resultatet hämtas dessutom 2,5 och 4,5 timmar efter omgångens sista avspark, så att omgångar där sista
 matchen spelas på söndagen (eller natten mot måndag) rättas så snart Svenska Spel publicerat facit.
 
+Finns ingen kommande omgång i databasen tittar `planerad` hos Svenska Spel en gång i timmen tills nästa
+kupong är publicerad, och gör då måndagens uppdatering direkt. Vecka 45 2026 kom kupongen först efter
+måndagens körning och hade annars inte hämtats förrän onsdag kväll.
+
 GitHub-cron kan vara försenad 5–30 minuter. Därför finns det flera lördagskörningar, och en stängd
 omgång hämtas om i upp till 48 timmar så att slutstrecken alltid kommer med. Alla steg är idempotenta,
 så det är ofarligt att köra något två gånger. Du kan också köra manuellt under **Actions → Pipeline →

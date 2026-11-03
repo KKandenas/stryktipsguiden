@@ -92,6 +92,20 @@ def steg_svenskaspel(conn) -> bool:
 MIN_ODDSKREDITER = 30   # färre kvar än så: spara resten till månadsskiftet
 
 
+KUPONGKOLL_INTERVALL = timedelta(hours=1)
+
+
+def saknar_oppen_omgang(conn, nu: datetime) -> bool:
+    """Ingen kommande omgång i databasen (förra är stängd och nästa inte hämtad än)."""
+    return conn.execute("SELECT 1 FROM omgangar WHERE spelstopp > ? AND installd = 0 LIMIT 1",
+                        (nu.strftime("%Y-%m-%dT%H:%M:%SZ"),)).fetchone() is None
+
+
+def kupongkoll_dags(conn, nu: datetime) -> bool:
+    senast = _installning(conn, "senaste_kupongkoll")[0]
+    return not senast or nu - parse_iso(senast) >= KUPONGKOLL_INTERVALL
+
+
 def _installning(conn, nyckel):
     r = conn.execute("SELECT varde, uppdaterad FROM installningar WHERE nyckel = ?", (nyckel,)).fetchone()
     return (r[0], r[1]) if r else (None, None)
@@ -415,7 +429,17 @@ def main(argv=None) -> int:
         spelstopp = [parse_iso(r[0]) for r in rader]
         sista = [parse_iso(r[1]) for r in rader if r[1]]
         tid = schema.forfallen(_installning(conn, "senaste_planerade")[0], nu, spelstopp, sista)
-        if tid is None:
+        if tid is None and saknar_oppen_omgang(conn, nu) and kupongkoll_dags(conn, nu):
+            # Svenska Spel publicerar ibland nästa kupong först efter måndagens körning: titta en gång i
+            # timmen tills den finns, och gör då måndagens uppdatering direkt i stället för på onsdag
+            _satt_installning(conn, "senaste_kupongkoll", nu.strftime("%Y-%m-%dT%H:%M:%SZ"))
+            steg_svenskaspel(conn)
+            if not saknar_oppen_omgang(conn, nu):
+                log.info("Planerad: ny kupong publicerad – kör uppdateringen nu")
+                kritiskt_ok = kor_auto(conn)
+            else:
+                log.info("Planerad: ingen ny kupong än")
+        elif tid is None:
             log.info("Planerad: inget att göra – den senaste planerade uppdateringen är redan körd")
             # Nattetid lör–tor: märk experternas kommentarer med det som är kvar av Geminis dagskvot
             if expertteman.nattfonster(nu):
