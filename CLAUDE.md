@@ -2,7 +2,7 @@
 
 Statisk app (`docs/`, GitHub Pages: https://kkandenas.github.io/stryktipsguiden/) och en Python-pipeline
 (`pipeline/`) som körs i GitHub Actions och ger radförslag för Stryktipset. Detaljer finns i README.md,
-FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md och FIREBASE.md.
+FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md, FIREBASE.md och DRIFT.md (drifthandbok och larm).
 
 ## Arbetssätt
 
@@ -36,6 +36,8 @@ FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md och FIREBASE.md.
 - Kommandon utan AI och oddskrediter: `tabeller` (export), `resultat` (resultat, statistik och export) och
   `sidomatcher`. Starta med `gh workflow run pipeline.yml -f kommando=<namn>`.
 - Oddskrediter (The Odds API) är begränsade. Driftstatusen på Om-sidan visar läget.
+- Hälsokontroll: `.github/workflows/halsa.yml` (varannan timme, `pipeline/halsa.py`) skapar ett ärende med etiketten
+  `driftlarm` när något är fel och stänger det när det är löst. Nya larm ska förklaras i DRIFT.md.
 - Schemat: `pipeline/schema.py`. GitHub-cron är opålitlig (hoppar över många starter), så pipelinen startas
   med `planerad` både av GitHubs cron och var 15:e minut av cron-job.org (README, "Extern start"). Nyckeln där
   sköter användaren själv. Startar inga körningar alls: kontrollera först om nyckeln har gått ut.

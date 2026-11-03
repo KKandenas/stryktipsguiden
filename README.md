@@ -105,6 +105,10 @@ omgång hämtas om i upp till 48 timmar så att slutstrecken alltid kommer med. 
 så det är ofarligt att köra något två gånger. Du kan också köra manuellt under **Actions → Pipeline →
 Run workflow**, inklusive backfill.
 
+**Hälsokontroll och drift:** `.github/workflows/halsa.yml` kontrollerar varannan timme att kupong, odds,
+AI, krediter, starter och resultat fungerar, och skapar annars ett ärende (`driftlarm`) som mejlas till ägaren.
+Vad man gör vid varje larm står i [DRIFT.md](DRIFT.md).
+
 **Extern start:** GitHub hoppar över många schemalagda starter utan förvarning. Därför startar cron-job.org
 (gratis) pipelinen var 15:e minut med ett anrop till GitHubs API:
 

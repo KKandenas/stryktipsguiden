@@ -28,7 +28,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import config, db, expertarkiv, expertteman, export, lagkoll, lagring, schema, sidomatcher, tipsinsamling
+from . import config, db, expertarkiv, expertteman, export, halsa, lagkoll, lagring, schema, sidomatcher, tipsinsamling
 from .ai import klient as ai_klient
 from .ai import kommentarer as ai_kommentarer
 from .http import HamtningsFel
@@ -402,6 +402,10 @@ def main(argv=None) -> int:
     b.add_argument("till", type=int)
     pr = sub.add_parser("prognos")
     pr.add_argument("--alla", action="store_true", help="räkna om alla matcher, inte bara aktuella")
+    ha = sub.add_parser("halsa", help="hälsokontroll (se pipeline/halsa.py och DRIFT.md)")
+    ha.add_argument("--starter", type=int, help="antal starter av pipelinen de senaste timmarna")
+    ha.add_argument("--ut", help="skriv ärendetexten hit om något är fel")
+    ha.add_argument("--testlarm", action="store_true", help="lägg till ett påhittat larm (prova att mejlet kommer fram)")
     ex = sub.add_parser("export")
     ex.add_argument("--omgang", type=int)
     ex.add_argument("--till", help="filväg (standard docs/kupong.json)")
@@ -416,6 +420,20 @@ def main(argv=None) -> int:
     nya = db.migrera(conn)
     if nya:
         log.info("Migreringar körda: %s", nya)
+
+    if args.kommando == "halsa":
+        nu = datetime.now(timezone.utc)
+        fel = halsa.kontrollera(conn, nu, args.starter)
+        if args.testlarm:
+            fel.append({"kod": "testlarm", "rubrik": "Testlarm",
+                        "text": "Det här är ett test av driftlarmet. Inget är fel; ärendet stängs vid nästa kontroll."})
+        for f in fel:
+            log.warning("Hälsa: %s – %s", f["rubrik"], f["text"])
+        if not fel:
+            log.info("Hälsa: allt fungerar")
+        if args.ut:
+            Path(args.ut).write_text(halsa.som_markdown(fel, nu) if fel else "", encoding="utf-8")
+        return 0
 
     kritiskt_ok = True
     if args.kommando == "auto":

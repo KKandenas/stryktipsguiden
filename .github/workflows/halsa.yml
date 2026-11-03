@@ -1,0 +1,66 @@
+name: Hälsokontroll
+
+# Var annan timme: hittar driftproblem (ingen kupong, inga starter, odds som saknas, AI-fel, lite oddskrediter,
+# resultat som inte kommit) och skapar då ett ärende med etiketten "driftlarm". GitHub mejlar ägaren. Ärendet
+# uppdateras om nya problem tillkommer och stängs när allt fungerar igen. Se pipeline/halsa.py och DRIFT.md.
+on:
+  schedule:
+    - cron: "41 */2 * * *"
+  workflow_dispatch:
+    inputs:
+      testlarm:
+        description: "Skapa ett testlarm (för att se att mejlet kommer fram)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  actions: read
+
+jobs:
+  kontroll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Kontrollera
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TESTLARM: ${{ inputs.testlarm }}
+        run: |
+          sedan=$(date -u -d '-3 hours' +%Y-%m-%dT%H:%M:%SZ)
+          starter=$(gh run list --workflow pipeline.yml --limit 50 --json createdAt \
+            -q "[.[] | select(.createdAt > \"$sedan\")] | length" || true)
+          flaggor=""
+          if [ -n "$starter" ]; then flaggor="--starter $starter"; fi
+          if [ "$TESTLARM" = "true" ]; then flaggor="$flaggor --testlarm"; fi
+          python -m pipeline halsa $flaggor --ut larm.md
+
+      - name: Skapa, uppdatera eller stäng ärendet
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create driftlarm --color D93F0B --description "Hälsokontrollen hittade ett driftproblem" 2>/dev/null || true
+          nr=$(gh issue list --label driftlarm --state open --json number -q '.[0].number')
+          if [ -s larm.md ]; then
+            if [ -z "$nr" ]; then
+              { cat larm.md; printf '\n\n@KKandenas\n'; } > ny.md
+              gh issue create --title "Driftlarm: Stryktipsguiden behöver tittas på" --label driftlarm --body-file ny.md
+            else
+              gamla=$(gh issue view "$nr" --json body -q .body | head -1)
+              gh issue edit "$nr" --body-file larm.md
+              # Nya eller andra problem: kommentera, så att det kommer ett nytt mejl
+              if [ "$gamla" != "$(head -1 larm.md)" ]; then gh issue comment "$nr" --body-file larm.md; fi
+            fi
+          elif [ -n "$nr" ]; then
+            gh issue close "$nr" --comment "Hälsokontrollen hittar inga problem längre. Stänger ärendet."
+          fi
