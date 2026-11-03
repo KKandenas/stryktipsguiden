@@ -28,6 +28,7 @@ LIGA_TILL_ODDSAPI = {
     ("England", "League One"): "soccer_england_league1",
     ("England", "League Two"): "soccer_england_league2",
     ("England", "FA-cupen"): "soccer_fa_cup",
+    ("England", "FA Cup"): "soccer_fa_cup",          # Svenska Spels namn (november 2026)
     ("Sverige", "Allsvenskan"): "soccer_sweden_allsvenskan",
     ("Sverige", "Superettan"): "soccer_sweden_superettan",
     ("Skottland", "Premiership"): "soccer_spl",
