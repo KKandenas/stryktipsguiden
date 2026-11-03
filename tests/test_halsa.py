@@ -54,3 +54,38 @@ def test_ai_krediter_och_resultat(conn):
     assert koder(fel) == {"ai_fel", "krediter", "resultat_saknas"}
     text = halsa.som_markdown(fel, nu)
     assert text.startswith("<!-- koder: ai_fel,krediter,resultat_saknas -->") and "DRIFT.md#larm" in text
+
+
+def _omgang(conn, oid, stopp):
+    conn.execute("INSERT INTO omgangar (id, datum, spelstopp) VALUES (?, ?, ?)", (oid, stopp[:10], stopp))
+    ids = []
+    for nr in range(1, 14):
+        cur = conn.execute("INSERT INTO matcher (omgang_id, matchnr, hemmalag, bortalag, land, liga) VALUES (?, ?, 'A', 'B', 'England', 'Premier League')",
+                           (oid, nr))
+        ids.append(cur.lastrowid)
+        conn.execute("INSERT INTO odds (match_id, tidpunkt, bolag, o1, ox, o2) VALUES (?, '2026-01-01T00:00:00Z', 'pinnacle', 2, 3.4, 3.8)", (cur.lastrowid,))
+    return ids
+
+
+def test_tyst_tipssajt_och_lagkoll(conn):
+    stopp = datetime(2026, 11, 7, 14, 59, tzinfo=timezone.utc)
+    for i, d in enumerate(("2026-10-17T13:59:00Z", "2026-10-24T13:59:00Z", "2026-10-31T14:59:00Z")):
+        for mid in _omgang(conn, 4975 + i, d):
+            for k in ("hurbra.se", "speltips.se"):
+                conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken) VALUES (?, ?, 't', '1')", (mid, lagring.kalla_id(conn, k)))
+    nya = _omgang(conn, 4978, "2026-11-07T14:59:00Z")
+    conn.execute("INSERT INTO tips (match_id, kalla_id, tidpunkt, tecken) VALUES (?, ?, 't', '1')", (nya[0], lagring.kalla_id(conn, "hurbra.se")))
+    # Onsdag: för tidigt att larma
+    assert halsa.kontrollera(conn, stopp - timedelta(days=3)) == []
+    # Fredag kväll: speltips.se har tystnat
+    fel = halsa.kontrollera(conn, stopp - timedelta(hours=18))
+    assert koder(fel) == {"tipssajt_tyst"} and "speltips.se" in fel[0]["text"] and "hurbra" not in fel[0]["text"]
+    # Lördag fem timmar före spelstopp: Lagkoll har bara analyserat två matcher, sedan alla men utan tabeller
+    for mid in nya[:2]:
+        conn.execute("INSERT INTO lagkoll (match_id, tidpunkt, underlag_hash, p1, px, p2, underlag) VALUES (?, 't', 'h', .4, .3, .3, '{}')", (mid,))
+    assert "lagkoll_saknas" in koder(halsa.kontrollera(conn, stopp - timedelta(hours=4)))
+    for mid in nya[2:]:
+        conn.execute("INSERT INTO lagkoll (match_id, tidpunkt, underlag_hash, p1, px, p2, underlag) VALUES (?, 't', 'h', .4, .3, .3, '{}')", (mid,))
+    assert "tabeller_saknas" in koder(halsa.kontrollera(conn, stopp - timedelta(hours=4)))
+    conn.execute("""UPDATE lagkoll SET underlag = '{"hemma": {"tabell": {"plats": 1}}}'""")
+    assert koder(halsa.kontrollera(conn, stopp - timedelta(hours=4))) == {"tipssajt_tyst"}

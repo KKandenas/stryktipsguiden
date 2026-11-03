@@ -73,6 +73,18 @@ Utan AI fungerar Oddsen och Skrällchans som vanligt; Med experter och Lagkoll f
 The Odds API ger 500 gratis krediter i månaden. Kör inte `odds` eller `auto` för hand resten av månaden.
 Tar de slut används Svenska Spels startodds tills nästa månad.
 
+### En tipssajt har slutat ge tips
+Fredag kväll och lördag: en sajt som hade tips de tre senaste omgångarna har inga den här veckan. Ibland
+hoppar sajten bara över en vecka (speltips.se gjorde det 31 oktober 2026); då försvinner larmet nästa vecka.
+Kommer det igen veckan efter har sajten troligen bytt utseende, och då behövs en kodändring i
+`pipeline/sources/tipssajter/`. Under tiden: lita mer på Oddsen än på Med experter.
+
+### Lagkoll har analyserat få matcher, eller saknar tabeller
+Lördag förmiddag: Lagkoll har bara analyserat några få matcher, eller analyserna saknar ligatabell. Det
+första beror oftast på att AI-kvoten tog slut (se AI-larmet), det andra på att BBC Sport eller Wikipedia
+bytt utseende (kodändring i `pipeline/sources/bbc.py` eller `wikipedia.py`). Lagkoll är en skuggmodell;
+Oddsen och Skrällchans påverkas inte.
+
 ### Resultat och utdelning saknas
 Kör `resultat`. Kommer inget: Svenska Spel kan ha skjutit upp eller ställt in en match. Omgången rättas när
 facit finns.

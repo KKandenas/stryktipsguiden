@@ -71,6 +71,35 @@ def kontrollera(conn: sqlite3.Connection, nu: datetime, starter: Optional[int] =
             larm("odds_saknas", "Odds saknas för kupongmatcher",
                  f"Omgång {oid}: inga odds från spelbolagen för " + "; ".join(rader) + ".")
 
+    # Källor som tystnat: fredag kväll och lördag före spelstopp
+    for oid, stopp in oppna:
+        timmar_kvar = (parse_iso(stopp) - nu).total_seconds() / 3600
+        if timmar_kvar > 20:
+            continue
+        tidigare = [r[0] for r in conn.execute(
+            "SELECT id FROM omgangar WHERE spelstopp < ? AND installd = 0 ORDER BY spelstopp DESC LIMIT 3", (_iso(nu),))]
+        if len(tidigare) == 3:
+            per = lambda omg: {r[0] for r in conn.execute(
+                """SELECT DISTINCT k.namn FROM tips t JOIN kallor k ON k.id = t.kalla_id JOIN matcher m ON m.id = t.match_id
+                   WHERE m.omgang_id = ?""", (omg,))}
+            stadiga = set.intersection(*(per(o) for o in tidigare))
+            tysta = sorted(stadiga - per(oid))
+            if tysta:
+                larm("tipssajt_tyst", "En tipssajt har slutat ge tips",
+                     f"Omgång {oid}: inga tips från {', '.join(tysta)}, som hade tips de tre senaste omgångarna. "
+                     "Sajten kan ha hoppat över veckan eller bytt utseende. Med experter får mindre underlag.")
+        if timmar_kvar <= 5:
+            analyser, med_tabell = conn.execute(
+                """SELECT COUNT(*), SUM(json_extract(l.underlag, '$.hemma.tabell') IS NOT NULL)
+                   FROM lagkoll l JOIN matcher m ON m.id = l.match_id WHERE m.omgang_id = ?""", (oid,)).fetchone()
+            if analyser < 7:
+                larm("lagkoll_saknas", "Lagkoll har analyserat få matcher",
+                     f"Omgång {oid}: Lagkoll har analyserat {analyser} av 13 matcher fem timmar före spelstopp.")
+            elif (med_tabell or 0) < analyser / 2:
+                larm("tabeller_saknas", "Lagkoll saknar tabeller",
+                     f"Omgång {oid}: bara {med_tabell or 0} av {analyser} analyser har ligatabell. Tabellkällan "
+                     "(BBC Sport eller Wikipedia) kan ha bytt utseende.")
+
     # AI: senaste körningen misslyckades helt eller stoppades
     r = conn.execute("SELECT varde, uppdaterad FROM installningar WHERE nyckel = 'ai_status'").fetchone()
     if r and parse_iso(r[1]) > nu - timedelta(days=2):

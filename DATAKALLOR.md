@@ -46,7 +46,7 @@ Per `drawEvents[i]`:
 | `svenskaFolket.date` | `"2026-10-10T16:00:01.284+02:00"` | ögonblicksbildens tid; används som `streck.tidpunkt` |
 | `odds.one/x/two` | `"1,70"` | Svenska Spels (Oddset) aktuella odds. Saknas på äldre omgångar och efter avspark. |
 | `startOdds.one/x/two` | `"1,75"` | odds när kupongen öppnade, finns från ca 2021 |
-| `tioTidningarsTips.one/x/two` | `5`, `1`, `4` | hur många av tio tidningar som tippar respektive tecken, finns ca 2020–2026 (inte alltid) |
+| `tioTidningarsTips.one/x/two` | `5`, `1`, `4` | hur många av tio tidningar som tippar respektive tecken, finns ca 2020 – maj 2026. Fältet är tomt (`null`) sedan hösten 2026; senaste omgången med data är 4954 (24 maj 2026). Vikten var då 0,005. |
 
 Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att hämta i efterhand.
 
