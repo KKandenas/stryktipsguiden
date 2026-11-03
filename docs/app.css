@@ -695,6 +695,7 @@ body[data-vy="kupong"] { padding-bottom: calc(var(--flikrad-h) + var(--kupongbar
 .forslag button[aria-checked="true"] { color: var(--primar); font-weight: 700; }
 .forslag-beskrivning { margin: 0 0 4px; font-size: 13px; color: var(--dampad); }
 .budget .skillnad { margin: 2px 0; font-size: 13px; text-align: left; }
+.budget .skillnad.andrat { color: var(--text); background: var(--banner); border-radius: 8px; padding: 6px 9px; margin: 6px 0; }
 
 /* Antal rader: en rad som sveps i sidled */
 .budgetknappar {

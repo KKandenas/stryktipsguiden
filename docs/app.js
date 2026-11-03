@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261103b";
-import * as konto from "./konto.js?v=20261103b";
+} from "./optimizer.js?v=20261103c";
+import * as konto from "./konto.js?v=20261103c";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261103b";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103b";
+} from "./spelbolag.js?v=20261103c";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103c";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103c";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -179,6 +179,8 @@ async function start() {
   $("matcher").addEventListener("click", klickMatch);
   $("rensa").addEventListener("click", () => { state.lasningar = {}; uppdatera(); });
   initVeckolage();
+  state.hamtad = Date.now();
+  document.addEventListener("visibilitychange", hamtaOmInaktuell);
   uppdatera();
   setInterval(renderaTopp, 60_000);   // håll nedräkningen till spelstopp aktuell
 }
@@ -2611,6 +2613,51 @@ function arstabell(serier) {
       "olika mycket tillbaka: det som avgör är om raderna går in när få andra har dem. 10 rätt ger ofta låg eller ingen utdelning." }));
 }
 
+const SETT = "stryktipsguiden-sett";     // senast visade förslag per omgång, förslag och antal rader
+
+/** "Ändrat sedan du tittade senast": jämför förslaget med det du såg förra gången kupongen hade andra data.
+ *  Sparas per omgång och förslag/antal rader; jämförelsen görs bara när kupongen har uppdaterats sedan dess. */
+function visaAndrat() {
+  const rad = $("andrat");
+  rad.hidden = true;
+  const r = state.resultat, k = state.kupong;
+  if (!r?.ok || state.exempel || k.omgang.status !== "oppen") return;
+  const nyckel = `${state.kalla}|${state.budget}`, nu = r.val.map((v) => v.tecken).join(",");
+  let sett = {};
+  try { sett = JSON.parse(localStorage.getItem(SETT)) || {}; } catch { /* privat läge */ }
+  const omg = sett[k.omgang.id] || {};
+  // Förra besökets förslag (från en äldre uppdatering) hålls kvar under hela besöket
+  state.forraSett ??= {};
+  if (!(nyckel in state.forraSett)) state.forraSett[nyckel] = omg[nyckel]?.tid !== k.genererad ? omg[nyckel] : null;
+  const forra = state.forraSett[nyckel];
+  if (forra && !Object.keys(state.lasningar).length) {
+    const gamla = forra.val.split(",");
+    const andrade = r.val.filter((v, i) => gamla[i] && gamla[i] !== v.tecken).map((v) => `match ${v.nr} ${gamla[r.val.indexOf(v)]} → ${v.tecken}`);
+    if (andrade.length) {
+      rad.textContent = `Ändrat sedan du tittade ${kortFmt.format(new Date(forra.sedd))}: ${andrade.join(" · ")}`;
+      rad.hidden = false;
+    }
+  }
+  omg[nyckel] = { val: nu, tid: k.genererad, sedd: new Date().toISOString() };
+  sett = { [k.omgang.id]: omg, ...Object.fromEntries(Object.entries(sett).filter(([id]) => Number(id) >= k.omgang.id - 1)) };
+  try { localStorage.setItem(SETT, JSON.stringify(sett)); } catch { /* privat läge */ }
+}
+
+/** Kommer man tillbaka till en flik som stått öppen länge hämtas kupongen igen, så att förslaget är aktuellt. */
+async function hamtaOmInaktuell() {
+  if (document.visibilityState !== "visible" || state.exempel || Date.now() - (state.hamtad || 0) < 10 * 60_000) return;
+  state.hamtad = Date.now();
+  try {
+    const ny = await hamta("kupong.json");
+    if (ny.genererad === state.kupong.genererad) return;
+    if (ny.omgang.id !== state.kupong.omgang.id) { location.reload(); return; }
+    state.kupong = ny;
+    state.forraSett = {};          // jämför med det du såg före uppdateringen
+    renderaTopp();
+    uppdatera();
+  } catch { /* nätet borta en stund: försök vid nästa besök */ }
+}
+
 const VECKOLAGE_STANGD = "stryktipsguiden-veckolage-stangd";
 
 /** Lagets namn för ett tecken: "Fulham 2", "Villa–Fulham X". */
@@ -2720,6 +2767,7 @@ function uppdatera() {
     : `${sk.namn} ger samma rader.`;
   for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
   renderaVeckolage();
+  visaAndrat();
 
   $("forslag-beskrivning").textContent = FORSLAG[state.kalla].under;
   for (const b of $("budgetknappar").children) {
