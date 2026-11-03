@@ -40,6 +40,7 @@ jobs:
           sedan=$(date -u -d '-3 hours' +%Y-%m-%dT%H:%M:%SZ)
           starter=$(gh run list --workflow pipeline.yml --limit 50 --json createdAt \
             -q "[.[] | select(.createdAt > \"$sedan\")] | length" || true)
+          echo "Starter av Pipeline de senaste 3 timmarna: ${starter:-okänt}"
           flaggor=""
           if [ -n "$starter" ]; then flaggor="--starter $starter"; fi
           if [ "$TESTLARM" = "true" ]; then flaggor="$flaggor --testlarm"; fi
