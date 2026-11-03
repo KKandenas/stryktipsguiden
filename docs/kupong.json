@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-03T11:57:19Z",
+ "genererad": "2026-11-03T11:58:43Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -11,7 +11,7 @@
   "spelstopp": "2026-11-07T14:59:00Z",
   "status": "oppen",
   "frusen": null,
-  "omsattning": 677648.0,
+  "omsattning": 681636.0,
   "radpris": 1,
   "utdelning": null,
   "vinnare": null
@@ -31,15 +31,15 @@
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 41.0,
+    "1": 40.0,
     "X": 21.0,
-    "2": 38.0
+    "2": 39.0
    },
-   "streck_tid": "2026-11-03T11:49:05Z",
+   "streck_tid": "2026-11-03T11:58:04Z",
    "varde": {
-    "1": -0.1997,
+    "1": -0.1897,
     "X": 0.0259,
-    "2": 0.1738
+    "2": 0.1638
    },
    "osaker": false,
    "chans_tips": {
@@ -48,9 +48,9 @@
     "2": 0.5538
    },
    "varde_tips": {
-    "1": -0.1986,
+    "1": -0.1886,
     "X": 0.0248,
-    "2": 0.1738
+    "2": 0.1638
    },
    "odds": {
     "antal_bolag": 44,
@@ -144,7 +144,7 @@
      "system_rader": null
     }
    ],
-   "kommentar": "Manchester City är favoriter med 55 % chans enligt oddsen. Svenska folket överstreckar ettan till 41 %, vilket gör tvåan till ett fint värdetecken.",
+   "kommentar": "Manchester City är favoriter med 55 %, men svenska folket överstreckar Nottingham till 40 % vilket gör tvåan till ett intressant värdealternativ.",
    "lagkoll": null,
    "tabell": {
     "hemma": {
@@ -688,9 +688,9 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.1946,
-    "X": 0.2405,
-    "2": 0.5648
+    "1": 0.1938,
+    "X": 0.2436,
+    "2": 0.5625
    },
    "chans_kalla": "modell",
    "streck": {
@@ -700,27 +700,27 @@
    },
    "streck_tid": "2026-11-03T11:49:05Z",
    "varde": {
-    "1": -0.2154,
-    "X": -0.0095,
-    "2": 0.2248
+    "1": -0.2162,
+    "X": -0.0064,
+    "2": 0.2225
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.1958,
-    "X": 0.2394,
-    "2": 0.5648
+    "1": 0.195,
+    "X": 0.2425,
+    "2": 0.5625
    },
    "varde_tips": {
-    "1": -0.2142,
-    "X": -0.0106,
-    "2": 0.2248
+    "1": -0.215,
+    "X": -0.0075,
+    "2": 0.2225
    },
    "odds": {
     "antal_bolag": 33,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 4.69,
-     "X": 3.93,
+     "X": 3.91,
      "2": 1.61
     },
     "bolag": [
@@ -745,7 +745,7 @@
      {
       "bolag": "betfair_ex_eu",
       "1": 5.1,
-      "X": 2.62,
+      "X": 2.06,
       "2": 1.72
      },
      {
@@ -1904,24 +1904,118 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.45,
-    "X": 0.26,
-    "2": 0.29
+    "1": 0.3706,
+    "X": 0.2865,
+    "2": 0.3429
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 45.0,
     "X": 26.0,
     "2": 29.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
-   "odds": null,
+   "varde": {
+    "1": -0.0794,
+    "X": 0.0265,
+    "2": 0.0529
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.3709,
+    "X": 0.2847,
+    "2": 0.3444
+   },
+   "varde_tips": {
+    "1": -0.0791,
+    "X": 0.0247,
+    "2": 0.0544
+   },
+   "odds": {
+    "antal_bolag": 20,
+    "bara_svenskaspel": false,
+    "snitt": {
+     "1": 2.45,
+     "X": 3.18,
+     "2": 2.64
+    },
+    "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 2.56,
+      "X": 3.25,
+      "2": 2.77
+     },
+     {
+      "bolag": "betsson",
+      "1": 2.45,
+      "X": 3.15,
+      "2": 2.72
+     },
+     {
+      "bolag": "nordicbet",
+      "1": 2.45,
+      "X": 3.15,
+      "2": 2.72
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 2.54,
+      "X": 3.3,
+      "2": 2.78
+     },
+     {
+      "bolag": "williamhill",
+      "1": 2.45,
+      "X": 3.0,
+      "2": 2.62
+     },
+     {
+      "bolag": "coolbet",
+      "1": 2.55,
+      "X": 3.4,
+      "2": 2.6
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.45,
+      "X": 3.0,
+      "2": 2.62
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 2.4,
+      "X": 3.12,
+      "2": 2.6
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 2.54,
+      "X": 3.3,
+      "2": 2.78
+     },
+     {
+      "bolag": "betfair_sb_uk",
+      "1": 2.5,
+      "X": 3.3,
+      "2": 2.7
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 2.4,
+      "X": 3.2,
+      "2": 2.5
+     },
+     {
+      "bolag": "betvictor",
+      "1": 2.4,
+      "X": 3.12,
+      "2": 2.6
+     }
+    ]
+   },
    "tips": [],
-   "kommentar": "Svenska folket streckar ettan till 45 %, krysset till 26 % och tvåan till 29 % i detta cupmöte utanOdds.",
+   "kommentar": "Oddsmässigt är det en vidöppen match där Crewe ges 37 % chans som knappa favoriter. Svenska folket streckar ettan högre till 45 %.",
    "lagkoll": null,
    "tabell": null,
    "lagnytt": null,
@@ -1936,24 +2030,118 @@
    "land": "England",
    "avspark": "2026-11-07T15:00:00Z",
    "chans": {
-    "1": 0.46,
-    "X": 0.29,
-    "2": 0.25
+    "1": 0.4691,
+    "X": 0.2792,
+    "2": 0.2517
    },
-   "chans_kalla": "streck",
+   "chans_kalla": "modell",
    "streck": {
     "1": 46.0,
     "X": 29.0,
     "2": 25.0
    },
    "streck_tid": "2026-11-03T11:49:05Z",
-   "varde": null,
-   "osaker": true,
-   "chans_tips": null,
-   "varde_tips": null,
-   "odds": null,
+   "varde": {
+    "1": 0.0091,
+    "X": -0.0108,
+    "2": 0.0017
+   },
+   "osaker": false,
+   "chans_tips": {
+    "1": 0.4688,
+    "X": 0.2777,
+    "2": 0.2535
+   },
+   "varde_tips": {
+    "1": 0.0088,
+    "X": -0.0123,
+    "2": 0.0035
+   },
+   "odds": {
+    "antal_bolag": 18,
+    "bara_svenskaspel": false,
+    "snitt": {
+     "1": 1.94,
+     "X": 3.26,
+     "2": 3.58
+    },
+    "bolag": [
+     {
+      "bolag": "pinnacle",
+      "1": 1.98,
+      "X": 3.39,
+      "2": 3.8
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.97,
+      "X": 3.3,
+      "2": 3.85
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.95,
+      "X": 3.1,
+      "2": 3.6
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.98,
+      "X": 3.4,
+      "2": 3.75
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.95,
+      "X": 3.1,
+      "2": 3.6
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.91,
+      "X": 3.2,
+      "2": 3.5
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.97,
+      "X": 3.3,
+      "2": 3.85
+     },
+     {
+      "bolag": "betfred_uk",
+      "1": 1.91,
+      "X": 3.2,
+      "2": 3.5
+     },
+     {
+      "bolag": "betvictor",
+      "1": 1.91,
+      "X": 3.2,
+      "2": 3.5
+     },
+     {
+      "bolag": "betway",
+      "1": 1.91,
+      "X": 3.4,
+      "2": 3.6
+     },
+     {
+      "bolag": "boylesports",
+      "1": 1.91,
+      "X": 3.2,
+      "2": 3.6
+     },
+     {
+      "bolag": "coral",
+      "1": 1.95,
+      "X": 3.2,
+      "2": 3.3
+     }
+    ]
+   },
    "tips": [],
-   "kommentar": "Oxford streckas som favoriter på 46 % före krysset på 29 % och tvåan på 25 % i en match helt utan odds.",
+   "kommentar": "Oxford är favoriter med 47 % chans och streckas till 46 %. Det är därmed i princip helt i fas med oddsen.",
    "lagkoll": null,
    "tabell": null,
    "lagnytt": null,
@@ -3348,17 +3536,17 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 4,
+   "lyckade": 1,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.5-flash-lite": 4
+    "gemini-3.5-flash-lite": 1
    },
    "stoppad": null,
-   "tid": "2026-11-03T11:57:19Z"
+   "tid": "2026-11-03T11:58:43Z"
   },
   "odds": {
-   "kvar": 496,
-   "tid": "2026-11-03T11:54:20Z"
+   "kvar": 490,
+   "tid": "2026-11-03T11:58:35Z"
   }
  },
  "tipsare_form": [
