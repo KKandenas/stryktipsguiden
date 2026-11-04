@@ -14,7 +14,7 @@ FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md, FIREBASE.md och DRIFT.m
 - Backtesta innan en idé införs, och redovisa resultatet ärligt även när det inte hjälper. Beslutsreglerna
   står i FARDPLAN.md: hela historiken, före och efter 2024, och riktig utdelning, inte bara träffprocent.
 - Testat och inte infört (gör inte om utan ny anledning): optimering mot förväntad utdelning, Skrällchans
-  med kvot över 1,5, experternas tvivel och varningstecken (AI-märkta teman) vid skrällval, egen risknivå för 64–128 rader, favoritfällan, inlärda vikter per oddsbolag, förslag med bara experternas tips, vädret, systemstorlek efter streckbilden och säsongens början och slut.
+  med kvot över 1,5, experternas tvivel och varningstecken (AI-märkta teman) vid skrällval, egen risknivå för 64–128 rader, favoritfällan, inlärda vikter per oddsbolag, förslag med bara experternas tips, vädret, systemstorlek efter streckbilden, säsongens början och slut, och skottstatistik/stilmöten.
   Se FARDPLAN.md.
 
 ## Fasta beslut
