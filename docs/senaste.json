@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-04T14:57:20Z",
+ "genererad": "2026-11-04T15:05:27Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -364,7 +364,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Aston Villa",
-    "borta": "Fulham"
+    "borta": "Fulham",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Fulham",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Man City",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Newcastle",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Brentford",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Tottenham",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 2
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Aston Villa",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Coventry",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Hull",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Ipswich",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 2
+      },
+      {
+       "datum": "2026-09-20",
+       "mot": "Man United",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -867,7 +943,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Tottenham",
-    "borta": "Crystal Palace"
+    "borta": "Crystal Palace",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Crystal Palace",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Chelsea",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-19",
+       "mot": "Coventry",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Man United",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Aston Villa",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 3
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Tottenham",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Newcastle",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-18",
+       "mot": "Brighton",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 5
+      },
+      {
+       "datum": "2026-10-11",
+       "mot": "Nott'm Forest",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 1
+      },
+      {
+       "datum": "2026-09-20",
+       "mot": "Leeds",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 0
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -1410,7 +1562,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Man City",
-    "borta": "Brighton"
+    "borta": "Brighton",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Brighton",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Aston Villa",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Ipswich",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-11",
+       "mot": "Liverpool",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 0
+      },
+      {
+       "datum": "2026-09-20",
+       "mot": "Sunderland",
+       "plats": "h",
+       "gjorda": 5,
+       "insl": 3
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Man City",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Liverpool",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-18",
+       "mot": "Crystal Palace",
+       "plats": "h",
+       "gjorda": 5,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Sunderland",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Arsenal",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 0
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -1901,7 +2129,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Bournemouth",
-    "borta": "Leeds"
+    "borta": "Leeds",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Leeds",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Man United",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-18",
+       "mot": "Sunderland",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Chelsea",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 5
+      },
+      {
+       "datum": "2026-09-20",
+       "mot": "Liverpool",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Bournemouth",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Sunderland",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-18",
+       "mot": "Man United",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Arsenal",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 2
+      },
+      {
+       "datum": "2026-09-20",
+       "mot": "Crystal Palace",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 0
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -2370,7 +2674,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Coventry",
-    "borta": "Sunderland"
+    "borta": "Sunderland",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Sunderland",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Fulham",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-19",
+       "mot": "Tottenham",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-12",
+       "mot": "Newcastle",
+       "plats": "h",
+       "gjorda": 4,
+       "insl": 1
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Nott'm Forest",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Coventry",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Leeds",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-18",
+       "mot": "Bournemouth",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Brighton",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-09-20",
+       "mot": "Man City",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 5
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -2868,7 +3248,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Brentford",
-    "borta": "Nott'm Forest"
+    "borta": "Nott'm Forest",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Nott'm Forest",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Hull",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Liverpool",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Aston Villa",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-09-18",
+       "mot": "Chelsea",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 0
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Brentford",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-23",
+       "mot": "Ipswich",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-18",
+       "mot": "Arsenal",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-11",
+       "mot": "Crystal Palace",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 3
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Coventry",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -3345,7 +3801,83 @@
    "serietabell": {
     "nyckel": "England/Premier League",
     "hemma": "Hull",
-    "borta": "Ipswich"
+    "borta": "Ipswich",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Ipswich",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-25",
+       "mot": "Brentford",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Fulham",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-11",
+       "mot": "Everton",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Newcastle",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 2
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Hull",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-23",
+       "mot": "Nott'm Forest",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Man City",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Fulham",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 1
+      },
+      {
+       "datum": "2026-09-19",
+       "mot": "Everton",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -3815,7 +4347,83 @@
    "serietabell": {
     "nyckel": "England/Championship",
     "hemma": "Bolton",
-    "borta": "Bristol City"
+    "borta": "Bristol City",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Bristol City",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-23",
+       "mot": "Middlesbrough",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 5
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Southampton",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Wolves",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Stoke",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 2
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Bolton",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Stoke",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Sheffield United",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Blackburn",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Charlton",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -4312,7 +4920,83 @@
    "serietabell": {
     "nyckel": "England/Championship",
     "hemma": "Burnley",
-    "borta": "Portsmouth"
+    "borta": "Portsmouth",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Portsmouth",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Lincoln",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 4
+      },
+      {
+       "datum": "2026-10-16",
+       "mot": "Wolves",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Charlton",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Watford",
+       "plats": "b",
+       "gjorda": 4,
+       "insl": 0
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Burnley",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Millwall",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-20",
+       "mot": "Wolves",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Norwich",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-14",
+       "mot": "Sheffield United",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 2
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -4913,7 +5597,83 @@
    "serietabell": {
     "nyckel": "England/Championship",
     "hemma": "Millwall",
-    "borta": "Derby"
+    "borta": "Derby",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Derby",
+       "plats": "h",
+       "gjorda": 4,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Portsmouth",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Lincoln",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Swansea",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Preston",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Millwall",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 4
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Sheffield United",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Stoke",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-14",
+       "mot": "QPR",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 4
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Wrexham",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -5477,7 +6237,83 @@
    "serietabell": {
     "nyckel": "England/Championship",
     "hemma": "Southampton",
-    "borta": "QPR"
+    "borta": "QPR",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "QPR",
+       "plats": "h",
+       "gjorda": 4,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "West Ham",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Bolton",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-14",
+       "mot": "Norwich",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-11",
+       "mot": "Portsmouth",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 0
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Southampton",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 4
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Swansea",
+       "plats": "h",
+       "gjorda": 5,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Birmingham",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-14",
+       "mot": "Derby",
+       "plats": "h",
+       "gjorda": 4,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-09",
+       "mot": "West Ham",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -5967,7 +6803,83 @@
    "serietabell": {
     "nyckel": "England/Championship",
     "hemma": "Swansea",
-    "borta": "Blackburn"
+    "borta": "Blackburn",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Blackburn",
+       "plats": "h",
+       "gjorda": 4,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "QPR",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 5
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "West Ham",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Millwall",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Norwich",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 1
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "Swansea",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 4
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Wrexham",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "West Brom",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Bristol City",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Cardiff",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -6413,7 +7325,83 @@
    "serietabell": {
     "nyckel": "England/Championship",
     "hemma": "West Ham",
-    "borta": "West Brom"
+    "borta": "West Brom",
+    "senaste": {
+     "hemma": [
+      {
+       "datum": "2026-10-31",
+       "mot": "West Brom",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Southampton",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 3
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Swansea",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-14",
+       "mot": "Lincoln",
+       "plats": "b",
+       "gjorda": 6,
+       "insl": 0
+      },
+      {
+       "datum": "2026-10-09",
+       "mot": "QPR",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      }
+     ],
+     "borta": [
+      {
+       "datum": "2026-10-31",
+       "mot": "West Ham",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-24",
+       "mot": "Preston",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-17",
+       "mot": "Blackburn",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 2
+      },
+      {
+       "datum": "2026-10-13",
+       "mot": "Wrexham",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 1
+      },
+      {
+       "datum": "2026-10-10",
+       "mot": "Birmingham",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 1
+      }
+     ]
+    }
    },
    "lagnytt": {
     "borta": {
@@ -7114,6 +8102,16 @@
      "p": 28
     },
     {
+     "lag": "Southampton",
+     "s": 13,
+     "v": 8,
+     "o": 3,
+     "f": 2,
+     "gm": 28,
+     "im": 13,
+     "p": 27
+    },
+    {
      "lag": "Swansea",
      "s": 13,
      "v": 8,
@@ -7142,17 +8140,6 @@
      "gm": 19,
      "im": 14,
      "p": 24
-    },
-    {
-     "lag": "Southampton",
-     "s": 13,
-     "v": 8,
-     "o": 3,
-     "f": 2,
-     "gm": 28,
-     "im": 13,
-     "p": 23,
-     "avdrag": 4
     },
     {
      "lag": "Birmingham",
