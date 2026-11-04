@@ -132,7 +132,8 @@ def samla_tips(conn: sqlite3.Connection, idag: Optional[date] = None) -> Dict[st
 def samla_resultat(conn: sqlite3.Connection, idag: Optional[date] = None) -> int:
     """Spelade matcher från football-data.co.uk för de ligor där vi har tips. Returnerar antal nya matcher."""
     idag = idag or date.today()
-    koder = sorted({r[0] for r in conn.execute("SELECT DISTINCT liga_kod FROM sidotips WHERE tecken IS NOT NULL")})
+    # Alla ligor: resultaten används också till hemma- och bortatabeller (pipeline/serietabell.py)
+    koder = sorted(footballdata.LIGOR)
     nya = 0
     for kod in koder:
         try:
@@ -141,11 +142,15 @@ def samla_resultat(conn: sqlite3.Connection, idag: Optional[date] = None) -> int
             log.warning("Sidomatcher: football-data.co.uk %s: %s", kod, e)
             continue
         with conn:
-            for datum, hemma, borta, res, odds in rader:
+            for datum, hemma, borta, res, odds, mal_h, mal_b in rader:
                 p = odds or (None, None, None)
                 nya += conn.execute("""INSERT OR IGNORE INTO sidomatcher (liga_kod, datum, hemmalag, bortalag, resultat,
-                                       p1, px, p2) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                                    (kod, datum, hemma, borta, res, *p)).rowcount
+                                       p1, px, p2, mal_hemma, mal_borta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                                    (kod, datum, hemma, borta, res, *p, mal_h, mal_b)).rowcount
+                if mal_h is not None:      # matcher sparade före migrering 019 saknar mål
+                    conn.execute("""UPDATE sidomatcher SET mal_hemma = ?, mal_borta = ? WHERE liga_kod = ? AND datum = ?
+                                    AND hemmalag = ? AND bortalag = ? AND mal_hemma IS NULL""",
+                                 (mal_h, mal_b, kod, datum, hemma, borta))
     return nya
 
 

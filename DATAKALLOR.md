@@ -77,7 +77,10 @@ Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att häm
 - Fixturen `tests/fixtures/oddsapi_soccer_epl.json` är handskriven efter API-dokumentationen
   (vi hade ingen nyckel när koden skrevs). Ersätt den med ett riktigt svar när du har en nyckel.
 
-## football-data.co.uk (matcher utanför kupongen)
+## football-data.co.uk (matcher utanför kupongen och serietabeller)
+
+Målen (`FTHG`/`FTAG`) sparas också (migrering 019) och används till serietabellerna totalt, hemma och borta
+under matchens flik Tabell (`pipeline/serietabell.py`). Poängavdrag tas från BBC:s tabell.
 
 `https://www.football-data.co.uk/mmz4281/{säsong}/{liga}.csv`, till exempel `2627/E1.csv` för Championship
 2026/27. Ingen nyckel krävs, och robots.txt tillåter hämtning. Filen uppdateras ett par gånger i veckan och

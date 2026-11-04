@@ -27,8 +27,11 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
                   "sammanhang": [{"text", "kalla", "tid"}], "tranarbyte": {...} | null}} | null,
       "lagkoll": {"chans": {"1", "X", "2"}, "skrallrisk": "låg" | "medel" | "hög", "motivering", "faktorer": [...],
                   "tid", "hemma"/"borta": {"tabell", "form", "franvaro": [...], "tranarbyte", "kallor"}} | null,
+      "serietabell": {"nyckel": "England/Championship", "hemma"/"borta": lagets namn i tabellen | null} | null,
       "resultat": "1" | null, "mal": "2-1" | null
-  }]
+  }],
+  "serietabeller": {"England/Championship": {"totalt"/"hemma"/"borta": [{"lag", "s", "v", "o", "f", "gm", "im", "p"}],
+                    "till": "2026-11-02"}}   (räknade ur resultaten, se pipeline/serietabell.py)
 }
 
 "tipsare_form": [{"namn", "grupp": "alla" | "England" | "Sverige" | "Övrigt", "poang", "antal",
@@ -60,7 +63,7 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 
-from . import config, lagkoll
+from . import config, lagkoll, serietabell
 from .model.modeller import (BOLAG_START, MODELLER, STANDARD_MODELL, STARTVIKT_TIPS, TIPSKALLOR, las_underlag,
                              las_vikter, vald_version)
 from .model.sannolikhet import varde
@@ -122,7 +125,9 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
     visa_resultat = status == "avgjord"
 
     matcher = []
-    for m in conn.execute("SELECT * FROM matcher WHERE omgang_id = ? ORDER BY matchnr", (omgang_id,)):
+    rader = conn.execute("SELECT * FROM matcher WHERE omgang_id = ? ORDER BY matchnr", (omgang_id,)).fetchall()
+    serietabeller, i_tabell = serietabell.for_kupong(conn, rader, parse_iso(nu).date())
+    for m in rader:
         fore = min(o["spelstopp"], nu)
         u = las_underlag(conn, m["id"], fore)
         # Vald modell i första hand; saknar den prognos för matchen används odds-v1.
@@ -171,6 +176,7 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "odds": odds, "tips": tips, "kommentar": kommentar[0] if kommentar else None,
             "lagkoll": lagkoll.for_export(conn, m["id"]),
             "tabell": lagkoll.for_matchdetalj(conn, m),
+            "serietabell": i_tabell.get(m["id"]),
             "lagnytt": lagkoll.nyheter(conn, m, nu),
             "resultat": m["resultat"] if visa_resultat else None,
             "mal": (f"{m['mal_hemma']}-{m['mal_borta']}"
@@ -203,6 +209,7 @@ def bygg_kupong(conn: sqlite3.Connection, omgang_id: int, nu: Optional[str] = No
             "vinnare": ({str(n): o[f"vinnare_{n}"] for n in (13, 12, 11, 10)} if visa_resultat else None),
         },
         "matcher": matcher,
+        "serietabeller": serietabeller,
         "statistik": bygg_statistik(conn, modell.version),
         "drift": bygg_drift(conn),
         "tipsare_form": tipsare_form(conn, nu),

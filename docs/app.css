@@ -302,6 +302,18 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 }
 .detaljtabell tr.markerad td { background: color-mix(in srgb, var(--primar) 9%, transparent); }
 .detaljtabell tr.markerad td:first-child { box-shadow: inset 3px 0 0 var(--primar); }
+.tabelltyp { margin-bottom: 8px; }
+.serietabell { font-size: 13px; table-layout: fixed; }
+.serietabell thead th { font-family: inherit; font-size: 12px; font-weight: 700; color: var(--dampad); padding: 6px 3px; }
+.serietabell td { padding: 6px 3px; }
+.serietabell td.tal, .serietabell th.tal { width: 30px; text-align: center; }
+.serietabell .pl { width: 26px; color: var(--dampad); }
+.serietabell td:first-child { font-weight: 400; }
+.serietabell td.lag { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+.serietabell td.p { font-weight: 700; }
+.serietabell tr.markerad td.lag { color: var(--primar); }
+.tabell-not { font-size: 12px; color: var(--dampad); margin: 6px 2px 0; }
+@media (max-width: 340px) { .serietabell .vof { display: none; } }
 .detaljtabell tr.dampad-rad td { color: var(--dampad); font-weight: 400; }
 .detaljtabell .plus { color: var(--ratt); font-weight: 700; }
 .detaljtabell .minus { color: var(--dampad); }
@@ -745,7 +757,7 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .matchtid { display: block; font-size: 11px; color: var(--dampad); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Matchdetaljen: flikar */
-.detaljflikar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--linje); margin: 0 -2px 10px; }
+.detaljflikar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid var(--linje); margin: 0 -2px 10px; }
 .detaljflikar button {
   min-height: 42px; border: 0; background: none; font: inherit; font-size: 14px; font-weight: 600; color: var(--dampad); cursor: pointer;
 }

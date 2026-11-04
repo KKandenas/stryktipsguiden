@@ -29,6 +29,7 @@ def test_football_data_csv_med_odds_utan_marginal():
            "E1,18/10/2026,15:00,Wolves,Stoke,,,,2.0,3.4,3.8\n")       # inte spelad än
     rader = footballdata.tolka(csv)
     assert [r[:4] for r in rader] == [("2026-10-14", "Lincoln", "West Ham", "2"), ("2026-10-15", "Hull", "Derby", "X")]
+    assert [r[5:] for r in rader] == [(0, 6), (1, 1)]
     p = rader[0][4]
     assert abs(sum(p) - 1) < 1e-9 and p[2] > 0.5
     assert rader[1][4] is None
@@ -102,3 +103,33 @@ def test_matcher_utanfor_kupongen_lar_tipsarens_vikt(conn):
     _, med = statistik.walk_forward(conn, [], TipsModell.version, sido)
     assert utan is None
     assert med.w["sportsmole.co.uk"] > 0.3
+
+
+def test_serietabeller_totalt_hemma_borta(conn):
+    from pipeline import serietabell
+    rader = [("2026-08-09", "Hull", "Derby", "1", 2, 0), ("2026-08-16", "Derby", "Wolves", "X", 1, 1),
+             ("2026-08-23", "Wolves", "Hull", "2", 0, 3), ("2026-06-01", "Hull", "Wolves", "1", 5, 0)]   # förra säsongen
+    for d, h, b, r, mh, mb in rader:
+        conn.execute("""INSERT INTO sidomatcher (liga_kod, datum, hemmalag, bortalag, resultat, mal_hemma, mal_borta)
+                        VALUES ('E1', ?, ?, ?, ?, ?, ?)""", (d, h, b, r, mh, mb))
+    t = serietabell.berakna(conn, "E1", date(2026, 11, 4))
+    assert [(r["lag"], r["s"], r["p"], r["gm"] - r["im"]) for r in t["totalt"]] == [
+        ("Hull", 2, 6, 5), ("Derby", 2, 1, -2), ("Wolves", 2, 1, -3)]
+    assert [(r["lag"], r["p"]) for r in t["hemma"]] == [("Hull", 3), ("Derby", 1), ("Wolves", 0)]
+    assert [(r["lag"], r["s"], r["p"]) for r in t["borta"]] == [("Hull", 1, 3), ("Wolves", 1, 1), ("Derby", 1, 0)]
+    assert t["till"] == "2026-08-23"
+    matcher = [{"id": 1, "land": "England", "liga": "Championship", "hemmalag": "Hull City", "bortalag": "Derby County"},
+               {"id": 2, "land": "England", "liga": "FA Cup", "hemmalag": "Crewe", "bortalag": "Wimbledon"}]
+    tabeller, per = serietabell.for_kupong(conn, matcher, date(2026, 11, 4))
+    assert list(tabeller) == ["England/Championship"]
+    assert per == {1: {"nyckel": "England/Championship", "hemma": "Hull", "borta": "Derby"}}
+
+
+def test_poangavdrag_fran_officiella_tabellen(conn):
+    from pipeline import serietabell
+    totalt = [{"lag": "Southampton", "s": 13, "v": 8, "o": 3, "f": 2, "gm": 28, "im": 13, "p": 27},
+              {"lag": "Swansea", "s": 13, "v": 8, "o": 2, "f": 3, "gm": 20, "im": 13, "p": 26}]
+    for lag, s, p in (("Southampton", 13, 23), ("Swansea City", 13, 26)):
+        conn.execute("INSERT INTO ligatabeller (land, liga, lag, spelade, poang) VALUES ('England', 'Championship', ?, ?, ?)", (lag, s, p))
+    ut = serietabell.avdrag(conn, "England", "Championship", totalt)
+    assert [(r["lag"], r["p"], r.get("avdrag")) for r in ut] == [("Swansea", 26, None), ("Southampton", 23, 4)]

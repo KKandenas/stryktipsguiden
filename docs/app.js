@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261103e";
-import * as konto from "./konto.js?v=20261103e";
+} from "./optimizer.js?v=20261104a";
+import * as konto from "./konto.js?v=20261104a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261103e";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261103e";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261103e";
+} from "./spelbolag.js?v=20261104a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261104a";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261104a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -23,6 +23,7 @@ const state = {
   aktivMatch: null,    // senast öppnade matchen: visas i nyhetskolumnen på breda skärmar
   oddsOppna: new Set(), // matcher där alla bolags odds är utfällda
   detaljFlik: "oversikt", // vald flik i matchdetaljen, samma för alla matcher
+  tabellTyp: "totalt",     // Totalt, Hemma eller Borta under fliken Tabell
   resultat: null,      // senaste optimeringen
   historik: null,      // historik.json, laddas först när backtestet öppnas
   btBudget: null,      // vald budget i backtestet
@@ -397,7 +398,7 @@ const BOLAGSNAMN = {
 const decOdds = (x) => x.toFixed(2).replace(".", ",");
 
 /** Utfälld match: kommentar och en tabell "Spelstatistik inför match" med kolumnerna 1 · X · 2. */
-const DETALJFLIKAR = [["oversikt", "Översikt"], ["lagen", "Lagen"], ["experter", "Experter"], ["odds", "Odds"]];
+const DETALJFLIKAR = [["oversikt", "Översikt"], ["lagen", "Lagen"], ["tabell", "Tabell"], ["experter", "Experter"], ["odds", "Odds"]];
 
 /** Matchdetaljen med flikar: Översikt, Lagen, Experter och Odds. */
 function detaljer(m, v, skrall = null) {
@@ -417,7 +418,7 @@ function detaljer(m, v, skrall = null) {
         });
         return b;
       }));
-    const innehall = { oversikt: detaljOversikt, lagen: detaljLagen, experter: detaljExperter, odds: detaljOdds }[flik](m, v, skrall);
+    const innehall = { oversikt: detaljOversikt, lagen: detaljLagen, tabell: detaljTabell, experter: detaljExperter, odds: detaljOdds }[flik](m, v, skrall);
     d.replaceChildren(rad, el("div", { class: "detaljflik", role: "tabpanel" }, ...innehall));
   };
   d.addEventListener("bytflik", visa);
@@ -487,6 +488,48 @@ function detaljLagen(m) {
   const serie = serietabell(m.land, m.liga);
   if (serie) ut.push(el("p", { class: "tabellank" }, extern(serie.url, `Serietabell: ${serie.namn}`)));
   return ut;
+}
+
+const TABELLTYPER = [["totalt", "Totalt"], ["hemma", "Hemma"], ["borta", "Borta"]];
+
+/** Fliken Tabell: hela serietabellen totalt, hemma eller borta, med matchens två lag markerade.
+ *  Räknad ur säsongens resultat (pipeline/serietabell.py); finns inte för cuper och ligor utan resultatdata. */
+function detaljTabell(m) {
+  const st = m.serietabell, tab = st && state.kupong.serietabeller?.[st.nyckel];
+  const serie = serietabell(m.land, m.liga);
+  const lank = serie ? el("p", { class: "tabellank" }, extern(serie.url, `Serietabell: ${serie.namn}`)) : null;
+  if (!tab) return [el("p", { class: "dampad", text: `Ingen serietabell för ${m.liga || "den här matchen"}.` }), lank].filter(Boolean);
+  const typ = TABELLTYPER.some(([k]) => k === state.tabellTyp) ? state.tabellTyp : "totalt";
+  const val = el("div", { class: "forslag tabelltyp", role: "radiogroup", "aria-label": "Tabell" },
+    ...TABELLTYPER.map(([k, namn]) => {
+      const b = el("button", { type: "button", role: "radio", "aria-checked": String(k === typ), text: namn });
+      b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.tabellTyp = k;
+        for (const x of document.querySelectorAll(".detaljer")) x.dispatchEvent(new Event("bytflik"));
+      });
+      return b;
+    }));
+  const tecken = (x) => (x > 0 ? `+${x}` : x < 0 ? `−${-x}` : "0");
+  const kropp = el("tbody");
+  let avdrag = [];
+  tab[typ].forEach((r, i) => {
+    const egen = r.lag === st.hemma || r.lag === st.borta;
+    if (r.avdrag) avdrag.push(`${r.lag} ${r.avdrag} p`);
+    kropp.append(el("tr", { class: egen ? "markerad" : "" },
+      el("td", { class: "tal pl", text: String(i + 1) }),
+      el("td", { class: "lag", text: r.lag }),
+      ...[r.s, r.v, r.o, r.f].map((x) => el("td", { class: "tal vof", text: String(x) })),
+      el("td", { class: "tal", text: tecken(r.gm - r.im) }),
+      el("td", { class: "tal p", text: `${r.p}${r.avdrag ? "*" : ""}` })));
+  });
+  const t = el("table", { class: "detaljtabell serietabell" },
+    el("thead", {}, el("tr", {}, ...["", "Lag", "S", "V", "O", "F", "+/−", "P"].map((x, i) =>
+      el("th", { class: i === 1 ? "" : i >= 3 && i <= 5 ? "tal vof" : "tal", text: x })))), kropp);
+  const till = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, day: "numeric", month: "short" }).format(new Date(tab.till)).replace(".", "");
+  const not = `Räknad ur resultaten t.o.m. ${till} (football-data.co.uk).` +
+    (typ === "totalt" && avdrag.length ? ` * Poängavdrag: ${avdrag.join(", ")}.` : "");
+  return [val, t, el("p", { class: "tabell-not", text: not }), lank].filter(Boolean);
 }
 
 /** En enkel tabell med kolumnerna 1, X, 2. rader = [{namn, under, varden: [3], klass}] */

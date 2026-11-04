@@ -30,7 +30,8 @@ LIGOR = {
 }
 KOD = {v: k for k, v in LIGOR.items()}
 
-Rad = Tuple[str, str, str, str, Optional[Tuple[float, float, float]]]   # datum, hemma, borta, resultat, odds
+# datum, hemma, borta, resultat, odds, mål hemma, mål borta
+Rad = Tuple[str, str, str, str, Optional[Tuple[float, float, float]], Optional[int], Optional[int]]
 
 
 def sasong(d: date) -> str:
@@ -68,7 +69,11 @@ def tolka(text: str) -> List[Rad]:
             datum = datetime.strptime(d, "%d/%m/%Y" if len(d) == 10 else "%d/%m/%y").date().isoformat()
         except ValueError:
             continue
-        ut.append((datum, rad["HomeTeam"].strip(), rad["AwayTeam"].strip(), res, _odds(rad)))
+        try:
+            mal = (int(rad["FTHG"]), int(rad["FTAG"]))
+        except (KeyError, TypeError, ValueError):
+            mal = (None, None)
+        ut.append((datum, rad["HomeTeam"].strip(), rad["AwayTeam"].strip(), res, _odds(rad), *mal))
     return ut
 
 
