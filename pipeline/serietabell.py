@@ -19,15 +19,15 @@ MIN_LIKHET = 0.6
 TYPER = ("totalt", "hemma", "borta")
 
 
-def _sasongsstart(idag: date) -> str:
-    return date(idag.year if idag.month >= 7 else idag.year - 1, 7, 1).isoformat()
+def _sasongsstart(idag: date, kod: str) -> str:
+    return footballdata.sasongsstart(idag, kod).isoformat()
 
 
 def berakna(conn: sqlite3.Connection, kod: str, idag: date) -> Optional[dict]:
     """{"totalt"/"hemma"/"borta": [{"lag", "s", "v", "o", "f", "gm", "im", "p"}], "till": datum} eller None."""
     rader = conn.execute("""SELECT datum, hemmalag, bortalag, mal_hemma, mal_borta FROM sidomatcher
                             WHERE liga_kod = ? AND datum >= ? AND mal_hemma IS NOT NULL""",
-                         (kod, _sasongsstart(idag))).fetchall()
+                         (kod, _sasongsstart(idag, kod))).fetchall()
     if not rader:
         return None
     tom = lambda: {"s": 0, "v": 0, "o": 0, "f": 0, "gm": 0, "im": 0, "p": 0}
@@ -79,7 +79,7 @@ def senaste(conn: sqlite3.Connection, kod: str, lag: str, idag: date, antal: int
     """Lagets senaste ligamatcher, nyaste först: [{"datum", "mot", "plats": "h"/"b", "gjorda", "insl"}]."""
     rader = conn.execute("""SELECT datum, hemmalag, bortalag, mal_hemma, mal_borta FROM sidomatcher
                             WHERE liga_kod = ? AND datum >= ? AND mal_hemma IS NOT NULL AND (hemmalag = ? OR bortalag = ?)
-                            ORDER BY datum DESC LIMIT ?""", (kod, _sasongsstart(idag), lag, lag, antal)).fetchall()
+                            ORDER BY datum DESC LIMIT ?""", (kod, _sasongsstart(idag, kod), lag, lag, antal)).fetchall()
     return [{"datum": d, "mot": b, "plats": "h", "gjorda": mh, "insl": mb} if h == lag else
             {"datum": d, "mot": h, "plats": "b", "gjorda": mb, "insl": mh} for d, h, b, mh, mb in rader]
 

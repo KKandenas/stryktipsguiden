@@ -137,3 +137,23 @@ def test_poangavdrag_fran_officiella_tabellen(conn):
         conn.execute("INSERT INTO ligatabeller (land, liga, lag, spelade, poang) VALUES ('England', 'Championship', ?, ?, ?)", (lag, s, p))
     ut = serietabell.avdrag(conn, "England", "Championship", totalt)
     assert [(r["lag"], r["p"], r.get("avdrag")) for r in ut] == [("Swansea", 26, None), ("Southampton", 23, 4)]
+
+
+def test_allsvenskan_i_nya_formatet_och_kalenderar(conn):
+    from pipeline import serietabell
+    csv = ("﻿Country,League,Season,Date,Time,Home,Away,HG,AG,Res,AvgCH,AvgCD,AvgCA\n"
+           "Sweden,Allsvenskan,2025,09/11/2025,15:00,AIK,Hammarby,1,1,D,2.5,3.3,2.8\n"
+           "Sweden,Allsvenskan,2026,01/11/2026,15:30,Vasteras SK,Brommapojkarna,1,0,H,1.85,3.69,3.64\n"
+           "Sweden,Allsvenskan,2026,02/11/2026,18:00,Mjallby,Kalmar,0,0,D,,,\n")
+    rader = footballdata.tolka(csv, "2026")
+    assert [(r[1], r[2], r[3], r[5], r[6]) for r in rader] == [("Vasteras SK", "Brommapojkarna", "1", 1, 0), ("Mjallby", "Kalmar", "X", 0, 0)]
+    assert rader[0][4][0] > 0.45 and rader[1][4] is None
+    assert footballdata.sasong(date(2026, 11, 4), "SWE") == "2026"
+    assert footballdata.sasongsstart(date(2026, 3, 1), "SWE") == date(2026, 1, 1)
+    for d, h, b, r, _, mh, mb in rader:
+        conn.execute("""INSERT INTO sidomatcher (liga_kod, datum, hemmalag, bortalag, resultat, mal_hemma, mal_borta)
+                        VALUES ('SWE', ?, ?, ?, ?, ?, ?)""", (d, h, b, r, mh, mb))
+    matcher = [{"id": 1, "land": "Sverige", "liga": "Allsvenskan", "hemmalag": "Mjällby", "bortalag": "Västerås"}]
+    tabeller, per = serietabell.for_kupong(conn, matcher, date(2026, 11, 4))
+    assert [r["lag"] for r in tabeller["Sverige/Allsvenskan"]["totalt"]][0] == "Vasteras SK"
+    assert (per[1]["hemma"], per[1]["borta"]) == ("Mjallby", "Vasteras SK")

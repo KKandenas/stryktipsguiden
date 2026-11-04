@@ -81,6 +81,9 @@ Efter spelstopp ligger slutstrecken kvar i `svenskaFolket`, så de går att häm
 
 Målen (`FTHG`/`FTAG`) sparas också (migrering 019) och används till serietabellerna totalt, hemma och borta
 under matchens flik Tabell (`pipeline/serietabell.py`). Poängavdrag tas från BBC:s tabell.
+Allsvenskan (`SWE`) ligger i en egen fil med alla säsonger, `https://www.football-data.co.uk/new/SWE.csv`, med
+kolumnerna Season, Home, Away, HG, AG, Res och slutodds (AvgCH/AvgCD/AvgCA); säsongen är kalenderåret.
+Superettan och lägre divisioner finns inte hos football-data.
 
 `https://www.football-data.co.uk/mmz4281/{säsong}/{liga}.csv`, till exempel `2627/E1.csv` för Championship
 2026/27. Ingen nyckel krävs, och robots.txt tillåter hämtning. Filen uppdateras ett par gånger i veckan och

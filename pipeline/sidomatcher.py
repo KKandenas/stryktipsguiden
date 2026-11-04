@@ -137,7 +137,7 @@ def samla_resultat(conn: sqlite3.Connection, idag: Optional[date] = None) -> int
     nya = 0
     for kod in koder:
         try:
-            rader = footballdata.hamta(kod, footballdata.sasong(idag))
+            rader = footballdata.hamta(kod, footballdata.sasong(idag, kod))
         except HamtningsFel as e:
             log.warning("Sidomatcher: football-data.co.uk %s: %s", kod, e)
             continue
