@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261104a";
-import * as konto from "./konto.js?v=20261104a";
+} from "./optimizer.js?v=20261104b";
+import * as konto from "./konto.js?v=20261104b";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261104a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261104a";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261104a";
+} from "./spelbolag.js?v=20261104b";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261104b";
+import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261104b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -672,7 +672,32 @@ function tabellBlock(m) {
     r?.form ? formrutor(r.form) : null);
   return el("section", { class: "tabellblock", "aria-label": "Tabell och form" },
     el("div", { class: "tabellblock-lagen" }, lag(m.hemmalag, t.hemma), lag(m.bortalag, t.borta)),
-    el("p", { class: "dampad liten", text: `Tabell${t.hemma?.form || t.borta?.form ? " och form (senaste matchen längst till höger)" : ""}: ${t.kalla}.` }));
+    el("p", { class: "dampad liten", text: `Tabell${t.hemma?.form || t.borta?.form ? " och form (senaste matchen längst till höger)" : ""}: ${t.kalla}.` }),
+    senasteMatcher(m));
+}
+
+const kortDatum = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, day: "numeric", month: "short" });
+
+/** Utfällbar lista med lagens fem senaste ligamatcher: datum, motståndare (h/b), resultat. */
+function senasteMatcher(m) {
+  const s = m.serietabell?.senaste;
+  if (!s || (!s.hemma?.length && !s.borta?.length)) return null;
+  const lista = (namn, rader) => el("div", { class: "senaste-lag" }, el("b", { text: namn }),
+    rader.length ? el("ol", {}, ...rader.map((r) => {
+      const u = r.gjorda > r.insl ? "W" : r.gjorda === r.insl ? "D" : "L";
+      return el("li", {},
+        el("span", { class: `formruta f${u}`, "aria-label": FORMTEXT[u], text: u === "W" ? "V" : u === "D" ? "O" : "F" }),
+        el("span", { class: "s-datum", text: kortDatum.format(new Date(r.datum)).replace(".", "") }),
+        el("span", { class: "s-mot", text: `${r.mot} (${r.plats === "h" ? "h" : "b"})` }),
+        el("span", { class: "s-res", text: `${r.gjorda}–${r.insl}` }));
+    })) : el("p", { class: "dampad", text: "Inga matcher än" }));
+  const d = el("details", { class: "senaste-matcher" },
+    el("summary", { text: "Senaste matcherna" }),
+    lista(m.hemmalag, s.hemma || []), lista(m.bortalag, s.borta || []),
+    el("p", { class: "dampad liten", text: "Ligamatcher, nyaste först. h = hemma, b = borta. Resultatet räknas från lagets håll (gjorda–insläppta). Källa: football-data.co.uk." }));
+  // Klick i listan ska inte fälla ihop matchen
+  d.addEventListener("click", (e) => e.stopPropagation());
+  return d;
 }
 
 // ---------- konto och Mina spel ----------

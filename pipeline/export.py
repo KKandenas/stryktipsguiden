@@ -27,7 +27,8 @@ Format (version 1), sannolikheter som andelar 0–1 och streck i procent:
                   "sammanhang": [{"text", "kalla", "tid"}], "tranarbyte": {...} | null}} | null,
       "lagkoll": {"chans": {"1", "X", "2"}, "skrallrisk": "låg" | "medel" | "hög", "motivering", "faktorer": [...],
                   "tid", "hemma"/"borta": {"tabell", "form", "franvaro": [...], "tranarbyte", "kallor"}} | null,
-      "serietabell": {"nyckel": "England/Championship", "hemma"/"borta": lagets namn i tabellen | null} | null,
+      "serietabell": {"nyckel": "England/Championship", "hemma"/"borta": lagets namn i tabellen | null,
+                      "senaste": {"hemma"/"borta": [{"datum", "mot", "plats": "h"/"b", "gjorda", "insl"}]}} | null,
       "resultat": "1" | null, "mal": "2-1" | null
   }],
   "serietabeller": {"England/Championship": {"totalt"/"hemma"/"borta": [{"lag", "s", "v", "o", "f", "gm", "im", "p"}],

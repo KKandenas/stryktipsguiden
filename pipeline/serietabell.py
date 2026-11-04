@@ -75,15 +75,25 @@ def avdrag(conn: sqlite3.Connection, land: str, liga: str, totalt: List[dict]) -
     return _sortera(ut)
 
 
+def senaste(conn: sqlite3.Connection, kod: str, lag: str, idag: date, antal: int = 5) -> List[dict]:
+    """Lagets senaste ligamatcher, nyaste först: [{"datum", "mot", "plats": "h"/"b", "gjorda", "insl"}]."""
+    rader = conn.execute("""SELECT datum, hemmalag, bortalag, mal_hemma, mal_borta FROM sidomatcher
+                            WHERE liga_kod = ? AND datum >= ? AND mal_hemma IS NOT NULL AND (hemmalag = ? OR bortalag = ?)
+                            ORDER BY datum DESC LIMIT ?""", (kod, _sasongsstart(idag), lag, lag, antal)).fetchall()
+    return [{"datum": d, "mot": b, "plats": "h", "gjorda": mh, "insl": mb} if h == lag else
+            {"datum": d, "mot": h, "plats": "b", "gjorda": mb, "insl": mh} for d, h, b, mh, mb in rader]
+
+
 def _hitta(namn: str, lag: List[str]) -> Optional[str]:
     bast = max(lag, key=lambda x: likhet(namn, x), default=None)
     return bast if bast is not None and likhet(namn, bast) >= MIN_LIKHET else None
 
 
 def for_kupong(conn: sqlite3.Connection, matcher, idag: date):
-    """(tabeller per liga {"England/Championship": {...}}, {match_id: {"nyckel", "hemma", "borta"}}).
+    """(tabeller per liga {"England/Championship": {...}}, {match_id: {"nyckel", "hemma", "borta", "senaste"}}).
 
-    "hemma"/"borta" är lagens namn i tabellen, så att appen kan markera dem."""
+    "hemma"/"borta" är lagens namn i tabellen, så att appen kan markera dem; "senaste" är lagens fem senaste
+    ligamatcher (se senaste())."""
     tabeller: Dict[str, dict] = {}
     per_match: Dict[int, dict] = {}
     for m in matcher:
@@ -98,5 +108,8 @@ def for_kupong(conn: sqlite3.Connection, matcher, idag: date):
             t["totalt"] = avdrag(conn, m["land"], m["liga"], t["totalt"])
             tabeller[nyckel] = t
         lag = [r["lag"] for r in tabeller[nyckel]["totalt"]]
-        per_match[m["id"]] = {"nyckel": nyckel, "hemma": _hitta(m["hemmalag"], lag), "borta": _hitta(m["bortalag"], lag)}
+        h, b = _hitta(m["hemmalag"], lag), _hitta(m["bortalag"], lag)
+        per_match[m["id"]] = {"nyckel": nyckel, "hemma": h, "borta": b,
+                              "senaste": {"hemma": senaste(conn, kod, h, idag) if h else [],
+                                          "borta": senaste(conn, kod, b, idag) if b else []}}
     return tabeller, per_match

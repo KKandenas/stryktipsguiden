@@ -122,7 +122,11 @@ def test_serietabeller_totalt_hemma_borta(conn):
                {"id": 2, "land": "England", "liga": "FA Cup", "hemmalag": "Crewe", "bortalag": "Wimbledon"}]
     tabeller, per = serietabell.for_kupong(conn, matcher, date(2026, 11, 4))
     assert list(tabeller) == ["England/Championship"]
-    assert per == {1: {"nyckel": "England/Championship", "hemma": "Hull", "borta": "Derby"}}
+    assert {k: v for k, v in per[1].items() if k != "senaste"} == {"nyckel": "England/Championship", "hemma": "Hull", "borta": "Derby"}
+    assert per[1]["senaste"]["hemma"] == [
+        {"datum": "2026-08-23", "mot": "Wolves", "plats": "b", "gjorda": 3, "insl": 0},
+        {"datum": "2026-08-09", "mot": "Derby", "plats": "h", "gjorda": 2, "insl": 0}]
+    assert list(per) == [1]
 
 
 def test_poangavdrag_fran_officiella_tabellen(conn):
