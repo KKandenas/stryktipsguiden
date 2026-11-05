@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-04T18:06:53Z",
+ "genererad": "2026-11-05T18:10:45Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -4351,6 +4351,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-03",
+       "mot": "Charlton",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Bristol City",
        "plats": "h",
@@ -4377,16 +4384,16 @@
        "plats": "b",
        "gjorda": 3,
        "insl": 1
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Stoke",
-       "plats": "h",
-       "gjorda": 1,
-       "insl": 2
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-04",
+       "mot": "Wolves",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 2
+      },
       {
        "datum": "2026-10-31",
        "mot": "Bolton",
@@ -4413,13 +4420,6 @@
        "mot": "Blackburn",
        "plats": "h",
        "gjorda": 0,
-       "insl": 1
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Charlton",
-       "plats": "b",
-       "gjorda": 1,
        "insl": 1
       }
      ]
@@ -4924,6 +4924,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-03",
+       "mot": "QPR",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Portsmouth",
        "plats": "h",
@@ -4950,16 +4957,16 @@
        "plats": "h",
        "gjorda": 2,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Watford",
-       "plats": "b",
-       "gjorda": 4,
-       "insl": 0
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-03",
+       "mot": "Swansea",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 1
+      },
       {
        "datum": "2026-10-31",
        "mot": "Burnley",
@@ -4987,13 +4994,6 @@
        "plats": "b",
        "gjorda": 1,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-14",
-       "mot": "Sheffield United",
-       "plats": "h",
-       "gjorda": 3,
-       "insl": 2
       }
      ]
     }
@@ -5601,6 +5601,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-03",
+       "mot": "Birmingham",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 3
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Derby",
        "plats": "h",
@@ -5627,16 +5634,16 @@
        "plats": "h",
        "gjorda": 0,
        "insl": 1
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Preston",
-       "plats": "b",
-       "gjorda": 1,
-       "insl": 0
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-03",
+       "mot": "Norwich",
+       "plats": "h",
+       "gjorda": 0,
+       "insl": 4
+      },
       {
        "datum": "2026-10-31",
        "mot": "Millwall",
@@ -5664,13 +5671,6 @@
        "plats": "b",
        "gjorda": 1,
        "insl": 4
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Wrexham",
-       "plats": "h",
-       "gjorda": 1,
-       "insl": 1
       }
      ]
     }
@@ -6241,6 +6241,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-03",
+       "mot": "West Brom",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 1
+      },
+      {
        "datum": "2026-10-31",
        "mot": "QPR",
        "plats": "h",
@@ -6267,16 +6274,16 @@
        "plats": "b",
        "gjorda": 1,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-11",
-       "mot": "Portsmouth",
-       "plats": "h",
-       "gjorda": 1,
-       "insl": 0
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-03",
+       "mot": "Burnley",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      },
       {
        "datum": "2026-10-31",
        "mot": "Southampton",
@@ -6303,13 +6310,6 @@
        "mot": "Derby",
        "plats": "h",
        "gjorda": 4,
-       "insl": 1
-      },
-      {
-       "datum": "2026-10-09",
-       "mot": "West Ham",
-       "plats": "b",
-       "gjorda": 1,
        "insl": 1
       }
      ]
@@ -6807,6 +6807,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-03",
+       "mot": "Portsmouth",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 3
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Blackburn",
        "plats": "h",
@@ -6833,16 +6840,16 @@
        "plats": "b",
        "gjorda": 1,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Norwich",
-       "plats": "h",
-       "gjorda": 2,
-       "insl": 1
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-03",
+       "mot": "Stoke",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 2
+      },
       {
        "datum": "2026-10-31",
        "mot": "Swansea",
@@ -6870,13 +6877,6 @@
        "plats": "b",
        "gjorda": 1,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Cardiff",
-       "plats": "h",
-       "gjorda": 2,
-       "insl": 1
       }
      ]
     }
@@ -7329,6 +7329,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-04",
+       "mot": "Cardiff",
+       "plats": "b",
+       "gjorda": 3,
+       "insl": 3
+      },
+      {
        "datum": "2026-10-31",
        "mot": "West Brom",
        "plats": "h",
@@ -7355,16 +7362,16 @@
        "plats": "b",
        "gjorda": 6,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-09",
-       "mot": "QPR",
-       "plats": "h",
-       "gjorda": 1,
-       "insl": 1
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-03",
+       "mot": "Southampton",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 1
+      },
       {
        "datum": "2026-10-31",
        "mot": "West Ham",
@@ -7391,13 +7398,6 @@
        "mot": "Wrexham",
        "plats": "b",
        "gjorda": 2,
-       "insl": 1
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Birmingham",
-       "plats": "h",
-       "gjorda": 0,
        "insl": 1
       }
      ]
@@ -8093,242 +8093,243 @@
    "totalt": [
     {
      "lag": "Middlesbrough",
-     "s": 13,
+     "s": 14,
      "v": 8,
      "o": 4,
-     "f": 1,
+     "f": 2,
      "gm": 30,
-     "im": 17,
+     "im": 19,
      "p": 28
     },
     {
-     "lag": "Southampton",
-     "s": 13,
+     "lag": "Wolves",
+     "s": 14,
      "v": 8,
      "o": 3,
-     "f": 2,
-     "gm": 28,
-     "im": 13,
+     "f": 3,
+     "gm": 25,
+     "im": 17,
      "p": 27
     },
     {
-     "lag": "Swansea",
-     "s": 13,
-     "v": 8,
-     "o": 2,
-     "f": 3,
-     "gm": 20,
+     "lag": "Birmingham",
+     "s": 14,
+     "v": 7,
+     "o": 5,
+     "f": 2,
+     "gm": 26,
      "im": 13,
      "p": 26
     },
     {
-     "lag": "Wolves",
-     "s": 13,
-     "v": 7,
-     "o": 3,
-     "f": 3,
-     "gm": 23,
+     "lag": "Stoke",
+     "s": 14,
+     "v": 8,
+     "o": 2,
+     "f": 4,
+     "gm": 22,
+     "im": 17,
+     "p": 26
+    },
+    {
+     "lag": "Swansea",
+     "s": 14,
+     "v": 8,
+     "o": 2,
+     "f": 4,
+     "gm": 21,
      "im": 16,
-     "p": 24
+     "p": 26
     },
     {
      "lag": "West Brom",
-     "s": 13,
+     "s": 14,
      "v": 7,
-     "o": 3,
+     "o": 4,
      "f": 3,
-     "gm": 19,
-     "im": 14,
-     "p": 24
-    },
-    {
-     "lag": "Birmingham",
-     "s": 13,
-     "v": 6,
-     "o": 5,
-     "f": 2,
-     "gm": 23,
-     "im": 13,
-     "p": 23
-    },
-    {
-     "lag": "Stoke",
-     "s": 13,
-     "v": 7,
-     "o": 2,
-     "f": 4,
      "gm": 20,
-     "im": 16,
-     "p": 23
+     "im": 15,
+     "p": 25
+    },
+    {
+     "lag": "Southampton",
+     "s": 14,
+     "v": 8,
+     "o": 4,
+     "f": 2,
+     "gm": 29,
+     "im": 14,
+     "p": 24,
+     "avdrag": 4
     },
     {
      "lag": "West Ham",
-     "s": 13,
+     "s": 14,
+     "v": 6,
+     "o": 5,
+     "f": 3,
+     "gm": 36,
+     "im": 21,
+     "p": 23
+    },
+    {
+     "lag": "Sheffield United",
+     "s": 14,
      "v": 6,
      "o": 4,
-     "f": 3,
-     "gm": 33,
-     "im": 18,
+     "f": 4,
+     "gm": 20,
+     "im": 17,
+     "p": 22
+    },
+    {
+     "lag": "Portsmouth",
+     "s": 14,
+     "v": 6,
+     "o": 4,
+     "f": 4,
+     "gm": 19,
+     "im": 16,
      "p": 22
     },
     {
      "lag": "QPR",
-     "s": 13,
+     "s": 14,
      "v": 5,
-     "o": 5,
+     "o": 6,
      "f": 3,
-     "gm": 21,
-     "im": 16,
-     "p": 20
+     "gm": 22,
+     "im": 17,
+     "p": 21
     },
     {
-     "lag": "Sheffield United",
-     "s": 13,
-     "v": 5,
-     "o": 4,
-     "f": 4,
-     "gm": 17,
-     "im": 15,
-     "p": 19
-    },
-    {
-     "lag": "Portsmouth",
-     "s": 13,
-     "v": 5,
-     "o": 4,
-     "f": 4,
-     "gm": 16,
-     "im": 15,
-     "p": 19
+     "lag": "Norwich",
+     "s": 14,
+     "v": 6,
+     "o": 0,
+     "f": 8,
+     "gm": 27,
+     "im": 24,
+     "p": 18
     },
     {
      "lag": "Millwall",
-     "s": 13,
+     "s": 14,
      "v": 5,
      "o": 3,
-     "f": 5,
+     "f": 6,
      "gm": 23,
-     "im": 21,
+     "im": 24,
      "p": 18
     },
     {
      "lag": "Blackburn",
-     "s": 13,
+     "s": 14,
      "v": 5,
      "o": 3,
-     "f": 5,
-     "gm": 19,
-     "im": 20,
+     "f": 6,
+     "gm": 20,
+     "im": 22,
      "p": 18
     },
     {
      "lag": "Bristol City",
-     "s": 13,
+     "s": 14,
      "v": 5,
      "o": 3,
-     "f": 5,
-     "gm": 15,
-     "im": 17,
+     "f": 6,
+     "gm": 16,
+     "im": 19,
      "p": 18
     },
     {
-     "lag": "Norwich",
-     "s": 13,
+     "lag": "Wrexham",
+     "s": 14,
+     "v": 4,
+     "o": 5,
+     "f": 5,
+     "gm": 17,
+     "im": 19,
+     "p": 17
+    },
+    {
+     "lag": "Bolton",
+     "s": 14,
      "v": 5,
-     "o": 0,
-     "f": 8,
-     "gm": 23,
-     "im": 24,
+     "o": 2,
+     "f": 7,
+     "gm": 19,
+     "im": 26,
+     "p": 17
+    },
+    {
+     "lag": "Cardiff",
+     "s": 14,
+     "v": 3,
+     "o": 6,
+     "f": 5,
+     "gm": 22,
+     "im": 23,
      "p": 15
     },
     {
      "lag": "Lincoln",
-     "s": 13,
+     "s": 14,
      "v": 4,
      "o": 3,
-     "f": 6,
+     "f": 7,
      "gm": 14,
-     "im": 23,
+     "im": 24,
      "p": 15
     },
     {
-     "lag": "Cardiff",
-     "s": 13,
-     "v": 3,
-     "o": 5,
-     "f": 5,
-     "gm": 19,
-     "im": 20,
-     "p": 14
-    },
-    {
-     "lag": "Wrexham",
-     "s": 13,
-     "v": 3,
-     "o": 5,
-     "f": 5,
-     "gm": 15,
-     "im": 19,
-     "p": 14
-    },
-    {
-     "lag": "Bolton",
-     "s": 13,
+     "lag": "Watford",
+     "s": 14,
      "v": 4,
      "o": 2,
-     "f": 7,
-     "gm": 18,
-     "im": 26,
+     "f": 8,
+     "gm": 13,
+     "im": 23,
      "p": 14
     },
     {
      "lag": "Charlton",
-     "s": 13,
+     "s": 14,
      "v": 3,
      "o": 5,
-     "f": 5,
+     "f": 6,
      "gm": 11,
-     "im": 21,
+     "im": 22,
      "p": 14
     },
     {
-     "lag": "Watford",
-     "s": 13,
-     "v": 3,
-     "o": 2,
-     "f": 8,
-     "gm": 12,
-     "im": 23,
-     "p": 11
-    },
-    {
      "lag": "Burnley",
-     "s": 13,
+     "s": 14,
      "v": 1,
-     "o": 6,
+     "o": 7,
      "f": 6,
-     "gm": 17,
-     "im": 25,
-     "p": 9
+     "gm": 18,
+     "im": 26,
+     "p": 10
     },
     {
      "lag": "Derby",
-     "s": 13,
+     "s": 14,
      "v": 1,
      "o": 4,
-     "f": 8,
+     "f": 9,
      "gm": 11,
-     "im": 25,
+     "im": 29,
      "p": 7
     },
     {
      "lag": "Preston",
-     "s": 13,
+     "s": 14,
      "v": 1,
      "o": 2,
-     "f": 10,
-     "gm": 10,
-     "im": 27,
+     "f": 11,
+     "gm": 12,
+     "im": 30,
      "p": 5
     }
    ],
@@ -8374,6 +8375,26 @@
      "p": 14
     },
     {
+     "lag": "Birmingham",
+     "s": 7,
+     "v": 3,
+     "o": 4,
+     "f": 0,
+     "gm": 17,
+     "im": 7,
+     "p": 13
+    },
+    {
+     "lag": "Cardiff",
+     "s": 7,
+     "v": 3,
+     "o": 4,
+     "f": 0,
+     "gm": 16,
+     "im": 9,
+     "p": 13
+    },
+    {
      "lag": "Stoke",
      "s": 7,
      "v": 4,
@@ -8384,34 +8405,54 @@
      "p": 13
     },
     {
-     "lag": "Cardiff",
-     "s": 6,
+     "lag": "Portsmouth",
+     "s": 7,
+     "v": 4,
+     "o": 1,
+     "f": 2,
+     "gm": 13,
+     "im": 11,
+     "p": 13
+    },
+    {
+     "lag": "Watford",
+     "s": 7,
+     "v": 4,
+     "o": 1,
+     "f": 2,
+     "gm": 9,
+     "im": 9,
+     "p": 13
+    },
+    {
+     "lag": "QPR",
+     "s": 7,
      "v": 3,
      "o": 3,
-     "f": 0,
-     "gm": 13,
+     "f": 1,
+     "gm": 14,
      "im": 6,
      "p": 12
     },
     {
      "lag": "Blackburn",
-     "s": 6,
+     "s": 7,
      "v": 4,
      "o": 0,
-     "f": 2,
-     "gm": 11,
-     "im": 7,
+     "f": 3,
+     "gm": 12,
+     "im": 9,
      "p": 12
     },
     {
-     "lag": "QPR",
-     "s": 6,
+     "lag": "West Brom",
+     "s": 7,
      "v": 3,
-     "o": 2,
+     "o": 3,
      "f": 1,
-     "gm": 13,
-     "im": 5,
-     "p": 11
+     "gm": 10,
+     "im": 7,
+     "p": 12
     },
     {
      "lag": "Millwall",
@@ -8424,13 +8465,13 @@
      "p": 11
     },
     {
-     "lag": "West Brom",
-     "s": 6,
+     "lag": "Wrexham",
+     "s": 7,
      "v": 3,
      "o": 2,
-     "f": 1,
-     "gm": 9,
-     "im": 6,
+     "f": 2,
+     "gm": 12,
+     "im": 8,
      "p": 11
     },
     {
@@ -8454,36 +8495,6 @@
      "p": 10
     },
     {
-     "lag": "Birmingham",
-     "s": 6,
-     "v": 2,
-     "o": 4,
-     "f": 0,
-     "gm": 14,
-     "im": 7,
-     "p": 10
-    },
-    {
-     "lag": "Portsmouth",
-     "s": 6,
-     "v": 3,
-     "o": 1,
-     "f": 2,
-     "gm": 10,
-     "im": 10,
-     "p": 10
-    },
-    {
-     "lag": "Watford",
-     "s": 6,
-     "v": 3,
-     "o": 1,
-     "f": 2,
-     "gm": 8,
-     "im": 9,
-     "p": 10
-    },
-    {
      "lag": "Norwich",
      "s": 7,
      "v": 3,
@@ -8495,32 +8506,22 @@
     },
     {
      "lag": "Charlton",
-     "s": 6,
+     "s": 7,
      "v": 2,
      "o": 3,
-     "f": 1,
+     "f": 2,
      "gm": 5,
-     "im": 5,
+     "im": 6,
      "p": 9
     },
     {
-     "lag": "Wrexham",
-     "s": 6,
-     "v": 2,
-     "o": 2,
-     "f": 2,
-     "gm": 10,
-     "im": 8,
-     "p": 8
-    },
-    {
      "lag": "Bristol City",
-     "s": 6,
+     "s": 7,
      "v": 2,
      "o": 0,
-     "f": 4,
-     "gm": 3,
-     "im": 6,
+     "f": 5,
+     "gm": 4,
+     "im": 8,
      "p": 6
     },
     {
@@ -8555,26 +8556,36 @@
     },
     {
      "lag": "Preston",
-     "s": 6,
+     "s": 7,
      "v": 1,
      "o": 1,
-     "f": 4,
-     "gm": 5,
-     "im": 10,
+     "f": 5,
+     "gm": 7,
+     "im": 13,
      "p": 4
     },
     {
      "lag": "Derby",
-     "s": 6,
+     "s": 7,
      "v": 0,
      "o": 2,
-     "f": 4,
+     "f": 5,
      "gm": 4,
-     "im": 10,
+     "im": 14,
      "p": 2
     }
    ],
    "borta": [
+    {
+     "lag": "West Ham",
+     "s": 7,
+     "v": 3,
+     "o": 4,
+     "f": 0,
+     "gm": 18,
+     "im": 10,
+     "p": 13
+    },
     {
      "lag": "Birmingham",
      "s": 7,
@@ -8583,6 +8594,16 @@
      "f": 2,
      "gm": 9,
      "im": 6,
+     "p": 13
+    },
+    {
+     "lag": "Wolves",
+     "s": 7,
+     "v": 4,
+     "o": 1,
+     "f": 2,
+     "gm": 12,
+     "im": 10,
      "p": 13
     },
     {
@@ -8596,14 +8617,14 @@
      "p": 13
     },
     {
-     "lag": "West Ham",
-     "s": 6,
-     "v": 3,
-     "o": 3,
-     "f": 0,
-     "gm": 15,
-     "im": 7,
-     "p": 12
+     "lag": "Stoke",
+     "s": 7,
+     "v": 4,
+     "o": 1,
+     "f": 2,
+     "gm": 10,
+     "im": 11,
+     "p": 13
     },
     {
      "lag": "Bristol City",
@@ -8617,53 +8638,63 @@
     },
     {
      "lag": "Swansea",
-     "s": 6,
+     "s": 7,
      "v": 4,
      "o": 0,
-     "f": 2,
-     "gm": 9,
-     "im": 10,
+     "f": 3,
+     "gm": 10,
+     "im": 13,
      "p": 12
     },
     {
      "lag": "Middlesbrough",
-     "s": 6,
+     "s": 7,
      "v": 3,
      "o": 2,
-     "f": 1,
+     "f": 2,
      "gm": 13,
-     "im": 8,
+     "im": 10,
      "p": 11
     },
     {
-     "lag": "Wolves",
-     "s": 6,
+     "lag": "Sheffield United",
+     "s": 7,
      "v": 3,
-     "o": 1,
+     "o": 2,
+     "f": 2,
+     "gm": 11,
+     "im": 10,
+     "p": 11
+    },
+    {
+     "lag": "Bolton",
+     "s": 7,
+     "v": 3,
+     "o": 2,
      "f": 2,
      "gm": 10,
-     "im": 9,
-     "p": 10
+     "im": 11,
+     "p": 11
     },
     {
      "lag": "Lincoln",
-     "s": 6,
+     "s": 7,
      "v": 3,
      "o": 1,
-     "f": 2,
+     "f": 3,
      "gm": 6,
-     "im": 7,
+     "im": 8,
      "p": 10
     },
     {
-     "lag": "Stoke",
-     "s": 6,
+     "lag": "Norwich",
+     "s": 7,
      "v": 3,
-     "o": 1,
-     "f": 2,
-     "gm": 8,
-     "im": 10,
-     "p": 10
+     "o": 0,
+     "f": 4,
+     "gm": 14,
+     "im": 12,
+     "p": 9
     },
     {
      "lag": "Portsmouth",
@@ -8673,6 +8704,16 @@
      "f": 2,
      "gm": 6,
      "im": 5,
+     "p": 9
+    },
+    {
+     "lag": "Southampton",
+     "s": 7,
+     "v": 2,
+     "o": 3,
+     "f": 2,
+     "gm": 9,
+     "im": 9,
      "p": 9
     },
     {
@@ -8686,54 +8727,14 @@
      "p": 9
     },
     {
-     "lag": "Sheffield United",
-     "s": 6,
-     "v": 2,
-     "o": 2,
-     "f": 2,
-     "gm": 8,
-     "im": 8,
-     "p": 8
-    },
-    {
-     "lag": "Southampton",
-     "s": 6,
-     "v": 2,
-     "o": 2,
-     "f": 2,
-     "gm": 8,
-     "im": 8,
-     "p": 8
-    },
-    {
-     "lag": "Bolton",
-     "s": 6,
-     "v": 2,
-     "o": 2,
-     "f": 2,
-     "gm": 9,
-     "im": 11,
-     "p": 8
-    },
-    {
      "lag": "Millwall",
-     "s": 6,
+     "s": 7,
      "v": 2,
      "o": 1,
-     "f": 3,
-     "gm": 8,
-     "im": 12,
-     "p": 7
-    },
-    {
-     "lag": "Norwich",
-     "s": 6,
-     "v": 2,
-     "o": 0,
      "f": 4,
-     "gm": 10,
-     "im": 12,
-     "p": 6
+     "gm": 8,
+     "im": 15,
+     "p": 7
     },
     {
      "lag": "Blackburn",
@@ -8756,6 +8757,16 @@
      "p": 6
     },
     {
+     "lag": "Burnley",
+     "s": 7,
+     "v": 1,
+     "o": 2,
+     "f": 4,
+     "gm": 10,
+     "im": 16,
+     "p": 5
+    },
+    {
      "lag": "Derby",
      "s": 7,
      "v": 1,
@@ -8774,16 +8785,6 @@
      "gm": 6,
      "im": 16,
      "p": 5
-    },
-    {
-     "lag": "Burnley",
-     "s": 6,
-     "v": 1,
-     "o": 1,
-     "f": 4,
-     "gm": 9,
-     "im": 15,
-     "p": 4
     },
     {
      "lag": "Cardiff",
@@ -8816,7 +8817,7 @@
      "p": 1
     }
    ],
-   "till": "2026-10-31"
+   "till": "2026-11-04"
   }
  },
  "statistik": {
@@ -10206,18 +10207,19 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 10,
+   "lyckade": 22,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.5-flash-lite": 9,
-    "gemini-3.6-flash": 1
+    "gemini-3.1-flash-lite": 14,
+    "gemini-3.6-flash": 7,
+    "gemini-3.5-flash-lite": 1
    },
    "stoppad": null,
-   "tid": "2026-11-04T18:06:53Z"
+   "tid": "2026-11-05T18:10:45Z"
   },
   "odds": {
-   "kvar": 484,
-   "tid": "2026-11-04T18:01:27Z"
+   "kvar": 478,
+   "tid": "2026-11-05T18:01:23Z"
   }
  },
  "tipsare_form": [
