@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-06T18:04:49Z",
+ "genererad": "2026-11-07T09:34:09Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -10211,11 +10211,11 @@
    "misslyckade": 7,
    "modeller": {},
    "stoppad": "flera misslyckade anrop i rad",
-   "tid": "2026-11-06T18:04:49Z"
+   "tid": "2026-11-07T09:34:09Z"
   },
   "odds": {
-   "kvar": 472,
-   "tid": "2026-11-06T18:01:24Z"
+   "kvar": 466,
+   "tid": "2026-11-07T09:31:07Z"
   }
  },
  "tipsare_form": [
