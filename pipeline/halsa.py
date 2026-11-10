@@ -102,7 +102,9 @@ def kontrollera(conn: sqlite3.Connection, nu: datetime, starter: Optional[int] =
 
     # AI: senaste körningen misslyckades helt eller stoppades
     r = conn.execute("SELECT varde, uppdaterad FROM installningar WHERE nyckel = 'ai_status'").fetchone()
-    if r and parse_iso(r[1]) > nu - timedelta(days=2):
+    # Ingen tidsgräns: statusen gäller tills nästa körning med AI (annars stängdes larmet efter två dagar utan
+    # att felet var löst, november 2026)
+    if r:
         ai = json.loads(r[0])
         if ai.get("konfigurerad") is False:
             larm("ai_nyckel", "Gemini-nyckeln saknas", "GEMINI_API_KEY är inte inlagd som GitHub Secret.")

@@ -1,4 +1,6 @@
 requests>=2.31
 # AI (fas 4). Båda kräver Python 3.10+; på äldre Python hoppar AI-stegen över.
-google-genai; python_version >= "3.10"
+# Låst till version 2: google-genai 3.0 (november 2026) skickar till v1 där response_mime_type inte finns,
+# och alla AI-anrop svarade 400. Uppgradera bara efter att ha provat ett anrop.
+google-genai<3; python_version >= "3.10"
 anthropic; python_version >= "3.10"
