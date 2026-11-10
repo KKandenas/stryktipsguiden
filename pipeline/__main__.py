@@ -278,6 +278,10 @@ def steg_expertteman(conn, max_anrop: int) -> bool:
             r = expertteman.marka(conn, ai_klient.anropa_json, max_anrop)
         log.info("Expertteman: %(anrop)d anrop, %(matcher)d matcher märkta, %(fel)d fel – %(kvar)d kvar",
                  {**r, "kvar": expertteman.omarkta(conn)})
+        # Lyckade anrop visar att AI:n fungerar och släcker ett gammalt AI-larm. Misslyckade nattanrop sparas
+        # inte: då är det oftast bara dagskvoten som är slut.
+        if r["matcher"]:
+            spara_ai_status(conn)
     except Exception as e:
         log.exception("Expertteman: oväntat fel: %s", e)
     return True
