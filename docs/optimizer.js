@@ -189,6 +189,23 @@ function lasningsfel(matcher, lasningar, H, F) {
 }
 
 /** "96 rader · 96 kr — 1 hel · 5 halv · 7 spik" */
+/** Systemets träffprofil enligt modellens chanser: P[k] = sannolikheten att systemets bästa rad får k rätt,
+ *  k = 0..13. Bästa raden har rätt på exakt de matcher där utfallet finns bland de valda tecknen, och
+ *  matcherna är oberoende i modellen, så fördelningen räknas exakt utan att gå igenom alla 3^13 utfall.
+ *  P[13] är chansen att minst en av systemets rader får 13 rätt. matcher: [{nr, chans}] som till optimera. */
+export function traffProfil(val, matcher) {
+  let P = [1];
+  for (const v of val) {
+    const m = matcher.find((x) => x.nr === v.nr);
+    const summa = TECKEN.reduce((a, t) => a + (m?.chans?.[t] || 0), 0) || 1;
+    const p = [...v.tecken].reduce((a, t) => a + (m?.chans?.[t] || 0), 0) / summa;
+    const ny = new Array(P.length + 1).fill(0);
+    P.forEach((x, k) => { ny[k] += x * (1 - p); ny[k + 1] += x * p; });
+    P = ny;
+  }
+  return P;
+}
+
 export function sammanfattning(res, radpris = 1) {
   const delar = [];
   if (res.hel) delar.push(`${res.hel} hel`);

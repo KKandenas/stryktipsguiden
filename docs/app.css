@@ -628,6 +628,8 @@ button.spelruta { cursor: pointer; }
 .visa-bolag:not([aria-expanded])::after { content: none; }
 
 /* spelbolag */
+.traffchans { margin: 8px 2px 0; font-size: 13px; text-align: center; font-variant-numeric: tabular-nums; }
+.bt-ruta .osakerhet { color: var(--dampad); font-size: 12.5px; }
 .tur-info { margin-top: 10px; font-size: 14px; font-weight: 600; text-align: center; color: var(--primar); }
 .spara-val { margin-top: 8px; display: grid; gap: 6px; }
 .spara-val p { margin: 0; text-align: center; }

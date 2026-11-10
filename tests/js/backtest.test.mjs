@@ -1,7 +1,7 @@
 // Körs med: node --test tests/js/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { PREMIAR, backtesta, franAr, matcherFor, medLagkoll, rattFordelning, rattaRader } from "../../docs/backtest.js";
+import { PREMIAR, backtesta, franAr, matcherFor, medLagkoll, osakerhet, rattFordelning, rattaRader } from "../../docs/backtest.js";
 import { optimera } from "../../docs/optimizer.js";
 
 // Syntetisk omgång: [chans1, chansX, chans2, streck1, streckX, streck2, resultat]
@@ -78,4 +78,14 @@ test("Sedan premiären tar bara omgångar från premiärdagen", () => {
   assert.deepEqual(franAr(h, "premiar").omgangar.map((o) => o.datum), [PREMIAR, "2026-10-17"]);
   assert.equal(franAr(h, "2026").omgangar.length, 3);
   assert.equal(franAr(h, "alla").omgangar.length, 4);
+});
+
+
+test("osäkerheten i tillbaka: intervallet omsluter utfallet och är detsamma varje gång", () => {
+  const omg = Array.from({ length: 50 }, (_, i) => ({ insats: 96, vinst: i % 10 === 0 ? 400 : i % 3 === 0 ? 30 : 0 }));
+  const tillbaka = omg.reduce((a, o) => a + o.vinst, 0) / omg.reduce((a, o) => a + o.insats, 0);
+  const ci = osakerhet(omg);
+  assert.ok(ci.lag < tillbaka && tillbaka < ci.hog);
+  assert.deepEqual(osakerhet(omg), ci);
+  assert.equal(osakerhet(omg.slice(0, 5)), null);
 });

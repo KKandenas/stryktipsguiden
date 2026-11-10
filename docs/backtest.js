@@ -4,7 +4,7 @@
 // utan låsningar. Vinsten räknas med Svenska Spels faktiska utdelning per rad för 13–10 rätt.
 // Antagande: våra rader hade inte påverkat potten (vi är en droppe i omsättningen).
 
-import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261104b";
+import { allaRader, optimera, skrallKrav } from "./optimizer.js?v=20261110a";
 
 /** Matcher i optimerarens format. kalla "modell" (och "skrall"): modellens chans och folkets streck.
  *  kalla "tips": den tipsviktade chansen (fält 8) där den finns, annars modellens.
@@ -36,6 +36,33 @@ export function franAr(historik, ar) {
   if (ar === "alla") return historik;
   const fran = ar === "premiar" ? PREMIAR : `${ar}-01-01`;
   return { ...historik, omgangar: historik.omgangar.filter((o) => o.datum >= fran) };
+}
+
+/** Osäkerheten i "tillbaka" (utdelning / insats): 90 %-intervall genom att dra omgångarna om på nytt med
+ *  återläggning (bootstrap på omgångsnivå). Några få storvinster avgör ofta allt, och intervallet visar hur
+ *  mycket resultatet hade kunnat variera med andra omgångar. Fast frö, så att samma data ger samma intervall. */
+export function osakerhet(omgangar, dragningar = 2000, fro = 1) {
+  const n = omgangar.length;
+  if (n < 10) return null;
+  let t = fro >>> 0;
+  const slump = () => {                     // mulberry32
+    t = (t + 0x6D2B79F5) >>> 0;
+    let x = Math.imul(t ^ (t >>> 15), 1 | t);
+    x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+  const varden = [];
+  for (let d = 0; d < dragningar; d++) {
+    let insats = 0, vinst = 0;
+    for (let i = 0; i < n; i++) {
+      const o = omgangar[Math.floor(slump() * n)];
+      insats += o.insats;
+      vinst += o.vinst;
+    }
+    varden.push(vinst / insats);
+  }
+  varden.sort((a, b) => a - b);
+  return { lag: varden[Math.floor(0.05 * dragningar)], hog: varden[Math.floor(0.95 * dragningar)] };
 }
 
 /** Antal rader i systemet med k rätt, k = 0..13 (utan att räkna upp alla rader). */

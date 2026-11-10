@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
-  skrallKrav, skrallUnderlag,
-} from "./optimizer.js?v=20261104b";
-import * as konto from "./konto.js?v=20261104b";
+  skrallKrav, skrallUnderlag, traffProfil,
+} from "./optimizer.js?v=20261110a";
+import * as konto from "./konto.js?v=20261110a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261104b";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261104b";
-import { PREMIAR, backtesta, franAr, medLagkoll, rattFordelning } from "./backtest.js?v=20261104b";
+} from "./spelbolag.js?v=20261110a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261110a";
+import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261110a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -2375,6 +2375,7 @@ function renderaBacktest() {
       el("div", { class: "netto", text: plusKr(vinst - insats) }),
       el("p", { text: `Insats ${kr(insats)}` }),
       el("p", { text: `Tillbaka ${kr(vinst)} (${Math.round((100 * vinst) / insats)} %)` }),
+      osakerhetRad(s.res.omgangar),
       el("p", { text: `Utan största vinsten: ${andel(matt(s.res.omgangar).utan, 1)}` }),
       el("p", { text: `13 rätt: ${antal[13]} · 12: ${antal[12]} · 11: ${antal[11]} · 10: ${antal[10]}` })));
   }
@@ -2498,6 +2499,13 @@ function storlekstabell(urval) {
 
 const decimal = (x) => x.toFixed(1).replace(".", ",");
 
+/** "Troligt intervall 20–75 %": 90 %-intervall för tillbaka (bootstrap över omgångarna, se backtest.osakerhet). */
+function osakerhetRad(omgangar) {
+  const ci = osakerhet(omgangar);
+  return ci ? el("p", { class: "osakerhet", title: "Om omgångarna hade fallit annorlunda: 90 % av utfallen hamnar inom intervallet. " +
+    "Ju bredare, desto mer har några få storvinster avgjort.", text: `Troligt intervall: ${Math.round(100 * ci.lag)}–${Math.round(100 * ci.hog)} %` }) : null;
+}
+
 /** Mått som inte luras av en enda storvinst: tillbaka utan största vinsten, vinstveckor och längsta torka.
  *  tillbaka och utan är andelar av insatsen. */
 function matt(omgangar) {
@@ -2533,7 +2541,7 @@ function jamforForslag(serier) {
     }
     if (!omg.length) continue;
     const fore = omg.filter((o) => o.datum < "2024"), efter = omg.filter((o) => o.datum >= "2024");
-    rader.push({ k, namn, ...matt(omg),
+    rader.push({ k, namn, ...matt(omg), ci: osakerhet(omg),
       perioder: fore.length >= 10 && efter.length >= 10 ? [matt(fore).tillbaka, matt(efter).tillbaka] : null });
   }
   rader.sort((a, b) => b.utan - a.utan);
@@ -2543,7 +2551,8 @@ function jamforForslag(serier) {
     const tr = el("tr", { class: r.k === state.kalla ? "vald" : "" },
       el("td", {}, el("b", { text: r.namn }),
         r.perioder ? el("span", { class: "under", text: `före 2024: ${andel(r.perioder[0], 1)} · efter: ${andel(r.perioder[1], 1)}` }) : null),
-      el("td", { text: andel(r.tillbaka, 1) }),
+      el("td", {}, andel(r.tillbaka, 1),
+        r.ci ? el("span", { class: "under", text: `${Math.round(100 * r.ci.lag)}–${Math.round(100 * r.ci.hog)} %` }) : null),
       el("td", { class: r.utan === bast ? "bast" : "", text: andel(r.utan, 1) }),
       el("td", { text: andel(r.vinstveckor, 1) }),
       el("td", { text: `${r.torka} v` }));
@@ -2562,7 +2571,9 @@ function jamforForslag(serier) {
     el("p", { class: "dampad liten", text: "Sorterat på tillbaka utan största vinsten – det mått som säger mest om ett förslag är bra eller bara haft tur." }),
     el("table", { class: "jamf-tabell" },
       el("thead", {}, el("tr", {}, ...["Förslag", "Tillbaka", "Utan största vinsten", "Vinst­veckor", "Längsta torka"].map((t) => el("th", { text: t })))), b),
-    el("p", { class: "bt-not", text: "Tryck på ett förslag för att visa det i rutorna och diagrammet ovanför. Vinstveckor = andel veckor med " +
+    el("p", { class: "bt-not", text: "Under Tillbaka: troligt intervall (90 %) om omgångarna hade fallit annorlunda. Överlappar två förslags " +
+      "intervall mycket går det inte att säga vilket som är bäst. " +
+      "Tryck på ett förslag för att visa det i rutorna och diagrammet ovanför. Vinstveckor = andel veckor med " +
       "någon utdelning. Längsta torka = flest veckor i rad utan vinst." }));
 }
 const andel = (n, av) => `${Math.round((100 * n) / (av || 1))} %`;
@@ -2685,6 +2696,28 @@ function arstabell(serier) {
   return el("div", {}, el("h3", { text: "Rätt och pengar per år" }), t,
     el("p", { class: "bt-not", text: "Antal rätt och pengar är inte samma sak. Två förslag kan få lika många rätt i snitt men " +
       "olika mycket tillbaka: det som avgör är om raderna går in när få andra har dem. 10 rätt ger ofta låg eller ingen utdelning." }));
+}
+
+/** Systemets träffchans enligt förslagets egna chanser (Skrällchans: oddsen). En beräkning, ingen garanti;
+ *  stämde väl med utfallen 2024–2026 (minst 10 rätt med 96 rader: 31 % förutsagt, 29 % utfall). */
+function visaTraffchans() {
+  const rad = $("traffchans"), r = state.resultat;
+  rad.hidden = !r?.ok || state.exempel;
+  if (rad.hidden) return;
+  const kalla = state.kalla === "skrall" ? "modell" : state.kalla;
+  const P = traffProfil(r.val, matcherEnligtKalla(state.kupong, kalla));
+  const minst = (k) => P.slice(k).reduce((a, x) => a + x, 0);
+  const pct = (x) => (x < 0.095 ? `${(100 * x).toLocaleString("sv-SE", { maximumFractionDigits: 1 })} %` : `${Math.round(100 * x)} %`);
+  const en = (x) => {
+    if (x >= 0.01) return pct(x);
+    const n = 1 / x, siffror = 10 ** Math.max(0, Math.floor(Math.log10(n)) - 1);
+    return `1 på ${(Math.round(n / siffror) * siffror).toLocaleString("sv-SE")}`;
+  };
+  const namn = { modell: "oddsen", tips: "Med experter", lagkoll: "Lagkoll" }[kalla];
+  rad.replaceChildren(el("span", { class: "dampad", text: `Chans enligt ${namn}: ` }),
+    `13 rätt ${en(P[13])} · 12+ ${pct(minst(12))} · 10+ ${pct(minst(10))}`);
+  rad.title = "Beräknad ur förslagets chanser för varje match (en beräkning, ingen garanti). " +
+    "Historiskt stämde den väl: med 96 rader förutsades minst 10 rätt i 31 % av omgångarna 2024–2026, och det inträffade i 29 %.";
 }
 
 const SETT = "stryktipsguiden-sett";     // senast visade förslag per omgång, förslag och antal rader
@@ -2840,6 +2873,7 @@ function uppdatera() {
     ? `${sk.namn} spelar annorlunda på ${nr.length} ${nr.length === 1 ? "match" : "matcher"} – se etiketten "${KORTNAMN_FORSLAG[sk.namn] || sk.namn}: …" på raderna.`
     : `${sk.namn} ger samma rader.`;
   for (const b of document.querySelectorAll(".forslag button")) b.setAttribute("aria-checked", String(b.dataset.kalla === state.kalla));
+  visaTraffchans();
   renderaVeckolage();
   visaAndrat();
 

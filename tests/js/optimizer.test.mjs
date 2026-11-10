@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   BUDGETAR, allaRader, antalRatt, faktorisera, normaliseraLasning, optimera, sammanfattning, skrallchanser,
-  skrallKrav, skrallUnderlag, skrallarForBudget,
+  skrallKrav, skrallUnderlag, skrallarForBudget, traffProfil,
 } from "../../docs/optimizer.js";
 
 const exempel = JSON.parse(readFileSync(new URL("../../docs/exempel-kupong.json", import.meta.url), "utf8"));
@@ -165,4 +165,18 @@ test("skrällarna väljs ur Med experters chans där den finns", () => {
   assert.deepEqual(krav, { 1: "X" });
   const r = optimera(matcher, 32, {}, undefined, krav);
   assert.ok(r.val[0].tecken.includes("X"));
+});
+
+
+test("träffprofilen: P[13] är produkten av matchernas chans och fördelningen summerar till 1", () => {
+  const matcher = Array.from({ length: 13 }, (_, i) => ({ nr: i + 1, chans: { 1: 0.5, X: 0.3, 2: 0.2 } }));
+  const val = matcher.map((m, i) => ({ nr: m.nr, tecken: i < 2 ? "1X" : "1" }));
+  const P = traffProfil(val, matcher);
+  assert.equal(P.length, 14);
+  assert.ok(Math.abs(P.reduce((a, x) => a + x, 0) - 1) < 1e-12);
+  assert.ok(Math.abs(P[13] - 0.8 ** 2 * 0.5 ** 11) < 1e-15);
+  // Jämför med att räkna upp: chansen för 12 rätt = exakt en miss
+  const p = val.map((v) => (v.tecken === "1X" ? 0.8 : 0.5));
+  const tolv = p.reduce((s, _, i) => s + (1 - p[i]) * p.filter((_, j) => j !== i).reduce((a, x) => a * x, 1), 0);
+  assert.ok(Math.abs(P[12] - tolv) < 1e-15);
 });
