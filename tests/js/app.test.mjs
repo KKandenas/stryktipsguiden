@@ -12,7 +12,9 @@ const VYER = ["kupong", "rattning", "statistik", "backtest", "hjalp", "tabeller"
 const FALL = [
   { status: "oppen", statusText: "Öppen", banner: null },
   { status: "stangd", statusText: "Stängd", banner: /Spelstopp har passerat\..*Förslagen visas som de såg ut .*före spelstopp\./ },
-  { status: "avgjord", statusText: "Avgjord", banner: /Omgången är avgjord\. Ditt system hade \d+ rätt.*Förslagen visas som/ },
+  // Avgjord: direkt efter omgången "Omgången är avgjord …", senare (fixturen är gammal) "Nästa kupong är inte publicerad än …"
+  { status: "avgjord", statusText: "Avgjord",
+    banner: /(Omgången är avgjord\. Ditt system hade|Nästa kupong är inte publicerad än.*ditt system hade) \d+ rätt.*Förslagen visas som/ },
   { status: "installd", statusText: "Inställd", banner: /inställd/ },
 ];
 

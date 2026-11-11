@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag, traffProfil,
-} from "./optimizer.js?v=20261111e";
-import * as konto from "./konto.js?v=20261111e";
+} from "./optimizer.js?v=20261111h";
+import * as konto from "./konto.js?v=20261111h";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261111e";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111e";
-import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111e";
+} from "./spelbolag.js?v=20261111h";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111h";
+import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111h";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -24,6 +24,7 @@ const state = {
   oddsOppna: new Set(), // matcher där alla bolags odds är utfällda
   detaljFlik: "oversikt", // vald flik i matchdetaljen, samma för alla matcher
   tabellTyp: "totalt",     // Totalt, Hemma eller Borta under fliken Tabell
+  btOppna: new Set(),      // utfällda avsnitt under Spela varje vecka
   resultat: null,      // senaste optimeringen
   historik: null,      // historik.json, laddas först när backtestet öppnas
   btBudget: null,      // vald budget i backtestet
@@ -269,6 +270,14 @@ function renderaTopp() {
     text = `Spelstopp har passerat. Resultaten kommer efter att matcherna spelats. ${fryst(omgang)}`.trim();
   } else if (omgang.status === "installd") {
     text = "Omgången är inställd av Svenska Spel.";
+  } else if (omgang.status === "avgjord" && state.resultat?.ok && Date.now() - stopp > 36 * 3600e3) {
+    // Nästa kupong är inte publicerad än (till exempel landslagsuppehåll): säg det tydligt
+    const facit = Object.fromEntries(state.kupong.matcher.map((m) => [m.nr, m.resultat]));
+    const n = antalRatt(state.resultat.val, facit);
+    const utd = omgang.utdelning?.[String(n)];
+    text = "Nästa kupong är inte publicerad än – appen hämtar den så fort Svenska Spel släpper den. " +
+      `Här visas förra omgången: ditt system hade ${n} rätt` + (utd ? ` (${Math.round(utd).toLocaleString("sv-SE")} kr).` : ".") +
+      (omgang.frusen ? ` ${fryst(omgang)}` : "");
   } else if (omgang.status === "avgjord" && state.resultat?.ok) {
     const facit = Object.fromEntries(state.kupong.matcher.map((m) => [m.nr, m.resultat]));
     const n = antalRatt(state.resultat.val, facit);
@@ -2462,7 +2471,7 @@ function renderaBacktest() {
       el("span", { class: "namn" }, el("i", { class: `nyckel ${s.klass}`, "aria-hidden": "true" }), s.namn),
       el("div", { class: "netto", text: plusKr(vinst - insats) }),
       el("p", { text: `Insats ${kr(insats)}` }),
-      el("p", { text: `Tillbaka ${kr(vinst)} (${Math.round((100 * vinst) / insats)} %)` }),
+      el("p", { text: `Tillbaka ${kr(vinst)} (${Math.round((100 * vinst) / insats)}\u00a0%)` }),
       osakerhetRad(s.res.omgangar),
       el("p", { text: `Utan största vinsten: ${andel(matt(s.res.omgangar).utan, 1)}` }),
       el("p", { text: `13 rätt: ${antal[13]} · 12: ${antal[12]} · 11: ${antal[11]} · 10: ${antal[10]}` })));
@@ -2472,22 +2481,33 @@ function renderaBacktest() {
   const alla = allaForslag(allaAr, harTipsHist);
   box.append(jamforForslag(alla));
   box.append(omgangstabell(alla));
-  box.append(rattRuta(serier, state.btBudget));
-  box.append(arstabell(serier));
-  box.append(storlekstabell(urval));
+  // Mer detaljerade avsnitt fälls ut vid behov, så att sidan inte blir lång i mobilen
+  box.append(fallbar(rattRuta(serier, state.btBudget)));
+  box.append(fallbar(arstabell(serier)));
+  box.append(fallbar(storlekstabell(urval)));
 
   const storsta = serier[0].res.omgangar.filter((o) => o.vinst > 0).sort((a, b) => b.vinst - a.vinst).slice(0, 3);
   if (storsta.length) {
-    box.append(el("h3", { text: `Största vinsterna (${serier[0].namn})` }));
-    for (const o of storsta) {
-      box.append(el("p", { text: `${svDatum(o.datum)} · ${o.basta} rätt · ${kr(o.vinst)}` }));
-    }
+    box.append(fallbar(el("div", {}, el("h3", { text: `Största vinsterna (${serier[0].namn})` }),
+      ...storsta.map((o) => el("p", { text: `${svDatum(o.datum)} · ${o.basta} rätt · ${kr(o.vinst)}` })))));
   }
   box.append(el("p", { class: "bt-not", text:
     "Historiken bygger på Svenska Spels öppningsodds, som är mindre träffsäkra än odds nära spelstopp. " +
     "Vissa veckor ger 10 eller 11 rätt ingen utdelning alls, när väldigt många har det. " +
     "Resultatet styrs mycket av enstaka 13-rättare och säger lite om framtiden. Svenska Spel behåller ungefär " +
     "en tredjedel av insatserna, så de flesta förlorar på sikt." }));
+}
+
+/** Gör ett avsnitt med en h3-rubrik utfällbart. Vilka som är utfällda kommer appen ihåg under besöket. */
+function fallbar(innehall) {
+  const h = innehall.querySelector("h3");
+  const rubrik = h?.textContent || "Mer";
+  const nyckel = rubrik.replace(/\s*[(,].*$/, "");
+  h?.remove();
+  const d = el("details", { class: "bt-fall" }, el("summary", { text: rubrik }), innehall);
+  d.open = state.btOppna.has(nyckel);
+  d.addEventListener("toggle", () => { d.open ? state.btOppna.add(nyckel) : state.btOppna.delete(nyckel); });
+  return d;
 }
 
 function diagram(serier) {
@@ -2591,7 +2611,7 @@ const decimal = (x) => x.toFixed(1).replace(".", ",");
 function osakerhetRad(omgangar) {
   const ci = osakerhet(omgangar);
   return ci ? el("p", { class: "osakerhet", title: "Om omgångarna hade fallit annorlunda: 90 % av utfallen hamnar inom intervallet. " +
-    "Ju bredare, desto mer har några få storvinster avgjort.", text: `Troligt intervall: ${Math.round(100 * ci.lag)}–${Math.round(100 * ci.hog)} %` }) : null;
+    "Ju bredare, desto mer har några få storvinster avgjort.", text: `Troligt intervall: ${Math.round(100 * ci.lag)}–${Math.round(100 * ci.hog)}\u00a0%` }) : null;
 }
 
 /** Mått som inte luras av en enda storvinst: tillbaka utan största vinsten, vinstveckor och längsta torka.
@@ -2795,15 +2815,16 @@ function visaTraffchans() {
   const kalla = state.kalla === "skrall" ? "modell" : state.kalla;
   const P = traffProfil(r.val, matcherEnligtKalla(state.kupong, kalla));
   const minst = (k) => P.slice(k).reduce((a, x) => a + x, 0);
-  const pct = (x) => (x < 0.095 ? `${(100 * x).toLocaleString("sv-SE", { maximumFractionDigits: 1 })} %` : `${Math.round(100 * x)} %`);
+  const pct = (x) => (x < 0.095 ? `${(100 * x).toLocaleString("sv-SE", { maximumFractionDigits: 1 })}\u00a0%` : `${Math.round(100 * x)}\u00a0%`);
   const en = (x) => {
     if (x >= 0.01) return pct(x);
     const n = 1 / x, siffror = 10 ** Math.max(0, Math.floor(Math.log10(n)) - 1);
     return `1 på ${(Math.round(n / siffror) * siffror).toLocaleString("sv-SE")}`;
   };
   const namn = { modell: "oddsen", tips: "Med experter", lagkoll: "Lagkoll" }[kalla];
-  rad.replaceChildren(el("span", { class: "dampad", text: `Chans enligt ${namn}: ` }),
-    `13 rätt ${en(P[13])} · 12+ ${pct(minst(12))} · 10+ ${pct(minst(10))}`);
+  const ruta = (varde, etikett) => el("span", { class: "tc-ruta" }, el("b", { text: varde }), el("small", { text: etikett }));
+  rad.replaceChildren(el("span", { class: "tc-rubrik", text: `Systemets chans enligt ${namn}` }),
+    el("span", { class: "tc-rutor" }, ruta(en(P[13]), "13 rätt"), ruta(pct(minst(12)), "12 eller 13"), ruta(pct(minst(10)), "minst 10")));
   rad.title = "Beräknad ur förslagets chanser för varje match (en beräkning, ingen garanti). " +
     "Historiskt stämde den väl: med 96 rader förutsades minst 10 rätt i 31 % av omgångarna 2024–2026, och det inträffade i 29 %.";
 }

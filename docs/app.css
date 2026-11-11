@@ -628,7 +628,18 @@ button.spelruta { cursor: pointer; }
 .visa-bolag:not([aria-expanded])::after { content: none; }
 
 /* spelbolag */
-.traffchans { margin: 8px 2px 0; font-size: 13px; text-align: center; font-variant-numeric: tabular-nums; }
+.traffchans { margin: 10px 0 0; text-align: center; }
+.traffchans .tc-rubrik { display: block; font-size: 12px; color: var(--dampad); margin-bottom: 5px; }
+.traffchans .tc-rutor { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.traffchans .tc-ruta { background: var(--yta-2); border: 1px solid var(--linje); border-radius: 10px; padding: 6px 4px; display: grid; gap: 1px; }
+.traffchans .tc-ruta b { font-family: var(--rubrikfont); font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.traffchans .tc-ruta small { font-size: 11.5px; color: var(--dampad); }
+.bt-fall { border-top: 1px solid var(--linje); margin-top: 14px; padding-top: 4px; }
+.bt-fall > summary { cursor: pointer; font-family: var(--rubrikfont); font-weight: 800; font-size: 17px; padding: 8px 0; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; }
+.bt-fall > summary::-webkit-details-marker { display: none; }
+.bt-fall > summary::after { content: "▾"; color: var(--dampad); transition: transform .15s; }
+.bt-fall:not([open]) > summary::after { transform: rotate(-90deg); }
 .bt-ruta .osakerhet { color: var(--dampad); font-size: 12.5px; }
 .tur-info { margin-top: 10px; font-size: 14px; font-weight: 600; text-align: center; color: var(--primar); }
 .spara-val { margin-top: 8px; display: grid; gap: 6px; }
