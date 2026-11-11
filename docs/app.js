@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag, traffProfil,
-} from "./optimizer.js?v=20261111b";
-import * as konto from "./konto.js?v=20261111b";
+} from "./optimizer.js?v=20261111e";
+import * as konto from "./konto.js?v=20261111e";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261111b";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111b";
-import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111b";
+} from "./spelbolag.js?v=20261111e";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111e";
+import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111e";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -447,15 +447,8 @@ function detaljer(m, v, skrall = null, alla = null) {
 function detaljOversikt(m, v, skrall, alla) {
   const ut = [];
   if (m.kommentar) ut.push(el("p", { class: "kommentar", text: m.kommentar }));
-  if (skrall) {
-    const tips = (m.tips || []).filter((t) => t.tecken || t.system);
-    const stod = tips.filter((t) => (t.tecken || t.system).includes(skrall.tecken)).length;
-    ut.push(el("p", { class: "skrall-text" }, el("b", { text: `Skrällchans ${skrall.tecken}: ` }),
-      `${procent(skrall.chans)} % chans men bara ${Math.round(skrall.streck * 100)} % streck` +
-      (tips.length ? ` · ${stod} av ${tips.length} ${tips.length === 1 ? "expert" : "experter"} tippar ${skrall.tecken}` : "") + ". " +
-      `Går den in betalar den ovanligt bra – men den är fortfarande mindre trolig än favoriten.`));
-  }
-  ut.push(chansTabell(m, alla));
+  const korthet = iKorthet(m, skrall, alla);
+  if (korthet) ut.push(korthet);
   if (m.osaker && m.chans_kalla !== "streck") {
     ut.push(el("p", { class: "osaker-not", text:
       "Osäkrare bedömning: här finns bara Svenska Spels odds, som har högre marginal och uppdateras mer sällan " +
@@ -465,11 +458,90 @@ function detaljOversikt(m, v, skrall, alla) {
   return ut;
 }
 
+const VERB = { 1: "spikar", 2: "halvgarderar", 3: "helgarderar" };
+const snedstreck = (t) => [...t].join("/");       // "12" → "1/2", så att det inte läses som tolv
+const lista = (ord) => (ord.length > 1 ? `${ord.slice(0, -1).join(", ")} och ${ord[ord.length - 1]}` : ord[0]);
+
+/** "Matchen i korthet": favorit, folket, förslagen, experterna, form, skräll och Lagkoll – räknat ur siffrorna. */
+function iKorthet(m, skrall, alla) {
+  const rader = [];
+  // Hårt mellanslag före %, så att "63 %" inte bryts mellan raderna
+  const rad = (rubrik, ...text) => rader.push(el("div", { class: "kort-rad" }, el("dt", { text: rubrik }),
+    el("dd", {}, ...text.map((x) => (typeof x === "string" ? x.replace(/ %/g, "\u00a0%") : x)))));
+  const odds = m.chans_modell || (m.chans_kalla === "streck" ? null : m.chans);
+  const namnPa = (t) => (t === "1" ? m.hemmalag : t === "2" ? m.bortalag : "kryss");
+
+  if (odds) {
+    const ordn = [...TECKEN].sort((a, b) => odds[b] - odds[a]);
+    const [f, n] = ordn, pf = odds[f];
+    const niva = pf > 0.6 ? "klar favorit" : pf >= 0.45 && pf - odds[n] >= 0.08 ? "favorit" : "ingen klar favorit";
+    rad("Favorit", f === "X" ? `Kryss mest troligt, ${procent(pf)} % – ingen klar favorit` : `${namnPa(f)}, ${procent(pf)} % – ${niva}`);
+
+    if (m.streck) {
+      const summa = TECKEN.reduce((a, t) => a + m.streck[t], 0) || 1;
+      const andel = (t) => m.streck[t] / summa;
+      const delar = [];
+      const d = andel(f) - pf;
+      if (d >= 0.03) delar.push(`överstreckar ${namnPa(f)}: ${Math.round(100 * andel(f))} % streck mot ${procent(pf)} % chans.`);
+      else if (d <= -0.03) delar.push(`understreckar ${namnPa(f)}: ${Math.round(100 * andel(f))} % streck mot ${procent(pf)} % chans.`);
+      const grans = m.osaker ? VARDE_GRANS_OSAKER : VARDE_GRANS;
+      const vt = TECKEN.filter((t) => odds[t] - andel(t) >= grans).sort((a, b) => (odds[b] - andel(b)) - (odds[a] - andel(a)))[0];
+      if (vt) delar.push(`Värde på ${vt}${vt === "X" ? "" : ` (${namnPa(vt)})`}: ${procent(odds[vt])} % chans, bara ${Math.round(100 * andel(vt))} % streck.`);
+      rad("Folket", delar.length ? delar.join(" ") : "streckar ungefär som oddsen.");
+    }
+  }
+
+  if (alla) {
+    const grupper = new Map();
+    for (const [k, namn] of CHANSRADER) {
+      const t = alla[k]?.[m.nr];
+      if (!t || k === "folket") continue;
+      grupper.set(t, [...(grupper.get(t) || []), namn]);
+    }
+    const folket = alla.folket?.[m.nr];
+    const ense = grupper.size === 1 && [...grupper.values()][0].length > 1;
+    const delar = [...grupper].map(([t, namn]) =>
+      `${ense ? (folket === t ? "Alla förslag och folket" : "Alla förslag") : lista(namn)} ${VERB[t.length]} ${snedstreck(t)}`);
+    if (folket && !(ense && grupper.has(folket))) delar.push(`Folket ${VERB[folket.length]} ${snedstreck(folket)}`);
+    if (delar.length) rad("Förslagen", delar.join(" · "));
+  }
+
+  const tips = (m.tips || []).filter((t) => t.tecken);
+  if (tips.length) {
+    const mest = [...TECKEN].sort((a, b) => tips.filter((t) => t.tecken.includes(b)).length - tips.filter((t) => t.tecken.includes(a)).length)[0];
+    const k = tips.filter((t) => t.tecken.includes(mest)).length, N = tips.length;
+    const omdome = k === N ? `${N === 1 ? "tippar" : `alla ${N} har med`} ${mest}` : k / N >= 0.67 ? `${k} av ${N} har med ${mest}` : "oeniga";
+    rad("Experter", `${N} tips${N <= 4 ? `: ${lista(tips.map((t) => snedstreck(t.tecken)))}` : ""} – ${omdome}`);
+  }
+
+  const t = m.tabell;
+  if (t?.hemma || t?.borta) {
+    const lag = (namn, r) => {
+      if (!r) return null;
+      const f = (r.form || "").slice(0, 6), v = [...f].filter((c) => c === "W").length;
+      const form = !f ? "" : v === 0 ? `, ingen seger på ${f.length}` : v === f.length ? `, ${v} raka vinster` : `, ${v} ${v === 1 ? "vinst" : "vinster"} på ${f.length}`;
+      return `${namn} ${ordningstal(r.plats)}${form}`;
+    };
+    rad("Form", [lag(m.hemmalag, t.hemma), lag(m.bortalag, t.borta)].filter(Boolean).join(" · "));
+  }
+
+  if (skrall) {
+    rad("Skräll", `${skrall.tecken} (${namnPa(skrall.tecken)}): ${procent(skrall.chans)} % chans, bara ${Math.round(skrall.streck * 100)} % streck. ` +
+      "Betalar bra om den går in, men är mindre trolig än favoriten.");
+  }
+  if (m.lagkoll) {
+    const motiv = m.lagkoll.skrallrisk !== "låg" ? (m.lagkoll.motivering || "").split(/(?<=\.)\s/)[0] : "";
+    rad("Lagkoll", `skrällrisk ${m.lagkoll.skrallrisk || "okänd"}${motiv ? ` – ${motiv}` : ""}`);
+  }
+  return rader.length ? el("section", { class: "korthet", "aria-label": "Matchen i korthet" },
+    el("h3", { text: "Matchen i korthet" }), el("dl", {}, ...rader)) : null;
+}
+
 const CHANSRADER = [["modell", "Odds"], ["tips", "Experter"], ["lagkoll", "Lagkoll"], ["skrall", "Skräll"], ["folket", "Folket"]];
 
 /** Chansen för 1, X och 2 enligt varje förslag och folkets streck, en rad per förslag. Grön ram runt de tecken
  *  förslaget spelar med valt antal rader. Skräll bygger på oddsens chanser men tar med 1–2 skrällar. */
-function chansTabell(m, alla) {
+function chansTabell(m, alla, medVarde = false) {
   const odds = m.chans_modell || (m.chans_kalla === "streck" ? null : m.chans);
   const summa = m.streck ? TECKEN.reduce((a, t) => a + m.streck[t], 0) || 1 : 1;
   // Utan egen bedömning följer Experter och Lagkoll oddsen, och då visas oddsens chanser
@@ -487,6 +559,14 @@ function chansTabell(m, alla) {
         el("span", { class: `chans${spelar.includes(t) ? " spelas" : ""}`,
           "aria-label": `${t}: ${c ? procent(c[t]) + " procent" : "saknas"}${spelar.includes(t) ? ", spelas" : ""}`,
           text: c ? `${procent(c[t])} %` : "–" })))));
+  }
+  if (medVarde && chans.modell && chans.folket) {
+    kropp.append(el("tr", { class: "varde-rad" }, el("td", {}, "Värde", el("span", { class: "under", text: "odds minus streck" })),
+      ...TECKEN.map((t) => {
+        const p = Math.round(100 * (chans.modell[t] - chans.folket[t]));
+        return el("td", { class: "tal" }, el("span", { class: p >= VARDE_GRANS * 100 ? "plus" : p < 0 ? "minus" : "",
+          text: (p > 0 ? "+" : p < 0 ? "−" : "±") + Math.abs(p) }));
+      })));
   }
   const huvud = el("tr", {}, el("th", { text: "Chans" }),
     ...TECKEN.map((t) => el("th", { class: `tal${m.resultat === t ? " utfall" : ""}`, text: m.resultat === t ? `${t} ✓` : t })));
@@ -613,22 +693,9 @@ function detaljExperter(m, v) {
   return ut;
 }
 
-function detaljOdds(m) {
-  const proc = (c) => TECKEN.map((t) => (c ? `${procent(c[t])} %` : null));
-  const modell = m.chans_modell || (m.chans_kalla === "modell" ? m.chans : null);
-  const rader = [];
-  if (modell) rader.push({ namn: "Oddsen", under: "chans enligt spelbolagen", varden: proc(modell), klass: ["modell", "skrall"].includes(state.kalla) ? "markerad" : "" });
-  if (m.chans_tips) rader.push({ namn: "Med experter", under: "odds + tipsare", varden: proc(m.chans_tips), klass: state.kalla === "tips" ? "markerad" : "" });
-  if (m.lagkoll) rader.push({ namn: "Lagkoll", under: "odds + lagnyheter · test", varden: proc(m.lagkoll.chans), klass: state.kalla === "lagkoll" ? "markerad" : "skugga-rad" });
-  if (m.streck) rader.push({ namn: "Svenska folket", under: "streck", varden: TECKEN.map((t) => `${Math.round(m.streck[t])} %`) });
-  if (m.varde) {
-    rader.push({ namn: "Värde", under: "procentenheter", varden: TECKEN.map((t) => {
-      const p = Math.round(m.varde[t] * 100);
-      return el("span", { class: p >= VARDE_GRANS * 100 ? "plus" : p < 0 ? "minus" : "", text: (p > 0 ? "+" : p < 0 ? "−" : "±") + Math.abs(p) });
-    }) });
-  }
-  if (m.chans_kalla === "streck") rader.push({ namn: "Odds saknas", under: "chansen bygger på strecken", varden: [null, null, null] });
-  const ut = [teckentabell("Sannolikheter", rader)];
+function detaljOdds(m, v, skrall, alla) {
+  const ut = [chansTabell(m, alla, true)];
+  if (m.chans_kalla === "streck") ut.push(el("p", { class: "dampad liten", text: "Odds saknas: chansen bygger på strecken." }));
 
   if (m.odds?.bolag?.length) {
     const snitt = m.odds.antal_bolag > 1

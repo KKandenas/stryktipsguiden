@@ -780,7 +780,17 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .detaljflik > * { margin-top: 0; margin-bottom: 0; }
 .detaljflik .visa-bolag { justify-self: start; }
 
-/* Chans per förslag i matchens översikt */
+/* Matchen i korthet */
+.korthet { background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; padding: 10px 12px; margin: 10px 0; }
+.korthet h3 { font-family: var(--rubrikfont); font-size: 17px; margin: 0 0 6px; }
+.korthet dl { margin: 0; display: grid; gap: 6px; }
+.korthet .kort-rad { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 8px; font-size: 14px; line-height: 1.4; }
+.korthet dt { color: var(--dampad); font-weight: 600; }
+.korthet dd { margin: 0; }
+.chanstabell .varde-rad .plus { color: var(--ratt); font-weight: 700; }
+.chanstabell .varde-rad .minus { color: var(--dampad); }
+
+/* Chans per förslag (fliken Odds) */
 .chanstabell .detaljtabell td.tal { width: 19%; padding: 6px 4px; }
 .chanstabell .detaljtabell td { padding: 6px 10px; }
 .chanstabell .chans { display: inline-block; min-width: 48px; padding: 3px 4px; border-radius: 8px; border: 2px solid transparent; font-variant-numeric: tabular-nums; }
