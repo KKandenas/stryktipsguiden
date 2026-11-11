@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag, traffProfil,
-} from "./optimizer.js?v=20261111h";
-import * as konto from "./konto.js?v=20261111h";
+} from "./optimizer.js?v=20261111k";
+import * as konto from "./konto.js?v=20261111k";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261111h";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111h";
-import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111h";
+} from "./spelbolag.js?v=20261111k";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111k";
+import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111k";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -25,6 +25,7 @@ const state = {
   detaljFlik: "oversikt", // vald flik i matchdetaljen, samma för alla matcher
   tabellTyp: "totalt",     // Totalt, Hemma eller Borta under fliken Tabell
   btOppna: new Set(),      // utfällda avsnitt under Spela varje vecka
+  kompakt: false,          // kompakt kupongvy: en rad per match med bara tecknen
   resultat: null,      // senaste optimeringen
   historik: null,      // historik.json, laddas först när backtestet öppnas
   btBudget: null,      // vald budget i backtestet
@@ -117,6 +118,7 @@ function sparaLagring() {
     d.budget = state.budget;
     d.kalla = state.kalla;
     d.detaljFlik = state.detaljFlik;
+    d.kompakt = state.kompakt;
     d.lasningar = d.lasningar || {};
     const id = state.kupong.omgang.id;
     if (Object.keys(state.lasningar).length) d.lasningar[id] = state.lasningar;
@@ -165,6 +167,10 @@ async function start() {
   if (BUDGETAR.includes(lagrat.budget)) state.budget = lagrat.budget;
   if (FORSLAG[lagrat.kalla] && (lagrat.kalla !== "tips" || harTips(state.kupong))) state.kalla = lagrat.kalla;
   if (DETALJFLIKAR.some(([k]) => k === lagrat.detaljFlik)) state.detaljFlik = lagrat.detaljFlik;
+  state.kompakt = lagrat.kompakt === true;
+  for (const b of $("vyval").children) {
+    b.addEventListener("click", () => { state.kompakt = b.dataset.vy === "kompakt"; sparaLagring(); renderaMatcher(); });
+  }
   for (const b of document.querySelectorAll(".forslag button")) {
     b.disabled = b.dataset.kalla === "tips" && !harTips(state.kupong);
     b.addEventListener("click", () => {
@@ -290,6 +296,7 @@ function renderaTopp() {
 }
 
 function renderaMatcher() {
+  for (const b of $("vyval").children) b.setAttribute("aria-checked", String((b.dataset.vy === "kompakt") === state.kompakt));
   ritaMatcher($("matcher"), { ...state.kupong, matcher: matcherEnligtKalla(state.kupong) },
     state.resultat, state.lasningar, state.oppna, true, state.skillnad,
     allaForslagsVal(state.kupong, state.budget, state.lasningar));
@@ -330,6 +337,8 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
   lista.replaceChildren();
   const val = resultat?.ok ? Object.fromEntries(resultat.val.map((v) => [v.nr, v])) : {};
   const skrallar = skrallchanser(skrallUnderlag(kupong.matcher));
+  const kompakt = interaktiv && state.kompakt && lista.id === "matcher";
+  lista.classList.toggle("kompakt-lista", kompakt);
 
   for (const m of kupong.matcher) {
     const skrall = skrallar[m.nr];
@@ -375,12 +384,21 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
       rutor.append(el(interaktiv ? "button" : "div", attr,
         arLast ? el("span", { class: "las", text: "🔒", "aria-hidden": "true" }) : null,
         el("span", { class: "tecken", text: t }),
-        el("span", { class: "siffror", text: `${chans ?? "–"}·${streck ?? "–"}` }),
+        kompakt ? null : el("span", { class: "siffror", text: `${chans ?? "–"}·${streck ?? "–"}` }),
         harVarde ? el("i", { class: "prick", "aria-hidden": "true" }) : null,
       ));
     }
 
     const traff = m.resultat && v ? (v.tecken.includes(m.resultat) ? "traff" : "miss") : "";
+    if (kompakt) {
+      // En rad per match: nummer, lag och tecknen. Lagnamnen öppnar matchen i vanliga vyn.
+      lista.append(el("li", { class: `match kompakt ${traff}` },
+        el("span", { class: "nr", text: String(m.nr) }),
+        el("button", { type: "button", class: "kompakt-lag", "data-nr": m.nr, "aria-label": `Visa detaljer för ${m.hemmalag} mot ${m.bortalag}`,
+          text: `${m.hemmalag} – ${m.bortalag}` }),
+        rutor));
+      continue;
+    }
     const li = el("li", { class: `match ${traff}${oppen ? " oppen" : ""}` }, huvud, rutor);
     if (oppen) li.append(detaljer(m, v, skrall, alla));
     lista.append(li);
@@ -3031,6 +3049,20 @@ function klickMatch(e) {
     if (ny) state.lasningar[nr] = ny; else delete state.lasningar[nr];
     uppdatera();
     document.querySelector(`.ruta[data-nr="${nr}"][data-tecken="${t}"]`)?.focus();
+    return;
+  }
+  const lag = e.target.closest(".kompakt-lag");
+  if (lag) {
+    const nr = Number(lag.dataset.nr);
+    state.kompakt = false;
+    sparaLagring();
+    state.oppna.add(nr);
+    state.aktivMatch = nr;
+    renderaMatcher();
+    // Direkt, inte mjukt: listan byter höjd när vyn byts, och då avbryts en mjuk skrollning
+    const h = document.querySelector(`.match-huvud[data-nr="${nr}"]`);
+    h?.scrollIntoView({ block: "start" });
+    h?.focus({ preventScroll: true });
     return;
   }
   const huvud = e.target.closest(".match-huvud");

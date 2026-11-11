@@ -208,6 +208,25 @@ h1 { font-family: var(--rubrikfont); font-size: 36px; font-weight: 800; line-hei
 
 /* ---------- matcher (kupongen) – kompakt: lag till vänster, 1 X 2 till höger ---------- */
 .matcher { list-style: none; margin: 0; padding: 0; }
+.vyval { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; background: var(--ruta); border-radius: 10px; margin: 0 0 10px; }
+.vyval button { min-height: 34px; border: 0; border-radius: 8px; background: none; font: inherit; font-weight: 600; font-size: 14px;
+  color: var(--dampad); cursor: pointer; }
+.vyval button[aria-checked="true"] { background: var(--yta); color: var(--primar); box-shadow: 0 1px 4px rgba(10, 25, 60, .15); }
+.vyval button:focus-visible { outline: 2px solid var(--gul); outline-offset: 2px; }
+.matcher.kompakt-lista { background: var(--yta); border-radius: var(--radie); box-shadow: var(--skugga); padding: 4px 10px; }
+.match.kompakt { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 8px;
+  margin: 0; padding: 5px 0 5px 4px; border-radius: 0; box-shadow: none; background: none; border-top: 1px solid var(--linje); overflow: visible; }
+.match.kompakt:first-child { border-top: 0; }
+.match.kompakt.traff { box-shadow: inset 3px 0 0 var(--ratt); }
+.match.kompakt.miss { box-shadow: inset 3px 0 0 var(--fel); }
+.match.kompakt .nr { width: 22px; height: 22px; font-size: 12px; }
+.kompakt-lag { background: none; border: 0; padding: 4px 0; font: inherit; font-size: 14.5px; font-weight: 600; color: var(--text);
+  text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.match.kompakt .rutor { grid-template-columns: repeat(3, 34px); gap: 4px; padding: 0; }
+.match.kompakt .ruta { height: 32px; border-radius: 7px; }
+.match.kompakt .ruta .tecken { font-size: 15px; }
+.match.kompakt .prick { top: 2px; right: 2px; width: 6px; height: 6px; }
+.match.kompakt .ruta.utfall::after { width: 13px; height: 13px; font-size: 8px; bottom: -4px; right: -3px; }
 .match {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
   background: var(--yta); border-radius: 12px; margin-bottom: 6px; overflow: hidden; box-shadow: var(--skugga);
@@ -459,7 +478,7 @@ a.knapp { display: inline-flex; align-items: center; justify-content: center; te
   .tva-kolumner { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 24px; align-items: start; }
   .sidopanel { position: sticky; top: 100px; margin-top: -44px; }
   .sidopanel .budget { margin-top: 0; }
-  .tva-kolumner > .matcher { margin-top: 18px; }
+  .tva-kolumner > .matcher, .tva-kolumner > .matcher-kolumn { margin-top: 18px; }
   .match-huvud { padding: 10px 6px 10px 14px; }
   .lag { font-size: 16px; display: inline; }
   .lagblock .lag:first-child::after { content: " – "; font-weight: 400; color: var(--dampad); }
