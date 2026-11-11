@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag, traffProfil,
-} from "./optimizer.js?v=20261110a";
-import * as konto from "./konto.js?v=20261110a";
+} from "./optimizer.js?v=20261111b";
+import * as konto from "./konto.js?v=20261111b";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261110a";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261110a";
-import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261110a";
+} from "./spelbolag.js?v=20261111b";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111b";
+import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111b";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -282,8 +282,26 @@ function renderaTopp() {
 
 function renderaMatcher() {
   ritaMatcher($("matcher"), { ...state.kupong, matcher: matcherEnligtKalla(state.kupong) },
-    state.resultat, state.lasningar, state.oppna, true, state.skillnad);
+    state.resultat, state.lasningar, state.oppna, true, state.skillnad,
+    allaForslagsVal(state.kupong, state.budget, state.lasningar));
   renderaNyhetspanel();
+}
+
+/** Vad varje förslag och folket spelar med samma budget och låsningar: {budget, modell: {matchnr: "1X"}, …}.
+ *  Folket = systemet som byggs om man tar strecken som chans (som i backtestet). */
+function allaForslagsVal(kupong, budget, lasningar) {
+  const ut = { budget };
+  const spara = (k, r) => { if (r?.ok) ut[k] = Object.fromEntries(r.val.map((v) => [v.nr, v.tecken])); };
+  for (const k of Object.keys(FORSLAG)) {
+    if (k === "tips" && !harTips(kupong)) continue;
+    spara(k, optimeraForslag(kupong, k, budget, lasningar));
+  }
+  const folket = kupong.matcher.map((m) => {
+    const summa = m.streck ? TECKEN.reduce((a, t) => a + m.streck[t], 0) : 0;
+    return summa ? { ...m, chans: Object.fromEntries(TECKEN.map((t) => [t, m.streck[t] / summa])) } : m;
+  });
+  spara("folket", optimera(folket, budget, lasningar));
+  return ut;
 }
 
 /** Jämförelseförslaget med samma budget och låsningar: matcher med andra tecken. Oddsen jämförs med
@@ -299,7 +317,7 @@ function skillnadMotAndra(kupong, resultat, budget, lasningar) {
 }
 
 /** Ritar kupongens matcher. interaktiv=false (rättningen): tecknen går inte att låsa. */
-function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skillnad = null) {
+function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skillnad = null, alla = null) {
   lista.replaceChildren();
   const val = resultat?.ok ? Object.fromEntries(resultat.val.map((v) => [v.nr, v])) : {};
   const skrallar = skrallchanser(skrallUnderlag(kupong.matcher));
@@ -355,7 +373,7 @@ function ritaMatcher(lista, kupong, resultat, lasningar, oppna, interaktiv, skil
 
     const traff = m.resultat && v ? (v.tecken.includes(m.resultat) ? "traff" : "miss") : "";
     const li = el("li", { class: `match ${traff}${oppen ? " oppen" : ""}` }, huvud, rutor);
-    if (oppen) li.append(detaljer(m, v, skrall));
+    if (oppen) li.append(detaljer(m, v, skrall, alla));
     lista.append(li);
   }
 }
@@ -401,7 +419,7 @@ const decOdds = (x) => x.toFixed(2).replace(".", ",");
 const DETALJFLIKAR = [["oversikt", "Översikt"], ["lagen", "Lagen"], ["tabell", "Tabell"], ["experter", "Experter"], ["odds", "Odds"]];
 
 /** Matchdetaljen med flikar: Översikt, Lagen, Experter och Odds. */
-function detaljer(m, v, skrall = null) {
+function detaljer(m, v, skrall = null, alla = null) {
   const d = el("div", { class: "detaljer" });
   const visa = () => {
     const flik = state.detaljFlik;
@@ -418,7 +436,7 @@ function detaljer(m, v, skrall = null) {
         });
         return b;
       }));
-    const innehall = { oversikt: detaljOversikt, lagen: detaljLagen, tabell: detaljTabell, experter: detaljExperter, odds: detaljOdds }[flik](m, v, skrall);
+    const innehall = { oversikt: detaljOversikt, lagen: detaljLagen, tabell: detaljTabell, experter: detaljExperter, odds: detaljOdds }[flik](m, v, skrall, alla);
     d.replaceChildren(rad, el("div", { class: "detaljflik", role: "tabpanel" }, ...innehall));
   };
   d.addEventListener("bytflik", visa);
@@ -426,7 +444,7 @@ function detaljer(m, v, skrall = null) {
   return d;
 }
 
-function detaljOversikt(m, v, skrall) {
+function detaljOversikt(m, v, skrall, alla) {
   const ut = [];
   if (m.kommentar) ut.push(el("p", { class: "kommentar", text: m.kommentar }));
   if (skrall) {
@@ -437,7 +455,7 @@ function detaljOversikt(m, v, skrall) {
       (tips.length ? ` · ${stod} av ${tips.length} ${tips.length === 1 ? "expert" : "experter"} tippar ${skrall.tecken}` : "") + ". " +
       `Går den in betalar den ovanligt bra – men den är fortfarande mindre trolig än favoriten.`));
   }
-  ut.push(chansStaplar(m, v));
+  ut.push(chansTabell(m, alla));
   if (m.osaker && m.chans_kalla !== "streck") {
     ut.push(el("p", { class: "osaker-not", text:
       "Osäkrare bedömning: här finns bara Svenska Spels odds, som har högre marginal och uppdateras mer sällan " +
@@ -447,32 +465,35 @@ function detaljOversikt(m, v, skrall) {
   return ut;
 }
 
-/** Chans enligt valt förslag mot folkets streck, som staplar per tecken, med värdet till höger. */
-function chansStaplar(m, v) {
-  const box = el("section", { class: "staplar", "aria-label": "Chans mot streck" });
-  const namn = m.chans_kalla === "streck" ? "Strecken" : FORSLAG[state.kalla]?.namn || "Oddsen";
-  box.append(el("div", { class: "staplar-huvud" }, el("b", { text: "Chans mot streck" }),
-    el("span", { class: "forklaring" },
-      el("span", {}, el("i", { class: "nyckel s1", "aria-hidden": "true" }), ` ${namn}`),
-      el("span", {}, el("i", { class: "nyckel s2", "aria-hidden": "true" }), " Folket"))));
+const CHANSRADER = [["modell", "Odds"], ["tips", "Experter"], ["lagkoll", "Lagkoll"], ["skrall", "Skräll"], ["folket", "Folket"]];
+
+/** Chansen för 1, X och 2 enligt varje förslag och folkets streck, en rad per förslag. Grön ram runt de tecken
+ *  förslaget spelar med valt antal rader. Skräll bygger på oddsens chanser men tar med 1–2 skrällar. */
+function chansTabell(m, alla) {
+  const odds = m.chans_modell || (m.chans_kalla === "streck" ? null : m.chans);
   const summa = m.streck ? TECKEN.reduce((a, t) => a + m.streck[t], 0) || 1 : 1;
-  for (const t of TECKEN) {
-    const c = m.chans ? Math.round(m.chans[t] * 100) : null;
-    const f = m.streck ? Math.round((m.streck[t] / summa) * 100) : null;
-    const diff = c != null && f != null ? c - f : null;
-    const varde = m.varde && m.varde[t] >= (m.osaker ? VARDE_GRANS_OSAKER : VARDE_GRANS);
-    const stapel = (pct, klass) => el("div", { class: "stapel-rad" },
-      el("span", { class: "stapel-spar", "aria-hidden": "true" }, el("i", { class: klass, style: `width:${pct ?? 0}%` })),
-      el("span", { class: "stapel-tal", text: pct != null ? `${pct}\u00a0%` : "–" }));
-    box.append(el("div", { class: `stapel-tecken${v?.tecken.includes(t) ? " vald" : ""}${m.resultat === t ? " utfall" : ""}`,
-      "aria-label": `${t}: ${namn} ${c ?? "okänd"} procent, folket ${f ?? "okänt"} procent` },
-      el("span", { class: "stapel-t", text: t }),
-      el("div", { class: "stapel-par" }, stapel(c, "s1"), stapel(f, "s2")),
-      el("span", { class: `stapel-varde${varde ? " plus" : ""}`, text: diff == null ? "" : (diff > 0 ? "+" : diff < 0 ? "−" : "±") + Math.abs(diff) })));
+  // Utan egen bedömning följer Experter och Lagkoll oddsen, och då visas oddsens chanser
+  const chans = { modell: odds, tips: m.chans_tips || odds, lagkoll: m.lagkoll?.chans || odds, skrall: odds,
+    folket: m.streck ? Object.fromEntries(TECKEN.map((t) => [t, m.streck[t] / summa])) : null };
+  const under = { lagkoll: m.lagkoll ? null : "ej analyserad – som Odds", tips: m.chans_tips ? null : "inga tips – som Odds",
+    folket: "streck" };
+  const kropp = el("tbody");
+  for (const [k, namn] of CHANSRADER) {
+    if (k === "tips" && !alla?.tips && !m.chans_tips) continue;
+    const c = chans[k], spelar = alla?.[k]?.[m.nr] || "";
+    kropp.append(el("tr", { class: k === state.kalla ? "aktiv" : "" },
+      el("td", {}, namn, under[k] ? el("span", { class: "under", text: under[k] }) : null),
+      ...TECKEN.map((t) => el("td", { class: "tal" },
+        el("span", { class: `chans${spelar.includes(t) ? " spelas" : ""}`,
+          "aria-label": `${t}: ${c ? procent(c[t]) + " procent" : "saknas"}${spelar.includes(t) ? ", spelas" : ""}`,
+          text: c ? `${procent(c[t])} %` : "–" })))));
   }
-  box.append(el("p", { class: "dampad liten", text: "Grönt = chansen är tydligt högre än strecken (värde)." +
-    (v ? ` Förslaget har ${v.tecken.split("").join(", ")} på den här matchen.` : "") }));
-  return box;
+  const huvud = el("tr", {}, el("th", { text: "Chans" }),
+    ...TECKEN.map((t) => el("th", { class: `tal${m.resultat === t ? " utfall" : ""}`, text: m.resultat === t ? `${t} ✓` : t })));
+  return el("section", { class: "chanstabell", "aria-label": "Chans per förslag" },
+    el("table", { class: "detaljtabell" }, el("thead", {}, huvud), kropp),
+    el("p", { class: "dampad liten", text: `Grön ram = tecknet spelas i förslaget med ${alla?.budget ?? state.budget} rader. ` +
+      "Folket = strecken, och systemet man får om man följer dem." }));
 }
 
 function detaljLagen(m) {
@@ -2255,7 +2276,7 @@ function renderaRattning() {
   }
   renderaUtdelning(omgang, res.ok ? rattFordelning(res.val, k.matcher.map((m) => m.resultat || "?")) : null);
   ritaMatcher($("r-matcher"), { ...k, matcher: matcherEnligtKalla(k) }, res, lasningar, state.rOppna, false,
-    skillnadMotAndra(k, res, state.rBudget, lasningar));
+    skillnadMotAndra(k, res, state.rBudget, lasningar), allaForslagsVal(k, state.rBudget, lasningar));
 }
 
 /** Utdelningstabell för en avgjord omgång: kr per rad, antal vinnare och vad systemet vann per nivå. */

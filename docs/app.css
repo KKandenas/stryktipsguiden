@@ -780,26 +780,14 @@ body:not([data-vy="kupong"]) .kupongbar { display: none; }
 .detaljflik > * { margin-top: 0; margin-bottom: 0; }
 .detaljflik .visa-bolag { justify-self: start; }
 
-/* Chans mot streck som staplar */
-.staplar { background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; padding: 10px 12px; display: grid; gap: 10px; }
-.staplar-huvud { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.staplar-huvud b { font-family: var(--rubrikfont); font-size: 17px; }
-.staplar-huvud .forklaring { display: inline-flex; gap: 10px; font-size: 12px; color: var(--dampad); }
-.staplar-huvud .nyckel { width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; }
-.stapel-tecken { display: grid; grid-template-columns: 28px minmax(0, 1fr) 40px; gap: 8px; align-items: center; }
-.stapel-t { font-family: var(--rubrikfont); font-weight: 800; font-size: 22px; text-align: center; border-radius: 6px; line-height: 30px; }
-.stapel-tecken.vald .stapel-t { background: var(--primar); color: var(--vald-text); }
-.stapel-tecken.utfall .stapel-t { box-shadow: 0 0 0 2px var(--gul); }
-.stapel-par { display: grid; gap: 3px; }
-.stapel-rad { display: flex; align-items: center; gap: 6px; }
-.stapel-spar { flex: 1; height: 10px; background: var(--ruta); border-radius: 0 4px 4px 0; overflow: hidden; }
-.stapel-spar i { display: block; height: 100%; border-radius: 0 4px 4px 0; }
-.stapel-spar i.s1 { background: var(--serie-1); }
-.stapel-spar i.s2 { background: var(--serie-2); }
-.stapel-tal { width: 38px; text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; }
-.stapel-varde { font-family: var(--rubrikfont); font-weight: 800; font-size: 17px; text-align: right; color: var(--dampad); font-variant-numeric: tabular-nums; }
-.stapel-varde.plus { color: var(--ratt); }
-.staplar > p { margin: 0; }
+/* Chans per förslag i matchens översikt */
+.chanstabell .detaljtabell td.tal { width: 19%; padding: 6px 4px; }
+.chanstabell .detaljtabell td { padding: 6px 10px; }
+.chanstabell .chans { display: inline-block; min-width: 48px; padding: 3px 4px; border-radius: 8px; border: 2px solid transparent; font-variant-numeric: tabular-nums; }
+.chanstabell .chans.spelas { border-color: var(--ratt); font-weight: 700; }
+.chanstabell tr.aktiv td:first-child { box-shadow: inset 3px 0 0 var(--primar); color: var(--primar); }
+.chanstabell th.utfall { color: var(--ratt); }
+.chanstabell > p { margin: 6px 2px 0; }
 
 /* Statistikens undersidor */
 .undermeny {
