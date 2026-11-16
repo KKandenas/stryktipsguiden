@@ -1,0 +1,5 @@
+# Samma radslut (LF) på Mac, Windows och i GitHub Actions; databasen är binär
+* text=auto eol=lf
+*.db binary
+*.png binary
+*.ico binary

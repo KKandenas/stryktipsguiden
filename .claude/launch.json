@@ -6,6 +6,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8765", "-d", "docs"],
       "port": 8765
+    },
+    {
+      "name": "app-windows",
+      "runtimeExecutable": "py",
+      "runtimeArgs": ["-m", "http.server", "8765", "-d", "docs"],
+      "port": 8765
     }
   ]
 }

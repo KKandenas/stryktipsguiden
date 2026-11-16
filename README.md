@@ -38,6 +38,9 @@ python3 -m venv .venv
 .venv/bin/python -m pipeline auto       # hämtar det som är aktuellt just nu
 ```
 
+På Windows: `py -3.12 -m venv .venv` och `.venv\Scripts\` i stället för `.venv/bin/`. JS-testerna körs med
+`node --test tests/js/`.
+
 Kommandon:
 
 | Kommando | Gör |

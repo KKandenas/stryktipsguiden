@@ -53,10 +53,12 @@ FARDPLAN.md (planer och kontrollpunkter), DATAKALLOR.md, FIREBASE.md och DRIFT.m
 ## Utveckling
 
 - Python: `python3 -m venv .venv`, sedan `.venv/bin/pip install -r requirements-dev.txt`. Tester körs med
-  `.venv/bin/python -m pytest -q`.
-- JS-tester: `node --test tests/js/*.test.mjs`. Det finns ett röktest av app.js och en kontroll av
-  odefinierade namn. Saknas Node lokalt går modultesterna att köra med JavaScriptCore (`jsc -m`) och enkla shims.
-- Förhandsvisning: `.claude/launch.json` ("app", port 8765). Demoläge för konto och spelbolag: `?demo-konto`.
+  `.venv/bin/python -m pytest -q`. På Windows: `py -3.12 -m venv .venv`, `.venv\Scripts\pip …` och
+  `.venv\Scripts\python -m pytest -q`. Ange alltid `encoding="utf-8"` när filer läses eller skrivs.
+- JS-tester: `node --test tests/js/` (Node 20 eller senare). Det finns ett röktest av app.js och en kontroll av
+  odefinierade namn. Saknas Node lokalt på Mac går modultesterna att köra med JavaScriptCore (`jsc -m`) och enkla shims.
+- Förhandsvisning: `.claude/launch.json` ("app" på Mac, "app-windows" på Windows, port 8765). Demoläge för
+  konto och spelbolag: `?demo-konto`.
 - Cache-busting: varje ändring i `docs/*.js` eller `app.css` kräver ny `?v=`-version, och samma version
   överallt (ett test kontrollerar det).
 - Pipelinen committar data till main flera gånger om dagen. Kör `git pull --rebase` före push.

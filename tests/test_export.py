@@ -69,7 +69,7 @@ def test_skriv_bara_vid_andring(conn, tmp_path):
     assert export.skriv(k, fil) is True
     k2 = export.bygg_kupong(conn, 4974, nu="2026-10-10T13:40:00Z")   # bara 'genererad' skiljer
     assert export.skriv(k2, fil) is False
-    assert json.loads(fil.read_text())["formatversion"] == 1
+    assert json.loads(fil.read_text(encoding="utf-8"))["formatversion"] == 1
 
 
 def test_exempelfilen_ar_giltig():
