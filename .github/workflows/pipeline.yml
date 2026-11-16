@@ -40,7 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
+      # Senaste main, inte den commit som gällde när körningen startades: en körning kan stå i kö i
+      # många minuter (concurrency eller GitHub-förseningar), och under tiden har en annan körning
+      # committat ny data. Med den gamla commiten krockade databasen vid push (14 och 16 nov 2026).
       - uses: actions/checkout@v5
+        with:
+          ref: main
 
       - uses: actions/setup-python@v6
         with:
