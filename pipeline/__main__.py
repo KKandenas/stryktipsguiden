@@ -427,7 +427,7 @@ def main(argv=None) -> int:
     sub = p.add_subparsers(dest="kommando", required=True)
     for namn in ("auto", "planerad", "svenskaspel", "odds", "resultat", "tips", "sidomatcher", "expertarkiv",
                  "expertteman", "kommentarer", "lagkoll", "tabeller", "statistik",
-                 "migrera"):
+                 "migrera", "apifootball-test"):
         sub.add_parser(namn)
     b = sub.add_parser("backfill")
     b.add_argument("fran", type=int)
@@ -533,6 +533,9 @@ def main(argv=None) -> int:
         kritiskt_ok = steg_prognos(conn, args.alla)
     elif args.kommando == "export":
         kritiskt_ok = steg_export(conn, args.omgang, args.till, args.dolj_resultat)
+    elif args.kommando == "apifootball-test":
+        from .sources import apifootball
+        kritiskt_ok = apifootball.testa()
 
     if args.kommando in ("tips", "kommentarer", "lagkoll"):
         spara_ai_status(conn)      # driftstatusen visar senaste AI-försöket även vid separata körningar
