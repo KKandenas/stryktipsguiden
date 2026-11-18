@@ -18,10 +18,12 @@ from typing import Any, Callable, Dict, List, Optional
 
 log = logging.getLogger(__name__)
 
-GEMINI_MODELL = os.environ.get("GEMINI_MODELL", "").strip() or "gemini-3.8-flash"  # kan sättas som repo-variabel
+# Flash-Lite först: 13–16 november 2026 lyckades gemini-3.8-flash och 3.7-flash inte med ett enda anrop på
+# gratisnivån (503, inget svar eller 20 anrop per dag), medan Flash-Lite-modellerna gjorde nästan allt arbete.
+GEMINI_MODELL = os.environ.get("GEMINI_MODELL", "").strip() or "gemini-3.5-flash-lite"  # kan sättas som repo-variabel
 # Reserver när huvudmodellen är överbelastad eller inte svarar (repo-variabel GEMINI_RESERVMODELLER, kommaseparerad).
 GEMINI_RESERVER = [m.strip() for m in (os.environ.get("GEMINI_RESERVMODELLER", "").strip()
-                                       or "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.7-flash,gemini-3.6-flash").split(",") if m.strip()]
+                                       or "gemini-3.1-flash-lite,gemini-3.6-flash,gemini-3.8-flash").split(",") if m.strip()]
 GEMINI_TANKANDE = "low"            # minimal | low | medium | high
 
 CLAUDE_MODELL = "claude-opus-5-5"
@@ -35,7 +37,8 @@ VANTA_MAX = 75
 RPM_PAUS = 60                      # en modell som ändå svarar 429 vilar så här länge
 TILLFALLIGA_FEL = {429, 500, 502, 503, 504}
 OKANDA_MODELLER = {400, 404}       # modellen finns inte (längre) – hoppas över resten av körningen
-ANROP_TIDSGRANS = 90               # sekunder per enskilt anrop; SDK:t kan annars hänga i det oändliga
+ANROP_TIDSGRANS = 45               # sekunder per enskilt anrop; SDK:t kan annars hänga i det oändliga.
+                                   # Lyckade anrop tar några sekunder upp till drygt 20.
 AI_TIDSBUDGET = 15 * 60            # sekunder AI totalt per körning, så att körningen hinner spara sin data
 MAX_FEL_I_RAD = 3                  # så många misslyckade anrop i rad → AI hoppas över resten av körningen
 # Högsta AI-tid per steg, så att ett steg inte äter upp hela budgeten. Tipsen kommer först och kan ta lång

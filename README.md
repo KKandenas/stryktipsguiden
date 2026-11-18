@@ -260,7 +260,7 @@ Förutom modultesterna finns två kontroller av själva appen, båda utan beroen
 ## Tipssajter och AI (fas 4)
 
 AI anropas bara från pipelinen (`pipeline/ai/`), aldrig från appen. **Gemini** är förvalt
-(`gemini-3.8-flash`, gratisnivå via Google AI Studio). Claude finns kvar som alternativ.
+(`gemini-3.5-flash-lite`, gratisnivå via Google AI Studio). Claude finns kvar som alternativ.
 Leverantören väljs efter vilken nyckel som finns: `GEMINI_API_KEY` i första hand och
 `ANTHROPIC_API_KEY` i andra. `AI_LEVERANTOR=claude` tvingar Claude. Utan nyckel, eller på
 Python < 3.10 där SDK:erna inte finns, hoppas AI-stegen över med en loggrad.
@@ -303,12 +303,16 @@ En artikel tolkas om bara om texten ändrats och den förra tolkningen är äldr
 **Kommentarer** (`pipeline/ai/kommentarer.py`): 1–2 meningar per match utifrån chans, streck, värde
 och tipsen. En kommentar skrivs om bara när underlaget ändrats märkbart (avrundade värden hashas).
 
-**Inställningar** i `pipeline/ai/klient.py`: modell (`GEMINI_MODELL`, standard `gemini-3.8-flash`).
+**Inställningar** i `pipeline/ai/klient.py`: modell (`GEMINI_MODELL`, standard `gemini-3.5-flash-lite`).
 Den kan bytas utan kodändring via repo-variabeln `GEMINI_MODELL` under Settings → Secrets and
 variables → Actions → fliken Variables, t.ex. `gemini-2.5-flash`. Dessutom: tänkande (`GEMINI_TANKANDE = "low"`).
 
-**Reservmodeller:** är huvudmodellen överbelastad (429 eller 5xx) eller svarar inte inom 90 s provas
-nästa modell i kedjan direkt: `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, `gemini-3.7-flash` och sedan `gemini-3.6-flash`. Flash-Lite-modellerna har betydligt större gratiskvoter än de vanliga Flash-modellerna, som bara tillåter omkring 20 anrop per dag. 2.5-modellerna är pensionerade.
+**Reservmodeller:** är huvudmodellen överbelastad (429 eller 5xx) eller svarar inte inom 45 s provas
+nästa modell i kedjan direkt: `gemini-3.1-flash-lite`, `gemini-3.6-flash` och sist `gemini-3.8-flash`. Flash-Lite-modellerna har betydligt större gratiskvoter än de vanliga Flash-modellerna, som bara tillåter omkring 20 anrop per dag. 2.5-modellerna är pensionerade.
+Fram till 18 november 2026 var `gemini-3.8-flash` huvudmodell, med `gemini-3.7-flash` bland reserverna. Under 13–16 november
+lyckades ingen av dem med ett enda anrop (0 av 19: 503, inget svar inom 90 s eller dagskvoten slut), och
+väntan på dem åt upp en stor del av körningens AI-tid. Därför står Flash-Lite först, 3.7 är borttagen och
+tidsgränsen sänkt från 90 till 45 s.
 Kedjan kan ändras med repo-variabeln `GEMINI_RESERVMODELLER`, kommaseparerad. En modell som svarat dåligt
 flyttas sist för resten av körningen. En modell som inte finns (400 eller 404) hoppas över. Svarar ingen
 modell görs ett nytt varv efter 30 s, sedan ges anropet upp. SDK:ts egna omförsök vid 429 och 5xx är avstängda

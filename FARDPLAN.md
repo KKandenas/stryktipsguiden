@@ -33,12 +33,12 @@ som talar för dem.
 | Skrällchans | Kvot chans/streck 1,25–1,5, högst tre per omgång. 1 skräll upp till 64 rader, 2 däröver. |
 | Tabell och form | BBC Sport med Wikipedia som reserv, uppdateras vid varje körning |
 | Driftstatus | Om-sidan (`#om`): körning, oddskrediter, AI, tips och Lagkoll |
-| AI | Gemini 3.8 → 3.7 → 3.6 → 3.5 Flash. Gratiskvoten räknas per modell och dag. |
+| AI | Gemini 3.5 Flash-Lite → 3.1 Flash-Lite → 3.6 Flash → 3.8 Flash (sedan 18 november 2026). Gratiskvoten räknas per modell och dag. |
 
 ## Tidslinje
 
 ### Vecka 42 (12–18 oktober): första riktiga helgen
-- [ ] Onsdag kväll: kontrollera i driftstatusen att AI-raden visar lyckade anrop med reservkedjan.
+- [x] Onsdag kväll: kontrollera i driftstatusen att AI-raden visar lyckade anrop med reservkedjan.
 - [x] Fredag 19 och lördag förmiddag: Lagkoll gör sina första analyser, och skrällchanserna dyker upp när
   strecken skiljer sig från oddsen. Det sker automatiskt.
 - [x] Lagkollens första analyser genomgångna 1 november 2026 (39 matcher, tre omgångar). Påståendena finns i
