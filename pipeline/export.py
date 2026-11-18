@@ -224,7 +224,9 @@ def bygg_drift(conn: sqlite3.Connection) -> dict:
         return (r[0], r[1]) if r else (None, None)
     ai, ai_tid = installning("ai_status")
     kvar, odds_tid = installning("oddsapi_krediter_kvar")
+    dygn, _ = installning("ai_dygn")
     return {"ai": {**json.loads(ai), "tid": ai_tid} if ai else None,
+            "ai_dygn": json.loads(dygn) if dygn else None,
             "odds": {"kvar": int(kvar), "tid": odds_tid} if kvar is not None else None}
 
 

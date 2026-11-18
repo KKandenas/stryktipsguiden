@@ -51,7 +51,14 @@ _fel_i_rad = 0
 _steg: Optional[str] = None
 _steg_slut: Optional[float] = None   # tidpunkt (time.monotonic) då stegets AI-tid är slut
 # Hur AI-anropen gick under körningen – sparas för driftstatusen i appen (se __main__.spara_ai_status).
-KORNING: Dict[str, Any] = {"lyckade": 0, "misslyckade": 0, "modeller": {}, "stoppad": None}
+KORNING: Dict[str, Any] = {"lyckade": 0, "misslyckade": 0, "modeller": {}, "tokens": {}, "stoppad": None}
+
+
+def _rakna_tokens(modell: str, in_: Any, ut: Any) -> None:
+    """Lägg ett lyckat anrops tokens till körningens summa per modell ("ut" räknar med tänkandet)."""
+    t = KORNING.setdefault("tokens", {}).setdefault(modell, {"in": 0, "ut": 0})
+    t["in"] += int(in_ or 0)
+    t["ut"] += int(ut or 0)
 _ordning: List[str] = []           # modellkedjan; en modell som just svarat dåligt flyttas sist
 _ur_spel: set = set()              # modeller som inte finns
 _anrop: Dict[str, List[float]] = {}   # modell -> tidpunkter (time.monotonic) för anrop senaste minuten
@@ -228,6 +235,9 @@ def _anropa_gemini(system: str, anvandare: str, schema: Dict[str, Any], max_toke
         if svar.status != "completed":
             raise AiFel(f"Gemini ({modell}) avslutade med status {svar.status}")
         KORNING["modeller"][modell] = KORNING["modeller"].get(modell, 0) + 1
+        if usage is not None:
+            _rakna_tokens(modell, getattr(usage, "total_input_tokens", 0),
+                          (getattr(usage, "total_output_tokens", 0) or 0) + (getattr(usage, "total_thought_tokens", 0) or 0))
         return _tolka_json(svar.output_text)
 
 
@@ -259,6 +269,7 @@ def _anropa_claude(system: str, anvandare: str, schema: Dict[str, Any], max_toke
         raise AiFel(f"Nätverksfel mot Claude API: {e}") from e
 
     log.info("Claude: %s in / %s ut tokens (%s)", svar.usage.input_tokens, svar.usage.output_tokens, svar.model)
+    _rakna_tokens(svar.model, svar.usage.input_tokens, svar.usage.output_tokens)
     if svar.stop_reason == "refusal":
         raise AiFel("Claude avböjde förfrågan")
     if svar.stop_reason == "max_tokens":

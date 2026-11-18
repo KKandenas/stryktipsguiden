@@ -27,6 +27,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from . import config, db, expertarkiv, expertteman, export, halsa, lagkoll, lagring, schema, sidomatcher, tipsinsamling
 from .ai import klient as ai_klient
@@ -126,6 +127,33 @@ def spara_ai_status(conn) -> None:
         _satt_installning(conn, "ai_status", json.dumps({"konfigurerad": False, "orsak": orsak}, ensure_ascii=False))
     elif k["lyckade"] or k["misslyckade"] or k["stoppad"]:
         _satt_installning(conn, "ai_status", json.dumps({"konfigurerad": True, **k}, ensure_ascii=False))
+        _lagg_till_ai_dygn(conn, k)
+
+
+# Geminis gratiskvot per dag nollställs vid midnatt amerikansk västkusttid (kl. 09 svensk tid).
+KVOTDYGN_TID = ZoneInfo("America/Los_Angeles")
+
+
+_ai_dygn_tillagt: dict = {}   # det som redan lagts till från den här körningen (statusen kan sparas flera gånger)
+
+
+def _lagg_till_ai_dygn(conn, k: dict, nu: datetime | None = None) -> None:
+    """Summera lyckade anrop och tokens per modell för kvotdygnet, så att driftstatusen visar hur nära
+    gratisnivåns dagsgränser vi ligger. Ett nytt kvotdygn börjar om från noll."""
+    dag = (nu or datetime.now(timezone.utc)).astimezone(KVOTDYGN_TID).date().isoformat()
+    r = conn.execute("SELECT varde FROM installningar WHERE nyckel = 'ai_dygn'").fetchone()
+    dygn = json.loads(r[0]) if r else {}
+    if dygn.get("datum") != dag:
+        dygn = {"datum": dag, "modeller": {}}
+    for modell, n in (k.get("modeller") or {}).items():
+        t = (k.get("tokens") or {}).get(modell, {})
+        nytt = {"anrop": n, "in": t.get("in", 0), "ut": t.get("ut", 0)}
+        fore = _ai_dygn_tillagt.get(modell, {})
+        m = dygn["modeller"].setdefault(modell, {"anrop": 0, "in": 0, "ut": 0})
+        for f in m:
+            m[f] += nytt[f] - fore.get(f, 0)
+        _ai_dygn_tillagt[modell] = nytt
+    _satt_installning(conn, "ai_dygn", json.dumps(dygn, ensure_ascii=False))
 
 
 def steg_odds(conn) -> bool:

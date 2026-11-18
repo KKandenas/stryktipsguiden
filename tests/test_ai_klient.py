@@ -188,6 +188,33 @@ def test_ai_status_sparas_och_exporteras(conn, monkeypatch):
     assert json.dumps(export.bygg_drift(conn))
 
 
+def test_tokens_summeras_per_kvotdygn_utan_dubbelrakning(conn, monkeypatch):
+    from datetime import datetime, timezone
+    from pipeline import __main__ as cli, export
+    monkeypatch.setattr(cli, "_ai_dygn_tillagt", {})
+    k = {"lyckade": 0, "misslyckade": 0, "modeller": {}, "tokens": {}, "stoppad": None}
+    monkeypatch.setattr(klient, "KORNING", k)
+    klient._rakna_tokens("gemini-3.5-flash-lite", 1000, 200)
+    k["modeller"]["gemini-3.5-flash-lite"] = 1
+    kvall = datetime(2026, 11, 18, 7, 0, tzinfo=timezone.utc)      # 23:00 dagen före i Kalifornien
+    cli._lagg_till_ai_dygn(conn, k, kvall)
+    # Samma körning sparar statusen igen efter ett anrop till: bara det nya läggs till
+    klient._rakna_tokens("gemini-3.5-flash-lite", 500, 100)
+    k["modeller"]["gemini-3.5-flash-lite"] = 2
+    cli._lagg_till_ai_dygn(conn, k, kvall)
+    d = export.bygg_drift(conn)["ai_dygn"]
+    assert d == {"datum": "2026-11-17", "modeller": {"gemini-3.5-flash-lite": {"anrop": 2, "in": 1500, "ut": 300}}}
+    # Nästa körning samma kvotdygn läggs ovanpå
+    monkeypatch.setattr(cli, "_ai_dygn_tillagt", {})
+    cli._lagg_till_ai_dygn(conn, k, kvall)
+    assert export.bygg_drift(conn)["ai_dygn"]["modeller"]["gemini-3.5-flash-lite"]["anrop"] == 4
+    # Efter midnatt i Kalifornien (kl. 09 svensk tid) börjar ett nytt kvotdygn
+    monkeypatch.setattr(cli, "_ai_dygn_tillagt", {})
+    cli._lagg_till_ai_dygn(conn, k, datetime(2026, 11, 18, 9, 0, tzinfo=timezone.utc))
+    d = export.bygg_drift(conn)["ai_dygn"]
+    assert d["datum"] == "2026-11-18" and d["modeller"]["gemini-3.5-flash-lite"]["anrop"] == 2
+
+
 
 def test_hogst_rpm_grans_anrop_per_modell_och_minut(monkeypatch):
     """Gratisnivån tillåter 5 anrop/min per modell: vi sprider över kedjan och väntar när alla är fulla."""

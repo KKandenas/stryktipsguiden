@@ -1,14 +1,14 @@
 import {
   BUDGETAR, TECKEN, VARDE_GRANS, VARDE_GRANS_OSAKER, antalRatt, normaliseraLasning, optimera, sammanfattning, skrallchanser,
   skrallKrav, skrallUnderlag, traffProfil,
-} from "./optimizer.js?v=20261111k";
-import * as konto from "./konto.js?v=20261111k";
+} from "./optimizer.js?v=20261118a";
+import * as konto from "./konto.js?v=20261118a";
 import {
   MAX_MEDLEMMAR, POSTTYPER, SPELFORMER, arGast, deltagarIds, farBokfora, farSpara, losId, namnPa, rakna, topplista, turFor,
   valideraGast, valideraPost,
-} from "./spelbolag.js?v=20261111k";
-import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261111k";
-import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261111k";
+} from "./spelbolag.js?v=20261118a";
+import { andraTecken, antalRader, normaliseraEpost, sammanstall, skapaSpel, valideraSpel, MAX_DELNINGAR } from "./minaspel.js?v=20261118a";
+import { PREMIAR, backtesta, franAr, medLagkoll, osakerhet, rattFordelning } from "./backtest.js?v=20261118a";
 
 const $ = (id) => document.getElementById(id);
 const LAGRING = "stryktipshjalpen";
@@ -2037,6 +2037,16 @@ function renderaJamforelse(box, rader) {
 const driftFmt = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 const timmarSedan = (iso) => (Date.now() - new Date(iso).getTime()) / 3_600_000;
 
+/** Tokenantal med tusentalsavgränsning: 45 300. */
+function tokenTal(n) {
+  return Math.round(n || 0).toLocaleString("sv-SE");
+}
+
+/** Kvotdygnets datum (Geminis gratiskvot nollställs vid midnatt i Kalifornien, kl. 09 svensk tid). */
+function kvotdygnIdag() {
+  return new Intl.DateTimeFormat("sv-SE", { timeZone: "America/Los_Angeles" }).format(new Date());
+}
+
 /** Driftstatus på Om-sidan: en rad per del av pipelinen, med ✓ / ⚠ / ✕ och text (aldrig bara färg). */
 function renderaDrift(k) {
   const lista = $("drift");
@@ -2070,10 +2080,21 @@ function renderaDrift(k) {
     const tot = ai.lyckade + ai.misslyckade;
     const modeller = Object.entries(ai.modeller || {}).map(([m, n]) => `${m} ${n}`).join(", ");
     const niva = ai.lyckade === 0 ? "fel" : ai.misslyckade || ai.stoppad ? "varning" : "ok";
+    const tok = Object.values(ai.tokens || {}).reduce((s, t) => [s[0] + t.in, s[1] + t.ut], [0, 0]);
     rad(niva, "AI (tips, kommentarer, Lagkoll)",
       `${ai.lyckade} av ${tot} anrop lyckades ${nar(ai.tid)}${modeller ? ` (${modeller})` : ""}.` +
+      (tok[0] || tok[1] ? ` Tokens: ${tokenTal(tok[0])} in, ${tokenTal(tok[1])} ut.` : "") +
       (ai.stoppad ? ` Avbröts: ${ai.stoppad} – resten tas vid nästa körning.` : "") +
       (ai.lyckade === 0 ? " Googles AI svarade inte – försöker igen vid nästa körning." : ""));
+  }
+  const dygn = k.drift?.ai_dygn;
+  const perModell = Object.entries(dygn?.modeller || {}).sort((a, b) => b[1].anrop - a[1].anrop);
+  if (perModell.length) {
+    const summa = perModell.reduce((s, [, m]) => [s[0] + m.in, s[1] + m.ut], [0, 0]);
+    rad("info", "AI under kvotdygnet",
+      (dygn.datum === kvotdygnIdag() ? "Sedan kvoten nollställdes senast (kl. 09): " : `Senaste kvotdygnet med AI (${dygn.datum}): `) +
+      perModell.map(([namn, m]) => `${namn} ${m.anrop} anrop`).join(", ") +
+      `. Tokens: ${tokenTal(summa[0])} in, ${tokenTal(summa[1])} ut. Gratiskvoten räknas per modell och nollställs kl. 09.`);
   }
 
   const m = k.matcher || [];
