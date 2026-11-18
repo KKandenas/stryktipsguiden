@@ -154,8 +154,11 @@ Detaljerna finns i README.
 ### Nyheter om lagen
 - **Steg A:** sidan "Lagnyheter" samlar det Lagkoll redan hittar, alltså skador, avstängningar,
   sammanhang och tränarbyten per match, med källa. Ingen extra AI behövs. Klar 13 oktober 2026.
-- **Steg B:** RSS-flöden, till exempel BBC per liga, med AI-sammanfattning. Väntar tills Geminis
-  gratiskvot har visat sig räcka.
+- **Steg B:** nyhetsflöden med AI-sammanfattning per match. **På is sedan 18 november 2026:** ingen gratis
+  källa följer våra regler. BBC:s användarvillkor (avsnitt 15) förbjuder att data plockas ur RSS-flödena och
+  kräver tillstånd för datoranalys och AI. The Guardian spärrar AI-verktyg. API-Footballs skadelistor
+  (gratiskonto, 100 anrop per dag) gäller bara säsongerna 2022–2024, prövat med ett testanrop; pågående
+  säsong kräver betald plan. Tas upp igen bara med en ny källa vars villkor tillåter det.
 
 ## Idéer i reserven
 
