@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-16T17:35:06Z",
+ "genererad": "2026-11-18T18:06:23Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -2206,6 +2206,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-14",
+       "mot": "Burton",
+       "plats": "h",
+       "gjorda": 6,
+       "insl": 2
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Doncaster",
        "plats": "h",
@@ -2232,16 +2239,16 @@
        "plats": "b",
        "gjorda": 0,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-17",
-       "mot": "Luton",
-       "plats": "h",
-       "gjorda": 2,
-       "insl": 1
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-14",
+       "mot": "Milton Keynes Dons",
+       "plats": "b",
+       "gjorda": 2,
+       "insl": 6
+      },
       {
        "datum": "2026-10-31",
        "mot": "Wycombe",
@@ -2269,13 +2276,6 @@
        "plats": "b",
        "gjorda": 2,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Doncaster",
-       "plats": "b",
-       "gjorda": 0,
-       "insl": 1
       }
      ]
     }
@@ -2680,6 +2680,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-14",
+       "mot": "Plymouth",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 0
+      },
+      {
        "datum": "2026-11-01",
        "mot": "Blackpool",
        "plats": "h",
@@ -2706,16 +2713,16 @@
        "plats": "b",
        "gjorda": 0,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-17",
-       "mot": "AFC Wimbledon",
-       "plats": "h",
-       "gjorda": 5,
-       "insl": 0
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-14",
+       "mot": "Sheffield Weds",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 3
+      },
       {
        "datum": "2026-10-31",
        "mot": "Reading",
@@ -2743,13 +2750,6 @@
        "plats": "h",
        "gjorda": 0,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "AFC Wimbledon",
-       "plats": "h",
-       "gjorda": 2,
-       "insl": 1
       }
      ]
     }
@@ -3198,6 +3198,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-14",
+       "mot": "Reading",
+       "plats": "h",
+       "gjorda": 3,
+       "insl": 1
+      },
+      {
        "datum": "2026-10-31",
        "mot": "AFC Wimbledon",
        "plats": "h",
@@ -3224,16 +3231,16 @@
        "plats": "b",
        "gjorda": 2,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-17",
-       "mot": "Bromley",
-       "plats": "h",
-       "gjorda": 1,
-       "insl": 0
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-14",
+       "mot": "Stockport",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 3
+      },
       {
        "datum": "2026-11-04",
        "mot": "Oxford",
@@ -3261,13 +3268,6 @@
        "plats": "h",
        "gjorda": 1,
        "insl": 0
-      },
-      {
-       "datum": "2026-10-17",
-       "mot": "Wigan",
-       "plats": "b",
-       "gjorda": 0,
-       "insl": 1
       }
      ]
     }
@@ -3631,6 +3631,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-14",
+       "mot": "Blackpool",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 0
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Stockport",
        "plats": "b",
@@ -3657,16 +3664,16 @@
        "plats": "b",
        "gjorda": 0,
        "insl": 5
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Plymouth",
-       "plats": "b",
-       "gjorda": 1,
-       "insl": 2
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-14",
+       "mot": "AFC Wimbledon",
+       "plats": "b",
+       "gjorda": 0,
+       "insl": 1
+      },
       {
        "datum": "2026-11-01",
        "mot": "Sheffield Weds",
@@ -3694,13 +3701,6 @@
        "plats": "b",
        "gjorda": 0,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Cambridge",
-       "plats": "b",
-       "gjorda": 0,
-       "insl": 1
       }
      ]
     }
@@ -4088,6 +4088,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-14",
+       "mot": "Barnsley",
+       "plats": "h",
+       "gjorda": 2,
+       "insl": 1
+      },
+      {
        "datum": "2026-11-03",
        "mot": "Mansfield",
        "plats": "h",
@@ -4114,16 +4121,16 @@
        "plats": "b",
        "gjorda": 1,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-20",
-       "mot": "Oxford",
-       "plats": "b",
-       "gjorda": 1,
-       "insl": 2
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-14",
+       "mot": "Wigan",
+       "plats": "b",
+       "gjorda": 1,
+       "insl": 2
+      },
       {
        "datum": "2026-10-31",
        "mot": "Oxford",
@@ -4151,13 +4158,6 @@
        "plats": "h",
        "gjorda": 1,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Stockport",
-       "plats": "b",
-       "gjorda": 1,
-       "insl": 3
       }
      ]
     }
@@ -4563,6 +4563,13 @@
     "senaste": {
      "hemma": [
       {
+       "datum": "2026-11-14",
+       "mot": "Grimsby",
+       "plats": "h",
+       "gjorda": 1,
+       "insl": 4
+      },
+      {
        "datum": "2026-10-31",
        "mot": "Rotherham",
        "plats": "h",
@@ -4589,16 +4596,16 @@
        "plats": "h",
        "gjorda": 1,
        "insl": 1
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Crewe",
-       "plats": "h",
-       "gjorda": 0,
-       "insl": 1
       }
      ],
      "borta": [
+      {
+       "datum": "2026-11-14",
+       "mot": "Swindon",
+       "plats": "b",
+       "gjorda": 4,
+       "insl": 1
+      },
       {
        "datum": "2026-10-31",
        "mot": "York",
@@ -4626,13 +4633,6 @@
        "plats": "h",
        "gjorda": 0,
        "insl": 2
-      },
-      {
-       "datum": "2026-10-10",
-       "mot": "Port Vale",
-       "plats": "b",
-       "gjorda": 0,
-       "insl": 1
       }
      ]
     }
@@ -4679,13 +4679,13 @@
     },
     {
      "lag": "Stockport",
-     "s": 14,
-     "v": 8,
+     "s": 15,
+     "v": 9,
      "o": 2,
      "f": 4,
-     "gm": 26,
-     "im": 14,
-     "p": 26
+     "gm": 29,
+     "im": 15,
+     "p": 29
     },
     {
      "lag": "Oxford",
@@ -4708,23 +4708,33 @@
      "p": 24
     },
     {
-     "lag": "Plymouth",
+     "lag": "Sheffield Weds",
      "s": 14,
+     "v": 6,
+     "o": 5,
+     "f": 3,
+     "gm": 25,
+     "im": 14,
+     "p": 23
+    },
+    {
+     "lag": "Plymouth",
+     "s": 15,
      "v": 7,
      "o": 2,
-     "f": 5,
+     "f": 6,
      "gm": 21,
-     "im": 19,
+     "im": 22,
      "p": 23
     },
     {
      "lag": "Reading",
-     "s": 14,
+     "s": 15,
      "v": 6,
      "o": 4,
-     "f": 4,
-     "gm": 25,
-     "im": 15,
+     "f": 5,
+     "gm": 26,
+     "im": 18,
      "p": 22
     },
     {
@@ -4738,6 +4748,16 @@
      "p": 22
     },
     {
+     "lag": "Milton Keynes Dons",
+     "s": 14,
+     "v": 5,
+     "o": 6,
+     "f": 3,
+     "gm": 28,
+     "im": 22,
+     "p": 21
+    },
+    {
      "lag": "Cambridge",
      "s": 14,
      "v": 5,
@@ -4746,16 +4766,6 @@
      "gm": 21,
      "im": 21,
      "p": 21
-    },
-    {
-     "lag": "Sheffield Weds",
-     "s": 13,
-     "v": 5,
-     "o": 5,
-     "f": 3,
-     "gm": 22,
-     "im": 14,
-     "p": 20
     },
     {
      "lag": "Leicester",
@@ -4776,16 +4786,6 @@
      "gm": 20,
      "im": 18,
      "p": 19
-    },
-    {
-     "lag": "Milton Keynes Dons",
-     "s": 13,
-     "v": 4,
-     "o": 6,
-     "f": 3,
-     "gm": 22,
-     "im": 20,
-     "p": 18
     },
     {
      "lag": "Wycombe",
@@ -4809,12 +4809,12 @@
     },
     {
      "lag": "Burton",
-     "s": 14,
+     "s": 15,
      "v": 4,
      "o": 5,
-     "f": 5,
-     "gm": 18,
-     "im": 21,
+     "f": 6,
+     "gm": 20,
+     "im": 27,
      "p": 17
     },
     {
@@ -4828,6 +4828,16 @@
      "p": 16
     },
     {
+     "lag": "AFC Wimbledon",
+     "s": 14,
+     "v": 4,
+     "o": 4,
+     "f": 6,
+     "gm": 10,
+     "im": 21,
+     "p": 16
+    },
+    {
      "lag": "Notts County",
      "s": 12,
      "v": 3,
@@ -4838,23 +4848,23 @@
      "p": 14
     },
     {
-     "lag": "AFC Wimbledon",
-     "s": 13,
-     "v": 3,
-     "o": 4,
-     "f": 6,
-     "gm": 9,
-     "im": 21,
-     "p": 13
+     "lag": "Wigan",
+     "s": 15,
+     "v": 4,
+     "o": 2,
+     "f": 9,
+     "gm": 13,
+     "im": 23,
+     "p": 14
     },
     {
      "lag": "Blackpool",
-     "s": 12,
+     "s": 13,
      "v": 3,
      "o": 3,
-     "f": 6,
+     "f": 7,
      "gm": 17,
-     "im": 21,
+     "im": 22,
      "p": 12
     },
     {
@@ -4868,16 +4878,6 @@
      "p": 12
     },
     {
-     "lag": "Wigan",
-     "s": 14,
-     "v": 3,
-     "o": 2,
-     "f": 9,
-     "gm": 11,
-     "im": 22,
-     "p": 11
-    },
-    {
      "lag": "Peterboro",
      "s": 13,
      "v": 2,
@@ -4889,12 +4889,12 @@
     },
     {
      "lag": "Barnsley",
-     "s": 12,
+     "s": 13,
      "v": 2,
      "o": 3,
-     "f": 7,
-     "gm": 12,
-     "im": 22,
+     "f": 8,
+     "gm": 13,
+     "im": 24,
      "p": 9
     },
     {
@@ -4910,6 +4910,16 @@
    ],
    "hemma": [
     {
+     "lag": "Stockport",
+     "s": 8,
+     "v": 6,
+     "o": 0,
+     "f": 2,
+     "gm": 19,
+     "im": 10,
+     "p": 18
+    },
+    {
      "lag": "Reading",
      "s": 7,
      "v": 5,
@@ -4920,6 +4930,16 @@
      "p": 16
     },
     {
+     "lag": "Milton Keynes Dons",
+     "s": 8,
+     "v": 4,
+     "o": 3,
+     "f": 1,
+     "gm": 21,
+     "im": 12,
+     "p": 15
+    },
+    {
      "lag": "Huddersfield",
      "s": 7,
      "v": 4,
@@ -4927,16 +4947,6 @@
      "f": 0,
      "gm": 16,
      "im": 7,
-     "p": 15
-    },
-    {
-     "lag": "Stockport",
-     "s": 7,
-     "v": 5,
-     "o": 0,
-     "f": 2,
-     "gm": 16,
-     "im": 9,
      "p": 15
     },
     {
@@ -4960,13 +4970,33 @@
      "p": 14
     },
     {
-     "lag": "Milton Keynes Dons",
+     "lag": "Sheffield Weds",
+     "s": 8,
+     "v": 3,
+     "o": 4,
+     "f": 1,
+     "gm": 17,
+     "im": 5,
+     "p": 13
+    },
+    {
+     "lag": "Wigan",
+     "s": 8,
+     "v": 4,
+     "o": 1,
+     "f": 3,
+     "gm": 9,
+     "im": 11,
+     "p": 13
+    },
+    {
+     "lag": "AFC Wimbledon",
      "s": 7,
      "v": 3,
      "o": 3,
      "f": 1,
-     "gm": 15,
-     "im": 10,
+     "gm": 4,
+     "im": 4,
      "p": 12
     },
     {
@@ -4988,16 +5018,6 @@
      "gm": 12,
      "im": 11,
      "p": 11
-    },
-    {
-     "lag": "Sheffield Weds",
-     "s": 7,
-     "v": 2,
-     "o": 4,
-     "f": 1,
-     "gm": 14,
-     "im": 5,
-     "p": 10
     },
     {
      "lag": "Stevenage",
@@ -5050,16 +5070,6 @@
      "p": 10
     },
     {
-     "lag": "Wigan",
-     "s": 7,
-     "v": 3,
-     "o": 1,
-     "f": 3,
-     "gm": 7,
-     "im": 10,
-     "p": 10
-    },
-    {
      "lag": "Wycombe",
      "s": 7,
      "v": 2,
@@ -5077,16 +5087,6 @@
      "f": 4,
      "gm": 10,
      "im": 10,
-     "p": 9
-    },
-    {
-     "lag": "AFC Wimbledon",
-     "s": 6,
-     "v": 2,
-     "o": 3,
-     "f": 1,
-     "gm": 3,
-     "im": 4,
      "p": 9
     },
     {
@@ -5163,12 +5163,12 @@
     },
     {
      "lag": "Plymouth",
-     "s": 7,
+     "s": 8,
      "v": 4,
      "o": 1,
-     "f": 2,
+     "f": 3,
      "gm": 13,
-     "im": 12,
+     "im": 15,
      "p": 13
     },
     {
@@ -5273,12 +5273,12 @@
     },
     {
      "lag": "Burton",
-     "s": 7,
+     "s": 8,
      "v": 2,
      "o": 1,
-     "f": 4,
-     "gm": 6,
-     "im": 11,
+     "f": 5,
+     "gm": 8,
+     "im": 17,
      "p": 7
     },
     {
@@ -5293,12 +5293,12 @@
     },
     {
      "lag": "Reading",
-     "s": 7,
+     "s": 8,
      "v": 1,
      "o": 3,
-     "f": 3,
-     "gm": 8,
-     "im": 8,
+     "f": 4,
+     "gm": 9,
+     "im": 11,
      "p": 6
     },
     {
@@ -5333,22 +5333,22 @@
     },
     {
      "lag": "Barnsley",
-     "s": 6,
+     "s": 7,
      "v": 1,
      "o": 1,
-     "f": 4,
-     "gm": 6,
-     "im": 11,
+     "f": 5,
+     "gm": 7,
+     "im": 13,
      "p": 4
     },
     {
      "lag": "Blackpool",
-     "s": 6,
+     "s": 7,
      "v": 1,
      "o": 1,
-     "f": 4,
+     "f": 5,
      "gm": 5,
-     "im": 10,
+     "im": 11,
      "p": 4
     },
     {
@@ -5392,19 +5392,19 @@
      "p": 1
     }
    ],
-   "till": "2026-11-04"
+   "till": "2026-11-14"
   },
   "England/League Two": {
    "totalt": [
     {
      "lag": "Salford",
-     "s": 14,
+     "s": 15,
      "v": 10,
-     "o": 1,
+     "o": 2,
      "f": 3,
-     "gm": 25,
-     "im": 15,
-     "p": 31
+     "gm": 26,
+     "im": 16,
+     "p": 32
     },
     {
      "lag": "Barnet",
@@ -5417,6 +5417,36 @@
      "p": 26
     },
     {
+     "lag": "Grimsby",
+     "s": 15,
+     "v": 6,
+     "o": 5,
+     "f": 4,
+     "gm": 28,
+     "im": 19,
+     "p": 23
+    },
+    {
+     "lag": "York",
+     "s": 15,
+     "v": 6,
+     "o": 5,
+     "f": 4,
+     "gm": 25,
+     "im": 21,
+     "p": 23
+    },
+    {
+     "lag": "Crewe",
+     "s": 15,
+     "v": 5,
+     "o": 8,
+     "f": 2,
+     "gm": 19,
+     "im": 19,
+     "p": 23
+    },
+    {
      "lag": "Walsall",
      "s": 13,
      "v": 5,
@@ -5427,184 +5457,164 @@
      "p": 22
     },
     {
-     "lag": "Crewe",
-     "s": 14,
-     "v": 5,
-     "o": 7,
-     "f": 2,
-     "gm": 17,
-     "im": 17,
+     "lag": "Chesterfield",
+     "s": 15,
+     "v": 6,
+     "o": 4,
+     "f": 5,
+     "gm": 26,
+     "im": 21,
+     "p": 22
+    },
+    {
+     "lag": "Exeter",
+     "s": 15,
+     "v": 6,
+     "o": 4,
+     "f": 5,
+     "gm": 12,
+     "im": 9,
      "p": 22
     },
     {
      "lag": "Cheltenham",
-     "s": 14,
+     "s": 15,
      "v": 6,
      "o": 3,
-     "f": 5,
+     "f": 6,
      "gm": 23,
-     "im": 25,
+     "im": 26,
      "p": 21
     },
     {
-     "lag": "Grimsby",
-     "s": 14,
-     "v": 5,
-     "o": 5,
-     "f": 4,
-     "gm": 24,
-     "im": 18,
-     "p": 20
+     "lag": "Shrewsbury",
+     "s": 15,
+     "v": 6,
+     "o": 3,
+     "f": 6,
+     "gm": 19,
+     "im": 23,
+     "p": 21
     },
     {
-     "lag": "York",
-     "s": 14,
+     "lag": "Fleetwood Town",
+     "s": 15,
      "v": 5,
      "o": 5,
-     "f": 4,
-     "gm": 24,
-     "im": 21,
+     "f": 5,
+     "gm": 19,
+     "im": 18,
      "p": 20
     },
     {
      "lag": "Gillingham",
-     "s": 14,
+     "s": 15,
      "v": 5,
      "o": 5,
-     "f": 4,
+     "f": 5,
      "gm": 20,
-     "im": 19,
+     "im": 21,
      "p": 20
     },
     {
      "lag": "Accrington",
-     "s": 14,
+     "s": 15,
      "v": 4,
      "o": 7,
-     "f": 3,
-     "gm": 23,
-     "im": 17,
-     "p": 19
-    },
-    {
-     "lag": "Chesterfield",
-     "s": 14,
-     "v": 5,
-     "o": 4,
-     "f": 5,
-     "gm": 24,
+     "f": 4,
+     "gm": 25,
      "im": 21,
      "p": 19
     },
     {
-     "lag": "Tranmere",
-     "s": 14,
+     "lag": "Newport County",
+     "s": 15,
      "v": 4,
      "o": 7,
-     "f": 3,
-     "gm": 19,
-     "im": 17,
+     "f": 4,
+     "gm": 22,
+     "im": 19,
      "p": 19
     },
     {
-     "lag": "Exeter",
-     "s": 14,
-     "v": 5,
-     "o": 4,
-     "f": 5,
-     "gm": 11,
-     "im": 9,
+     "lag": "Tranmere",
+     "s": 15,
+     "v": 4,
+     "o": 7,
+     "f": 4,
+     "gm": 19,
+     "im": 18,
      "p": 19
     },
     {
      "lag": "Swindon",
-     "s": 14,
+     "s": 15,
      "v": 5,
      "o": 4,
-     "f": 5,
-     "gm": 15,
-     "im": 17,
+     "f": 6,
+     "gm": 16,
+     "im": 21,
      "p": 19
     },
     {
-     "lag": "Newport County",
-     "s": 14,
-     "v": 4,
-     "o": 6,
-     "f": 4,
-     "gm": 20,
-     "im": 17,
-     "p": 18
-    },
-    {
-     "lag": "Shrewsbury",
-     "s": 14,
+     "lag": "Port Vale",
+     "s": 13,
      "v": 5,
      "o": 3,
-     "f": 6,
-     "gm": 17,
-     "im": 22,
-     "p": 18
-    },
-    {
-     "lag": "Fleetwood Town",
-     "s": 14,
-     "v": 4,
-     "o": 5,
      "f": 5,
-     "gm": 18,
-     "im": 18,
-     "p": 17
+     "gm": 14,
+     "im": 16,
+     "p": 18
     },
     {
      "lag": "Bristol Rvs",
-     "s": 14,
+     "s": 15,
      "v": 5,
      "o": 1,
-     "f": 8,
+     "f": 9,
      "gm": 17,
-     "im": 23,
+     "im": 25,
      "p": 16
     },
     {
-     "lag": "Oldham",
+     "lag": "Northampton",
      "s": 14,
+     "v": 3,
+     "o": 6,
+     "f": 5,
+     "gm": 10,
+     "im": 11,
+     "p": 15
+    },
+    {
+     "lag": "Oldham",
+     "s": 15,
      "v": 4,
      "o": 3,
-     "f": 7,
-     "gm": 15,
+     "f": 8,
+     "gm": 16,
+     "im": 21,
+     "p": 15
+    },
+    {
+     "lag": "Colchester",
+     "s": 14,
+     "v": 3,
+     "o": 6,
+     "f": 5,
+     "gm": 14,
      "im": 19,
      "p": 15
     },
     {
-     "lag": "Port Vale",
-     "s": 12,
-     "v": 4,
-     "o": 3,
-     "f": 5,
-     "gm": 10,
-     "im": 14,
-     "p": 15
-    },
-    {
      "lag": "Rochdale",
-     "s": 14,
+     "s": 15,
      "v": 4,
      "o": 3,
-     "f": 7,
+     "f": 8,
      "gm": 17,
-     "im": 26,
+     "im": 27,
      "p": 15
-    },
-    {
-     "lag": "Northampton",
-     "s": 13,
-     "v": 3,
-     "o": 5,
-     "f": 5,
-     "gm": 9,
-     "im": 10,
-     "p": 14
     },
     {
      "lag": "Rotherham",
@@ -5614,16 +5624,6 @@
      "f": 6,
      "gm": 18,
      "im": 25,
-     "p": 12
-    },
-    {
-     "lag": "Colchester",
-     "s": 13,
-     "v": 2,
-     "o": 6,
-     "f": 5,
-     "gm": 12,
-     "im": 19,
      "p": 12
     },
     {
@@ -5640,12 +5640,22 @@
    "hemma": [
     {
      "lag": "Salford",
-     "s": 7,
+     "s": 8,
      "v": 6,
-     "o": 0,
+     "o": 1,
      "f": 1,
+     "gm": 10,
+     "im": 5,
+     "p": 19
+    },
+    {
+     "lag": "Exeter",
+     "s": 8,
+     "v": 5,
+     "o": 3,
+     "f": 0,
      "gm": 9,
-     "im": 4,
+     "im": 2,
      "p": 18
     },
     {
@@ -5655,6 +5665,16 @@
      "o": 2,
      "f": 0,
      "gm": 16,
+     "im": 5,
+     "p": 17
+    },
+    {
+     "lag": "Port Vale",
+     "s": 7,
+     "v": 5,
+     "o": 2,
+     "f": 0,
+     "gm": 12,
      "im": 5,
      "p": 17
     },
@@ -5679,13 +5699,13 @@
      "p": 15
     },
     {
-     "lag": "Exeter",
-     "s": 7,
+     "lag": "Fleetwood Town",
+     "s": 8,
      "v": 4,
      "o": 3,
-     "f": 0,
-     "gm": 8,
-     "im": 2,
+     "f": 1,
+     "gm": 11,
+     "im": 5,
      "p": 15
     },
     {
@@ -5699,23 +5719,23 @@
      "p": 14
     },
     {
-     "lag": "Swindon",
-     "s": 7,
-     "v": 4,
-     "o": 2,
-     "f": 1,
-     "gm": 12,
-     "im": 7,
+     "lag": "Crewe",
+     "s": 8,
+     "v": 3,
+     "o": 5,
+     "f": 0,
+     "gm": 14,
+     "im": 10,
      "p": 14
     },
     {
-     "lag": "Port Vale",
-     "s": 6,
+     "lag": "Swindon",
+     "s": 8,
      "v": 4,
      "o": 2,
-     "f": 0,
-     "gm": 8,
-     "im": 3,
+     "f": 2,
+     "gm": 13,
+     "im": 11,
      "p": 14
     },
     {
@@ -5739,23 +5759,23 @@
      "p": 13
     },
     {
-     "lag": "Crewe",
-     "s": 7,
-     "v": 3,
-     "o": 4,
-     "f": 0,
-     "gm": 12,
-     "im": 8,
+     "lag": "Bristol Rvs",
+     "s": 8,
+     "v": 4,
+     "o": 1,
+     "f": 3,
+     "gm": 11,
+     "im": 10,
      "p": 13
     },
     {
-     "lag": "Bristol Rvs",
-     "s": 7,
+     "lag": "Shrewsbury",
+     "s": 8,
      "v": 4,
      "o": 1,
-     "f": 2,
-     "gm": 11,
-     "im": 8,
+     "f": 3,
+     "gm": 10,
+     "im": 9,
      "p": 13
     },
     {
@@ -5779,13 +5799,13 @@
      "p": 12
     },
     {
-     "lag": "Fleetwood Town",
+     "lag": "Colchester",
      "s": 7,
      "v": 3,
      "o": 3,
      "f": 1,
-     "gm": 10,
-     "im": 5,
+     "gm": 8,
+     "im": 6,
      "p": 12
     },
     {
@@ -5809,34 +5829,14 @@
      "p": 10
     },
     {
-     "lag": "Shrewsbury",
-     "s": 7,
-     "v": 3,
-     "o": 1,
-     "f": 3,
-     "gm": 8,
-     "im": 8,
-     "p": 10
-    },
-    {
      "lag": "Rochdale",
-     "s": 7,
+     "s": 8,
      "v": 3,
      "o": 1,
-     "f": 3,
+     "f": 4,
      "gm": 10,
-     "im": 13,
+     "im": 14,
      "p": 10
-    },
-    {
-     "lag": "Colchester",
-     "s": 6,
-     "v": 2,
-     "o": 3,
-     "f": 1,
-     "gm": 6,
-     "im": 6,
-     "p": 9
     },
     {
      "lag": "Gillingham",
@@ -5912,13 +5912,33 @@
     },
     {
      "lag": "Gillingham",
-     "s": 7,
+     "s": 8,
      "v": 3,
      "o": 2,
-     "f": 2,
+     "f": 3,
      "gm": 12,
-     "im": 10,
+     "im": 12,
      "p": 11
+    },
+    {
+     "lag": "Grimsby",
+     "s": 8,
+     "v": 2,
+     "o": 4,
+     "f": 2,
+     "gm": 15,
+     "im": 11,
+     "p": 10
+    },
+    {
+     "lag": "Chesterfield",
+     "s": 8,
+     "v": 3,
+     "o": 1,
+     "f": 4,
+     "gm": 10,
+     "im": 12,
+     "p": 10
     },
     {
      "lag": "Crewe",
@@ -5941,13 +5961,13 @@
      "p": 8
     },
     {
-     "lag": "Grimsby",
+     "lag": "Northampton",
      "s": 7,
      "v": 1,
      "o": 4,
      "f": 2,
-     "gm": 11,
-     "im": 10,
+     "gm": 6,
+     "im": 7,
      "p": 7
     },
     {
@@ -5962,42 +5982,32 @@
     },
     {
      "lag": "Tranmere",
-     "s": 7,
+     "s": 8,
      "v": 1,
      "o": 4,
-     "f": 2,
+     "f": 3,
      "gm": 7,
-     "im": 10,
-     "p": 7
-    },
-    {
-     "lag": "Chesterfield",
-     "s": 7,
-     "v": 2,
-     "o": 1,
-     "f": 4,
-     "gm": 8,
-     "im": 12,
+     "im": 11,
      "p": 7
     },
     {
      "lag": "Accrington",
-     "s": 7,
+     "s": 8,
      "v": 1,
      "o": 3,
-     "f": 3,
-     "gm": 10,
-     "im": 9,
+     "f": 4,
+     "gm": 12,
+     "im": 13,
      "p": 6
     },
     {
-     "lag": "Northampton",
-     "s": 6,
+     "lag": "York",
+     "s": 8,
      "v": 1,
      "o": 3,
-     "f": 2,
-     "gm": 5,
-     "im": 6,
+     "f": 4,
+     "gm": 9,
+     "im": 16,
      "p": 6
     },
     {
@@ -6011,16 +6021,6 @@
      "p": 5
     },
     {
-     "lag": "Cheltenham",
-     "s": 7,
-     "v": 1,
-     "o": 2,
-     "f": 4,
-     "gm": 9,
-     "im": 15,
-     "p": 5
-    },
-    {
      "lag": "Rochdale",
      "s": 7,
      "v": 1,
@@ -6031,13 +6031,13 @@
      "p": 5
     },
     {
-     "lag": "Oldham",
-     "s": 7,
+     "lag": "Cheltenham",
+     "s": 8,
      "v": 1,
      "o": 2,
-     "f": 4,
-     "gm": 4,
-     "im": 11,
+     "f": 5,
+     "gm": 9,
+     "im": 16,
      "p": 5
     },
     {
@@ -6051,6 +6051,16 @@
      "p": 5
     },
     {
+     "lag": "Oldham",
+     "s": 8,
+     "v": 1,
+     "o": 2,
+     "f": 5,
+     "gm": 5,
+     "im": 13,
+     "p": 5
+    },
+    {
      "lag": "Exeter",
      "s": 7,
      "v": 1,
@@ -6058,6 +6068,16 @@
      "f": 5,
      "gm": 3,
      "im": 7,
+     "p": 4
+    },
+    {
+     "lag": "Newport County",
+     "s": 8,
+     "v": 0,
+     "o": 4,
+     "f": 4,
+     "gm": 8,
+     "im": 13,
      "p": 4
     },
     {
@@ -6071,16 +6091,6 @@
      "p": 4
     },
     {
-     "lag": "Newport County",
-     "s": 7,
-     "v": 0,
-     "o": 3,
-     "f": 4,
-     "gm": 6,
-     "im": 11,
-     "p": 3
-    },
-    {
      "lag": "Colchester",
      "s": 7,
      "v": 0,
@@ -6088,16 +6098,6 @@
      "f": 4,
      "gm": 6,
      "im": 13,
-     "p": 3
-    },
-    {
-     "lag": "York",
-     "s": 7,
-     "v": 0,
-     "o": 3,
-     "f": 4,
-     "gm": 8,
-     "im": 16,
      "p": 3
     },
     {
@@ -6121,7 +6121,7 @@
      "p": 1
     }
    ],
-   "till": "2026-11-03"
+   "till": "2026-11-14"
   }
  },
  "statistik": {
@@ -7583,17 +7583,18 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 1,
+   "lyckade": 15,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.6-flash": 1
+    "gemini-3.1-flash-lite": 5,
+    "gemini-3.5-flash-lite": 10
    },
    "stoppad": null,
-   "tid": "2026-11-16T17:35:06Z"
+   "tid": "2026-11-18T18:06:23Z"
   },
   "odds": {
-   "kvar": 366,
-   "tid": "2026-11-16T17:31:30Z"
+   "kvar": 362,
+   "tid": "2026-11-18T18:01:18Z"
   }
  },
  "tipsare_form": [
