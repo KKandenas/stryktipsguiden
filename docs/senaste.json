@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-21T10:39:49Z",
+ "genererad": "2026-11-21T11:31:48Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -7583,29 +7583,19 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 27,
+   "lyckade": 4,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.5-flash-lite": 17,
-    "gemini-3.1-flash-lite": 9,
-    "gemini-3.6-flash": 1
+    "gemini-3.5-flash-lite": 4
    },
    "tokens": {
     "gemini-3.5-flash-lite": {
-     "in": 57052,
-     "ut": 7243
-    },
-    "gemini-3.1-flash-lite": {
-     "in": 39924,
-     "ut": 7396
-    },
-    "gemini-3.6-flash": {
-     "in": 6138,
-     "ut": 999
+     "in": 5941,
+     "ut": 770
     }
    },
    "stoppad": null,
-   "tid": "2026-11-21T10:39:49Z"
+   "tid": "2026-11-21T11:31:48Z"
   },
   "ai_dygn": {
    "datum": "2026-11-21",
@@ -7616,9 +7606,9 @@
      "ut": 13645
     },
     "gemini-3.5-flash-lite": {
-     "anrop": 48,
-     "in": 250353,
-     "ut": 21773
+     "anrop": 52,
+     "in": 256294,
+     "ut": 22543
     },
     "gemini-3.6-flash": {
      "anrop": 5,
@@ -7628,8 +7618,8 @@
    }
   },
   "odds": {
-   "kvar": 346,
-   "tid": "2026-11-21T10:31:11Z"
+   "kvar": 342,
+   "tid": "2026-11-21T11:31:10Z"
   }
  },
  "tipsare_form": [
