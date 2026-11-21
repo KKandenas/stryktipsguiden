@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-20T18:14:33Z",
+ "genererad": "2026-11-21T09:45:31Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -7583,43 +7583,53 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 41,
+   "lyckade": 37,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.1-flash-lite": 32,
-    "gemini-3.5-flash-lite": 9
+    "gemini-3.1-flash-lite": 2,
+    "gemini-3.5-flash-lite": 31,
+    "gemini-3.6-flash": 4
    },
    "tokens": {
     "gemini-3.1-flash-lite": {
-     "in": 227325,
-     "ut": 59875
+     "in": 11468,
+     "ut": 6249
     },
     "gemini-3.5-flash-lite": {
-     "in": 12920,
-     "ut": 2988
+     "in": 193301,
+     "ut": 14530
+    },
+    "gemini-3.6-flash": {
+     "in": 29707,
+     "ut": 1744
     }
    },
    "stoppad": null,
-   "tid": "2026-11-20T18:14:33Z"
+   "tid": "2026-11-21T09:45:31Z"
   },
   "ai_dygn": {
-   "datum": "2026-11-20",
+   "datum": "2026-11-21",
    "modeller": {
     "gemini-3.1-flash-lite": {
-     "anrop": 32,
-     "in": 227325,
-     "ut": 59875
+     "anrop": 2,
+     "in": 11468,
+     "ut": 6249
     },
     "gemini-3.5-flash-lite": {
-     "anrop": 9,
-     "in": 12920,
-     "ut": 2988
+     "anrop": 31,
+     "in": 193301,
+     "ut": 14530
+    },
+    "gemini-3.6-flash": {
+     "anrop": 4,
+     "in": 29707,
+     "ut": 1744
     }
    }
   },
   "odds": {
-   "kvar": 354,
-   "tid": "2026-11-20T18:01:19Z"
+   "kvar": 350,
+   "tid": "2026-11-21T09:31:04Z"
   }
  },
  "tipsare_form": [
