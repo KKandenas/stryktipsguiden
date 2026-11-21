@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-21T15:31:06Z",
+ "genererad": "2026-11-21T22:01:50Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -9,12 +9,22 @@
   "id": 4980,
   "datum": "2026-11-21",
   "spelstopp": "2026-11-21T14:59:00Z",
-  "status": "stangd",
+  "status": "avgjord",
   "frusen": "2026-11-21T14:31:50Z",
   "omsattning": 30942943.0,
   "radpris": 1,
-  "utdelning": null,
-  "vinnare": null
+  "utdelning": {
+   "13": 81632.0,
+   "12": 779.0,
+   "11": 54.0,
+   "10": 17.0
+  },
+  "vinnare": {
+   "13": 153,
+   "12": 3868,
+   "11": 44160,
+   "10": 289503
+  }
  },
  "matcher": [
   {
@@ -547,8 +557,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "2-2"
   },
   {
    "nr": 2,
@@ -1071,8 +1081,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "2",
+   "mal": "1-4"
   },
   {
    "nr": 3,
@@ -1622,8 +1632,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "2-0"
   },
   {
    "nr": 4,
@@ -2173,8 +2183,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "0-0"
   },
   {
    "nr": 5,
@@ -2730,8 +2740,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "2-0"
   },
   {
    "nr": 6,
@@ -3333,8 +3343,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "3-2"
   },
   {
    "nr": 7,
@@ -3941,8 +3951,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "1-1"
   },
   {
    "nr": 8,
@@ -4498,8 +4508,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "2",
+   "mal": "0-1"
   },
   {
    "nr": 9,
@@ -5006,8 +5016,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "2-0"
   },
   {
    "nr": 10,
@@ -5610,8 +5620,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "4-0"
   },
   {
    "nr": 11,
@@ -6126,8 +6136,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "1-0"
   },
   {
    "nr": 12,
@@ -6699,8 +6709,8 @@
      }
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "X",
+   "mal": "2-2"
   },
   {
    "nr": 13,
@@ -7242,8 +7252,8 @@
      "tranarbyte": null
     }
    },
-   "resultat": null,
-   "mal": null
+   "resultat": "1",
+   "mal": "2-1"
   }
  ],
  "serietabeller": {
@@ -8591,62 +8601,74 @@
   "aktiv_modell": "odds-v2",
   "modeller": [
    {
-    "version": "odds-v1",
-    "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-    "brier": 0.6073,
-    "logloss": 1.0133,
-    "traff": 0.492,
-    "antal": 2847
-   },
-   {
     "version": "odds-v2",
     "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
-    "brier": 0.6073,
-    "logloss": 1.0134,
+    "brier": 0.6071,
+    "logloss": 1.013,
     "traff": 0.492,
-    "antal": 2847
+    "antal": 2860
+   },
+   {
+    "version": "odds-v1",
+    "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+    "brier": 0.6071,
+    "logloss": 1.013,
+    "traff": 0.492,
+    "antal": 2860
    },
    {
     "version": "tips-v1",
     "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
-    "brier": 0.6084,
-    "logloss": 1.0152,
+    "brier": 0.6082,
+    "logloss": 1.0148,
     "traff": 0.492,
-    "antal": 2847
+    "antal": 2860
    },
    {
     "version": "ensemble-v1",
     "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
-    "brier": 0.6085,
-    "logloss": 1.0154,
+    "brier": 0.6083,
+    "logloss": 1.0151,
     "traff": 0.489,
-    "antal": 2847
+    "antal": 2860
    }
   ],
   "kallor": [
    {
     "namn": "Svenska folket",
-    "brier": 0.6133,
-    "traff": 0.5,
-    "antal": 4030
-   },
-   {
-    "namn": "rekatochklart.com",
-    "brier": 0.6396,
-    "traff": 0.788,
-    "antal": 52
+    "brier": 0.6131,
+    "traff": 0.501,
+    "antal": 4043
    },
    {
     "namn": "tipsmedoss.com",
-    "brier": 0.6797,
-    "traff": 0.673,
-    "antal": 52
+    "brier": 0.6328,
+    "traff": 0.723,
+    "antal": 65
+   },
+   {
+    "namn": "rekatochklart.com",
+    "brier": 0.6365,
+    "traff": 0.8,
+    "antal": 65
    },
    {
     "namn": "tippat.se",
-    "brier": 0.6812,
-    "traff": 0.577,
-    "antal": 52
+    "brier": 0.6862,
+    "traff": 0.569,
+    "antal": 65
+   },
+   {
+    "namn": "sportsgambler.com",
+    "brier": 0.6929,
+    "traff": 0.59,
+    "antal": 61
+   },
+   {
+    "namn": "hurbra.se",
+    "brier": 0.7018,
+    "traff": 0.628,
+    "antal": 78
    },
    {
     "namn": "speltips.se",
@@ -8655,16 +8677,22 @@
     "antal": 52
    },
    {
-    "namn": "hurbra.se",
-    "brier": 0.7116,
-    "traff": 0.615,
-    "antal": 65
+    "namn": "footballpredictions.com",
+    "brier": 0.7196,
+    "traff": 0.577,
+    "antal": 52
    },
    {
     "namn": "bettingstugan.se",
-    "brier": 0.7364,
-    "traff": 0.677,
-    "antal": 65
+    "brier": 0.7303,
+    "traff": 0.679,
+    "antal": 78
+   },
+   {
+    "namn": "sportsmole.co.uk",
+    "brier": 0.7944,
+    "traff": 0.475,
+    "antal": 61
    },
    {
     "namn": "Tio tidningars tips",
@@ -8676,15 +8704,15 @@
   "ligor": [
    {
     "liga": "Championship",
-    "brier": 0.6318,
-    "traff": 0.457,
-    "antal": 1100
+    "brier": 0.6309,
+    "traff": 0.458,
+    "antal": 1107
    },
    {
     "liga": "Premier League",
-    "brier": 0.5827,
+    "brier": 0.5833,
     "traff": 0.527,
-    "antal": 839
+    "antal": 845
    },
    {
     "liga": "League One",
@@ -8706,6 +8734,12 @@
    }
   ],
   "senaste": [
+   {
+    "omgang": 4980,
+    "datum": "2026-11-21",
+    "modell_ratt": 7,
+    "folket_ratt": 7
+   },
    {
     "omgang": 4979,
     "datum": "2026-11-14",
@@ -8759,12 +8793,6 @@
     "datum": "2026-09-19",
     "modell_ratt": 3,
     "folket_ratt": 3
-   },
-   {
-    "omgang": 4970,
-    "datum": "2026-09-12",
-    "modell_ratt": 3,
-    "folket_ratt": 3
    }
   ],
   "tipsare": [
@@ -8790,8 +8818,8 @@
     "namn": "hurbra.se",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.615,
-    "antal": 65,
+    "traff": 0.628,
+    "antal": 78,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8799,8 +8827,8 @@
     "namn": "bettingstugan.se",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.677,
-    "antal": 65,
+    "traff": 0.679,
+    "antal": 78,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8808,8 +8836,8 @@
     "namn": "tippat.se",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.577,
-    "antal": 52,
+    "traff": 0.569,
+    "antal": 65,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8817,8 +8845,8 @@
     "namn": "gamblingcabin.se",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.615,
-    "antal": 13,
+    "traff": 0.526,
+    "antal": 19,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8826,26 +8854,26 @@
     "namn": "sportsgambler.com",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.551,
-    "antal": 49,
+    "traff": 0.59,
+    "antal": 61,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
    {
     "namn": "sportsmole.co.uk",
-    "vikt": 0.018,
+    "vikt": 0.026,
     "skattad": true,
-    "traff": 0.429,
-    "antal": 49,
+    "traff": 0.475,
+    "antal": 61,
     "utanfor_traff": 0.458,
     "utanfor_antal": 262
    },
    {
     "namn": "footballpredictions.com",
-    "vikt": 0.101,
+    "vikt": 0.11,
     "skattad": true,
-    "traff": 0.564,
-    "antal": 39,
+    "traff": 0.577,
+    "antal": 52,
     "utanfor_traff": 0.522,
     "utanfor_antal": 69
    },
@@ -8853,8 +8881,8 @@
     "namn": "rekatochklart.com",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.788,
-    "antal": 52,
+    "traff": 0.8,
+    "antal": 65,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8871,8 +8899,8 @@
     "namn": "tipsmedoss.com",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.673,
-    "antal": 52,
+    "traff": 0.723,
+    "antal": 65,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8889,8 +8917,8 @@
     "namn": "hurbra.se (system)",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.615,
-    "antal": 65,
+    "traff": 0.628,
+    "antal": 78,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8898,8 +8926,8 @@
     "namn": "bettingstugan.se (system)",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.723,
-    "antal": 65,
+    "traff": 0.718,
+    "antal": 78,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8907,8 +8935,8 @@
     "namn": "tippat.se (system)",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.577,
-    "antal": 52,
+    "traff": 0.569,
+    "antal": 65,
     "utanfor_traff": null,
     "utanfor_antal": 0
    },
@@ -8970,73 +8998,85 @@
     "namn": "tipsmedoss.com (system)",
     "vikt": 0.1,
     "skattad": false,
-    "traff": 0.769,
-    "antal": 13,
+    "traff": 0.846,
+    "antal": 26,
     "utanfor_traff": null,
     "utanfor_antal": 0
    }
   ],
-  "tips_oddsvikt": 1.0,
+  "tips_oddsvikt": 0.999,
   "per_ar": {
    "alla": {
     "modeller": [
      {
-      "version": "odds-v1",
-      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-      "brier": 0.6073,
-      "logloss": 1.0133,
-      "traff": 0.492,
-      "antal": 2847
-     },
-     {
       "version": "odds-v2",
       "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
-      "brier": 0.6073,
-      "logloss": 1.0134,
+      "brier": 0.6071,
+      "logloss": 1.013,
       "traff": 0.492,
-      "antal": 2847
+      "antal": 2860
+     },
+     {
+      "version": "odds-v1",
+      "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
+      "brier": 0.6071,
+      "logloss": 1.013,
+      "traff": 0.492,
+      "antal": 2860
      },
      {
       "version": "tips-v1",
       "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
-      "brier": 0.6084,
-      "logloss": 1.0152,
+      "brier": 0.6082,
+      "logloss": 1.0148,
       "traff": 0.492,
-      "antal": 2847
+      "antal": 2860
      },
      {
       "version": "ensemble-v1",
       "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
-      "brier": 0.6085,
-      "logloss": 1.0154,
+      "brier": 0.6083,
+      "logloss": 1.0151,
       "traff": 0.489,
-      "antal": 2847
+      "antal": 2860
      }
     ],
     "kallor": [
      {
       "namn": "Svenska folket",
-      "brier": 0.6133,
-      "traff": 0.5,
-      "antal": 4030
-     },
-     {
-      "namn": "rekatochklart.com",
-      "brier": 0.6396,
-      "traff": 0.788,
-      "antal": 52
+      "brier": 0.6131,
+      "traff": 0.501,
+      "antal": 4043
      },
      {
       "namn": "tipsmedoss.com",
-      "brier": 0.6797,
-      "traff": 0.673,
-      "antal": 52
+      "brier": 0.6328,
+      "traff": 0.723,
+      "antal": 65
+     },
+     {
+      "namn": "rekatochklart.com",
+      "brier": 0.6365,
+      "traff": 0.8,
+      "antal": 65
      },
      {
       "namn": "tippat.se",
-      "brier": 0.6812,
-      "traff": 0.577,
-      "antal": 52
+      "brier": 0.6862,
+      "traff": 0.569,
+      "antal": 65
+     },
+     {
+      "namn": "sportsgambler.com",
+      "brier": 0.6929,
+      "traff": 0.59,
+      "antal": 61
+     },
+     {
+      "namn": "hurbra.se",
+      "brier": 0.7018,
+      "traff": 0.628,
+      "antal": 78
      },
      {
       "namn": "speltips.se",
@@ -9045,16 +9085,22 @@
       "antal": 52
      },
      {
-      "namn": "hurbra.se",
-      "brier": 0.7116,
-      "traff": 0.615,
-      "antal": 65
+      "namn": "footballpredictions.com",
+      "brier": 0.7196,
+      "traff": 0.577,
+      "antal": 52
      },
      {
       "namn": "bettingstugan.se",
-      "brier": 0.7364,
-      "traff": 0.677,
-      "antal": 65
+      "brier": 0.7303,
+      "traff": 0.679,
+      "antal": 78
+     },
+     {
+      "namn": "sportsmole.co.uk",
+      "brier": 0.7944,
+      "traff": 0.475,
+      "antal": 61
      },
      {
       "namn": "Tio tidningars tips",
@@ -9066,15 +9112,15 @@
     "ligor": [
      {
       "liga": "Championship",
-      "brier": 0.6318,
-      "traff": 0.457,
-      "antal": 1100
+      "brier": 0.6309,
+      "traff": 0.458,
+      "antal": 1107
      },
      {
       "liga": "Premier League",
-      "brier": 0.5827,
+      "brier": 0.5833,
       "traff": 0.527,
-      "antal": 839
+      "antal": 845
      },
      {
       "liga": "League One",
@@ -9101,13 +9147,13 @@
       "namn": "Med experter",
       "roll": "alternativ",
       "framat": false,
-      "antal": 2847,
+      "antal": 2860,
       "traff": 0.492,
       "traff_odds": 0.492,
-      "brier": 0.6084,
-      "brier_odds": 0.6073,
-      "skillnad": -0.0018,
-      "felmarginal": 0.0014,
+      "brier": 0.6082,
+      "brier_odds": 0.6071,
+      "skillnad": -0.0017,
+      "felmarginal": 0.0015,
       "slutsats": "sämre"
      },
      {
@@ -9115,11 +9161,11 @@
       "namn": "Sammanvägd modell",
       "roll": "skugga",
       "framat": false,
-      "antal": 2847,
+      "antal": 2860,
       "traff": 0.489,
       "traff_odds": 0.492,
-      "brier": 0.6085,
-      "brier_odds": 0.6073,
+      "brier": 0.6083,
+      "brier_odds": 0.6071,
       "skillnad": -0.002,
       "felmarginal": 0.0012,
       "slutsats": "sämre"
@@ -9129,13 +9175,13 @@
       "namn": "Lagkoll",
       "roll": "skugga",
       "framat": true,
-      "antal": 52,
-      "traff": 0.558,
-      "traff_odds": 0.558,
-      "brier": 0.5682,
-      "brier_odds": 0.5628,
-      "skillnad": -0.0079,
-      "felmarginal": 0.0206,
+      "antal": 65,
+      "traff": 0.554,
+      "traff_odds": 0.554,
+      "brier": 0.5645,
+      "brier_odds": 0.5625,
+      "skillnad": -0.0019,
+      "felmarginal": 0.0179,
       "slutsats": "för lite data"
      },
      {
@@ -9143,12 +9189,12 @@
       "namn": "Svenska folket",
       "roll": "referens",
       "framat": false,
-      "antal": 3354,
+      "antal": 3367,
       "traff": 0.496,
       "traff_odds": 0.489,
-      "brier": 0.6181,
-      "brier_odds": 0.6075,
-      "skillnad": -0.0167,
+      "brier": 0.6179,
+      "brier_odds": 0.6073,
+      "skillnad": -0.0166,
       "felmarginal": 0.0068,
       "slutsats": "sämre"
      },
@@ -9157,11 +9203,11 @@
       "namn": "Odds, oviktat snitt",
       "roll": "arkiv",
       "framat": false,
-      "antal": 3354,
+      "antal": 3367,
       "traff": 0.489,
       "traff_odds": 0.489,
-      "brier": 0.6075,
-      "brier_odds": 0.6075,
+      "brier": 0.6073,
+      "brier_odds": 0.6073,
       "skillnad": 0.0,
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
@@ -9169,7 +9215,7 @@
     ],
     "skrall": {
      "antal": 664,
-     "omgangar": 258,
+     "omgangar": 259,
      "traff": 0.303,
      "chans": 0.267,
      "folket": 0.194
@@ -9180,60 +9226,72 @@
      {
       "version": "odds-v2",
       "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
-      "brier": 0.6067,
-      "logloss": 1.0124,
-      "traff": 0.492,
-      "antal": 2652
+      "brier": 0.6065,
+      "logloss": 1.0121,
+      "traff": 0.493,
+      "antal": 2665
      },
      {
       "version": "odds-v1",
       "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-      "brier": 0.6067,
-      "logloss": 1.0124,
-      "traff": 0.492,
-      "antal": 2652
-     },
-     {
-      "version": "ensemble-v1",
-      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
-      "brier": 0.6077,
-      "logloss": 1.014,
-      "traff": 0.489,
-      "antal": 2652
+      "brier": 0.6065,
+      "logloss": 1.0121,
+      "traff": 0.493,
+      "antal": 2665
      },
      {
       "version": "tips-v1",
       "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
-      "brier": 0.6077,
-      "logloss": 1.014,
-      "traff": 0.491,
-      "antal": 2652
+      "brier": 0.6074,
+      "logloss": 1.0136,
+      "traff": 0.492,
+      "antal": 2665
+     },
+     {
+      "version": "ensemble-v1",
+      "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
+      "brier": 0.6074,
+      "logloss": 1.0137,
+      "traff": 0.489,
+      "antal": 2665
      }
     ],
     "kallor": [
      {
       "namn": "Svenska folket",
-      "brier": 0.6159,
+      "brier": 0.6156,
       "traff": 0.501,
-      "antal": 2652
-     },
-     {
-      "namn": "rekatochklart.com",
-      "brier": 0.6396,
-      "traff": 0.788,
-      "antal": 52
+      "antal": 2665
      },
      {
       "namn": "tipsmedoss.com",
-      "brier": 0.6797,
-      "traff": 0.673,
-      "antal": 52
+      "brier": 0.6328,
+      "traff": 0.723,
+      "antal": 65
+     },
+     {
+      "namn": "rekatochklart.com",
+      "brier": 0.6365,
+      "traff": 0.8,
+      "antal": 65
      },
      {
       "namn": "tippat.se",
-      "brier": 0.6812,
-      "traff": 0.577,
-      "antal": 52
+      "brier": 0.6862,
+      "traff": 0.569,
+      "antal": 65
+     },
+     {
+      "namn": "sportsgambler.com",
+      "brier": 0.6929,
+      "traff": 0.59,
+      "antal": 61
+     },
+     {
+      "namn": "hurbra.se",
+      "brier": 0.7018,
+      "traff": 0.628,
+      "antal": 78
      },
      {
       "namn": "speltips.se",
@@ -9242,54 +9300,42 @@
       "antal": 52
      },
      {
-      "namn": "hurbra.se",
-      "brier": 0.7116,
-      "traff": 0.615,
-      "antal": 65
-     },
-     {
-      "namn": "sportsgambler.com",
-      "brier": 0.7316,
-      "traff": 0.551,
-      "antal": 49
+      "namn": "footballpredictions.com",
+      "brier": 0.7196,
+      "traff": 0.577,
+      "antal": 52
      },
      {
       "namn": "bettingstugan.se",
-      "brier": 0.7364,
-      "traff": 0.677,
-      "antal": 65
+      "brier": 0.7303,
+      "traff": 0.679,
+      "antal": 78
      },
      {
-      "namn": "footballpredictions.com",
-      "brier": 0.76,
-      "traff": 0.564,
-      "antal": 39
+      "namn": "sportsmole.co.uk",
+      "brier": 0.7944,
+      "traff": 0.475,
+      "antal": 61
      },
      {
       "namn": "Tio tidningars tips",
       "brier": 0.8088,
       "traff": 0.504,
       "antal": 2327
-     },
-     {
-      "namn": "sportsmole.co.uk",
-      "brier": 0.86,
-      "traff": 0.429,
-      "antal": 49
      }
     ],
     "ligor": [
      {
       "liga": "Championship",
-      "brier": 0.6318,
-      "traff": 0.463,
-      "antal": 845
+      "brier": 0.6306,
+      "traff": 0.464,
+      "antal": 852
      },
      {
       "liga": "Premier League",
-      "brier": 0.5865,
+      "brier": 0.5872,
       "traff": 0.52,
-      "antal": 675
+      "antal": 681
      },
      {
       "liga": "League One",
@@ -9322,25 +9368,25 @@
       "namn": "Med experter",
       "roll": "alternativ",
       "framat": false,
-      "antal": 2652,
-      "traff": 0.491,
-      "traff_odds": 0.492,
-      "brier": 0.6077,
-      "brier_odds": 0.6067,
-      "skillnad": -0.0016,
-      "felmarginal": 0.0015,
-      "slutsats": "sämre"
+      "antal": 2665,
+      "traff": 0.492,
+      "traff_odds": 0.493,
+      "brier": 0.6074,
+      "brier_odds": 0.6065,
+      "skillnad": -0.0015,
+      "felmarginal": 0.0016,
+      "slutsats": "ingen säker skillnad"
      },
      {
       "version": "ensemble-v1",
       "namn": "Sammanvägd modell",
       "roll": "skugga",
       "framat": false,
-      "antal": 2652,
+      "antal": 2665,
       "traff": 0.489,
-      "traff_odds": 0.492,
-      "brier": 0.6077,
-      "brier_odds": 0.6067,
+      "traff_odds": 0.493,
+      "brier": 0.6074,
+      "brier_odds": 0.6065,
       "skillnad": -0.0016,
       "felmarginal": 0.0012,
       "slutsats": "sämre"
@@ -9350,13 +9396,13 @@
       "namn": "Lagkoll",
       "roll": "skugga",
       "framat": true,
-      "antal": 52,
-      "traff": 0.558,
-      "traff_odds": 0.558,
-      "brier": 0.5682,
-      "brier_odds": 0.5628,
-      "skillnad": -0.0079,
-      "felmarginal": 0.0206,
+      "antal": 65,
+      "traff": 0.554,
+      "traff_odds": 0.554,
+      "brier": 0.5645,
+      "brier_odds": 0.5625,
+      "skillnad": -0.0019,
+      "felmarginal": 0.0179,
       "slutsats": "för lite data"
      },
      {
@@ -9364,12 +9410,12 @@
       "namn": "Svenska folket",
       "roll": "referens",
       "framat": false,
-      "antal": 2652,
+      "antal": 2665,
       "traff": 0.501,
-      "traff_odds": 0.492,
-      "brier": 0.6159,
-      "brier_odds": 0.6067,
-      "skillnad": -0.0144,
+      "traff_odds": 0.493,
+      "brier": 0.6156,
+      "brier_odds": 0.6065,
+      "skillnad": -0.0143,
       "felmarginal": 0.0075,
       "slutsats": "sämre"
      },
@@ -9378,11 +9424,11 @@
       "namn": "Odds, oviktat snitt",
       "roll": "arkiv",
       "framat": false,
-      "antal": 2652,
-      "traff": 0.492,
-      "traff_odds": 0.492,
-      "brier": 0.6067,
-      "brier_odds": 0.6067,
+      "antal": 2665,
+      "traff": 0.493,
+      "traff_odds": 0.493,
+      "brier": 0.6065,
+      "brier_odds": 0.6065,
       "skillnad": 0.0,
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
@@ -9390,7 +9436,7 @@
     ],
     "skrall": {
      "antal": 512,
-     "omgangar": 204,
+     "omgangar": 205,
      "traff": 0.303,
      "chans": 0.267,
      "folket": 0.194
@@ -9401,60 +9447,72 @@
      {
       "version": "odds-v2",
       "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
-      "brier": 0.6075,
-      "logloss": 1.0134,
+      "brier": 0.6072,
+      "logloss": 1.013,
       "traff": 0.489,
-      "antal": 1963
+      "antal": 1976
      },
      {
       "version": "odds-v1",
       "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-      "brier": 0.6075,
-      "logloss": 1.0134,
+      "brier": 0.6072,
+      "logloss": 1.013,
       "traff": 0.489,
-      "antal": 1963
+      "antal": 1976
      },
      {
       "version": "tips-v1",
       "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
-      "brier": 0.6087,
-      "logloss": 1.0154,
+      "brier": 0.6084,
+      "logloss": 1.0148,
       "traff": 0.488,
-      "antal": 1963
+      "antal": 1976
      },
      {
       "version": "ensemble-v1",
       "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
-      "brier": 0.6088,
-      "logloss": 1.0155,
+      "brier": 0.6085,
+      "logloss": 1.0151,
       "traff": 0.485,
-      "antal": 1963
+      "antal": 1976
      }
     ],
     "kallor": [
      {
       "namn": "Svenska folket",
-      "brier": 0.6181,
+      "brier": 0.6177,
       "traff": 0.498,
-      "antal": 1963
-     },
-     {
-      "namn": "rekatochklart.com",
-      "brier": 0.6396,
-      "traff": 0.788,
-      "antal": 52
+      "antal": 1976
      },
      {
       "namn": "tipsmedoss.com",
-      "brier": 0.6797,
-      "traff": 0.673,
-      "antal": 52
+      "brier": 0.6328,
+      "traff": 0.723,
+      "antal": 65
+     },
+     {
+      "namn": "rekatochklart.com",
+      "brier": 0.6365,
+      "traff": 0.8,
+      "antal": 65
      },
      {
       "namn": "tippat.se",
-      "brier": 0.6812,
-      "traff": 0.577,
-      "antal": 52
+      "brier": 0.6862,
+      "traff": 0.569,
+      "antal": 65
+     },
+     {
+      "namn": "sportsgambler.com",
+      "brier": 0.6929,
+      "traff": 0.59,
+      "antal": 61
+     },
+     {
+      "namn": "hurbra.se",
+      "brier": 0.7018,
+      "traff": 0.628,
+      "antal": 78
      },
      {
       "namn": "speltips.se",
@@ -9463,54 +9521,42 @@
       "antal": 52
      },
      {
-      "namn": "hurbra.se",
-      "brier": 0.7116,
-      "traff": 0.615,
-      "antal": 65
-     },
-     {
-      "namn": "sportsgambler.com",
-      "brier": 0.7316,
-      "traff": 0.551,
-      "antal": 49
+      "namn": "footballpredictions.com",
+      "brier": 0.7196,
+      "traff": 0.577,
+      "antal": 52
      },
      {
       "namn": "bettingstugan.se",
-      "brier": 0.7364,
-      "traff": 0.677,
-      "antal": 65
+      "brier": 0.7303,
+      "traff": 0.679,
+      "antal": 78
      },
      {
-      "namn": "footballpredictions.com",
-      "brier": 0.76,
-      "traff": 0.564,
-      "antal": 39
+      "namn": "sportsmole.co.uk",
+      "brier": 0.7944,
+      "traff": 0.475,
+      "antal": 61
      },
      {
       "namn": "Tio tidningars tips",
       "brier": 0.8086,
       "traff": 0.502,
       "antal": 1638
-     },
-     {
-      "namn": "sportsmole.co.uk",
-      "brier": 0.86,
-      "traff": 0.429,
-      "antal": 49
      }
     ],
     "ligor": [
      {
       "liga": "Championship",
-      "brier": 0.6372,
-      "traff": 0.463,
-      "antal": 598
+      "brier": 0.6353,
+      "traff": 0.464,
+      "antal": 605
      },
      {
       "liga": "Premier League",
-      "brier": 0.5877,
+      "brier": 0.5886,
       "traff": 0.508,
-      "antal": 476
+      "antal": 482
      },
      {
       "liga": "League One",
@@ -9543,25 +9589,25 @@
       "namn": "Med experter",
       "roll": "alternativ",
       "framat": false,
-      "antal": 1963,
+      "antal": 1976,
       "traff": 0.488,
       "traff_odds": 0.489,
-      "brier": 0.6087,
-      "brier_odds": 0.6075,
-      "skillnad": -0.0019,
-      "felmarginal": 0.0019,
-      "slutsats": "sämre"
+      "brier": 0.6084,
+      "brier_odds": 0.6072,
+      "skillnad": -0.0018,
+      "felmarginal": 0.002,
+      "slutsats": "ingen säker skillnad"
      },
      {
       "version": "ensemble-v1",
       "namn": "Sammanvägd modell",
       "roll": "skugga",
       "framat": false,
-      "antal": 1963,
+      "antal": 1976,
       "traff": 0.485,
       "traff_odds": 0.489,
-      "brier": 0.6088,
-      "brier_odds": 0.6075,
+      "brier": 0.6085,
+      "brier_odds": 0.6072,
       "skillnad": -0.0021,
       "felmarginal": 0.0013,
       "slutsats": "sämre"
@@ -9571,13 +9617,13 @@
       "namn": "Lagkoll",
       "roll": "skugga",
       "framat": true,
-      "antal": 52,
-      "traff": 0.558,
-      "traff_odds": 0.558,
-      "brier": 0.5682,
-      "brier_odds": 0.5628,
-      "skillnad": -0.0079,
-      "felmarginal": 0.0206,
+      "antal": 65,
+      "traff": 0.554,
+      "traff_odds": 0.554,
+      "brier": 0.5645,
+      "brier_odds": 0.5625,
+      "skillnad": -0.0019,
+      "felmarginal": 0.0179,
       "slutsats": "för lite data"
      },
      {
@@ -9585,13 +9631,13 @@
       "namn": "Svenska folket",
       "roll": "referens",
       "framat": false,
-      "antal": 1963,
+      "antal": 1976,
       "traff": 0.498,
       "traff_odds": 0.489,
-      "brier": 0.6181,
-      "brier_odds": 0.6075,
-      "skillnad": -0.0169,
-      "felmarginal": 0.0088,
+      "brier": 0.6177,
+      "brier_odds": 0.6072,
+      "skillnad": -0.0166,
+      "felmarginal": 0.0087,
       "slutsats": "sämre"
      },
      {
@@ -9599,11 +9645,11 @@
       "namn": "Odds, oviktat snitt",
       "roll": "arkiv",
       "framat": false,
-      "antal": 1963,
+      "antal": 1976,
       "traff": 0.489,
       "traff_odds": 0.489,
-      "brier": 0.6075,
-      "brier_odds": 0.6075,
+      "brier": 0.6072,
+      "brier_odds": 0.6072,
       "skillnad": 0.0,
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
@@ -9611,7 +9657,7 @@
     ],
     "skrall": {
      "antal": 372,
-     "omgangar": 151,
+     "omgangar": 152,
      "traff": 0.306,
      "chans": 0.264,
      "folket": 0.192
@@ -9622,60 +9668,72 @@
      {
       "version": "odds-v2",
       "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
-      "brier": 0.6135,
-      "logloss": 1.0215,
+      "brier": 0.6129,
+      "logloss": 1.0208,
       "traff": 0.483,
-      "antal": 1274
+      "antal": 1287
      },
      {
       "version": "odds-v1",
       "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-      "brier": 0.6135,
-      "logloss": 1.0215,
+      "brier": 0.6129,
+      "logloss": 1.0208,
       "traff": 0.483,
-      "antal": 1274
+      "antal": 1287
      },
      {
       "version": "ensemble-v1",
       "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
-      "brier": 0.6142,
-      "logloss": 1.0228,
-      "traff": 0.48,
-      "antal": 1274
+      "brier": 0.6137,
+      "logloss": 1.0221,
+      "traff": 0.481,
+      "antal": 1287
      },
      {
       "version": "tips-v1",
       "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
-      "brier": 0.6145,
-      "logloss": 1.0233,
-      "traff": 0.48,
-      "antal": 1274
+      "brier": 0.6139,
+      "logloss": 1.0223,
+      "traff": 0.481,
+      "antal": 1287
      }
     ],
     "kallor": [
      {
       "namn": "Svenska folket",
-      "brier": 0.6253,
+      "brier": 0.6246,
       "traff": 0.493,
-      "antal": 1274
-     },
-     {
-      "namn": "rekatochklart.com",
-      "brier": 0.6396,
-      "traff": 0.788,
-      "antal": 52
+      "antal": 1287
      },
      {
       "namn": "tipsmedoss.com",
-      "brier": 0.6797,
-      "traff": 0.673,
-      "antal": 52
+      "brier": 0.6328,
+      "traff": 0.723,
+      "antal": 65
+     },
+     {
+      "namn": "rekatochklart.com",
+      "brier": 0.6365,
+      "traff": 0.8,
+      "antal": 65
      },
      {
       "namn": "tippat.se",
-      "brier": 0.6812,
-      "traff": 0.577,
-      "antal": 52
+      "brier": 0.6862,
+      "traff": 0.569,
+      "antal": 65
+     },
+     {
+      "namn": "sportsgambler.com",
+      "brier": 0.6929,
+      "traff": 0.59,
+      "antal": 61
+     },
+     {
+      "namn": "hurbra.se",
+      "brier": 0.7018,
+      "traff": 0.628,
+      "antal": 78
      },
      {
       "namn": "speltips.se",
@@ -9684,54 +9742,42 @@
       "antal": 52
      },
      {
-      "namn": "hurbra.se",
-      "brier": 0.7116,
-      "traff": 0.615,
-      "antal": 65
-     },
-     {
-      "namn": "sportsgambler.com",
-      "brier": 0.7316,
-      "traff": 0.551,
-      "antal": 49
+      "namn": "footballpredictions.com",
+      "brier": 0.7196,
+      "traff": 0.577,
+      "antal": 52
      },
      {
       "namn": "bettingstugan.se",
-      "brier": 0.7364,
-      "traff": 0.677,
-      "antal": 65
+      "brier": 0.7303,
+      "traff": 0.679,
+      "antal": 78
      },
      {
-      "namn": "footballpredictions.com",
-      "brier": 0.76,
-      "traff": 0.564,
-      "antal": 39
+      "namn": "sportsmole.co.uk",
+      "brier": 0.7944,
+      "traff": 0.475,
+      "antal": 61
      },
      {
       "namn": "Tio tidningars tips",
       "brier": 0.8199,
       "traff": 0.493,
       "antal": 949
-     },
-     {
-      "namn": "sportsmole.co.uk",
-      "brier": 0.86,
-      "traff": 0.429,
-      "antal": 49
      }
     ],
     "ligor": [
      {
       "liga": "Championship",
-      "brier": 0.6455,
-      "traff": 0.447,
-      "antal": 376
+      "brier": 0.6424,
+      "traff": 0.449,
+      "antal": 383
      },
      {
       "liga": "Premier League",
-      "brier": 0.5983,
+      "brier": 0.5995,
       "traff": 0.505,
-      "antal": 291
+      "antal": 297
      },
      {
       "liga": "League One",
@@ -9764,13 +9810,13 @@
       "namn": "Med experter",
       "roll": "alternativ",
       "framat": false,
-      "antal": 1274,
-      "traff": 0.48,
+      "antal": 1287,
+      "traff": 0.481,
       "traff_odds": 0.483,
-      "brier": 0.6145,
-      "brier_odds": 0.6135,
-      "skillnad": -0.0017,
-      "felmarginal": 0.0028,
+      "brier": 0.6139,
+      "brier_odds": 0.6129,
+      "skillnad": -0.0015,
+      "felmarginal": 0.003,
       "slutsats": "ingen säker skillnad"
      },
      {
@@ -9778,11 +9824,11 @@
       "namn": "Sammanvägd modell",
       "roll": "skugga",
       "framat": false,
-      "antal": 1274,
-      "traff": 0.48,
+      "antal": 1287,
+      "traff": 0.481,
       "traff_odds": 0.483,
-      "brier": 0.6142,
-      "brier_odds": 0.6135,
+      "brier": 0.6137,
+      "brier_odds": 0.6129,
       "skillnad": -0.0013,
       "felmarginal": 0.0014,
       "slutsats": "ingen säker skillnad"
@@ -9792,13 +9838,13 @@
       "namn": "Lagkoll",
       "roll": "skugga",
       "framat": true,
-      "antal": 52,
-      "traff": 0.558,
-      "traff_odds": 0.558,
-      "brier": 0.5682,
-      "brier_odds": 0.5628,
-      "skillnad": -0.0079,
-      "felmarginal": 0.0206,
+      "antal": 65,
+      "traff": 0.554,
+      "traff_odds": 0.554,
+      "brier": 0.5645,
+      "brier_odds": 0.5625,
+      "skillnad": -0.0019,
+      "felmarginal": 0.0179,
       "slutsats": "för lite data"
      },
      {
@@ -9806,13 +9852,13 @@
       "namn": "Svenska folket",
       "roll": "referens",
       "framat": false,
-      "antal": 1274,
+      "antal": 1287,
       "traff": 0.493,
       "traff_odds": 0.483,
-      "brier": 0.6253,
-      "brier_odds": 0.6135,
-      "skillnad": -0.0195,
-      "felmarginal": 0.011,
+      "brier": 0.6246,
+      "brier_odds": 0.6129,
+      "skillnad": -0.0192,
+      "felmarginal": 0.0109,
       "slutsats": "sämre"
      },
      {
@@ -9820,11 +9866,11 @@
       "namn": "Odds, oviktat snitt",
       "roll": "arkiv",
       "framat": false,
-      "antal": 1274,
+      "antal": 1287,
       "traff": 0.483,
       "traff_odds": 0.483,
-      "brier": 0.6135,
-      "brier_odds": 0.6135,
+      "brier": 0.6129,
+      "brier_odds": 0.6129,
       "skillnad": 0.0,
       "felmarginal": 0.0,
       "slutsats": "ingen säker skillnad"
@@ -9832,7 +9878,7 @@
     ],
     "skrall": {
      "antal": 243,
-     "omgangar": 98,
+     "omgangar": 99,
      "traff": 0.346,
      "chans": 0.261,
      "folket": 0.19
@@ -9843,60 +9889,72 @@
      {
       "version": "odds-v2",
       "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst",
-      "brier": 0.619,
-      "logloss": 1.0295,
-      "traff": 0.47,
-      "antal": 598
+      "brier": 0.6178,
+      "logloss": 1.0277,
+      "traff": 0.471,
+      "antal": 611
      },
      {
       "version": "odds-v1",
       "beskrivning": "Snitt av bookmakerodds med marginalen borträknad",
-      "brier": 0.619,
-      "logloss": 1.0295,
-      "traff": 0.47,
-      "antal": 598
+      "brier": 0.6178,
+      "logloss": 1.0277,
+      "traff": 0.471,
+      "antal": 611
      },
      {
       "version": "ensemble-v1",
       "beskrivning": "Odds, streck och tips viktade efter historisk träffsäkerhet",
-      "brier": 0.62,
-      "logloss": 1.0311,
-      "traff": 0.47,
-      "antal": 598
+      "brier": 0.6188,
+      "logloss": 1.0293,
+      "traff": 0.471,
+      "antal": 611
      },
      {
       "version": "tips-v1",
       "beskrivning": "Odds och tipsare, viktade efter hur ofta tipsarna haft rätt",
-      "brier": 0.6213,
-      "logloss": 1.0331,
-      "traff": 0.468,
-      "antal": 598
+      "brier": 0.6199,
+      "logloss": 1.0308,
+      "traff": 0.47,
+      "antal": 611
      }
     ],
     "kallor": [
      {
       "namn": "Svenska folket",
-      "brier": 0.6295,
-      "traff": 0.485,
-      "antal": 598
-     },
-     {
-      "namn": "rekatochklart.com",
-      "brier": 0.6396,
-      "traff": 0.788,
-      "antal": 52
+      "brier": 0.6279,
+      "traff": 0.486,
+      "antal": 611
      },
      {
       "namn": "tipsmedoss.com",
-      "brier": 0.6797,
-      "traff": 0.673,
-      "antal": 52
+      "brier": 0.6328,
+      "traff": 0.723,
+      "antal": 65
+     },
+     {
+      "namn": "rekatochklart.com",
+      "brier": 0.6365,
+      "traff": 0.8,
+      "antal": 65
      },
      {
       "namn": "tippat.se",
-      "brier": 0.6812,
-      "traff": 0.577,
-      "antal": 52
+      "brier": 0.6862,
+      "traff": 0.569,
+      "antal": 65
+     },
+     {
+      "namn": "sportsgambler.com",
+      "brier": 0.6929,
+      "traff": 0.59,
+      "antal": 61
+     },
+     {
+      "namn": "hurbra.se",
+      "brier": 0.7018,
+      "traff": 0.628,
+      "antal": 78
      },
      {
       "namn": "speltips.se",
@@ -9905,34 +9963,22 @@
       "antal": 52
      },
      {
-      "namn": "hurbra.se",
-      "brier": 0.7116,
-      "traff": 0.615,
-      "antal": 65
-     },
-     {
-      "namn": "sportsgambler.com",
-      "brier": 0.7316,
-      "traff": 0.551,
-      "antal": 49
+      "namn": "footballpredictions.com",
+      "brier": 0.7196,
+      "traff": 0.577,
+      "antal": 52
      },
      {
       "namn": "bettingstugan.se",
-      "brier": 0.7364,
-      "traff": 0.677,
-      "antal": 65
-     },
-     {
-      "namn": "footballpredictions.com",
-      "brier": 0.76,
-      "traff": 0.564,
-      "antal": 39
+      "brier": 0.7303,
+      "traff": 0.679,
+      "antal": 78
      },
      {
       "namn": "sportsmole.co.uk",
-      "brier": 0.86,
-      "traff": 0.429,
-      "antal": 49
+      "brier": 0.7944,
+      "traff": 0.475,
+      "antal": 61
      },
      {
       "namn": "Tio tidningars tips",
@@ -9944,15 +9990,15 @@
     "ligor": [
      {
       "liga": "Championship",
-      "brier": 0.6596,
-      "traff": 0.406,
-      "antal": 165
+      "brier": 0.6521,
+      "traff": 0.413,
+      "antal": 172
      },
      {
       "liga": "Premier League",
-      "brier": 0.634,
-      "traff": 0.431,
-      "antal": 123
+      "brier": 0.6352,
+      "traff": 0.434,
+      "antal": 129
      },
      {
       "liga": "League One",
@@ -9967,13 +10013,13 @@
       "namn": "Med experter",
       "roll": "alternativ",
       "framat": false,
-      "antal": 598,
-      "traff": 0.468,
-      "traff_odds": 0.47,
-      "brier": 0.6213,
-      "brier_odds": 0.619,
-      "skillnad": -0.0035,
-      "felmarginal": 0.0058,
+      "antal": 611,
+      "traff": 0.47,
+      "traff_odds": 0.471,
+      "brier": 0.6199,
+      "brier_odds": 0.6178,
+      "skillnad": -0.003,
+      "felmarginal": 0.0061,
       "slutsats": "ingen säker skillnad"
      },
      {
@@ -9981,11 +10027,11 @@
       "namn": "Sammanvägd modell",
       "roll": "skugga",
       "framat": false,
-      "antal": 598,
-      "traff": 0.47,
-      "traff_odds": 0.47,
-      "brier": 0.62,
-      "brier_odds": 0.619,
+      "antal": 611,
+      "traff": 0.471,
+      "traff_odds": 0.471,
+      "brier": 0.6188,
+      "brier_odds": 0.6178,
       "skillnad": -0.0016,
       "felmarginal": 0.002,
       "slutsats": "ingen säker skillnad"
@@ -9995,13 +10041,13 @@
       "namn": "Lagkoll",
       "roll": "skugga",
       "framat": true,
-      "antal": 52,
-      "traff": 0.558,
-      "traff_odds": 0.558,
-      "brier": 0.5682,
-      "brier_odds": 0.5628,
-      "skillnad": -0.0079,
-      "felmarginal": 0.0206,
+      "antal": 65,
+      "traff": 0.554,
+      "traff_odds": 0.554,
+      "brier": 0.5645,
+      "brier_odds": 0.5625,
+      "skillnad": -0.0019,
+      "felmarginal": 0.0179,
       "slutsats": "för lite data"
      },
      {
@@ -10009,13 +10055,13 @@
       "namn": "Svenska folket",
       "roll": "referens",
       "framat": false,
-      "antal": 598,
-      "traff": 0.485,
-      "traff_odds": 0.47,
-      "brier": 0.6295,
-      "brier_odds": 0.619,
-      "skillnad": -0.0171,
-      "felmarginal": 0.0158,
+      "antal": 611,
+      "traff": 0.486,
+      "traff_odds": 0.471,
+      "brier": 0.6279,
+      "brier_odds": 0.6178,
+      "skillnad": -0.0164,
+      "felmarginal": 0.0156,
       "slutsats": "sämre"
      },
      {
@@ -10023,11 +10069,11 @@
       "namn": "Odds, oviktat snitt",
       "roll": "arkiv",
       "framat": false,
-      "antal": 598,
-      "traff": 0.47,
-      "traff_odds": 0.47,
-      "brier": 0.619,
-      "brier_odds": 0.619,
+      "antal": 611,
+      "traff": 0.471,
+      "traff_odds": 0.471,
+      "brier": 0.6178,
+      "brier_odds": 0.6178,
       "skillnad": 0.0,
       "felmarginal": 0.0001,
       "slutsats": "ingen säker skillnad"
@@ -10035,7 +10081,7 @@
     ],
     "skrall": {
      "antal": 112,
-     "omgangar": 46,
+     "omgangar": 47,
      "traff": 0.312,
      "chans": 0.262,
      "folket": 0.191
@@ -10046,37 +10092,37 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 5,
+   "lyckade": 8,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.1-flash-lite": 4,
-    "gemini-3.6-flash": 1
+    "gemini-3.5-flash-lite": 4,
+    "gemini-3.1-flash-lite": 4
    },
    "tokens": {
-    "gemini-3.1-flash-lite": {
-     "in": 12345,
-     "ut": 3833
+    "gemini-3.5-flash-lite": {
+     "in": 4749,
+     "ut": 2871
     },
-    "gemini-3.6-flash": {
-     "in": 1083,
-     "ut": 310
+    "gemini-3.1-flash-lite": {
+     "in": 4086,
+     "ut": 2977
     }
    },
    "stoppad": null,
-   "tid": "2026-11-21T14:31:50Z"
+   "tid": "2026-11-21T20:16:14Z"
   },
   "ai_dygn": {
    "datum": "2026-11-21",
    "modeller": {
     "gemini-3.1-flash-lite": {
-     "anrop": 22,
-     "in": 74179,
-     "ut": 20335
+     "anrop": 26,
+     "in": 78265,
+     "ut": 23312
     },
     "gemini-3.5-flash-lite": {
-     "anrop": 54,
-     "in": 264208,
-     "ut": 23303
+     "anrop": 58,
+     "in": 268957,
+     "ut": 26174
     },
     "gemini-3.6-flash": {
      "anrop": 7,
@@ -10092,24 +10138,24 @@
  },
  "tipsare_form": [
   {
+   "namn": "tipsmedoss.com (system)",
+   "grupp": "England",
+   "poang": 0.596,
+   "antal": 19,
+   "period": "8v"
+  },
+  {
    "namn": "tippat.se",
    "grupp": "England",
-   "poang": 0.544,
-   "antal": 45,
+   "poang": 0.543,
+   "antal": 58,
    "period": "8v"
   },
   {
    "namn": "tippat.se (system)",
    "grupp": "England",
-   "poang": 0.544,
-   "antal": 45,
-   "period": "8v"
-  },
-  {
-   "namn": "gamblingcabin.se",
-   "grupp": "England",
-   "poang": 0.5,
-   "antal": 13,
+   "poang": 0.543,
+   "antal": 58,
    "period": "8v"
   },
   {
@@ -10122,8 +10168,29 @@
   {
    "namn": "footballpredictions.com",
    "grupp": "England",
-   "poang": 0.449,
-   "antal": 39,
+   "poang": 0.481,
+   "antal": 52,
+   "period": "8v"
+  },
+  {
+   "namn": "sportsmole.co.uk",
+   "grupp": "England",
+   "poang": 0.475,
+   "antal": 61,
+   "period": "8v"
+  },
+  {
+   "namn": "sportsgambler.com",
+   "grupp": "England",
+   "poang": 0.47,
+   "antal": 56,
+   "period": "8v"
+  },
+  {
+   "namn": "tipsmedoss.com",
+   "grupp": "England",
+   "poang": 0.454,
+   "antal": 58,
    "period": "8v"
   },
   {
@@ -10134,24 +10201,31 @@
    "period": "8v"
   },
   {
-   "namn": "sportsmole.co.uk",
+   "namn": "gamblingcabin.se",
    "grupp": "England",
-   "poang": 0.429,
-   "antal": 49,
+   "poang": 0.421,
+   "antal": 19,
    "period": "8v"
   },
   {
-   "namn": "sportsgambler.com",
+   "namn": "bettingstugan.se",
    "grupp": "England",
-   "poang": 0.428,
-   "antal": 44,
+   "poang": 0.408,
+   "antal": 71,
    "period": "8v"
   },
   {
-   "namn": "tipsmedoss.com",
+   "namn": "hurbra.se (system)",
    "grupp": "England",
-   "poang": 0.411,
-   "antal": 45,
+   "poang": 0.408,
+   "antal": 71,
+   "period": "8v"
+  },
+  {
+   "namn": "rekatochklart.com",
+   "grupp": "England",
+   "poang": 0.408,
+   "antal": 58,
    "period": "8v"
   },
   {
@@ -10162,10 +10236,10 @@
    "period": "8v"
   },
   {
-   "namn": "bettingstugan.se",
+   "namn": "hurbra.se",
    "grupp": "England",
-   "poang": 0.402,
-   "antal": 58,
+   "poang": 0.401,
+   "antal": 71,
    "period": "8v"
   },
   {
@@ -10176,39 +10250,11 @@
    "period": "8v"
   },
   {
-   "namn": "rekatochklart.com",
-   "grupp": "England",
-   "poang": 0.4,
-   "antal": 45,
-   "period": "8v"
-  },
-  {
-   "namn": "hurbra.se (system)",
-   "grupp": "England",
-   "poang": 0.399,
-   "antal": 58,
-   "period": "8v"
-  },
-  {
-   "namn": "hurbra.se",
-   "grupp": "England",
-   "poang": 0.391,
-   "antal": 58,
-   "period": "8v"
-  },
-  {
    "namn": "bettingstugan.se (system)",
    "grupp": "England",
-   "poang": 0.376,
-   "antal": 58,
+   "poang": 0.373,
+   "antal": 71,
    "period": "8v"
-  },
-  {
-   "namn": "tipsmedoss.com (system)",
-   "grupp": "England",
-   "poang": 0.583,
-   "antal": 6,
-   "period": "alla"
   },
   {
    "namn": "dagensbastaspel.se",
@@ -10234,22 +10280,22 @@
   {
    "namn": "tippat.se",
    "grupp": "alla",
-   "poang": 0.548,
-   "antal": 52,
+   "poang": 0.546,
+   "antal": 65,
    "period": "8v"
   },
   {
    "namn": "tippat.se (system)",
    "grupp": "alla",
-   "poang": 0.548,
-   "antal": 52,
+   "poang": 0.546,
+   "antal": 65,
    "period": "8v"
   },
   {
-   "namn": "gamblingcabin.se",
+   "namn": "tipsmedoss.com (system)",
    "grupp": "alla",
-   "poang": 0.5,
-   "antal": 13,
+   "poang": 0.545,
+   "antal": 26,
    "period": "8v"
   },
   {
@@ -10260,10 +10306,24 @@
    "period": "alla"
   },
   {
-   "namn": "tipsmedoss.com (system)",
+   "namn": "footballpredictions.com",
    "grupp": "alla",
-   "poang": 0.487,
-   "antal": 13,
+   "poang": 0.481,
+   "antal": 52,
+   "period": "8v"
+  },
+  {
+   "namn": "sportsgambler.com",
+   "grupp": "alla",
+   "poang": 0.481,
+   "antal": 61,
+   "period": "8v"
+  },
+  {
+   "namn": "sportsmole.co.uk",
+   "grupp": "alla",
+   "poang": 0.475,
+   "antal": 61,
    "period": "8v"
   },
   {
@@ -10274,45 +10334,38 @@
    "period": "8v"
   },
   {
-   "namn": "footballpredictions.com",
+   "namn": "tipsmedoss.com",
    "grupp": "alla",
    "poang": 0.449,
-   "antal": 39,
-   "period": "8v"
-  },
-  {
-   "namn": "sportsgambler.com",
-   "grupp": "alla",
-   "poang": 0.446,
-   "antal": 49,
-   "period": "8v"
-  },
-  {
-   "namn": "sportsmole.co.uk",
-   "grupp": "alla",
-   "poang": 0.429,
-   "antal": 49,
-   "period": "8v"
-  },
-  {
-   "namn": "bettingstugan.se",
-   "grupp": "alla",
-   "poang": 0.413,
    "antal": 65,
+   "period": "8v"
+  },
+  {
+   "namn": "gamblingcabin.se",
+   "grupp": "alla",
+   "poang": 0.421,
+   "antal": 19,
    "period": "8v"
   },
   {
    "namn": "rekatochklart.com",
    "grupp": "alla",
-   "poang": 0.413,
-   "antal": 52,
+   "poang": 0.418,
+   "antal": 65,
    "period": "8v"
   },
   {
-   "namn": "tipsmedoss.com",
+   "namn": "bettingstugan.se",
+   "grupp": "alla",
+   "poang": 0.417,
+   "antal": 78,
+   "period": "8v"
+  },
+  {
+   "namn": "hurbra.se (system)",
    "grupp": "alla",
    "poang": 0.41,
-   "antal": 52,
+   "antal": 78,
    "period": "8v"
   },
   {
@@ -10323,6 +10376,13 @@
    "period": "8v"
   },
   {
+   "namn": "hurbra.se",
+   "grupp": "alla",
+   "poang": 0.404,
+   "antal": 78,
+   "period": "8v"
+  },
+  {
    "namn": "speltips.se (system)",
    "grupp": "alla",
    "poang": 0.404,
@@ -10330,24 +10390,10 @@
    "period": "8v"
   },
   {
-   "namn": "hurbra.se (system)",
-   "grupp": "alla",
-   "poang": 0.403,
-   "antal": 65,
-   "period": "8v"
-  },
-  {
    "namn": "bettingstugan.se (system)",
    "grupp": "alla",
-   "poang": 0.397,
-   "antal": 65,
-   "period": "8v"
-  },
-  {
-   "namn": "hurbra.se",
-   "grupp": "alla",
-   "poang": 0.395,
-   "antal": 65,
+   "poang": 0.391,
+   "antal": 78,
    "period": "8v"
   },
   {
