@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-27T18:13:33Z",
+ "genererad": "2026-11-28T09:39:34Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -11,7 +11,7 @@
   "spelstopp": "2026-11-28T14:59:00Z",
   "status": "oppen",
   "frusen": null,
-  "omsattning": 5199193.0,
+  "omsattning": 9023660.0,
   "radpris": 1,
   "utdelning": null,
   "vinnare": null
@@ -25,70 +25,70 @@
    "land": "England",
    "avspark": "2026-11-28T17:30:00Z",
    "chans": {
-    "1": 0.2732,
-    "X": 0.2493,
-    "2": 0.4775
+    "1": 0.2756,
+    "X": 0.2521,
+    "2": 0.4723
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 23.0,
-    "X": 27.0,
-    "2": 50.0
+    "1": 20.0,
+    "X": 26.0,
+    "2": 54.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.0432,
-    "X": -0.0207,
-    "2": -0.0225
+    "1": 0.0756,
+    "X": -0.0079,
+    "2": -0.0677
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.1768,
-    "X": 0.1633,
-    "2": 0.6599
+    "1": 0.1822,
+    "X": 0.1693,
+    "2": 0.6484
    },
    "varde_tips": {
-    "1": -0.0532,
-    "X": -0.1067,
-    "2": 0.1599
+    "1": -0.0178,
+    "X": -0.0907,
+    "2": 0.1084
    },
    "odds": {
     "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 3.46,
-     "X": 3.8,
-     "2": 1.98
+     "1": 3.43,
+     "X": 3.77,
+     "2": 2.0
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 3.6,
-      "X": 3.84,
-      "2": 2.03
+      "1": 3.54,
+      "X": 3.8,
+      "2": 2.09
      },
      {
       "bolag": "svenskaspel",
-      "1": 3.6,
+      "1": 3.55,
       "X": 4.0,
       "2": 2.02
      },
      {
       "bolag": "betsson",
-      "1": 3.53,
-      "X": 3.75,
-      "2": 1.99
+      "1": 3.45,
+      "X": 3.72,
+      "2": 2.03
      },
      {
       "bolag": "nordicbet",
-      "1": 3.55,
-      "X": 3.75,
-      "2": 2.0
+      "1": 3.45,
+      "X": 3.7,
+      "2": 2.02
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 3.65,
-      "X": 3.95,
+      "1": 3.7,
+      "X": 3.85,
       "2": 2.1
      },
      {
@@ -100,14 +100,14 @@
      {
       "bolag": "coolbet",
       "1": 3.67,
-      "X": 3.87,
-      "2": 2.04
+      "X": 3.83,
+      "2": 2.05
      },
      {
       "bolag": "marathonbet",
-      "1": 3.55,
-      "X": 4.05,
-      "2": 1.99
+      "1": 3.48,
+      "X": 3.96,
+      "2": 2.03
      },
      {
       "bolag": "sport888",
@@ -117,21 +117,21 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 3.0,
+      "1": 2.9,
       "X": 3.75,
-      "2": 1.83
+      "2": 1.87
      },
      {
       "bolag": "betanysports",
-      "1": 3.45,
-      "X": 3.84,
-      "2": 2.06
+      "1": 3.58,
+      "X": 3.8,
+      "2": 2.03
      },
      {
       "bolag": "betclic_fr",
-      "1": 3.4,
-      "X": 3.7,
-      "2": 1.9
+      "1": 3.35,
+      "X": 3.65,
+      "2": 1.97
      }
     ]
    },
@@ -146,23 +146,23 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "2",
-     "text": "Ipswich har en formsvacka med fem matcher i rad utan vinst, medan Aston Villa är ubesegrade i de sju senaste Premier League-matcherna.",
+     "text": "Ipswich har en svag form med fem raka matcher utan seger. Aston Villa är obesegrade i sina senaste sju matcher i Premier League och tippas vinna med 2-1.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "2",
-     "text": "Ipswich har inte vunnit någon av sina fem senaste ligamatcher, medan Aston Villa kommer från tre raka kryss.",
+     "text": "Ipswich har inte vunnit någon av sina fem senaste redovisade ligamatcher, medan Aston Villa kommer från tre raka ligakryss.",
      "system": "2",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "2",
-     "text": "Aston Villa ses som ett bättre lag trots att Ipswich har hemmaplan. Ipswich har dessutom fem raka matcher utan seger.",
-     "system": "2",
-     "system_rader": 156
+     "text": "Aston Villa har haft en del poängtapp på slutet men spelet i grunden är bra och Ipswich står på fem raka utan seger.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -174,14 +174,14 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1X",
-     "text": "Ipswich har täckt +0.5-linan i 8 av sina 10 senaste hemmamatcher och kan störa Aston Villa. Gästerna har haft svårt att täcka -0.5-linan på bortaplan.",
+     "text": "Ipswich har haft det tufft med förluster på sistone men har stark statistik på hemmaplan med det egna handikappet. Aston Villa har blandat och gett med flera kryss på bortaplan.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "sportsmole.co.uk",
      "tecken": "2",
-     "text": "Aston Villa bör kunna återhämta sin målform mot ett Ipswich som släpper in i genomsnitt två mål per match. Trots att Ipswich är stabila hemma förväntas Villa vinna en hårt kämpad seger.",
+     "text": "Skribenten tippar att Aston Villa vinner med 2-1. Ipswich läcker mål bakåt och har fem raka matcher utan seger, vilket ger Villa ett bra läge att bryta sin formsvacka.",
      "system": null,
      "system_rader": null
     },
@@ -200,25 +200,25 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Aston Villa är knappa favoriter till 48 % mot Ipswich, men streckas till 50 %. De flesta tipsare tror på tvåan på grund av gästernas form.",
+   "kommentar": "Aston Villa är oddsmässig favorit, och tipsarna tror främst på tvåan. Ipswich är understreckat vilket ger visst spelvärde på hemmaseger för den som garderar.",
    "lagkoll": {
     "chans": {
-     "1": 0.28,
-     "X": 0.27,
-     "2": 0.45
+     "1": 0.26,
+     "X": 0.26,
+     "2": 0.48
     },
     "skrallrisk": "låg",
-    "motivering": "Aston Villa dras med tätt matchande och tunga frånvaron men har stark historik mot nykomlingar. Ipswich har svag form och defensiva problem.",
+    "motivering": "Trots Aston Villas långresa från Turkiet och viss trötthet är klasskillnaden tydlig nog att behålla deras favoritskap. Ipswich svaga form defensivt gör det svårt att tro på en hemmaseger trots en veckas vila.",
     "faktorer": [
-     "Aston Villa saknar nyckelspelaren Matty Cash",
-     "Aston Villa kommer från bortamatch i Turkiet",
-     "Ipswich har fem raka matcher utan vinst",
-     "Aston Villa är obesegrade i 22 ligamatcher mot nykomlingar"
+     "Ipswich utan vinst i fem raka ligamatcher",
+     "Ipswich har släppt in mål i 30 raka matcher",
+     "Aston Villa har rest från match i Turkiet",
+     "Aston Villa obesegrade i 22 raka mot nykomlingar"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
-      "plats": 16,
+      "plats": 17,
       "antal_lag": 20,
       "spelade": 11,
       "vunna": 3,
@@ -231,20 +231,14 @@
      "form": "LLDDLW",
      "franvaro": [
       {
-       "spelare": "Jack Taylor",
+       "spelare": "Sammie Szmodics",
        "orsak": "Knee",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Sammie Szmodics",
-       "orsak": "Knee",
-       "status": "osaker",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Leif Davis",
-       "orsak": "ankelskada",
+       "spelare": "L. Davis",
+       "orsak": "Ankelskada",
        "status": "osaker",
        "nyckelspelare": false
       }
@@ -255,9 +249,9 @@
       "sportsgambler.com",
       "hurbra.se",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "bettingstugan.se"
      ]
     },
     "borta": {
@@ -275,12 +269,6 @@
      "form": "DDDWWD",
      "franvaro": [
       {
-       "spelare": "Matty Cash",
-       "orsak": "Head",
-       "status": "borta",
-       "nyckelspelare": true
-      },
-      {
        "spelare": "Matteo Ruggeri",
        "orsak": "Thigh",
        "status": "borta",
@@ -293,9 +281,15 @@
        "nyckelspelare": false
       },
       {
-       "spelare": "Victor Lindelöf",
-       "orsak": "bortamatch i Turkiet",
+       "spelare": "M. Cash",
+       "orsak": "Hjärnskakning",
        "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Lindelöf",
+       "orsak": "skada/frånvaro",
+       "status": "osaker",
        "nyckelspelare": false
       }
      ],
@@ -305,15 +299,15 @@
       "sportsgambler.com",
       "hurbra.se",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "bettingstugan.se"
      ]
     }
    },
    "tabell": {
     "hemma": {
-     "plats": 16,
+     "plats": 17,
      "antal_lag": 20,
      "spelade": 11,
      "vunna": 3,
@@ -425,48 +419,40 @@
       {
        "nyckelspelare": false,
        "orsak": "Knee",
-       "spelare": "Jack Taylor",
+       "spelare": "Sammie Szmodics",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Sammie Szmodics",
+       "orsak": "Ankelskada",
+       "spelare": "L. Davis",
        "status": "osaker",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "ankelskada",
-       "spelare": "Leif Davis",
-       "status": "osaker",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
+       "text": "Har förlorat de senaste två ligamatcherna.",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
        "text": "Har inte vunnit någon av sina fem senaste redovisade ligamatcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har släppt in 22 mål på 11 matcher och har inte hållit nollan på 30 raka matcher i högsta serien.",
+       "text": "Har släppt in mål i 30 raka matcher i högsta serien och är utan seger på de fem senaste.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har haft en hel veckas tid på sig att träna och förbereda sig.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Fem matcher i rad utan vinst.",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Står på fem raka utan seger.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -474,20 +460,12 @@
     "borta": {
      "franvaro": [
       {
-       "nyckelspelare": true,
-       "orsak": "Head",
-       "spelare": "Matty Cash",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
        "nyckelspelare": false,
        "orsak": "Thigh",
        "spelare": "Matteo Ruggeri",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -495,37 +473,45 @@
        "spelare": "Amadou Onana",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "bortamatch i Turkiet",
-       "spelare": "Victor Lindelöf",
+       "orsak": "Hjärnskakning",
+       "spelare": "M. Cash",
        "status": "borta",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada/frånvaro",
+       "spelare": "Lindelöf",
+       "status": "osaker",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
+       "text": "Kommer från en mållös match mot Sunderland och förlust mot Galatasaray.",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
        "text": "Kommer från tre raka ligakryss.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Är obesegrade i alla 22 ligamatcher mot nykomlingar under Unai Emery.",
+       "text": "Spelar sin 5 000:e ligamatch och är obesegrade i sina senaste 22 ligamatcher mot nykomlingar under Emery.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Kommer från en bortamatch i Turkiet som sitter i benen.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Obesegrade i de sju senaste ligamatcherna.",
+       "text": "Söker återhämtning efter en 1-0-förlust mot Galatasaray i Champions League.",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -542,9 +528,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4359,
-    "X": 0.2524,
-    "2": 0.3117
+    "1": 0.4156,
+    "X": 0.2543,
+    "2": 0.3301
    },
    "chans_kalla": "modell",
    "streck": {
@@ -554,101 +540,101 @@
    },
    "streck_tid": "2026-11-27T18:00:08Z",
    "varde": {
-    "1": -0.0341,
-    "X": 0.0024,
-    "2": 0.0317
+    "1": -0.0544,
+    "X": 0.0043,
+    "2": 0.0501
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4822,
-    "X": 0.2003,
-    "2": 0.3175
+    "1": 0.4463,
+    "X": 0.1989,
+    "2": 0.3549
    },
    "varde_tips": {
-    "1": 0.0122,
-    "X": -0.0497,
-    "2": 0.0375
+    "1": -0.0237,
+    "X": -0.0511,
+    "2": 0.0749
    },
    "odds": {
     "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.16,
-     "X": 3.75,
-     "2": 3.04
+     "1": 2.28,
+     "X": 3.73,
+     "2": 2.86
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.29,
-      "X": 3.77,
-      "2": 3.04
+      "1": 2.35,
+      "X": 3.79,
+      "2": 2.97
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.15,
-      "X": 3.95,
-      "2": 3.3
+      "1": 2.33,
+      "X": 3.85,
+      "2": 3.0
      },
      {
       "bolag": "betsson",
-      "1": 2.19,
-      "X": 3.66,
-      "2": 3.1
+      "1": 2.32,
+      "X": 3.67,
+      "2": 2.88
      },
      {
       "bolag": "nordicbet",
-      "1": 2.18,
+      "1": 2.32,
       "X": 3.65,
-      "2": 3.1
+      "2": 2.88
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.32,
+      "1": 2.38,
       "X": 3.9,
-      "2": 3.1
-     },
-     {
-      "bolag": "williamhill",
-      "1": 2.15,
-      "X": 3.7,
-      "2": 2.9
-     },
-     {
-      "bolag": "coolbet",
-      "1": 2.3,
-      "X": 3.87,
       "2": 3.05
      },
      {
+      "bolag": "williamhill",
+      "1": 2.3,
+      "X": 3.7,
+      "2": 2.8
+     },
+     {
+      "bolag": "coolbet",
+      "1": 2.36,
+      "X": 3.87,
+      "2": 2.95
+     },
+     {
       "bolag": "marathonbet",
-      "1": 2.17,
-      "X": 3.94,
-      "2": 3.15
+      "1": 2.32,
+      "X": 3.92,
+      "2": 2.89
      },
      {
       "bolag": "sport888",
-      "1": 2.15,
+      "1": 2.25,
       "X": 3.6,
-      "2": 2.9
+      "2": 2.75
      },
      {
       "bolag": "betano_uk",
-      "1": 2.0,
-      "X": 3.75,
-      "2": 2.7
+      "1": 2.1,
+      "X": 3.7,
+      "2": 2.55
      },
      {
       "bolag": "betanysports",
-      "1": 2.26,
-      "X": 3.79,
-      "2": 3.04
+      "1": 2.35,
+      "X": 3.75,
+      "2": 2.92
      },
      {
       "bolag": "betclic_fr",
-      "1": 2.08,
-      "X": 3.63,
-      "2": 2.97
+      "1": 2.25,
+      "X": 3.65,
+      "2": 2.78
      }
     ]
    },
@@ -663,30 +649,30 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "2",
-     "text": "Manchester United kämpar med formen och en svag defensiv efter en förlust mot Liverpool. Brentford kommer från en stabil seger mot Everton och tippas vinna.",
+     "text": "Manchester United lider av dåligt självförtroende och en skakig defensiv. Brentford kommer från en storseger med 4-0 och tippas vinna med 2-1.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "gamblingcabin.se",
      "tecken": "X2",
-     "text": "Manchester United har haft svårt under ny tränare och saknar självförtroende. Brentford tågade på starkt och har fine meriter trots avstängningar.",
+     "text": "Manchester United har inlett svagt under Pochettino med stora problem och svagt självförtroende. Brentford tågar på och kommer från en 4-0-seger mot Everton.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "12",
-     "text": "Manchester United saknar segrar på sina fem senaste ligamatcher och Brentford har förbättrat sina odds.",
-     "system": "1",
+     "text": "Manchester United saknar segrar på sina fem senaste ligamatcher, men är ändå favoriter mot Brentford.",
+     "system": "12",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "12",
-     "text": "Manchester United är ängsliga men har en kompetent tränare. Brentford imponerade stort senast mot Everton.",
-     "system": "12",
-     "system_rader": 156
+     "text": "Manchester United spretar och känns ängsliga men Pochettino kommer få ordning på det. Brentford krossade Everton senast.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -697,15 +683,15 @@
     },
     {
      "kalla": "sportsgambler.com",
-     "tecken": "X2",
-     "text": "Skribenten tror att Brentford ska stå upp bra och spela på att de tar poäng med ett handikappspel. Man United har haft det svårt på sista tiden.",
+     "tecken": "2",
+     "text": "Manchester United gör sin sämsta säsongsinledning sedan 1972/73 och ligger på 19:e plats. Brentford ligger sexa och skribenten rekommenderar ett spel på bortalaget via sin korrekta resultatförutsägelse (0-1) samt sitt handikapptips.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "sportsmole.co.uk",
      "tecken": "X",
-     "text": "Pochettinos första hemmamatch bör skapa tillräcklig offensiv press, men Brentford är starka nog att utnyttja Uniteds defensiva problem vilket leder till ett kryss. Historiken visar på målrika möten mellan lagen.",
+     "text": "Manchester United kämpar i botten och släpper in mycket mål, men bör ha tillräcklig anfallskraft hemma. Brentford har usel bortaform men stark hemmaform, och det tippas sluta 2-2.",
      "system": null,
      "system_rader": null
     },
@@ -724,22 +710,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Manchester United är knappa favoriter med 44 % chans, men streckas något högre till 47 %. Majoriteten av tipsarna väljer att gardera.",
+   "kommentar": "Manchester United är favoriter men streckas något hårt i förhållande till oddsen. Tipsarna är oense, där många garderar upp på grund av hemmalagets svaga form.",
    "lagkoll": {
     "chans": {
-     "1": 0.42,
+     "1": 0.4,
      "X": 0.26,
-     "2": 0.32
+     "2": 0.34
     },
     "skrallrisk": "medel",
-    "motivering": "Manchester United har en massiv skadelista och svag form trots tränarbyte. Brentford är starka tabellmässigt men har svagt bortaspel.",
+    "motivering": "Manchester Uniteds enorma skadeproblem och svaga form väger tyngre än tränareffekten, vilket gör att oddsen överskattar hemmafavören något.",
     "faktorer": [
-     "Manchester United saknar flera nyckelspelare som Rashford och har stor skadelista",
-     "Brentford saknar avstängde Igor Thiago men kommer från en storseger",
-     "Mauricio Pochettino gör sin första hemmamatch som tränare för United",
-     "Brentford har haft problem med bortaspelet under säsongen"
+     "Manchester United har en omfattande skadelista med flera tveksamma nyckelspelare",
+     "Pochettino har ännu inte fått effekt på Uniteds spel",
+     "Brentford kommer stärkta av en 4-0-seger senast",
+     "Uniteds historiska dominans hemma är urholkad av en nio matcher lång vinstlös svit"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 19,
@@ -755,50 +741,50 @@
      "form": "LDLLDD",
      "franvaro": [
       {
-       "spelare": "Marcus Rashford",
-       "orsak": "Groin",
-       "status": "borta",
-       "nyckelspelare": true
-      },
-      {
        "spelare": "Bruno Fernandes",
-       "orsak": "Illness",
+       "orsak": "skada",
        "status": "osaker",
        "nyckelspelare": true
       },
       {
-       "spelare": "Jack Fletcher",
-       "orsak": "Other",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
        "spelare": "Carlos Baleba",
-       "orsak": "Thigh",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Benjamin Sesko",
-       "orsak": "Calf",
+       "orsak": "lårskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Manuel Ugarte",
-       "orsak": "Crucial ligament",
+       "orsak": "korsbandsskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Yoro",
-       "orsak": "utvisning",
+       "spelare": "Benjamin Sesko",
+       "orsak": "vadskada",
        "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Marcus Rashford",
+       "orsak": "ljumskskada",
+       "status": "osaker",
        "nyckelspelare": false
       },
       {
        "spelare": "Luke Shaw",
-       "orsak": "fitness",
+       "orsak": "skada",
+       "status": "osaker",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Karl Darlow",
+       "orsak": "skada",
+       "status": "osaker",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Leny Yoro",
+       "orsak": "Avstängning hävd",
        "status": "osaker",
        "nyckelspelare": false
       }
@@ -816,11 +802,11 @@
       "sportsgambler.com",
       "hurbra.se",
       "sportsmole.co.uk",
+      "footballpredictions.com",
+      "rekatochklart.com",
       "bettingstugan.se",
       "gamblingcabin.se",
-      "footballpredictions.com",
-      "speltips.se",
-      "rekatochklart.com"
+      "speltips.se"
      ]
     },
     "borta": {
@@ -838,45 +824,45 @@
      "form": "WLWDLD",
      "franvaro": [
       {
-       "spelare": "Igor Thiago",
-       "orsak": "Red card",
-       "status": "borta",
-       "nyckelspelare": true
-      },
-      {
-       "spelare": "Rico Henry",
-       "orsak": "Groin",
+       "spelare": "Aaron Hickey",
+       "orsak": "lårskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Nathan Collins",
-       "orsak": "Knee",
+       "orsak": "knäskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Aaron Hickey",
-       "orsak": "Thigh",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Joshua Dasilva",
-       "orsak": "Thigh",
+       "spelare": "Rico Henry",
+       "orsak": "ljumskskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Kaye Furo",
-       "orsak": "ankelskada",
+       "orsak": "skada",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Josh Dasilva",
+       "orsak": "skada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Antoni Milambo",
-       "orsak": "Knee",
-       "status": "osaker",
+       "orsak": "skada",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Igor Thiago",
+       "orsak": "avstängd (rött kort)",
+       "status": "borta",
        "nyckelspelare": false
       }
      ],
@@ -884,12 +870,12 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "hurbra.se",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "hurbra.se",
+      "bettingstugan.se"
      ]
     }
    },
@@ -1006,105 +992,97 @@
      "franvaro": [
       {
        "nyckelspelare": true,
-       "orsak": "Groin",
-       "spelare": "Marcus Rashford",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "Illness",
+       "orsak": "skada",
        "spelare": "Bruno Fernandes",
        "status": "osaker",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Jack Fletcher",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Thigh",
+       "orsak": "lårskada",
        "spelare": "Carlos Baleba",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Calf",
-       "spelare": "Benjamin Sesko",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Crucial ligament",
+       "orsak": "korsbandsskada",
        "spelare": "Manuel Ugarte",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "utvisning",
-       "spelare": "Yoro",
+       "orsak": "vadskada",
+       "spelare": "Benjamin Sesko",
        "status": "borta",
-       "kalla": "speltips.se",
-       "tid": "2026-11-26T18:01:17Z"
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "fitness",
+       "orsak": "ljumskskada",
+       "spelare": "Marcus Rashford",
+       "status": "osaker",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
        "spelare": "Luke Shaw",
        "status": "osaker",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "knäskada",
+       "orsak": "skada",
        "spelare": "Karl Darlow",
        "status": "osaker",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Injury",
+       "orsak": "Avstängning hävd",
+       "spelare": "Leny Yoro",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Skada",
        "spelare": "A. Diallo",
        "status": "osaker",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Manchester United kommer från en 4-0-förlust mot Liverpool och en 2-2-match mot Sporting CP i Champions League.",
+       "text": "Har inte vunnit på nio raka ligamatcher och har ny tränare i Mauricio Pochettino.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Saknar segrar på sina fem senaste redovisade ligamatcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Mauricio Pochettino gör sin första hemmamatch som tränare.",
+       "text": "Har inte vunnit på nio ligamatcher och gör sin första hemma-ligamatch under Mauricio Pochettino.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Fokuserar på Premier League för att ta sig upp ur bottenträsket.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Laget släpper i genomsnitt in 2,50 mål per hemmamatch och har lågt självförtroende efter förlusten mot Liverpool.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": {
@@ -1119,82 +1097,82 @@
     "borta": {
      "franvaro": [
       {
-       "nyckelspelare": true,
-       "orsak": "Red card",
-       "spelare": "Igor Thiago",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
        "nyckelspelare": false,
-       "orsak": "Groin",
-       "spelare": "Rico Henry",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Nathan Collins",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Thigh",
+       "orsak": "lårskada",
        "spelare": "Aaron Hickey",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Thigh",
-       "spelare": "Joshua Dasilva",
+       "orsak": "knäskada",
+       "spelare": "Nathan Collins",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "ankelskada",
+       "orsak": "ljumskskada",
+       "spelare": "Rico Henry",
+       "status": "borta",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
        "spelare": "Kaye Furo",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Antoni Milambo",
-       "status": "osaker",
+       "orsak": "skada",
+       "spelare": "Josh Dasilva",
+       "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Antoni Milambo",
+       "status": "borta",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "avstängd (rött kort)",
+       "spelare": "Igor Thiago",
+       "status": "borta",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Brentford kommer från en stabil 4-0-seger hemma mot Everton.",
+       "text": "Laget har inte vunnit på sina senaste 10 bortamatcher i ligan.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Sevep av förbättrat odds på bortaplan.",
-       "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Brentford har problem med bortaspelet och har inte vunnit på resande fot på länge.",
+       "text": "Har en 10 matcher lång svit utan bortavinst i Premier League men vann senast mot Everton med 4-0.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Gör det bra och har ett fint hemmaspel men sämre borta.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Kommer från en 4-0-seger mot Everton och har varit spellediga i veckan.",
+       "kalla": "gamblingcabin.se",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Laget är utan vinst på sina fyra senaste bortamatcher men kommer senast från en 4-0-seger mot Everton.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -1211,83 +1189,83 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.6417,
-    "X": 0.2104,
-    "2": 0.1479
+    "1": 0.6502,
+    "X": 0.2067,
+    "2": 0.1431
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 76.0,
+    "1": 77.0,
     "X": 15.0,
-    "2": 9.0
+    "2": 8.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1183,
-    "X": 0.0604,
-    "2": 0.0579
+    "1": -0.1198,
+    "X": 0.0567,
+    "2": 0.0631
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7591,
-    "X": 0.1503,
-    "2": 0.0906
+    "1": 0.7695,
+    "X": 0.1454,
+    "2": 0.0851
    },
    "varde_tips": {
-    "1": -0.0009,
-    "X": 0.0003,
-    "2": 0.0006
+    "1": -0.0005,
+    "X": -0.0046,
+    "2": 0.0051
    },
    "odds": {
     "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.47,
-     "X": 4.49,
-     "2": 6.37
+     "1": 1.46,
+     "X": 4.58,
+     "2": 6.58
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.51,
-      "X": 4.62,
-      "2": 6.46
+      "1": 1.47,
+      "X": 4.71,
+      "2": 7.15
      },
      {
       "bolag": "svenskaspel",
-      "1": 1.5,
-      "X": 4.6,
+      "1": 1.49,
+      "X": 4.7,
       "2": 7.0
      },
      {
       "bolag": "betsson",
-      "1": 1.48,
-      "X": 4.46,
-      "2": 6.53
+      "1": 1.44,
+      "X": 4.64,
+      "2": 7.0
      },
      {
       "bolag": "nordicbet",
-      "1": 1.48,
-      "X": 4.45,
-      "2": 6.5
+      "1": 1.44,
+      "X": 4.65,
+      "2": 7.0
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.53,
-      "X": 4.6,
-      "2": 7.2
+      "1": 1.52,
+      "X": 4.8,
+      "2": 7.4
      },
      {
       "bolag": "williamhill",
       "1": 1.44,
-      "X": 4.4,
+      "X": 4.33,
       "2": 6.0
      },
      {
       "bolag": "coolbet",
-      "1": 1.51,
+      "1": 1.5,
       "X": 4.72,
-      "2": 6.85
+      "2": 7.05
      },
      {
       "bolag": "marathonbet",
@@ -1298,25 +1276,25 @@
      {
       "bolag": "sport888",
       "1": 1.44,
-      "X": 4.33,
+      "X": 4.2,
       "2": 6.0
      },
      {
       "bolag": "betano_uk",
       "1": 1.4,
       "X": 4.4,
-      "2": 5.5
+      "2": 5.75
      },
      {
       "bolag": "betanysports",
-      "1": 1.5,
-      "X": 4.66,
-      "2": 6.61
+      "1": 1.49,
+      "X": 4.55,
+      "2": 6.95
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.42,
-      "X": 4.5,
+      "1": 1.44,
+      "X": 4.55,
       "2": 6.1
      }
     ]
@@ -1332,23 +1310,23 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Leeds har visat förbättrad form på sistone och krossade Chelsea med 4-1 i sin senaste ligamatch. Coventry har problem på bortaplan och har en svag bortastatistik.",
+     "text": "Leeds visar förbättrad form med en imponerande seger mot Chelsea senast. Coventry har stora problem med bortaspelet och släpper in mycket mål.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "1X",
-     "text": "Leeds är kupongens största favorit men är hårt streckade, vilket gör krysset intressant.",
+     "text": "Leeds är kupongens största favorit men ettan är hårt streckad, vilket gör krysset intressant.",
      "system": "1X",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X2",
-     "text": "Leeds är formstarka efter vinsten mot Chelsea, men nykomlingen Coventry har visat upp ett bättre spel på slutet.",
-     "system": "1X2",
-     "system_rader": 156
+     "text": "Leeds kommer från en stark seger mot Chelsea men nykomlingen Coventry har fått bättre ordning på spelet och slog Crystal Palace senast.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -1360,14 +1338,14 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "Leeds kommer från en stark 4-1-seger borta mot Chelsea och har visat fin form på hemmaplan. Coventry har å andra sidan haft det tufft på bortaplan med två raka förluster i ligan.",
+     "text": "Leeds har inlett starkt i Premier League och har två raka segrar samt nio raka hemmamatcher utan förlust. Skribenten förutspår en 2-0-seger för hemmalaget.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "sportsmole.co.uk",
      "tecken": "1",
-     "text": "Leeds är obesegrade hemma och har god form, medan Coventry har haft svårt på bortaplan och har flera spelare på skadelistan.",
+     "text": "Leeds har två raka tunga segrar och är starka på hemmaplan där de är obesegrade denna säsong. Coventry har haft det svårt på bortaplan och har flera skadeproblem i truppen.",
      "system": null,
      "system_rader": null
     },
@@ -1386,22 +1364,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Leeds är klara favoriter med 64 % chans men överstreckas rejält till 76 %, vilket gör krysset till ett intressant värdetecken.",
+   "kommentar": "Leeds är kupongens största favorit, men ettan är kraftigt överstreckad vilket gör krysset till ett intressant tecken. Experterna rekommenderar ofta gardering.",
    "lagkoll": {
     "chans": {
-     "1": 0.68,
-     "X": 0.2,
-     "2": 0.12
+     "1": 0.71,
+     "X": 0.18,
+     "2": 0.11
     },
     "skrallrisk": "låg",
-    "motivering": "Leeds har en mycket stark hemmasvit och storform efter segern mot Chelsea, samtidigt som Coventry har tunga skador och svag bortastatistik.",
+    "motivering": "Leeds är i mycket stark form efter segern mot Chelsea och har en imponerande hemmasvit, samtidigt som Coventry lider av omfattande skadeproblem.",
     "faktorer": [
-     "Leeds är obesegrade på hemmaplan i 10 matcher",
-     "Leeds kommer från en stark 4-1-seger mot Chelsea",
-     "Coventry saknar nyckelspelaren Taiwo Awoniyi och flera andra spelare",
-     "Coventry har stora problem på bortaplan"
+     "Leeds har 10 raka hemmamatcher utan förlust",
+     "Leeds kommer från storseger mot Chelsea",
+     "Coventry har betydande skadeproblem med flera spelare borta",
+     "Coventry är svaga på bortaplan"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 7,
@@ -1418,7 +1396,7 @@
      "franvaro": [
       {
        "spelare": "Mateo Joseph",
-       "orsak": "Ankle",
+       "orsak": "vrist-skada",
        "status": "borta",
        "nyckelspelare": false
       }
@@ -1428,15 +1406,15 @@
       "BBC Sport",
       "sportsgambler.com",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
       "rekatochklart.com",
+      "bettingstugan.se",
       "tipsmedoss.com"
      ]
     },
     "borta": {
      "tabell": {
-      "plats": 14,
+      "plats": 15,
       "antal_lag": 20,
       "spelade": 11,
       "vunna": 4,
@@ -1450,44 +1428,44 @@
      "franvaro": [
       {
        "spelare": "Taiwo Awoniyi",
-       "orsak": "Ankle",
-       "status": "borta",
-       "nyckelspelare": true
-      },
-      {
-       "spelare": "Haji Wright",
-       "orsak": "Thigh",
+       "orsak": "vrist-skada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Luke Woolfenden",
-       "orsak": "Knee",
+       "spelare": "Haji Wright",
+       "orsak": "lårskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Josh Eccles",
-       "orsak": "Ankle",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Caleb Yirenkyi",
-       "orsak": "Other",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Ephron Mason-Clark",
-       "orsak": "Knee",
+       "orsak": "vrist-skada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Aurele Amenda",
-       "orsak": "Calf",
+       "orsak": "vadskada",
        "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Luke Woolfenden",
+       "orsak": "knäskada",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Caleb Yirenkyi",
+       "orsak": "skada",
+       "status": "osaker",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Ephron Mason-Clark",
+       "orsak": "skada",
+       "status": "osaker",
        "nyckelspelare": false
       }
      ],
@@ -1496,9 +1474,9 @@
       "BBC Sport",
       "sportsgambler.com",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "bettingstugan.se"
      ]
     }
    },
@@ -1516,7 +1494,7 @@
      "form": "WWLDDL"
     },
     "borta": {
-     "plats": 14,
+     "plats": 15,
      "antal_lag": 20,
      "spelade": 11,
      "vunna": 4,
@@ -1615,33 +1593,33 @@
      "franvaro": [
       {
        "nyckelspelare": false,
-       "orsak": "Ankle",
+       "orsak": "vrist-skada",
        "spelare": "Mateo Joseph",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Leeds har en stark hemmasvit och besegrade Chelsea senast.",
+       "text": "Leeds har fem vinster, fyra oavgjorda och en förlust på sina tio senaste hemmamatcher och vann även det senaste mötet mot Coventry.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Leeds är obesegrade på hemmaplan i 10 matcher och har en av ligans starkaste defensiver.",
+       "text": "Obesegrade på hemmaplan i 10 raka matcher i alla tävlingar.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har Noah Okafor i storform.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Leeds har visat tecken på förbättring och kommer från en 4-1-seger mot Chelsea.",
+       "text": "Visar tecken på förbättring efter vinst mot Tottenham och Chelsea.",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Kommer från en 4-1-triumf borta mot Chelsea.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -1649,82 +1627,82 @@
     "borta": {
      "franvaro": [
       {
-       "nyckelspelare": true,
-       "orsak": "Ankle",
+       "nyckelspelare": false,
+       "orsak": "vrist-skada",
        "spelare": "Taiwo Awoniyi",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Thigh",
+       "orsak": "lårskada",
        "spelare": "Haji Wright",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Luke Woolfenden",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle",
+       "orsak": "vrist-skada",
        "spelare": "Josh Eccles",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "Caleb Yirenkyi",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee",
-       "spelare": "Ephron Mason-Clark",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Calf",
+       "orsak": "vadskada",
        "spelare": "Aurele Amenda",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "knäskada",
+       "spelare": "Luke Woolfenden",
+       "status": "borta",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Caleb Yirenkyi",
+       "status": "osaker",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "skada",
+       "spelare": "Ephron Mason-Clark",
+       "status": "osaker",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Coventry har två raka bortaförluster i ligan.",
+       "text": "Coventry har fyra vinster och sex förluster på sina tio senaste ligamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Coventry har haft stora problem på bortaplan och har bara tagit tre poäng på resande fot under säsongen.",
+       "text": "Svagt borteresultat med endast en seger på fem bortamatcher.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Championship-vinnare som är kapabla att skapa oreda.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Coventry har haft stora problem på bortaplan och släpper i snitt in 1,75 mål per bortamatch.",
+       "text": "Har problem på bortaplan och släpper in 1,75 mål per bortamatch.",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Nykomling som har fått bättre ordning på spelet och slog Crystal Palace med 3-2.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -1741,47 +1719,47 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.6342,
-    "X": 0.2058,
-    "2": 0.16
+    "1": 0.6309,
+    "X": 0.2063,
+    "2": 0.1627
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 77.0,
+    "1": 79.0,
     "X": 13.0,
-    "2": 10.0
+    "2": 8.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1358,
-    "X": 0.0758,
-    "2": 0.06
+    "1": -0.1591,
+    "X": 0.0763,
+    "2": 0.0827
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.8289,
-    "X": 0.0973,
-    "2": 0.0738
+    "1": 0.834,
+    "X": 0.0931,
+    "2": 0.073
    },
    "varde_tips": {
-    "1": 0.0589,
-    "X": -0.0327,
-    "2": -0.0262
+    "1": 0.044,
+    "X": -0.0369,
+    "2": -0.007
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.47,
-     "X": 4.51,
-     "2": 5.79
+     "1": 1.48,
+     "X": 4.5,
+     "2": 5.71
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.48,
-      "X": 4.84,
-      "2": 6.24
+      "1": 1.52,
+      "X": 4.77,
+      "2": 6.05
      },
      {
       "bolag": "svenskaspel",
@@ -1791,32 +1769,32 @@
      },
      {
       "bolag": "betsson",
+      "1": 1.48,
+      "X": 4.55,
+      "2": 5.9
+     },
+     {
+      "bolag": "nordicbet",
       "1": 1.49,
+      "X": 4.59,
+      "2": 5.93
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.54,
+      "X": 4.9,
+      "2": 6.4
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.44,
       "X": 4.5,
       "2": 5.8
      },
      {
-      "bolag": "nordicbet",
-      "1": 1.5,
-      "X": 4.54,
-      "2": 5.85
-     },
-     {
-      "bolag": "betfair_ex_eu",
-      "1": 1.52,
-      "X": 5.0,
-      "2": 6.8
-     },
-     {
-      "bolag": "williamhill",
-      "1": 1.5,
-      "X": 4.4,
-      "2": 5.5
-     },
-     {
       "bolag": "coolbet",
-      "1": 1.5,
-      "X": 4.5,
+      "1": 1.48,
+      "X": 4.75,
       "2": 6.0
      },
      {
@@ -1833,21 +1811,21 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 1.44,
-      "X": 4.4,
-      "2": 5.0
+      "1": 1.4,
+      "X": 4.33,
+      "2": 5.25
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.43,
-      "X": 4.25,
+      "1": 1.46,
+      "X": 4.4,
       "2": 5.4
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.52,
-      "X": 5.0,
-      "2": 6.8
+      "1": 1.54,
+      "X": 4.9,
+      "2": 6.4
      }
     ]
    },
@@ -1862,23 +1840,23 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Birmingham har vunnit fyra av sina senaste fem ligamatcher och har stark form, medan Bolton har förlorat sina senaste matcher och har defensiva problem.",
+     "text": "Birmingham är i god form med fyra vinster på de fem senaste ligamatcherna och släpper in få mål hemma. Bolton har haft defensiva problem och förlorade senast mot West Bromwich.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "1",
-     "text": "Birmingham har vunnit fyra av sina fem senaste matcher, medan Bolton har förlorat tre.",
+     "text": "Birmingham har vunnit fyra av sina fem senaste matcher medan Bolton har förlorat tre.",
      "system": "1",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X",
-     "text": "Birmingham har en fin struktur och defensiv. Bolton har dock presterat bra på resande fot på sistone.",
-     "system": "1X",
-     "system_rader": 156
+     "text": "Birmingham spelar med fin struktur och defensiv glans där Priske är brännhet. Bolton föll mot WBA senast trots en skaplig insats.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -1890,14 +1868,14 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "Birmingham har radat upp fyra raka hemmasegrar och ställs mot ett Bolton som förlorade senast mot West Bromwich. Hemmaformen och den starka statistiken gör att Birmingham hålls som stora favoriter.",
+     "text": "Birmingham har vunnit fyra raka hemmamatcher och är obesegrade i sina tio senaste hemmamatcher. Bolton förlorade sin senaste match mot West Bromwich och har haft det tyngre på bortaplan.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "sportsmole.co.uk",
      "tecken": "1",
-     "text": "Birmingham är obesegrade hemma och ser mycket starka ut, medan Bolton kämpar med formen och är en nedflyttningskandidat. Hemmaplan och den generella styrkeförhållandet gör Birmingham till klara favoriter.",
+     "text": "Birmingham är obesegrade hemma i ligan och kommer från en stark vinst. Bolton har haft det tungt resultatmässigt och har förlorat fyra av sina sex senaste matcher.",
      "system": null,
      "system_rader": null
     },
@@ -1916,7 +1894,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Birmingham är klara favoriter med 63 % chans, men folket har streckat dem högt till 77 %. Tipsarna litar dock på hemmalaget.",
+   "kommentar": "Birmingham är tydliga favoriter men streckas mycket hårt, vilket ger spelvärde på kryss och tvåa. Tipsarna håller dock med om att hemmalaget ska ha en god segerchans.",
    "lagkoll": {
     "chans": {
      "1": 0.65,
@@ -1924,12 +1902,13 @@
      "2": 0.15
     },
     "skrallrisk": "låg",
-    "motivering": "Birmingham är starka på hemmaplan och möter ett skadedrabbat Bolton som kämpar i botten.",
+    "motivering": "Birmingham är urstarka på hemmaplan och möter ett skadedrabbat Bolton som kämpar i botten.",
     "faktorer": [
-     "Birmingham är obsegrade hemma och jagar uppflyttning",
-     "Bolton har flera tunga skador och svag form"
+     "Birmingham är obesegrade på hemmaplan denna säsong",
+     "Bolton saknar flera spelare på grund av skador",
+     "Birmingham jagar direktuppflyttning"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 4,
@@ -1951,20 +1930,20 @@
        "nyckelspelare": false
       },
       {
-       "spelare": "A. Cochrane",
-       "orsak": "Yellow Cards",
+       "spelare": "Alex Cochrane",
+       "orsak": "avstängning",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "K. Lund",
-       "orsak": "Inactive",
+       "orsak": "Inaktiv",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Ethan Laird",
-       "orsak": "knäskada",
+       "orsak": "Skada",
        "status": "osaker",
        "nyckelspelare": false
       }
@@ -1975,9 +1954,9 @@
       "sportsgambler.com",
       "hurbra.se",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "bettingstugan.se"
      ]
     },
     "borta": {
@@ -1996,31 +1975,31 @@
      "franvaro": [
       {
        "spelare": "E. Erhahon",
-       "orsak": "Thigh Injury",
+       "orsak": "Lårskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "R. Hardie",
-       "orsak": "Hamstring Injury",
+       "orsak": "Lårskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "J. McAtee",
-       "orsak": "Knee Injury",
+       "orsak": "Knäskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "J. Nelson",
-       "orsak": "Hamstring Injury",
+       "orsak": "Lårskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "E. Toal",
-       "orsak": "Muscle Injury",
+       "orsak": "Muskelskada",
        "status": "borta",
        "nyckelspelare": false
       }
@@ -2031,9 +2010,9 @@
       "sportsgambler.com",
       "hurbra.se",
       "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
       "rekatochklart.com",
+      "bettingstugan.se",
       "tipsmedoss.com"
      ]
     }
@@ -2155,53 +2134,53 @@
        "spelare": "Marc Leonard",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Yellow Cards",
-       "spelare": "A. Cochrane",
+       "orsak": "avstängning",
+       "spelare": "Alex Cochrane",
        "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "sportsmole.co.uk",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Inactive",
+       "orsak": "Inaktiv",
        "spelare": "K. Lund",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "knäskada",
+       "orsak": "Skada",
        "spelare": "Ethan Laird",
        "status": "osaker",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Birmingham har vunnit fyra raka hemmamatcher.",
+       "text": "Har vunnit fyra raka hemmamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Har vunnit fyra av sina fem senaste redovisade matcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Obesegrade på hemmaplan i ligan denna säsong.",
+       "text": "Birmingham är obesegrade på hemmaplan i ligaspelet denna säsong.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har en stark grupp med August Priske som pålitlig målskytt.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Jagar platserna för direktuppflyttning.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -2210,65 +2189,65 @@
      "franvaro": [
       {
        "nyckelspelare": false,
-       "orsak": "Thigh Injury",
+       "orsak": "Lårskada",
        "spelare": "E. Erhahon",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Hamstring Injury",
+       "orsak": "Lårskada",
        "spelare": "R. Hardie",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee Injury",
+       "orsak": "Knäskada",
        "spelare": "J. McAtee",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Hamstring Injury",
+       "orsak": "Lårskada",
        "spelare": "J. Nelson",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Muscle Injury",
+       "orsak": "Muskelskada",
        "spelare": "E. Toal",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Bolton förlorade senast mot West Bromwich.",
+       "text": "Förlorade senast med 1-3 mot West Bromwich.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har förlorat tre under motsvarande period.",
+       "text": "Har förlorat tre av sina fem senaste redovisade matcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Nyuppflyttade och tippade som en av favoriterna att åka ur, kämpar nära nedflyttningsstrecket.",
+       "text": "Bolton kämpar nära nedflyttningsstrecket och har haft svårt att vinna matcher på sistone.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Släpper in många mål mot de bästa lagen i andradivisionen.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Har defensiva problem och har haft det svårt på bortaplan på sistone.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -2285,47 +2264,47 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4223,
-    "X": 0.2807,
-    "2": 0.297
+    "1": 0.4159,
+    "X": 0.2834,
+    "2": 0.3007
    },
    "chans_kalla": "modell",
    "streck": {
     "1": 41.0,
-    "X": 29.0,
-    "2": 30.0
+    "X": 28.0,
+    "2": 31.0
    },
-   "streck_tid": "2026-11-26T17:59:35Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.0123,
-    "X": -0.0093,
-    "2": -0.003
+    "1": 0.0059,
+    "X": 0.0034,
+    "2": -0.0093
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4621,
-    "X": 0.2927,
-    "2": 0.2453
+    "1": 0.4748,
+    "X": 0.276,
+    "2": 0.2492
    },
    "varde_tips": {
-    "1": 0.0521,
-    "X": 0.0027,
-    "2": -0.0547
+    "1": 0.0648,
+    "X": -0.004,
+    "2": -0.0608
    },
    "odds": {
-    "antal_bolag": 38,
+    "antal_bolag": 39,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.21,
-     "X": 3.33,
-     "2": 3.13
+     "1": 2.24,
+     "X": 3.3,
+     "2": 3.11
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.29,
-      "X": 3.39,
-      "2": 3.3
+      "1": 2.38,
+      "X": 3.33,
+      "2": 3.24
      },
      {
       "bolag": "svenskaspel",
@@ -2335,63 +2314,63 @@
      },
      {
       "bolag": "betsson",
-      "1": 2.28,
-      "X": 3.3,
-      "2": 3.15
+      "1": 2.25,
+      "X": 3.25,
+      "2": 3.2
      },
      {
       "bolag": "nordicbet",
-      "1": 2.28,
-      "X": 3.31,
-      "2": 3.16
+      "1": 2.27,
+      "X": 3.29,
+      "2": 3.2
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.34,
+      "1": 2.4,
       "X": 3.5,
-      "2": 3.35
+      "2": 3.3
      },
      {
       "bolag": "williamhill",
-      "1": 2.2,
-      "X": 3.2,
-      "2": 3.2
-     },
-     {
-      "bolag": "coolbet",
-      "1": 2.25,
-      "X": 3.3,
-      "2": 3.2
-     },
-     {
-      "bolag": "marathonbet",
-      "1": 2.15,
-      "X": 3.32,
-      "2": 3.24
-     },
-     {
-      "bolag": "sport888",
-      "1": 2.2,
+      "1": 2.3,
       "X": 3.2,
       "2": 3.1
      },
      {
-      "bolag": "betano_uk",
-      "1": 2.1,
+      "bolag": "coolbet",
+      "1": 2.3,
       "X": 3.3,
-      "2": 2.9
+      "2": 3.1
      },
      {
-      "bolag": "betclic_fr",
-      "1": 2.13,
-      "X": 3.15,
+      "bolag": "marathonbet",
+      "1": 2.23,
+      "X": 3.2,
+      "2": 3.18
+     },
+     {
+      "bolag": "sport888",
+      "1": 2.25,
+      "X": 3.1,
       "2": 3.0
      },
      {
+      "bolag": "betano_uk",
+      "1": 2.15,
+      "X": 3.25,
+      "2": 2.88
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 2.15,
+      "X": 3.23,
+      "2": 3.07
+     },
+     {
       "bolag": "betfair_ex_uk",
-      "1": 2.34,
+      "1": 2.4,
       "X": 3.5,
-      "2": 3.35
+      "2": 3.3
      }
     ]
    },
@@ -2406,23 +2385,23 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "X",
-     "text": "Skribenten förutspår ett oavgjort resultat på 2-2. Derby har en lång skadelista och Watford har släppt in många mål på bortaplan.",
+     "text": "Båda lagen är desperata efter poäng och artikeln förutspår ett oavgjort resultat på 2-2. Derby har en lång skadelista och Watford har släppt in många mål på bortaplan.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "1X2",
-     "text": "Båda lagen har haft svårt att få resultaten med sig och streckfördelningen ligger nära oddsen.",
+     "text": "Båda lagen har haft svårt att få resultaten med sig och streckfördelningen ligger nära oddsmarknaden.",
      "system": "1X2",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X2",
-     "text": "Båda lagen underpresterar kraftigt och spelar risig fotboll för stunden. Det är en oviss match.",
-     "system": "1X2",
-     "system_rader": 156
+     "text": "Derby spelar riktigt risig fotboll och offensiven fungerar inte. Watford har också bedrövliga underliggande siffror och radas upp i förluster.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -2433,8 +2412,8 @@
     },
     {
      "kalla": "sportsgambler.com",
-     "tecken": "X",
-     "text": "Skribenten tror på ett 1-1-resultat och ett oavgjort möte mellan lag i svag form.",
+     "tecken": null,
+     "text": "Skribenten rekommenderar spelet 'Båda lagen gör mål' (BTTS Yes) samt ett bet builder-förslag på oavgjort resultat (1-1). Watford har vunnit sex raka inbördes möten men har sju raka bortaförluster.",
      "system": null,
      "system_rader": null
     },
@@ -2460,22 +2439,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Derby och Watford streckas helt i enlighet med oddsen kring 41-42 % på ettan. Flera tipsare pekar på en öppen eller helt garderad match.",
+   "kommentar": "En mycket oviss match där streckfördelningen speglar oddsen väl. Tipsarna är oense och sprider sina tecken, vilket gör detta till en lämplig match att helgardera.",
    "lagkoll": {
     "chans": {
-     "1": 0.4,
-     "X": 0.3,
-     "2": 0.3
+     "1": 0.39,
+     "X": 0.28,
+     "2": 0.33
     },
     "skrallrisk": "medel",
-    "motivering": "Båda lagen är i bedrövlig form och har tunga skadelistor eller avstängningar. Det osäkra läget kring Watfords tränarbyte och deras urusla bortafacit gör att ett oavgjort resultat känns något mer troligt än vad oddsen antyder.",
+    "motivering": "Watfords tränarbyte inger visst hopp trots usel bortastatistik, samtidigt som Derbys enorma skadelista och jumboplats gör hemmafavören skör.",
     "faktorer": [
-     "Derby är ligajumbo med en omfattande skadelista.",
-     "Watford har förlorat sju raka bortamatcher.",
-     "Tränarbyte i Watford kan ge en positiv 'ny tränare-effekt'.",
-     "Båda lagen har stora problem med offensiv och form."
+     "Derby har en omfattande skadelista på nyckelspelare",
+     "Watford har bytt tränare till Edward Iordanescu",
+     "Derby är ligajumbo med svag form och ineffektiv offensiv",
+     "Watford har sju raka bortaförluster i ligan"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 24,
@@ -2492,31 +2471,25 @@
      "franvaro": [
       {
        "spelare": "Derry Murkin",
-       "orsak": "Muscle",
+       "orsak": "Muskelskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Craig Forsyth",
-       "orsak": "Knee",
+       "orsak": "Knäskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "S. Klingen Langaas",
-       "orsak": "Groin",
+       "orsak": "Ljumskskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Patrick Agyemang",
-       "orsak": "Ankle",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Sammie Szmodics",
-       "orsak": "skada",
+       "orsak": "Vristskada",
        "status": "borta",
        "nyckelspelare": false
       },
@@ -2533,6 +2506,12 @@
        "nyckelspelare": false
       },
       {
+       "spelare": "S. Szmodics",
+       "orsak": "Knee Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
        "spelare": "C. Taylor",
        "orsak": "Hamstring Injury",
        "status": "borta",
@@ -2543,12 +2522,12 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "footballpredictions.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "footballpredictions.com",
       "tipsmedoss.com",
-      "speltips.se",
-      "rekatochklart.com"
+      "speltips.se"
      ]
     },
     "borta": {
@@ -2565,18 +2544,6 @@
      },
      "form": "LLDWLL",
      "franvaro": [
-      {
-       "spelare": "Mattie Pollock",
-       "orsak": "avstängning",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Jordan Zemura",
-       "orsak": "avstängning",
-       "status": "borta",
-       "nyckelspelare": false
-      },
       {
        "spelare": "M. Antonio",
        "orsak": "Injury",
@@ -2612,6 +2579,18 @@
        "orsak": "Thigh Injury",
        "status": "borta",
        "nyckelspelare": false
+      },
+      {
+       "spelare": "M. Pollock",
+       "orsak": "Yellow Cards",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "J. Zemura",
+       "orsak": "Red Card",
+       "status": "borta",
+       "nyckelspelare": false
       }
      ],
      "tranarbyte": {
@@ -2625,11 +2604,11 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "footballpredictions.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "footballpredictions.com",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     }
    },
@@ -2746,43 +2725,35 @@
      "franvaro": [
       {
        "nyckelspelare": false,
-       "orsak": "Muscle",
+       "orsak": "Muskelskada",
        "spelare": "Derry Murkin",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee",
+       "orsak": "Knäskada",
        "spelare": "Craig Forsyth",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Groin",
+       "orsak": "Ljumskskada",
        "spelare": "S. Klingen Langaas",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Ankle",
+       "orsak": "Vristskada",
        "spelare": "Patrick Agyemang",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Sammie Szmodics",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2790,7 +2761,7 @@
        "spelare": "S. Langas",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2798,7 +2769,15 @@
        "spelare": "H. Meister",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Knee Injury",
+       "spelare": "S. Szmodics",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2806,7 +2785,7 @@
        "spelare": "C. Taylor",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2814,28 +2793,28 @@
        "spelare": "R. Hedges",
        "status": "osaker",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Har förlorat de två senaste matcherna i ligan.",
+       "text": "Derby har förlorat sina två senaste ligamatcher och ligger sist i tabellen.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Laget har en lång skadelista och kommer från en 3-0 förlust mot Wolves.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Spelar riktigt risig fotboll och offensiven funkar inte.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Tränaren John Eustace hänger löst efter en svag säsongsinledning.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Parkerar som tabelljumbo efter 17 omgångar.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Derby har en lång skadelista och kommer från en förlust mot Wolves.",
-       "kalla": "footballpredictions.com",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -2845,27 +2824,11 @@
      "franvaro": [
       {
        "nyckelspelare": false,
-       "orsak": "avstängning",
-       "spelare": "Mattie Pollock",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "avstängning",
-       "spelare": "Jordan Zemura",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
        "orsak": "Injury",
        "spelare": "M. Antonio",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2873,7 +2836,7 @@
        "spelare": "K. Baah",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2881,7 +2844,7 @@
        "spelare": "M. Boadu",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2889,7 +2852,7 @@
        "spelare": "N. Chikovani",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2897,7 +2860,7 @@
        "spelare": "K. Diatta",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -2905,28 +2868,44 @@
        "spelare": "J. Ngakia",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Yellow Cards",
+       "spelare": "M. Pollock",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Red Card",
+       "spelare": "J. Zemura",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Har förlorat sju raka bortamatcher.",
+       "text": "Watford har sju raka bortaförluster i ligan men har vunnit de tre senaste besöken på Pride Park.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har inte vunnit på tre matcher och släpper in i snitt 2.80 mål per match på bortaplan.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Underliggande siffror är bedrövliga och radas upp i förluster.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Edward Iordanescu tar över som ny huvudtränare för laget.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Zigor Aranalde är ny manager och laget reste sig i veckan.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Watford har släppt in 2.80 mål per match på bortaplan.",
-       "kalla": "footballpredictions.com",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -2951,47 +2930,47 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4455,
-    "X": 0.2618,
-    "2": 0.2927
+    "1": 0.4501,
+    "X": 0.2622,
+    "2": 0.2877
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 51.0,
+    "1": 52.0,
     "X": 29.0,
-    "2": 20.0
+    "2": 19.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.0645,
-    "X": -0.0282,
-    "2": 0.0927
+    "1": -0.0699,
+    "X": -0.0278,
+    "2": 0.0977
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.5108,
-    "X": 0.2516,
-    "2": 0.2376
+    "1": 0.5312,
+    "X": 0.2433,
+    "2": 0.2255
    },
    "varde_tips": {
-    "1": 0.0008,
-    "X": -0.0384,
-    "2": 0.0376
+    "1": 0.0112,
+    "X": -0.0467,
+    "2": 0.0355
    },
    "odds": {
     "antal_bolag": 40,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.09,
+     "1": 2.08,
      "X": 3.55,
-     "2": 3.18
+     "2": 3.23
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.16,
-      "X": 3.71,
-      "2": 3.29
+      "1": 2.11,
+      "X": 3.77,
+      "2": 3.43
      },
      {
       "bolag": "svenskaspel",
@@ -3001,31 +2980,31 @@
      },
      {
       "bolag": "betsson",
-      "1": 2.15,
+      "1": 2.12,
       "X": 3.45,
-      "2": 3.2
+      "2": 3.35
      },
      {
       "bolag": "nordicbet",
-      "1": 2.17,
-      "X": 3.47,
-      "2": 3.24
+      "1": 2.12,
+      "X": 3.48,
+      "2": 3.35
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.2,
-      "X": 3.85,
-      "2": 3.45
+      "1": 2.18,
+      "X": 3.8,
+      "2": 3.55
      },
      {
       "bolag": "williamhill",
       "1": 2.1,
-      "X": 3.4,
-      "2": 3.2
+      "X": 3.5,
+      "2": 3.25
      },
      {
       "bolag": "coolbet",
-      "1": 2.12,
+      "1": 2.15,
       "X": 3.6,
       "2": 3.2
      },
@@ -3037,7 +3016,7 @@
      },
      {
       "bolag": "sport888",
-      "1": 2.1,
+      "1": 2.05,
       "X": 3.4,
       "2": 3.2
      },
@@ -3045,19 +3024,19 @@
       "bolag": "betano_uk",
       "1": 1.95,
       "X": 3.5,
-      "2": 2.88
+      "2": 2.9
      },
      {
       "bolag": "betclic_fr",
-      "1": 2.03,
-      "X": 3.37,
-      "2": 3.02
+      "1": 2.05,
+      "X": 3.47,
+      "2": 3.1
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.2,
-      "X": 3.85,
-      "2": 3.45
+      "1": 2.18,
+      "X": 3.8,
+      "2": 3.55
      }
     ]
    },
@@ -3072,23 +3051,23 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "X",
-     "text": "Båda lagen kämpar defensivt, och då båda är i dålig form förutspås ett oavgjort resultat. Båda lagen har haft svårt att vinna sina senaste matcher.",
+     "text": "Millwall har fyra raka förluster, medan Burnley inte har vunnit på åtta ligamatcher. Båda lagen har haft problem med defensiven på sistone.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "12",
-     "text": "Millwall har bättre aktuell form och är favoriter, men Burnleys bortaseger är lågt streckad i förhållande till oddsen.",
+     "text": "Millwall har bättre aktuell form och är favoriter, men Burnleys bortaseger är streckvärd.",
      "system": "12",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X2",
-     "text": "Millwall har fyra raka nollor och förluster. Burnley är inte heller i någon vidare form.",
-     "system": "1X2",
-     "system_rader": 156
+     "text": "Millwall har fyra raka nollor i följd och Burnley är en skugga av sitt forna jag.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -3100,8 +3079,8 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "Millwall tar emot Burnley hemma på The Den. Spelbolagen håller Millwall som knappa favoriter, och de har fördel av hemmaplan trots en tyngre period.",
-     "system": null,
+     "text": "Skribenten tror på en 2-1-seger för Millwall i en match där det väntas bli över 2.5 mål. Millwall är favoriter trots fyra raka förluster, medan Burnley har tre raka bortamatcher utan vinst.",
+     "system": "1",
      "system_rader": null
     },
     {
@@ -3126,22 +3105,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Millwall är knappa knappa knappa favoriter med 45 %, men överstreckas till 51 %. Burnley till 20 % ger fint spelvärde på tvåan.",
+   "kommentar": "Millwall är favorit men Burnley ser ut att bli underspelat, vilket ger värde på högersidan. Tipsarna är kluvna och väljer ofta att gardera med tanke på formen.",
    "lagkoll": {
     "chans": {
-     "1": 0.41,
+     "1": 0.42,
      "X": 0.28,
-     "2": 0.31
+     "2": 0.3
     },
     "skrallrisk": "medel",
-    "motivering": "Båda lagen är i en djup kris, men Millwalls långa skadelista och usla form gör att oddsen överskattar deras chanser trots Burnleys svaga säsong. Burnley har dessutom en tendens att kryssa ofta, vilket ökar värdet på X och 2.",
+    "motivering": "Millwall är i usel form med fyra raka förluster och Burnley spelar ofta oavgjort, vilket gör att X får en något högre sannolikhet trots oddsen.",
     "faktorer": [
-     "Millwall har förlorat fyra raka matcher",
-     "Millwall har omfattande skadebekymmer och avstängningar",
-     "Burnley har oavgjort i hälften av sina matcher",
-     "Burnley saknar flera nyckelspelare"
+     "Millwall har fyra raka förluster",
+     "Burnley kryssar i hälften av matcherna",
+     "Båda lagen har omfattande skadelistor",
+     "Millwall saknar flera ordinarie spelare"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 18,
@@ -3161,18 +3140,6 @@
        "orsak": "skada/frånvaro",
        "status": "osaker",
        "nyckelspelare": true
-      },
-      {
-       "spelare": "B. Baker-Boaitey",
-       "orsak": "Other",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Zak Sturge",
-       "orsak": "rött kort",
-       "status": "borta",
-       "nyckelspelare": false
       },
       {
        "spelare": "J. Coburn",
@@ -3203,19 +3170,31 @@
        "orsak": "Ankle Injury",
        "status": "borta",
        "nyckelspelare": false
+      },
+      {
+       "spelare": "M. Servais",
+       "orsak": "Hamstring Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Zak Sturge",
+       "orsak": "rött kort",
+       "status": "borta",
+       "nyckelspelare": false
       }
      ],
      "tranarbyte": null,
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "footballpredictions.com",
+      "rekatochklart.com",
       "hurbra.se",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "footballpredictions.com",
       "tipsmedoss.com",
-      "speltips.se",
-      "rekatochklart.com"
+      "speltips.se"
      ]
     },
     "borta": {
@@ -3233,26 +3212,14 @@
      "form": "LDLDDL",
      "franvaro": [
       {
-       "spelare": "Jacob Bruun Larsen",
-       "orsak": "Other",
-       "status": "borta",
-       "nyckelspelare": true
-      },
-      {
-       "spelare": "A. Broja",
-       "orsak": "Muscle Injury",
+       "spelare": "C. Roberts",
+       "orsak": "Suspension",
        "status": "borta",
        "nyckelspelare": true
       },
       {
        "spelare": "Bashir Humphreys",
-       "orsak": "Knee",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Connor Roberts",
-       "orsak": "rött kort",
+       "orsak": "Knäskada",
        "status": "borta",
        "nyckelspelare": false
       },
@@ -3275,8 +3242,20 @@
        "nyckelspelare": false
       },
       {
+       "spelare": "A. Broja",
+       "orsak": "Muscle Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
        "spelare": "H. Mejbri",
        "orsak": "Hamstring Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "M. Obafemi",
+       "orsak": "Inactive",
        "status": "borta",
        "nyckelspelare": false
       }
@@ -3285,11 +3264,11 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "footballpredictions.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "footballpredictions.com",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     }
    },
@@ -3414,11 +3393,51 @@
       },
       {
        "nyckelspelare": false,
-       "orsak": "Other",
-       "spelare": "B. Baker-Boaitey",
+       "orsak": "Injury",
+       "spelare": "J. Coburn",
        "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Ankle Injury",
+       "spelare": "T. Crama",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "R. Leonard",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Knee Injury",
+       "spelare": "M. Luongo",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Ankle Injury",
+       "spelare": "F. Marschall",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Hamstring Injury",
+       "spelare": "M. Servais",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3430,72 +3449,32 @@
       },
       {
        "nyckelspelare": false,
-       "orsak": "Injury",
-       "spelare": "J. Coburn",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle Injury",
-       "spelare": "T. Crama",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Muscle Injury",
-       "spelare": "R. Leonard",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Knee Injury",
-       "spelare": "M. Luongo",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Ankle Injury",
-       "spelare": "F. Marschall",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Hamstring Injury",
-       "spelare": "M. Servais",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "orsak": "Annat",
+       "spelare": "B. Baker-Boaitey",
+       "status": "osaker",
+       "kalla": "sportsgambler.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Millwall har fyra raka förluster i bagaget.",
+       "text": "Millwall har förlorat sina fyra senaste matcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Laget har fyra raka förluster i ryggen.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har fyra nollor i följd i bagaget.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Har bättre aktuell form och är favorit på hemmaplan.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har haft det tufft i offensiven sedan sommarförsäljningen av Femi Azeez.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Brukar resa sig efter en rad förluster, särskilt på hemmaplan.",
-       "kalla": "bettingstugan.se",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -3505,35 +3484,19 @@
      "franvaro": [
       {
        "nyckelspelare": true,
-       "orsak": "Other",
-       "spelare": "Jacob Bruun Larsen",
-       "status": "borta",
-       "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": true,
-       "orsak": "Muscle Injury",
-       "spelare": "A. Broja",
+       "orsak": "Suspension",
+       "spelare": "C. Roberts",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee",
+       "orsak": "Knäskada",
        "spelare": "Bashir Humphreys",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "rött kort",
-       "spelare": "Connor Roberts",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3541,7 +3504,7 @@
        "spelare": "B. Amos",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3549,7 +3512,7 @@
        "spelare": "A. Barnes",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3557,7 +3520,15 @@
        "spelare": "J. Beyer",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "A. Broja",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3565,7 +3536,7 @@
        "spelare": "H. Mejbri",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3573,7 +3544,7 @@
        "spelare": "M. Obafemi",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -3581,28 +3552,36 @@
        "spelare": "S. Sambo",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "D. Satpaev",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Burnley är i bottenstriden och har haft det tufft på bortaplan.",
+       "text": "Burnley är utan vinst i sina tre senaste bortamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har gått åtta raka ligamatcher utan vinst.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "En skugga av sitt forna jag jämfört med Kompany-tiden.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Mitt i en fullblodskris och har slagit negativt rekord med 24 raka hemmamatcher utan vinst.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har stora luckor i försvaret och släpper in mycket mål.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Burnley har inte vunnit på sina åtta senaste ligamatcher och släpper in mycket mål på bortaplan.",
-       "kalla": "footballpredictions.com",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -3620,113 +3599,113 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.5603,
-    "X": 0.2456,
-    "2": 0.1941
+    "1": 0.541,
+    "X": 0.2536,
+    "2": 0.2054
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 71.0,
+    "1": 72.0,
     "X": 16.0,
-    "2": 13.0
+    "2": 12.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1497,
-    "X": 0.0856,
-    "2": 0.0641
+    "1": -0.179,
+    "X": 0.0936,
+    "2": 0.0854
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7234,
-    "X": 0.1561,
-    "2": 0.1206
+    "1": 0.7121,
+    "X": 0.1593,
+    "2": 0.1285
    },
    "varde_tips": {
-    "1": 0.0134,
-    "X": -0.0039,
-    "2": -0.0094
+    "1": -0.0079,
+    "X": -0.0007,
+    "2": 0.0085
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.67,
-     "X": 3.79,
-     "2": 4.77
+     "1": 1.73,
+     "X": 3.68,
+     "2": 4.53
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.7,
-      "X": 3.89,
-      "2": 5.09
+      "1": 1.76,
+      "X": 3.84,
+      "2": 4.87
      },
      {
       "bolag": "svenskaspel",
       "1": 1.76,
-      "X": 3.9,
-      "2": 4.8
-     },
-     {
-      "bolag": "betsson",
-      "1": 1.65,
       "X": 3.85,
       "2": 4.9
      },
      {
-      "bolag": "nordicbet",
-      "1": 1.67,
-      "X": 3.89,
-      "2": 4.95
-     },
-     {
-      "bolag": "betfair_ex_eu",
+      "bolag": "betsson",
       "1": 1.72,
-      "X": 4.1,
-      "2": 5.5
-     },
-     {
-      "bolag": "williamhill",
-      "1": 1.67,
-      "X": 3.6,
-      "2": 4.8
-     },
-     {
-      "bolag": "coolbet",
-      "1": 1.68,
-      "X": 3.85,
-      "2": 5.0
-     },
-     {
-      "bolag": "marathonbet",
-      "1": 1.68,
-      "X": 3.75,
-      "2": 4.7
-     },
-     {
-      "bolag": "sport888",
-      "1": 1.67,
-      "X": 3.6,
-      "2": 4.8
-     },
-     {
-      "bolag": "betano_uk",
-      "1": 1.61,
-      "X": 3.7,
-      "2": 4.33
-     },
-     {
-      "bolag": "betclic_fr",
-      "1": 1.6,
-      "X": 3.6,
+      "X": 3.8,
       "2": 4.6
      },
      {
-      "bolag": "betfair_ex_uk",
+      "bolag": "nordicbet",
       "1": 1.72,
-      "X": 4.1,
-      "2": 5.5
+      "X": 3.83,
+      "2": 4.63
+     },
+     {
+      "bolag": "betfair_ex_eu",
+      "1": 1.81,
+      "X": 3.9,
+      "2": 5.0
+     },
+     {
+      "bolag": "williamhill",
+      "1": 1.75,
+      "X": 3.5,
+      "2": 4.5
+     },
+     {
+      "bolag": "coolbet",
+      "1": 1.75,
+      "X": 3.75,
+      "2": 4.5
+     },
+     {
+      "bolag": "marathonbet",
+      "1": 1.75,
+      "X": 3.64,
+      "2": 4.4
+     },
+     {
+      "bolag": "sport888",
+      "1": 1.75,
+      "X": 3.5,
+      "2": 4.4
+     },
+     {
+      "bolag": "betano_uk",
+      "1": 1.65,
+      "X": 3.6,
+      "2": 4.1
+     },
+     {
+      "bolag": "betclic_fr",
+      "1": 1.68,
+      "X": 3.6,
+      "2": 4.4
+     },
+     {
+      "bolag": "betfair_ex_uk",
+      "1": 1.81,
+      "X": 3.9,
+      "2": 5.0
      }
     ]
    },
@@ -3741,30 +3720,30 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "West Bromwich besegrade Bolton senast och har gott hopp om att nå Premier League. Bristol City har haft det svårt defensivt och saknar viktige mittbacken Luke McNally på grund av skada.",
+     "text": "West Bromwich är i god form efter vinsten senast och siktar på Premier League. Bristol City har en svag defensiv och saknar mittbacken Luke McNally på grund av skada.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "gamblingcabin.se",
      "tecken": "1",
-     "text": "West Bromwich har fin hemmaform, starka underliggande siffror och åtta raka matcher utan nederlag. Bristol City har svag form med fem förluster på de åtta senaste matcherna.",
+     "text": "West Bromwich ligger på 5:e plats med stark form och endast en förlust hemma denna säsong. Bristol City har svag form med fem förluster på de åtta senaste matcherna.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "1X",
-     "text": "West Bromwich är obesegrat i sina fem senaste matcher, men ettan är något överstreckad.",
+     "text": "West Bromwich är obesegrat i sina fem senaste matcher och motiverar sitt favoritskap, även om ettan är något överstreckad.",
      "system": "1X",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X",
-     "text": "West Bromwich visar topplagsbeteende med åtta raka utan förlust. Bristol City har chansen om de sätter defensiven.",
-     "system": "1X",
-     "system_rader": 156
+     "text": "West Bromwich visar upp ett topplagsbeteende med åtta raka matcher med poäng. Bristol City kan hota om de sätter defensiven lika bra som mot Wrexham.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -3776,7 +3755,7 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "West Brom har vunnit tre av sina senaste fem matcher och har god form på hemmaplan. Bristol City har förlorat tre av sina senaste fem matcher och har det tufft.",
+     "text": "West Brom har vunnit tre av sina senaste fem matcher och gillas som favoriter hemma på The Hawthorns. Bristol City har förlorat tre av sina senaste fem.",
      "system": null,
      "system_rader": null
     },
@@ -3802,21 +3781,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "West Bromwich är tydliga favoriter med 56 % chans, men är hårt streckade till 71 %. Tipsarna litar mest på ettan.",
+   "kommentar": "WBA är klara favoriter men blir kraftigt överstreckade, vilket öppnar för värde på Bristol City. Trots det litar de flesta tipsare på att hemmaspelet håller.",
    "lagkoll": {
     "chans": {
-     "1": 0.59,
+     "1": 0.58,
      "X": 0.24,
-     "2": 0.17
+     "2": 0.18
     },
     "skrallrisk": "låg",
-    "motivering": "West Bromwich är i stark form i toppstriden medan Bristol City kämpar i botten med svag form och pressad tränare.",
+    "motivering": "West Brom är i strålande form och extremt svårslagna hemma, medan Bristol City är inne i en djup kris med en pressad tränare och defensiva problem.",
     "faktorer": [
-     "West Bromwich är obesegrat i åtta raka ligamatcher",
-     "Bristol City har en seger på de senaste nio matcherna",
-     "Hemmalaget saknar mittfältaren Isaac Price"
+     "West Brom obesegrade i åtta raka matcher",
+     "Bristol City med svag form och endast en vinst på nio matcher",
+     "Bristol City har stora defensiva problem med 12 insläppta på fem matcher",
+     "Isaac Price saknas för hemmalaget"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 5,
@@ -3838,38 +3818,38 @@
        "nyckelspelare": true
       },
       {
-       "spelare": "Ousmane Diakite",
-       "orsak": "calf",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Noah Galves",
-       "orsak": "knee",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Rabby Nzingoula",
-       "orsak": "yellow card suspension",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Jimmy-Jay Morgan",
-       "orsak": "vila från start",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
        "spelare": "T. Collyer",
        "orsak": "Hamstring Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
+       "spelare": "O. Diakite",
+       "orsak": "Calf Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "N. Galves",
+       "orsak": "Knee Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
        "spelare": "M. Johnston",
        "orsak": "Broken Leg",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "R. Nzingoula",
+       "orsak": "Yellow Cards",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Jimmy-Jay Morgan",
+       "orsak": "vila från start",
        "status": "borta",
        "nyckelspelare": false
       }
@@ -3879,11 +3859,11 @@
       "BBC Sport",
       "sportsgambler.com",
       "hurbra.se",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "sportsmole.co.uk",
+      "bettingstugan.se"
      ]
     },
     "borta": {
@@ -3901,16 +3881,10 @@
      "form": "DLLLWD",
      "franvaro": [
       {
-       "spelare": "Scott Twine",
-       "orsak": "får inte till det",
+       "spelare": "L. McNally",
+       "orsak": "Serious injury",
        "status": "borta",
        "nyckelspelare": true
-      },
-      {
-       "spelare": "Luke McNally",
-       "orsak": "knee issue",
-       "status": "borta",
-       "nyckelspelare": false
       },
       {
        "spelare": "N. Eile",
@@ -3923,12 +3897,12 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "sportsmole.co.uk",
+      "bettingstugan.se",
+      "tipsmedoss.com"
      ]
     }
    },
@@ -4053,27 +4027,43 @@
       },
       {
        "nyckelspelare": false,
-       "orsak": "calf",
-       "spelare": "Ousmane Diakite",
+       "orsak": "Hamstring Injury",
+       "spelare": "T. Collyer",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "knee",
-       "spelare": "Noah Galves",
+       "orsak": "Calf Injury",
+       "spelare": "O. Diakite",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "yellow card suspension",
-       "spelare": "Rabby Nzingoula",
+       "orsak": "Knee Injury",
+       "spelare": "N. Galves",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Broken Leg",
+       "spelare": "M. Johnston",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Yellow Cards",
+       "spelare": "R. Nzingoula",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -4082,44 +4072,28 @@
        "status": "borta",
        "kalla": "bettingstugan.se",
        "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Hamstring Injury",
-       "spelare": "T. Collyer",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "Broken Leg",
-       "spelare": "M. Johnston",
-       "status": "borta",
-       "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Laget är starka på hemmaplan och jagar tre nya poäng i toppen av tabellen.",
+       "text": "West Brom är starka på hemmaplan och har plockat fem segrar på de tio senaste hemmamatcherna.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Är obesegrat i sina fem senaste redovisade matcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Laget är inne i en fin formkurva med åtta matcher i rad utan förlust i ligan.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Åtta raka matcher utan nederlag och endast en förlust på hemmaplan den här säsongen.",
+       "kalla": "gamblingcabin.se",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har klättrat bra i tabellen och visade prov på fin bredd i veckan.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Snittar 1,75 mål på hemmaplan.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -4128,19 +4102,11 @@
      "franvaro": [
       {
        "nyckelspelare": true,
-       "orsak": "får inte till det",
-       "spelare": "Scott Twine",
+       "orsak": "Serious injury",
+       "spelare": "L. McNally",
        "status": "borta",
-       "kalla": "gamblingcabin.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "knee issue",
-       "spelare": "Luke McNally",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -4148,29 +4114,29 @@
        "spelare": "N. Eile",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Laget kämpar i botten av tabellen och har haft det svårt på bortaplan.",
+       "text": "Bristol City har haft det tyngre på bortaplan med tre förluster på de senaste fem.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Tränaren Michael Skubala är under hård press efter en svag sejour med endast en seger på de senaste nio matcherna.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Stod för en stabil insats i veckan.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Tränare Skubala tog över efter Lincoln men har haft svårt att få fart på laget.",
+       "text": "Nya tränaren Skubala har inte fått till det med fem förluster på de åtta senaste matcherna.",
        "kalla": "gamblingcabin.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har släppt in tolv mål på de senaste fem matcherna.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Kommer från 1-1 hemma mot Wrexham.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -4187,113 +4153,113 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.471,
-    "X": 0.2621,
-    "2": 0.2669
+    "1": 0.4788,
+    "X": 0.2625,
+    "2": 0.2587
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 45.0,
-    "X": 30.0,
+    "1": 44.0,
+    "X": 31.0,
     "2": 25.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.021,
-    "X": -0.0379,
-    "2": 0.0169
+    "1": 0.0388,
+    "X": -0.0475,
+    "2": 0.0087
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6099,
-    "X": 0.2053,
-    "2": 0.1849
+    "1": 0.6368,
+    "X": 0.2001,
+    "2": 0.1632
    },
    "varde_tips": {
-    "1": 0.1599,
-    "X": -0.0947,
-    "2": -0.0651
+    "1": 0.1968,
+    "X": -0.1099,
+    "2": -0.0868
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.99,
-     "X": 3.55,
-     "2": 3.47
+     "1": 1.96,
+     "X": 3.56,
+     "2": 3.6
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.99,
-      "X": 3.68,
-      "2": 3.79
+      "1": 2.02,
+      "X": 3.7,
+      "2": 3.77
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.12,
+      "1": 2.08,
       "X": 3.7,
-      "2": 3.4
+      "2": 3.55
      },
      {
       "bolag": "betsson",
-      "1": 1.98,
-      "X": 3.5,
-      "2": 3.7
+      "1": 1.95,
+      "X": 3.6,
+      "2": 3.65
      },
      {
       "bolag": "nordicbet",
-      "1": 1.99,
-      "X": 3.51,
-      "2": 3.72
+      "1": 1.96,
+      "X": 3.63,
+      "2": 3.69
      },
      {
       "bolag": "betfair_ex_eu",
       "1": 2.04,
-      "X": 3.8,
-      "2": 3.95
+      "X": 3.75,
+      "2": 4.0
      },
      {
       "bolag": "williamhill",
-      "1": 2.0,
-      "X": 3.5,
-      "2": 3.4
+      "1": 1.95,
+      "X": 3.4,
+      "2": 3.6
      },
      {
       "bolag": "coolbet",
-      "1": 2.02,
+      "1": 1.98,
       "X": 3.5,
-      "2": 3.5
+      "2": 3.6
      },
      {
       "bolag": "marathonbet",
-      "1": 1.96,
-      "X": 3.54,
-      "2": 3.54
+      "1": 1.92,
+      "X": 3.52,
+      "2": 3.7
      },
      {
       "bolag": "sport888",
-      "1": 2.0,
+      "1": 1.95,
       "X": 3.4,
-      "2": 3.4
+      "2": 3.5
      },
      {
       "bolag": "betano_uk",
-      "1": 1.87,
+      "1": 1.85,
       "X": 3.5,
-      "2": 3.2
+      "2": 3.3
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.91,
-      "X": 3.42,
-      "2": 3.3
+      "1": 1.87,
+      "X": 3.5,
+      "2": 3.58
      },
      {
       "bolag": "betfair_ex_uk",
       "1": 2.04,
-      "X": 3.8,
-      "2": 3.95
+      "X": 3.75,
+      "2": 4.0
      }
     ]
    },
@@ -4308,7 +4274,7 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "QPR har visat fin form i november och har starka resultat på hemmaplan. Sheffield United har haft det tufft på bortaplan och dragits med tunga skador.",
+     "text": "QPR är starka på hemmaplan och har god offensiv form. Sheffield United har haft stora svårigheter på bortaplan på sistone.",
      "system": null,
      "system_rader": null
     },
@@ -4322,9 +4288,9 @@
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X",
-     "text": "QPR löste en pinne borta mot ett starkt Norwich senast. Sheffield United imponerade inte i sin senaste bortamatch.",
-     "system": "1X",
-     "system_rader": 156
+     "text": "QPR löste en pinne mot Norwich senast medan Sheffield United stod för en svag insats mot Charlton.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -4335,8 +4301,8 @@
     },
     {
      "kalla": "sportsgambler.com",
-     "tecken": "2",
-     "text": "Skribenten förutspår en 2-1-seger för Sheffield United. Bortalaget har inte förlorat mot QPR i de fem senaste inbördes mötena.",
+     "tecken": null,
+     "text": "Skribenten rekommenderar spelet över 2.5 mål med hänvisning till fin statistik för målsnåla eller målrika matcher på hemmaplan och bortaplan.",
      "system": null,
      "system_rader": null
     },
@@ -4362,22 +4328,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "QPR och Sheffield United är helt jämna på oddsen runt 47 %. Svenska folket streckar jämnt, och tipsarna är delade.",
+   "kommentar": "Oddsen håller QPR som favoriter men strecken är jämna. Tipsarna ser visst värde i hemmalaget, men krysset lyfts ofta fram som ett nödvändigt tecken.",
    "lagkoll": {
     "chans": {
-     "1": 0.49,
-     "X": 0.26,
-     "2": 0.25
+     "1": 0.52,
+     "X": 0.25,
+     "2": 0.23
     },
     "skrallrisk": "låg",
-    "motivering": "QPR har visat stark form på hemmaplan och möter ett Sheffield United som haft problem på bortaplan.",
+    "motivering": "QPR visar stark form och är obesegrade hemma på Loftus Road, medan Sheffield United har visat svaghet på bortaplan under en längre tid. Hemmaplansfördelen och QPR:s momentum gör att oddsens 48 % på hemmaseger är i underkant.",
     "faktorer": [
-     "QPR är on beaten i fem raka hemmamatcher",
-     "Sheffield United har fyra förluster på de senaste sex bortamatcherna",
-     "Flera avbräck för Sheffield United inklusive Matt Doherty och Joe Rothwell",
-     "QPR har haft en stark defensiv under säsongen"
+     "QPR obesegrade i fem raka hemmamatcher",
+     "QPR med fyra raka matcher utan förlust",
+     "Sheffield United förlorat fyra av senaste sex bortamatcher",
+     "QPR snittar 2.80 mål per match på hemmaplan"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 7,
@@ -4394,13 +4360,7 @@
      "franvaro": [
       {
        "spelare": "Amadou Mbengue",
-       "orsak": "long-term injury",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Jimmy Dunne",
-       "orsak": "injury",
+       "orsak": "Knee Injury",
        "status": "borta",
        "nyckelspelare": false
       },
@@ -4408,6 +4368,12 @@
        "spelare": "Nicolas Madsen",
        "orsak": "injury",
        "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Jimmy Dunne",
+       "orsak": "Inactive",
+       "status": "osaker",
        "nyckelspelare": false
       },
       {
@@ -4421,11 +4387,11 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "footballpredictions.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "footballpredictions.com",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     },
     "borta": {
@@ -4444,32 +4410,32 @@
      "franvaro": [
       {
        "spelare": "Femi Seriki",
-       "orsak": "injury",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Matt Doherty",
-       "orsak": "injury",
+       "orsak": "Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Ryan One",
-       "orsak": "injury",
-       "status": "borta",
-       "nyckelspelare": false
-      },
-      {
-       "spelare": "Joe Rothwell",
-       "orsak": "injury",
+       "orsak": "Hamstring Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "Jamie Shackleton",
-       "orsak": "injury",
+       "orsak": "Injury",
        "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Matt Doherty",
+       "orsak": "Muscle Injury",
+       "status": "borta",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "Joe Rothwell",
+       "orsak": "Muscle Injury",
+       "status": "osaker",
        "nyckelspelare": false
       }
      ],
@@ -4477,10 +4443,10 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "sportsmole.co.uk",
+      "bettingstugan.se"
      ]
     }
    },
@@ -4597,19 +4563,11 @@
      "franvaro": [
       {
        "nyckelspelare": false,
-       "orsak": "long-term injury",
+       "orsak": "Knee Injury",
        "spelare": "Amadou Mbengue",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "injury",
-       "spelare": "Jimmy Dunne",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -4621,32 +4579,40 @@
       },
       {
        "nyckelspelare": false,
+       "orsak": "Inactive",
+       "spelare": "Jimmy Dunne",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
        "orsak": "Hamstring Injury",
        "spelare": "A. Lloyd",
        "status": "osaker",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Har inte förlorat på Loftus Road på fem matcher.",
+       "text": "QPR har inte förlorat på Loftus Road på fem raka matcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har en obesegrad svit på fyra matcher och snittar 2.80 mål per match på hemmaplan.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Löste en pinne borta mot ett starkt Norwich senast.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Laget ligger sjua i tabellen och har gjort det starkt defensivt under säsongen.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har kryssat lika många gånger som de har segrat.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "QPR har förlängt sin förlustfria svit till fyra matcher och har ett starkt hemmaspel.",
-       "kalla": "footballpredictions.com",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -4656,64 +4622,64 @@
      "franvaro": [
       {
        "nyckelspelare": false,
-       "orsak": "injury",
+       "orsak": "Injury",
        "spelare": "Femi Seriki",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "injury",
-       "spelare": "Matt Doherty",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "injury",
+       "orsak": "Hamstring Injury",
        "spelare": "Ryan One",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "injury",
-       "spelare": "Joe Rothwell",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "injury",
+       "orsak": "Injury",
        "spelare": "Jamie Shackleton",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "Matt Doherty",
+       "status": "borta",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Muscle Injury",
+       "spelare": "Joe Rothwell",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Har inte förlorat mot QPR i de fem senaste inbördes mötena.",
+       "text": "Sheffield United har vunnit de senaste inbördes mötena och har en stark bortatradition.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har förlorat fyra av de senaste sex bortamatcherna och har ett svagt bortafacit.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Förlorade mot Charlton innan landslagsuppehållet.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Sheffield United har spelat upp sig rejält efter en trög start på säsongen.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har fungerat utmärkt med anfallsspelet på bortaplan.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Sheffield United har haft svårt på bortaplan med fyra förluster på de senaste sex bortamatcherna.",
-       "kalla": "footballpredictions.com",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -4731,113 +4697,113 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.5735,
-    "X": 0.2272,
-    "2": 0.1992
+    "1": 0.5624,
+    "X": 0.236,
+    "2": 0.2016
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 51.0,
+    "1": 52.0,
     "X": 22.0,
-    "2": 27.0
+    "2": 26.0
    },
-   "streck_tid": "2026-11-26T17:59:35Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.0635,
-    "X": 0.0072,
-    "2": -0.0708
+    "1": 0.0424,
+    "X": 0.016,
+    "2": -0.0584
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6736,
-    "X": 0.2014,
-    "2": 0.125
+    "1": 0.6584,
+    "X": 0.2133,
+    "2": 0.1283
    },
    "varde_tips": {
-    "1": 0.1636,
-    "X": -0.0186,
-    "2": -0.145
+    "1": 0.1384,
+    "X": -0.0067,
+    "2": -0.1317
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.63,
-     "X": 4.08,
-     "2": 4.68
+     "1": 1.67,
+     "X": 3.95,
+     "2": 4.64
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.65,
-      "X": 4.51,
+      "1": 1.7,
+      "X": 4.25,
       "2": 4.73
      },
      {
       "bolag": "svenskaspel",
-      "1": 1.7,
-      "X": 4.2,
-      "2": 4.9
+      "1": 1.76,
+      "X": 4.0,
+      "2": 4.7
      },
      {
       "bolag": "betsson",
-      "1": 1.62,
-      "X": 4.05,
-      "2": 4.9
+      "1": 1.65,
+      "X": 4.0,
+      "2": 4.85
      },
      {
       "bolag": "nordicbet",
-      "1": 1.64,
-      "X": 4.07,
-      "2": 4.95
+      "1": 1.66,
+      "X": 4.02,
+      "2": 4.88
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.69,
-      "X": 4.5,
-      "2": 5.1
+      "1": 1.75,
+      "X": 4.3,
+      "2": 5.0
      },
      {
       "bolag": "williamhill",
-      "1": 1.67,
+      "1": 1.65,
       "X": 3.9,
-      "2": 4.75
+      "2": 4.8
      },
      {
       "bolag": "coolbet",
-      "1": 1.65,
+      "1": 1.67,
       "X": 4.0,
       "2": 4.75
      },
      {
       "bolag": "marathonbet",
-      "1": 1.6,
-      "X": 4.15,
-      "2": 4.8
+      "1": 1.63,
+      "X": 3.98,
+      "2": 4.75
      },
      {
       "bolag": "sport888",
-      "1": 1.65,
-      "X": 3.8,
-      "2": 4.6
+      "1": 1.61,
+      "X": 3.9,
+      "2": 4.8
      },
      {
       "bolag": "betano_uk",
-      "1": 1.57,
-      "X": 3.9,
+      "1": 1.6,
+      "X": 3.75,
       "2": 4.4
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.57,
+      "1": 1.6,
       "X": 3.85,
-      "2": 4.5
+      "2": 4.6
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.69,
-      "X": 4.5,
-      "2": 5.1
+      "1": 1.75,
+      "X": 4.3,
+      "2": 5.0
      }
     ]
    },
@@ -4852,30 +4818,30 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "X",
-     "text": "West Ham har haft det tufft under Scott Parker efter förlusten mot Portsmouth, medan Stoke kommer till matchen med fem raka segrar i ryggen.",
+     "text": "Skribenten förutspår ett oavgjort resultat på 2-2. West Ham kämpar under sin nya tränare medan Stoke är i strålande form med fem raka vinster.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "gamblingcabin.se",
      "tecken": "1",
-     "text": "West Ham har sex raka utan vinst men underskattas av marknaden. Stoke har gått starkt men har mött enklare motstånd.",
+     "text": "West Ham har sex raka matcher utan vinst trots bra spel. Stoke har gått starkt men har mött ganska beskedligt motstånd och förlorat mot topplagen.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "1",
-     "text": "West Ham är en relativt tydlig hemmafavorit som erbjuder bra streckvärde trots Stokes fina form.",
+     "text": "Stokes fina form är en varningssignal, men West Ham är en stark hemmafavorit med bra streckvärde.",
      "system": "1",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1",
-     "text": "West Ham underpresterar men bör vända trenden snart. Stoke går bra men ettan lockar.",
-     "system": "1",
-     "system_rader": 156
+     "text": "West Ham har sex segerlösa matcher i rad men har ligans mest påkostade trupp och lär vända på det. Stoke överpresterar sina underliggande siffror.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -4887,7 +4853,7 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "X",
-     "text": "Skribenten tror på ett oavgjort resultat (1-1) och ser Stoke som ett svårslaget lag som täcker sitt Asian Handicap.",
+     "text": "Stoke är i utmärkt form med fem raka segrar medan West Ham har haft svårt att täcka handikappet på senare tid. Skribenten förutspår ett oavgjort resultat på 1-1.",
      "system": null,
      "system_rader": null
     },
@@ -4913,22 +4879,21 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "West Ham är favoriter med 57 % chans, men understreckas till 51 % vilket ger fint värde. Stokes fem raka gör dock att vissa garderar.",
+   "kommentar": "West Ham är favoriter men Stoke streckas upp tack vare sin form, vilket gör att ettan ser ut att ha ett visst spelvärde. Tipsarna är dock splittrade.",
    "lagkoll": {
     "chans": {
-     "1": 0.47,
-     "X": 0.26,
-     "2": 0.27
+     "1": 0.51,
+     "X": 0.25,
+     "2": 0.24
     },
-    "skrallrisk": "medel",
-    "motivering": "West Ham har haft det tungt formmässigt under nya tränaren, medan ligatvåan Stoke radar upp segrar och visar utmärkt bortastyrka.",
+    "skrallrisk": "hög",
+    "motivering": "West Ham har urusel form och saknar seger under nye tränaren Scott Parker. Stoke visar strålande form med fem raka bortasegrar, vilket motiverar en justering till bortalagets fördel.",
     "faktorer": [
-     "West Ham är segerlösa i sex raka matcher",
-     "Stoke har fem raka bortasegrar i rad",
-     "West Ham saknar nyckelspelaren Kyle Walker-Peters",
-     "Stoke saknar nyckelspelaren Djibril Soumare"
+     "West Ham är utan seger på sex matcher",
+     "Stoke har fem raka bortasegrar och stark form",
+     "West Ham kämpar under nye tränaren Scott Parker"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 13,
@@ -4945,19 +4910,19 @@
      "franvaro": [
       {
        "spelare": "Kyle Walker-Peters",
-       "orsak": "muskelskada",
+       "orsak": "Skada",
        "status": "borta",
-       "nyckelspelare": true
+       "nyckelspelare": false
       },
       {
        "spelare": "A. Areola",
-       "orsak": "inactive",
+       "orsak": "Inaktiv",
        "status": "osaker",
        "nyckelspelare": false
       },
       {
        "spelare": "K. Lamadrid",
-       "orsak": "Knee Injury",
+       "orsak": "Knäskada",
        "status": "osaker",
        "nyckelspelare": false
       }
@@ -4966,11 +4931,11 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
       "rekatochklart.com",
+      "sportsmole.co.uk",
+      "bettingstugan.se",
       "tipsmedoss.com"
      ]
     },
@@ -4990,19 +4955,19 @@
      "franvaro": [
       {
        "spelare": "Djibril Soumare",
-       "orsak": "muskelskada",
+       "orsak": "Skada",
        "status": "borta",
-       "nyckelspelare": true
+       "nyckelspelare": false
       },
       {
        "spelare": "A. Ampah",
-       "orsak": "Knee Injury",
+       "orsak": "Knäskada",
        "status": "borta",
        "nyckelspelare": false
       },
       {
        "spelare": "L. Cisse",
-       "orsak": "Muscle Injury",
+       "orsak": "Muskelskada",
        "status": "borta",
        "nyckelspelare": false
       }
@@ -5011,12 +4976,12 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "hurbra.se",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
       "rekatochklart.com",
+      "hurbra.se",
+      "sportsmole.co.uk",
+      "bettingstugan.se",
       "tipsmedoss.com"
      ]
     }
@@ -5133,50 +5098,50 @@
     "hemma": {
      "franvaro": [
       {
-       "nyckelspelare": true,
-       "orsak": "muskelskada",
+       "nyckelspelare": false,
+       "orsak": "Skada",
        "spelare": "Kyle Walker-Peters",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "inactive",
+       "orsak": "Inaktiv",
        "spelare": "A. Areola",
        "status": "osaker",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee Injury",
+       "orsak": "Knäskada",
        "spelare": "K. Lamadrid",
        "status": "osaker",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Laget är utan vinst i de fyra senaste matcherna på London Stadium.",
+       "text": "Har inte vunnit på fyra raka hemmamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har haft svårt att vinna matcher sedan Scott Parker tog över som tränare.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har Jarrod Bowen, Konstantinos Mavropanos och Valentin Castellanos i högform.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har gått sex raka matcher utan vinst trots bra spel.",
+       "text": "Sex raka matcher utan en vinst där resultaten inte speglar insatserna.",
        "kalla": "gamblingcabin.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "West Ham kämpar och tränare Scott Parker söker fortfarande sin första vinst.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Sex segerlösa matcher i rad för ligans mest påkostade trupp.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -5184,50 +5149,50 @@
     "borta": {
      "franvaro": [
       {
-       "nyckelspelare": true,
-       "orsak": "muskelskada",
+       "nyckelspelare": false,
+       "orsak": "Skada",
        "spelare": "Djibril Soumare",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Knee Injury",
+       "orsak": "Knäskada",
        "spelare": "A. Ampah",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "Muscle Injury",
+       "orsak": "Muskelskada",
        "spelare": "L. Cisse",
        "status": "borta",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Stoke har noterat fem raka bortasegrar i Championship.",
+       "text": "Har fem raka bortasegrar.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har visat fin form och bortasegeroddset har sjunkit.",
-       "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Sju raka utan en förlust men har haft ett ganska beskedligt motstånd.",
+       "kalla": "gamblingcabin.se",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Laget är i utmärkt form och utmanar om topplaceringarna.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Stoke är i mycket god form med fem raka segrar och gör ofta mål på bortaplan.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Har en svit på fem raka segrar.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "text": "Staplar vinster på hög och har en topp 2-plats trots svaga underliggande papper.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -5244,47 +5209,47 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4295,
-    "X": 0.2935,
-    "2": 0.277
+    "1": 0.4255,
+    "X": 0.2952,
+    "2": 0.2794
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 55.0,
-    "X": 27.0,
-    "2": 18.0
+    "1": 57.0,
+    "X": 26.0,
+    "2": 17.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1205,
-    "X": 0.0235,
-    "2": 0.097
+    "1": -0.1445,
+    "X": 0.0352,
+    "2": 0.1094
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.5987,
-    "X": 0.2201,
-    "2": 0.1812
+    "1": 0.601,
+    "X": 0.2172,
+    "2": 0.1818
    },
    "varde_tips": {
-    "1": 0.0487,
-    "X": -0.0499,
-    "2": 0.0012
+    "1": 0.031,
+    "X": -0.0428,
+    "2": 0.0118
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.17,
-     "X": 3.18,
-     "2": 3.37
+     "1": 2.2,
+     "X": 3.17,
+     "2": 3.34
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.26,
-      "X": 3.26,
-      "2": 3.49
+      "1": 2.25,
+      "X": 3.28,
+      "2": 3.54
      },
      {
       "bolag": "svenskaspel",
@@ -5307,20 +5272,20 @@
      {
       "bolag": "betfair_ex_eu",
       "1": 2.32,
-      "X": 3.35,
-      "2": 3.6
+      "X": 3.3,
+      "2": 3.65
      },
      {
       "bolag": "williamhill",
-      "1": 2.2,
+      "1": 2.25,
       "X": 3.0,
       "2": 3.3
      },
      {
       "bolag": "coolbet",
-      "1": 2.2,
-      "X": 3.2,
-      "2": 3.4
+      "1": 2.25,
+      "X": 3.15,
+      "2": 3.3
      },
      {
       "bolag": "marathonbet",
@@ -5330,7 +5295,7 @@
      },
      {
       "bolag": "sport888",
-      "1": 2.2,
+      "1": 2.25,
       "X": 3.0,
       "2": 3.3
      },
@@ -5342,15 +5307,15 @@
      },
      {
       "bolag": "betclic_fr",
-      "1": 2.07,
-      "X": 3.05,
-      "2": 3.25
+      "1": 2.17,
+      "X": 3.1,
+      "2": 3.17
      },
      {
       "bolag": "betfair_ex_uk",
       "1": 2.32,
-      "X": 3.35,
-      "2": 3.6
+      "X": 3.3,
+      "2": 3.65
      }
     ]
    },
@@ -5365,14 +5330,14 @@
     {
      "kalla": "footballpredictions.com",
      "tecken": "1",
-     "text": "Wrexham har varit starka på hemmaplan på sista tiden och snittar två mål per hemmamatch. Portsmouth kommer visserligen från en seger mot West Ham men saknar skadade spelare och har haft svårt på bortaplan.",
+     "text": "Wrexham har producerat fina prestationer på hemmaplan på sista tiden och snittar 2,00 mål per hemmamatch. Phil Parkinson har inga nya skadeoro att brottas med.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "gamblingcabin.se",
      "tecken": "1",
-     "text": "Wrexham har fyra matcher utan förlust och presterar bättre än Portsmouth. Portsmouth har presterat sämre än sina resultat.",
+     "text": "Wrexham har fyra matcher utan förlust och har presterat bättre än vad de fått med sig. Portsmouth har sprungit bättre än vad som varit förtjänt enligt den underliggande statistiken.",
      "system": null,
      "system_rader": null
     },
@@ -5386,9 +5351,9 @@
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X",
-     "text": "Wrexham har fått fart på spelet med fyra raka poängmatcher. Portsmouth är dock svårforcerade på bortaplan.",
-     "system": "1X",
-     "system_rader": 156
+     "text": "Wrexham har fyra raka matcher med poäng och har fått fart på grejerna. Portsmouth har tagit kliv i tabellen och slog West Ham senast.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -5400,7 +5365,7 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "Skribenten lyfter fram Wrexham som knappa favoriter på hemmaplan och rekommenderar även ett spel på under 2.5 mål. Wrexham har visat stabil form på hemmaplan.",
+     "text": "Skribenten förväntar sig en målsnål match och rekommenderar underspel, men har Wrexham som favorit att vinna matchen.",
      "system": null,
      "system_rader": null
     },
@@ -5426,22 +5391,20 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Wrexham är knappa favoriter med 43 % chans, men streckas högre till 55 %. Portsmouth är därmed understreckade till 18 %.",
+   "kommentar": "Wrexham är favoriter men streckas väl högt, vilket gör Portsmouth och krysset intressanta ur ett värdeperspektiv. Tipsarna tror främst på 1X för hemmalaget.",
    "lagkoll": {
     "chans": {
-     "1": 0.45,
-     "X": 0.28,
-     "2": 0.27
+     "1": 0.44,
+     "X": 0.3,
+     "2": 0.26
     },
     "skrallrisk": "låg",
-    "motivering": "Wrexham är mycket starka på hemmaplan trots en placering i mitten av tabellen. Portsmouth har tunga skadeproblem trots sin tabellplacering vilket ger hemmalaget en liten fördel.",
+    "motivering": "Wrexham visar fin form med fyra raka matcher utan förlust och är starka hemma. Portsmouth har en väldigt lång skadelista inklusive Meghoma som nyligen blev skadad, vilket drar ner deras chanser något.",
     "faktorer": [
-     "Wrexham är obesegrade i fyra matcher",
-     "Wrexham är mycket starka på hemmaplan",
-     "Portsmouth har omfattande skadebekymmer",
-     "Portsmouth dras med defensiva avbräck"
+     "Wrexham i god form med fyra raka matcher utan förlust",
+     "Portsmouth har en mycket omfattande skadelista med nio bekräftade avbräck"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 14,
@@ -5457,26 +5420,20 @@
      "form": "DWDWLL",
      "franvaro": [
       {
-       "spelare": "Sam Smith",
-       "orsak": "ACL-skada",
-       "status": "borta",
-       "nyckelspelare": true
-      },
-      {
-       "spelare": "Liberato Cacace",
-       "orsak": "skada",
+       "spelare": "N. Broadhead",
+       "orsak": "Thigh Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Seb Revan",
-       "orsak": "skada",
+       "spelare": "S. Smith",
+       "orsak": "Knee Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Josh Windass",
-       "orsak": "skada",
+       "spelare": "J. Windass",
+       "orsak": "Ankle Injury",
        "status": "borta",
        "nyckelspelare": false
       },
@@ -5487,14 +5444,20 @@
        "nyckelspelare": false
       },
       {
-       "spelare": "Nathan Broadhead",
-       "orsak": "skada",
-       "status": "borta",
+       "spelare": "L. Cacace",
+       "orsak": "Calf Injury",
+       "status": "osaker",
        "nyckelspelare": false
       },
       {
        "spelare": "C. O'Hare",
        "orsak": "Lacking Match Fitness",
+       "status": "osaker",
+       "nyckelspelare": false
+      },
+      {
+       "spelare": "S. Revan",
+       "orsak": "Hamstring Injury",
        "status": "osaker",
        "nyckelspelare": false
       }
@@ -5503,12 +5466,12 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "sportsmole.co.uk",
+      "bettingstugan.se",
+      "tipsmedoss.com"
      ]
     },
     "borta": {
@@ -5532,44 +5495,44 @@
        "nyckelspelare": false
       },
       {
-       "spelare": "Jayden Meghoma",
-       "orsak": "ankelskada",
+       "spelare": "K. Anderson",
+       "orsak": "Overload",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Keshi Anderson",
-       "orsak": "skada",
+       "spelare": "B. Arthur",
+       "orsak": "Back Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Luke Brooke-Smith",
-       "orsak": "skada",
+       "spelare": "C. Bishop",
+       "orsak": "Knee Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Marko Milovanovic",
-       "orsak": "skada",
+       "spelare": "L. Brooke-Smith",
+       "orsak": "Ankle Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Colby Bishop",
-       "orsak": "skada",
+       "spelare": "J. Meghoma",
+       "orsak": "Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "John Swift",
-       "orsak": "skada",
+       "spelare": "M. Milovanovic",
+       "orsak": "Thigh Injury",
        "status": "borta",
        "nyckelspelare": false
       },
       {
-       "spelare": "Connor Ogilvie",
-       "orsak": "skada",
+       "spelare": "C. Ogilvie",
+       "orsak": "Knee Injury",
        "status": "borta",
        "nyckelspelare": false
       }
@@ -5578,11 +5541,11 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
-      "sportsmole.co.uk",
-      "bettingstugan.se",
       "gamblingcabin.se",
       "footballpredictions.com",
-      "rekatochklart.com"
+      "rekatochklart.com",
+      "sportsmole.co.uk",
+      "bettingstugan.se"
      ]
     }
    },
@@ -5698,36 +5661,28 @@
     "hemma": {
      "franvaro": [
       {
-       "nyckelspelare": true,
-       "orsak": "ACL-skada",
-       "spelare": "Sam Smith",
+       "nyckelspelare": false,
+       "orsak": "Thigh Injury",
+       "spelare": "N. Broadhead",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Liberato Cacace",
+       "orsak": "Knee Injury",
+       "spelare": "S. Smith",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Seb Revan",
+       "orsak": "Ankle Injury",
+       "spelare": "J. Windass",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Josh Windass",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -5739,11 +5694,11 @@
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Nathan Broadhead",
-       "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "orsak": "Calf Injury",
+       "spelare": "L. Cacace",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
@@ -5751,29 +5706,37 @@
        "spelare": "C. O'Hare",
        "status": "osaker",
        "kalla": "footballpredictions.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "nyckelspelare": false,
+       "orsak": "Hamstring Injury",
+       "spelare": "S. Revan",
+       "status": "osaker",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Wrexham är obegrade i sina tre senaste hemmamatcher.",
+       "text": "Har spelat tre hemmamatcher i rad utan förlust.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Obesegrade i fyra matcher och starka hemma på Racecourse Ground.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Säsongen har inte motsvarat förväntningarna trots stora investeringar.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har fyra matcher utan förlust och har presterat bättre än tabellen visar.",
+       "text": "Har fyra matcher utan förlust i bagaget inklusive vinster mot Middlesbrough och Lincoln.",
        "kalla": "gamblingcabin.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har gjort 2,00 mål per hemmamatch på sista tiden.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Fyra raka matcher med poäng och har fått fart på grejerna.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -5786,93 +5749,93 @@
        "spelare": "Mark Kosznovszky",
        "status": "borta",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "ankelskada",
-       "spelare": "Jayden Meghoma",
+       "orsak": "Overload",
+       "spelare": "K. Anderson",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Keshi Anderson",
+       "orsak": "Back Injury",
+       "spelare": "B. Arthur",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Luke Brooke-Smith",
+       "orsak": "Knee Injury",
+       "spelare": "C. Bishop",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Marko Milovanovic",
+       "orsak": "Ankle Injury",
+       "spelare": "L. Brooke-Smith",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Colby Bishop",
+       "orsak": "Injury",
+       "spelare": "J. Meghoma",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "John Swift",
+       "orsak": "Thigh Injury",
+       "spelare": "M. Milovanovic",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Connor Ogilvie",
+       "orsak": "Knee Injury",
+       "spelare": "C. Ogilvie",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "nyckelspelare": false,
-       "orsak": "skada",
-       "spelare": "Benjamin Arthur",
+       "orsak": "Knee Injury",
+       "spelare": "J. Swift",
        "status": "borta",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "sammanhang": [
       {
-       "text": "Portsmouth har fyra raka matcher utan förlust på bortaplan.",
+       "text": "Har inte förlorat på fyra raka bortamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Obesegrade i fyra bortamatcher och defensivt starka på bortaplan.",
-       "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Imponerade inte i veckan men lyckades knäppa en drake på näsan.",
-       "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Kommer från en orättvis seger hemma mot West Ham.",
+       "text": "Kommer från en 1-0-seger hemma mot West Ham som inte var rättvis enligt underliggande statistik.",
        "kalla": "gamblingcabin.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Kommer från en 1-0-seger mot West Ham men ådrog sig en allvarlig skada på Jayden Meghoma.",
+       "kalla": "footballpredictions.com",
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har varit ganska svårforcerade på främmande mattor.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       }
      ],
      "tranarbyte": null
@@ -5889,32 +5852,32 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.5379,
-    "X": 0.2385,
-    "2": 0.2236
+    "1": 0.5395,
+    "X": 0.2387,
+    "2": 0.2218
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 59.0,
-    "X": 23.0,
-    "2": 18.0
+    "1": 62.0,
+    "X": 22.0,
+    "2": 16.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.0521,
-    "X": 0.0085,
-    "2": 0.0436
+    "1": -0.0805,
+    "X": 0.0187,
+    "2": 0.0618
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7046,
-    "X": 0.1584,
-    "2": 0.137
+    "1": 0.704,
+    "X": 0.1597,
+    "2": 0.1364
    },
    "varde_tips": {
-    "1": 0.1146,
-    "X": -0.0716,
-    "2": -0.043
+    "1": 0.084,
+    "X": -0.0603,
+    "2": -0.0236
    },
    "odds": {
     "antal_bolag": 35,
@@ -5922,14 +5885,14 @@
     "snitt": {
      "1": 1.73,
      "X": 3.89,
-     "2": 4.16
+     "2": 4.19
     },
     "bolag": [
      {
       "bolag": "pinnacle",
       "1": 1.76,
-      "X": 4.07,
-      "2": 4.35
+      "X": 4.1,
+      "2": 4.38
      },
      {
       "bolag": "svenskaspel",
@@ -5939,21 +5902,21 @@
      },
      {
       "bolag": "betsson",
-      "1": 1.7,
+      "1": 1.72,
       "X": 3.85,
-      "2": 4.25
+      "2": 4.1
      },
      {
       "bolag": "nordicbet",
-      "1": 1.7,
+      "1": 1.72,
       "X": 3.85,
-      "2": 4.25
+      "2": 4.1
      },
      {
       "bolag": "betfair_ex_eu",
       "1": 1.8,
-      "X": 4.0,
-      "2": 4.3
+      "X": 4.1,
+      "2": 4.5
      },
      {
       "bolag": "williamhill",
@@ -5983,13 +5946,13 @@
       "bolag": "betano_uk",
       "1": 1.65,
       "X": 3.8,
-      "2": 3.75
+      "2": 3.7
      },
      {
       "bolag": "betfair_ex_uk",
       "1": 1.8,
-      "X": 4.0,
-      "2": 4.3
+      "X": 4.1,
+      "2": 4.5
      },
      {
       "bolag": "betfair_sb_uk",
@@ -6010,16 +5973,16 @@
     {
      "kalla": "hurbra.se",
      "tecken": "1",
-     "text": "Luton har fyra segrar på sina fem senaste matcher och gillas av hemmafördelen samt oddset.",
+     "text": "Luton har fyra segrar och ett kryss på de senaste fem matcherna och gillas på hemmaplan.",
      "system": "1",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1",
-     "text": "Luton har hittat en vinnande rytm och har 5-1-0 på sina sex senaste ligamatcher. De ses som starka favoriter.",
-     "system": "1",
-     "system_rader": 156
+     "text": "Luton har funnit en vinnande rytm med 5-1-0 på de sex senaste ligamatcherna. Oxford är luriga men får gälla som underhundar.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -6031,7 +5994,7 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "Luton har vunnit tre raka hemmamatcher och har totalt tagit fyra segrar på sina fem senaste matcher. Oxford har vunnit sina två senaste ligamatcher men ställs mot ett starkt hemmalag.",
+     "text": "Luton är starka hemma med tre raka segrar på Kenilworth Road. De har vunnit 7 av sina 10 senaste hemmamatcher.",
      "system": null,
      "system_rader": null
     },
@@ -6057,22 +6020,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Luton är favoriter med 54 % chans och streckas till 59 %. De flesta tipsare spikar ettan på grund av fin form.",
+   "kommentar": "Luton är klara favoriter och går starkt, men är samtidigt något överstreckade. Flertalet experter litar på hemmasegern men gardering kan övervägas för värde.",
    "lagkoll": {
     "chans": {
-     "1": 0.48,
-     "X": 0.26,
-     "2": 0.26
+     "1": 0.52,
+     "X": 0.25,
+     "2": 0.23
     },
-    "skrallrisk": "medel",
-    "motivering": "Luton är i fantastisk form, men de har flera skadeavbräck som påverkar bredden mot ett mycket stabilt Oxford. Oxford är obesegrade länge och förtjänar mer förtroende än vad oddsen antyder, trots bortaplan.",
+    "skrallrisk": "låg",
+    "motivering": "Luton är i fantastisk form och starka hemma, men Oxford är ett stabilt lag som förlorat få matcher. Det är en mycket jämn tillställning där oddsen redan speglar Lutons hemmafördel väl.",
     "faktorer": [
-     "Luton saknar fyra spelare (Clark, Odoffin, Kodua, Morris)",
-     "Luton har ligans bästa form just nu",
-     "Oxford är obesegrade i 11 raka ligamatcher",
-     "Oxford har ligans starkaste defensiv"
+     "Luton har vunnit 7 av 10 senaste hemmamatcher",
+     "Oxford är obesegrat i 11 raka ligamatcher",
+     "Oxford har ligans starkaste defensiv",
+     "Luton har flest poäng av alla de senaste sex matcherna"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 5,
@@ -6117,9 +6080,9 @@
       "BBC Sport",
       "sportsgambler.com",
       "hurbra.se",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "rekatochklart.com",
       "tipsmedoss.com"
      ]
     },
@@ -6142,10 +6105,10 @@
       "BBC Sport",
       "sportsgambler.com",
       "hurbra.se",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     }
    },
@@ -6295,23 +6258,23 @@
      ],
      "sammanhang": [
       {
-       "text": "Laget leds av tränaren Jack Wilshere och har vunnit tre raka hemmamatcher.",
+       "text": "Luton har vunnit 7 av sina 10 senaste hemmamatcher och har vunnit tre raka hemmamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Har fyra segrar och ett kryss på sina fem senaste redovisade matcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har ambitionen att kliva tillbaka till The Championship.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Har plockat flest poäng av alla lag i divisionen över de senaste sex ligamatcherna.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Går som tåget i ligan med många segrar på sistone.",
-       "kalla": "bettingstugan.se",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -6321,23 +6284,23 @@
      "franvaro": [],
      "sammanhang": [
       {
-       "text": "Laget har vunnit sina två senaste League One-matcher.",
+       "text": "Oxford är obesegrade i sina fyra senaste bortamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
-       "text": "Är också obesegrat under perioden.",
+       "text": "Är obesegrat i sina fem senaste redovisade matcher.",
        "kalla": "hurbra.se",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Ramlade ur den engelska tvåan inför årets säsong.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Har ligans starkaste defensiv tillsammans med få insläppta mål, trots att man släppte in tre mål senast.",
        "kalla": "sportsmole.co.uk",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har en svit på 11 raka ligamatcher utan nederlag men svårt på bortaplan.",
-       "kalla": "bettingstugan.se",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -6355,113 +6318,113 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4163,
-    "X": 0.2543,
-    "2": 0.3293
+    "1": 0.3749,
+    "X": 0.2542,
+    "2": 0.3709
    },
    "chans_kalla": "modell",
    "streck": {
     "1": 55.0,
-    "X": 23.0,
-    "2": 22.0
+    "X": 22.0,
+    "2": 23.0
    },
-   "streck_tid": "2026-11-26T17:59:35Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1337,
-    "X": 0.0243,
-    "2": 0.1093
+    "1": -0.1751,
+    "X": 0.0342,
+    "2": 0.1409
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4159,
-    "X": 0.2381,
-    "2": 0.346
+    "1": 0.3723,
+    "X": 0.2369,
+    "2": 0.3908
    },
    "varde_tips": {
-    "1": -0.1341,
-    "X": 0.0081,
-    "2": 0.126
+    "1": -0.1777,
+    "X": 0.0169,
+    "2": 0.1608
    },
    "odds": {
     "antal_bolag": 33,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.24,
-     "X": 3.64,
-     "2": 2.82
+     "1": 2.49,
+     "X": 3.65,
+     "2": 2.52
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.24,
-      "X": 3.95,
-      "2": 2.92
+      "1": 2.59,
+      "X": 3.89,
+      "2": 2.55
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.32,
+      "1": 2.43,
       "X": 3.6,
-      "2": 2.8
+      "2": 2.65
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.32,
-      "X": 3.9,
-      "2": 3.0
+      "1": 2.6,
+      "X": 3.95,
+      "2": 2.68
      },
      {
       "bolag": "williamhill",
-      "1": 2.25,
-      "X": 3.4,
-      "2": 2.8
+      "1": 2.5,
+      "X": 3.5,
+      "2": 2.4
      },
      {
       "bolag": "coolbet",
-      "1": 2.25,
-      "X": 3.6,
-      "2": 2.85
+      "1": 2.5,
+      "X": 3.75,
+      "2": 2.5
      },
      {
       "bolag": "marathonbet",
-      "1": 2.28,
-      "X": 3.64,
-      "2": 2.76
+      "1": 2.49,
+      "X": 3.62,
+      "2": 2.52
      },
      {
       "bolag": "sport888",
-      "1": 2.25,
-      "X": 3.4,
-      "2": 2.8
+      "1": 2.5,
+      "X": 3.5,
+      "2": 2.4
      },
      {
       "bolag": "betano_uk",
-      "1": 2.1,
-      "X": 3.5,
-      "2": 2.6
+      "1": 2.3,
+      "X": 3.4,
+      "2": 2.38
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.32,
-      "X": 3.9,
-      "2": 3.0
+      "1": 2.6,
+      "X": 3.95,
+      "2": 2.68
      },
      {
       "bolag": "betfair_sb_uk",
-      "1": 2.2,
+      "1": 2.5,
       "X": 3.8,
-      "2": 2.88
+      "2": 2.5
      },
      {
       "bolag": "betfred_uk",
-      "1": 2.2,
+      "1": 2.5,
       "X": 3.6,
-      "2": 2.8
+      "2": 2.5
      },
      {
       "bolag": "betonlineag",
-      "1": 2.24,
-      "X": 3.8,
-      "2": 2.84
+      "1": 2.5,
+      "X": 3.75,
+      "2": 2.54
      }
     ]
    },
@@ -6476,23 +6439,23 @@
     {
      "kalla": "gamblingcabin.se",
      "tecken": "X2",
-     "text": "Sheffield Wednesday har fått med sig resultat men har överpresterat mot den underliggande statistiken. Reading har det tufft men spelar bättre än tabelläget.",
+     "text": "Sheffield Wednesday har fått med sig resultat men har tagit fler poäng än vad underliggande statistik visar. Reading har det tufft men spelar bra och ska enligt statistiken klättra.",
      "system": null,
      "system_rader": null
     },
     {
      "kalla": "hurbra.se",
      "tecken": "X2",
-     "text": "Sheffield Wednesday är kupongens mest överstreckade favorit, vilket gör kryss och bortaseger spelvärda.",
+     "text": "Sheffield Wednesday är omgångens mest överstreckade favorit, vilket gör kryss och bortaseger intressanta.",
      "system": "X2",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X2",
-     "text": "Reading har underpresterat i poängskörd trots bra underliggande siffror. Sheffield W är ingen säker vinnare.",
-     "system": "1X2",
-     "system_rader": 156
+     "text": "Reading har tappat kraft på sista tiden men har fin xPTS. Sheffield Wednesday har bara vunnit tre av åtta hemmamatcher.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -6504,7 +6467,7 @@
     {
      "kalla": "sportsgambler.com",
      "tecken": "1",
-     "text": "Sheffield Wednesday är starka på hemmaplan och möter ett Reading som har tre raka förluster i bagaget. Hemmalaget spås goda chanser att ta hem seger på Hillsborough.",
+     "text": "Sheffield Wednesday rekommenderas tack vare stark form på hemmaplan där de är obesegrade i sju matcher. Reading har haft det tufft och har inte vunnit på sina fyra senaste bortamatcher.",
      "system": null,
      "system_rader": null
     },
@@ -6530,22 +6493,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Sheffield Wednesday är favoriter med 42 % chans men överstreckas till 55 %. Reading är understreckade till 22 % och lockar många tipsare.",
+   "kommentar": "Trots jämna odds streckas Sheffield W upp rejält, vilket gör att oddsen pekar på fint värde på X2. Flera tipsare är inne på samma linje.",
    "lagkoll": {
     "chans": {
-     "1": 0.44,
+     "1": 0.4,
      "X": 0.25,
-     "2": 0.31
+     "2": 0.35
     },
     "skrallrisk": "låg",
-    "motivering": "Sheffield W har bra resultatmässig form och är obesegrade under sin nya tränare. Reading har tre raka förluster och sliter offensivt, vilket motiverar en liten justering till hemmalagets fördel.",
+    "motivering": "Sheffield Wednesday är stabila under sin nya tränare och obesegrade hemma, vilket väger tyngre än Readings underliggande statistik i nuvarande svacka. Reading lider av en tydlig formdipp och målskytteproblem som gör det svårt att tro på en omedelbar vändning.",
     "faktorer": [
-     "Sheffield W obesegrade under nya tränaren Dave Challinor",
-     "Reading har tre raka förluster i ligan",
-     "Reading har bara gjort ett mål på de fyra senaste matcher",
-     "Sheffield W har stark tabellposition (4:a)"
+     "Sheffield Wednesday obesegrade under nye tränaren",
+     "Reading har tre raka förluster",
+     "Readings offensiva problem med endast ett mål på fyra matcher",
+     "Sheffield Wednesday starka hemma på Hillsborough"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 4,
@@ -6589,10 +6552,10 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "gamblingcabin.se",
-      "rekatochklart.com"
+      "gamblingcabin.se"
      ]
     },
     "borta": {
@@ -6626,11 +6589,11 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
       "gamblingcabin.se",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     }
    },
@@ -6780,9 +6743,14 @@
      ],
      "sammanhang": [
       {
-       "text": "Har varit svårslagna på hemmaplan på sista tiden.",
+       "text": "Sheffield Wednesday är obesegrade i sina sju senaste hemmamatcher på Hillsborough.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har bara vunnit tre av åtta matcher på hemmaplan.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Obesegrade i ligan under nya tränaren Dave Challinor.",
@@ -6792,11 +6760,6 @@
       {
        "text": "Hållit nollan nyligen och har en kompakt defensiv.",
        "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har fått med sig resultat men överpresterar mot underliggande statistik.",
-       "kalla": "gamblingcabin.se",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -6823,9 +6786,14 @@
      ],
      "sammanhang": [
       {
-       "text": "Kommer från tre raka förluster i ligan.",
+       "text": "Reading har förlorat tre raka matcher och har inte vunnit på sina fyra senaste bortamatcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Visar en ynka pinne på de fyra senaste matcherna men har fina förväntade poäng.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Har tre raka förluster i ligaspelet.",
@@ -6835,11 +6803,6 @@
       {
        "text": "Sliter med kreativiteten och har bara gjort ett mål på de fyra senaste.",
        "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har det tufft i ligan men underliggande statistik talar för en klättring.",
-       "kalla": "gamblingcabin.se",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -6857,113 +6820,113 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4204,
-    "X": 0.2753,
-    "2": 0.3043
+    "1": 0.4031,
+    "X": 0.2792,
+    "2": 0.3177
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 32.0,
-    "X": 33.0,
-    "2": 35.0
+    "1": 33.0,
+    "X": 34.0,
+    "2": 33.0
    },
-   "streck_tid": "2026-11-27T18:00:08Z",
+   "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.1004,
-    "X": -0.0547,
-    "2": -0.0457
+    "1": 0.0731,
+    "X": -0.0608,
+    "2": -0.0123
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4813,
-    "X": 0.2317,
-    "2": 0.287
+    "1": 0.4645,
+    "X": 0.2258,
+    "2": 0.3097
    },
    "varde_tips": {
-    "1": 0.1613,
-    "X": -0.0983,
-    "2": -0.063
+    "1": 0.1345,
+    "X": -0.1142,
+    "2": -0.0203
    },
    "odds": {
     "antal_bolag": 34,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.21,
-     "X": 3.38,
-     "2": 3.05
+     "1": 2.31,
+     "X": 3.34,
+     "2": 2.92
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.25,
-      "X": 3.53,
-      "2": 3.19
+      "1": 2.4,
+      "X": 3.46,
+      "2": 3.02
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.28,
-      "X": 3.3,
+      "1": 2.3,
+      "X": 3.35,
       "2": 3.0
      },
      {
       "bolag": "betsson",
-      "1": 2.15,
+      "1": 2.32,
       "X": 3.3,
-      "2": 3.15
+      "2": 2.9
      },
      {
       "bolag": "nordicbet",
-      "1": 2.15,
+      "1": 2.32,
       "X": 3.3,
-      "2": 3.15
+      "2": 2.9
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.38,
-      "X": 3.55,
-      "2": 3.2
+      "1": 2.42,
+      "X": 3.5,
+      "2": 3.15
      },
      {
       "bolag": "williamhill",
-      "1": 2.15,
-      "X": 3.25,
-      "2": 3.1
+      "1": 2.3,
+      "X": 3.2,
+      "2": 2.9
      },
      {
       "bolag": "coolbet",
-      "1": 2.2,
-      "X": 3.4,
-      "2": 3.1
+      "1": 2.35,
+      "X": 3.3,
+      "2": 2.95
      },
      {
       "bolag": "marathonbet",
-      "1": 2.19,
-      "X": 3.4,
-      "2": 3.08
+      "1": 2.26,
+      "X": 3.34,
+      "2": 3.0
      },
      {
       "bolag": "sport888",
-      "1": 2.15,
-      "X": 3.25,
-      "2": 3.1
+      "1": 2.3,
+      "X": 3.2,
+      "2": 2.9
      },
      {
       "bolag": "betano_uk",
-      "1": 2.05,
-      "X": 3.4,
-      "2": 2.8
+      "1": 2.15,
+      "X": 3.3,
+      "2": 2.7
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.38,
+      "1": 2.42,
       "X": 3.5,
-      "2": 3.2
+      "2": 3.15
      },
      {
       "bolag": "betfred_uk",
-      "1": 2.15,
-      "X": 3.4,
-      "2": 3.1
+      "1": 2.3,
+      "X": 3.3,
+      "2": 2.88
      }
     ]
    },
@@ -6978,16 +6941,16 @@
     {
      "kalla": "hurbra.se",
      "tecken": "1",
-     "text": "Wycombe är knappa favoriter enligt oddsen men har fått lika många streck som Bradford i en öppen match.",
+     "text": "Wycombe är knappa favoriter men har fått lika många streck som Bradford i en öppen match.",
      "system": "1",
      "system_rader": 48
     },
     {
      "kalla": "rekatochklart.com",
      "tecken": "1X2",
-     "text": "Bradford har hittat formen igen med starka resultat. Wycombe har tappat styrsel på slutet.",
-     "system": "1X2",
-     "system_rader": 156
+     "text": "Bradford har visat klass på sistone med enkla cupspizzor och starka ligamatcher. Wycombe har tappat lite styrsel och kollapsade mot Oxford.",
+     "system": null,
+     "system_rader": null
     },
     {
      "kalla": "speltips.se",
@@ -6998,8 +6961,8 @@
     },
     {
      "kalla": "sportsgambler.com",
-     "tecken": "X2",
-     "text": "Bradford har täckt +0.25-handikappet i nio av sina tio senaste matcher och har god form på bortaplan. Wycombe har haft det svårt på sistone och förlorade det senaste inbördes mötet hemma mot Bradford.",
+     "tecken": "2",
+     "text": "Skribenten rekommenderar spel på Bradford (Asian Handicap +0.25 samt resultatförslag 1-2). Bradford har vunnit de två senaste inbördes mötena och har god bortaform utan förlust på fem raka bortamatcher.",
      "system": null,
      "system_rader": null
     },
@@ -7025,22 +6988,22 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Wycombe är knappa favoriter på oddsen men understreckas till 32 %, medan Bradford streckas högre till 35 %.",
+   "kommentar": "En mycket jämn match där streckfördelningen är nästan helt balanserad. Tipsarna är oense om utgången, vilket motiverar en bred gardering.",
    "lagkoll": {
     "chans": {
-     "1": 0.39,
-     "X": 0.29,
-     "2": 0.32
+     "1": 0.37,
+     "X": 0.28,
+     "2": 0.35
     },
     "skrallrisk": "medel",
-    "motivering": "Bradford visar fin bortaform och har ligans starkaste försvar. Wycombe saknar flera spelare och har blandade resultat vilket gör att sannolikheten skjuts något mot bortalaget.",
+    "motivering": "Trots skador hos gästerna har Bradford ett stabilt försvarsspel och bättre ligaposition som väger tyngre än Wycombes hemmaform. Bortalagets form och defensiva organisation gör dem till knappa favoriter trots spelartappen.",
     "faktorer": [
-     "Bradford har fem raka bortamatcher utan förlust",
-     "Wycombe har flera skador bland annat på Ings och Henderson",
-     "Bradford har ligans bästa försvarsfacit",
-     "Bradford saknar nyckelspelaren Sarcevic och avstängda Touray"
+     "Bradford har seriens bästa försvar",
+     "Wycombe saknar anfallaren Danny Ings",
+     "Bradford saknar nyckelspelaren Antoni Sarcevic",
+     "Wycombe starka hemma med två raka segrar"
     ],
-    "tid": "2026-11-27T18:11:03Z",
+    "tid": "2026-11-28T09:37:13Z",
     "hemma": {
      "tabell": {
       "plats": 15,
@@ -7084,10 +7047,10 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     },
     "borta": {
@@ -7139,10 +7102,10 @@
      "kallor": [
       "BBC Sport",
       "sportsgambler.com",
+      "rekatochklart.com",
       "sportsmole.co.uk",
       "bettingstugan.se",
-      "tipsmedoss.com",
-      "rekatochklart.com"
+      "tipsmedoss.com"
      ]
     }
    },
@@ -7292,9 +7255,14 @@
      ],
      "sammanhang": [
       {
-       "text": "Wycombe har fyra hemmaförluster på de tio senaste matcherna.",
+       "text": "Wycombe har inte klarat handikapplinjan -0.25 i fyra av sina senaste fem matcher.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Har tappat lite styrsel på slutet.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Kommer med två raka hemmasegrar i ryggen.",
@@ -7305,11 +7273,6 @@
        "text": "Kommer med två raka hemmasegrar i ryggen.",
        "kalla": "tipsmedoss.com",
        "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Har tappat lite styrsel på slutet.",
-       "kalla": "rekatochklart.com",
-       "tid": "2026-11-26T18:01:17Z"
       }
      ],
      "tranarbyte": null
@@ -7359,9 +7322,14 @@
      ],
      "sammanhang": [
       {
-       "text": "Bradford har inte förlorat på fem raka bortamatcher.",
+       "text": "Bradford har fem raka bortamatcher utan förlust och har vunnit de två senaste mötena mot Wycombe.",
        "kalla": "sportsgambler.com",
-       "tid": "2026-11-27T18:01:20Z"
+       "tid": "2026-11-28T09:31:09Z"
+      },
+      {
+       "text": "Visar klass igen med enkla cupsegrar och starka resultat i ligan.",
+       "kalla": "rekatochklart.com",
+       "tid": "2026-11-28T09:31:09Z"
       },
       {
        "text": "Tränas av Wycombes tidigare tränare Michael Duff och har ligans bästa försvarsfacit.",
@@ -7371,11 +7339,6 @@
       {
        "text": "Skickliga på att kriga till sig poäng även mot bättre motstånd.",
        "kalla": "bettingstugan.se",
-       "tid": "2026-11-27T18:01:20Z"
-      },
-      {
-       "text": "Bättre tabellplacering och inne i en bra period.",
-       "kalla": "tipsmedoss.com",
        "tid": "2026-11-27T18:01:20Z"
       }
      ],
@@ -8029,6 +7992,16 @@
      "p": 34
     },
     {
+     "lag": "Southampton",
+     "s": 17,
+     "v": 9,
+     "o": 5,
+     "f": 3,
+     "gm": 32,
+     "im": 16,
+     "p": 32
+    },
+    {
      "lag": "Birmingham",
      "s": 17,
      "v": 9,
@@ -8047,17 +8020,6 @@
      "gm": 28,
      "im": 18,
      "p": 32
-    },
-    {
-     "lag": "Southampton",
-     "s": 17,
-     "v": 9,
-     "o": 5,
-     "f": 3,
-     "gm": 32,
-     "im": 16,
-     "p": 28,
-     "avdrag": 4
     },
     {
      "lag": "QPR",
@@ -10951,53 +10913,53 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 56,
+   "lyckade": 44,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.5-flash-lite": 36,
-    "gemini-3.1-flash-lite": 17,
-    "gemini-3.6-flash": 3
+    "gemini-3.5-flash-lite": 9,
+    "gemini-3.6-flash": 13,
+    "gemini-3.1-flash-lite": 22
    },
    "tokens": {
     "gemini-3.5-flash-lite": {
-     "in": 225632,
-     "ut": 24423
-    },
-    "gemini-3.1-flash-lite": {
-     "in": 71663,
-     "ut": 23078
+     "in": 72725,
+     "ut": 8820
     },
     "gemini-3.6-flash": {
-     "in": 4726,
-     "ut": 868
+     "in": 89792,
+     "ut": 8263
+    },
+    "gemini-3.1-flash-lite": {
+     "in": 105663,
+     "ut": 21170
     }
    },
    "stoppad": null,
-   "tid": "2026-11-27T18:13:33Z"
+   "tid": "2026-11-28T09:39:34Z"
   },
   "ai_dygn": {
-   "datum": "2026-11-27",
+   "datum": "2026-11-28",
    "modeller": {
     "gemini-3.5-flash-lite": {
-     "anrop": 36,
-     "in": 225632,
-     "ut": 24423
-    },
-    "gemini-3.1-flash-lite": {
-     "anrop": 17,
-     "in": 71663,
-     "ut": 23078
+     "anrop": 9,
+     "in": 72725,
+     "ut": 8820
     },
     "gemini-3.6-flash": {
-     "anrop": 3,
-     "in": 4726,
-     "ut": 868
+     "anrop": 13,
+     "in": 89792,
+     "ut": 8263
+    },
+    "gemini-3.1-flash-lite": {
+     "anrop": 22,
+     "in": 105663,
+     "ut": 21170
     }
    }
   },
   "odds": {
-   "kvar": 300,
-   "tid": "2026-11-27T18:01:20Z"
+   "kvar": 294,
+   "tid": "2026-11-28T09:31:08Z"
   }
  },
  "tipsare_form": [
