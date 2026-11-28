@@ -1,6 +1,6 @@
 {
  "formatversion": 1,
- "genererad": "2026-11-28T10:31:20Z",
+ "genererad": "2026-11-28T11:31:22Z",
  "modell": {
   "version": "odds-v2",
   "beskrivning": "Bookmakerodds med marginalen borträknad, skarpa bolag som Pinnacle väger tyngst"
@@ -11,7 +11,7 @@
   "spelstopp": "2026-11-28T14:59:00Z",
   "status": "oppen",
   "frusen": null,
-  "omsattning": 10764985.0,
+  "omsattning": 12716988.0,
   "radpris": 1,
   "utdelning": null,
   "vinnare": null
@@ -25,47 +25,47 @@
    "land": "England",
    "avspark": "2026-11-28T17:30:00Z",
    "chans": {
-    "1": 0.278,
-    "X": 0.2528,
-    "2": 0.4692
+    "1": 0.2793,
+    "X": 0.2535,
+    "2": 0.4672
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 20.0,
+    "1": 19.0,
     "X": 26.0,
-    "2": 54.0
+    "2": 55.0
    },
-   "streck_tid": "2026-11-28T09:31:06Z",
+   "streck_tid": "2026-11-28T11:31:00Z",
    "varde": {
-    "1": 0.078,
-    "X": -0.0072,
-    "2": -0.0708
+    "1": 0.0893,
+    "X": -0.0065,
+    "2": -0.0828
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.1843,
-    "X": 0.1701,
-    "2": 0.6456
+    "1": 0.1854,
+    "X": 0.1709,
+    "2": 0.6437
    },
    "varde_tips": {
-    "1": -0.0157,
-    "X": -0.0899,
-    "2": 0.1056
+    "1": -0.0046,
+    "X": -0.0891,
+    "2": 0.0937
    },
    "odds": {
     "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 3.4,
-     "X": 3.76,
+     "1": 3.38,
+     "X": 3.75,
      "2": 2.02
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 3.59,
-      "X": 3.81,
-      "2": 2.06
+      "1": 3.5,
+      "X": 3.76,
+      "2": 2.11
      },
      {
       "bolag": "svenskaspel",
@@ -75,15 +75,15 @@
      },
      {
       "bolag": "betsson",
-      "1": 3.34,
-      "X": 3.71,
-      "2": 2.07
+      "1": 3.38,
+      "X": 3.61,
+      "2": 2.09
      },
      {
       "bolag": "nordicbet",
-      "1": 3.35,
-      "X": 3.7,
-      "2": 2.08
+      "1": 3.4,
+      "X": 3.6,
+      "2": 2.1
      },
      {
       "bolag": "betfair_ex_eu",
@@ -117,15 +117,15 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 2.9,
-      "X": 3.75,
+      "1": 2.88,
+      "X": 3.7,
       "2": 1.9
      },
      {
       "bolag": "betanysports",
-      "1": 3.58,
-      "X": 3.8,
-      "2": 2.03
+      "1": 3.3,
+      "X": 3.75,
+      "2": 2.15
      },
      {
       "bolag": "betclic_fr",
@@ -200,7 +200,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Aston Villa är oddsmässig favorit, och tipsarna tror främst på tvåan. Ipswich är understreckat vilket ger visst spelvärde på hemmaseger för den som garderar.",
+   "kommentar": "Aston Villa är tydliga favoriter till 47 % chans och streckas högt på 55 %. Majoriteten av tipsarna tror på tvåan, trots att Ipswich jagar ett trendbrott.",
    "lagkoll": {
     "chans": {
      "1": 0.28,
@@ -527,9 +527,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4144,
-    "X": 0.2546,
-    "2": 0.331
+    "1": 0.4174,
+    "X": 0.2542,
+    "2": 0.3284
    },
    "chans_kalla": "modell",
    "streck": {
@@ -539,41 +539,41 @@
    },
    "streck_tid": "2026-11-27T18:00:08Z",
    "varde": {
-    "1": -0.0556,
-    "X": 0.0046,
-    "2": 0.051
+    "1": -0.0526,
+    "X": 0.0042,
+    "2": 0.0484
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.445,
-    "X": 0.1992,
-    "2": 0.3558
+    "1": 0.4482,
+    "X": 0.1988,
+    "2": 0.353
    },
    "varde_tips": {
-    "1": -0.025,
-    "X": -0.0508,
-    "2": 0.0758
+    "1": -0.0218,
+    "X": -0.0512,
+    "2": 0.073
    },
    "odds": {
     "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.28,
-     "X": 3.72,
-     "2": 2.86
+     "1": 2.26,
+     "X": 3.73,
+     "2": 2.88
     },
     "bolag": [
      {
       "bolag": "pinnacle",
       "1": 2.37,
-      "X": 3.79,
-      "2": 2.95
+      "X": 3.8,
+      "2": 2.94
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.33,
-      "X": 3.85,
-      "2": 3.0
+      "1": 2.23,
+      "X": 3.9,
+      "2": 3.15
      },
      {
       "bolag": "betsson",
@@ -589,9 +589,9 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.42,
+      "1": 2.4,
       "X": 3.85,
-      "2": 3.0
+      "2": 3.05
      },
      {
       "bolag": "williamhill",
@@ -601,9 +601,9 @@
      },
      {
       "bolag": "coolbet",
-      "1": 2.39,
+      "1": 2.37,
       "X": 3.82,
-      "2": 2.94
+      "2": 2.97
      },
      {
       "bolag": "marathonbet",
@@ -619,9 +619,9 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 2.1,
+      "1": 2.05,
       "X": 3.7,
-      "2": 2.5
+      "2": 2.55
      },
      {
       "bolag": "betanysports",
@@ -631,9 +631,9 @@
      },
      {
       "bolag": "betclic_fr",
-      "1": 2.22,
+      "1": 2.23,
       "X": 3.65,
-      "2": 2.8
+      "2": 2.78
      }
     ]
    },
@@ -709,22 +709,21 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Oddsen håller Manchester United som knappa favoriter (41 %), men svenska folket streckar dem högre till 47 %. Flera tipsare varnar för formsvaga tendenser och lyfter fram Brentford.",
+   "kommentar": "Oddsen håller Manchester United som knappa favoriter till 42 %, medan svenska folket streckar ettan något högre på 47 %. Tipsarna är oeniga och garderar brett.",
    "lagkoll": {
     "chans": {
      "1": 0.4,
-     "X": 0.26,
-     "2": 0.34
+     "X": 0.27,
+     "2": 0.33
     },
     "skrallrisk": "medel",
-    "motivering": "Manchester Uniteds enorma skadeproblem och svaga form väger tyngre än tränareffekten, vilket gör att oddsen överskattar hemmafavören något.",
+    "motivering": "Manchester United kämpar i botten med svag form och många skador, men tränarbytet till Pochettino kan ge en ny energi på hemmaplan mot ett Brentford som har svårt på bortaplan.",
     "faktorer": [
-     "Manchester United har en omfattande skadelista med flera tveksamma nyckelspelare",
-     "Pochettino har ännu inte fått effekt på Uniteds spel",
-     "Brentford kommer stärkta av en 4-0-seger senast",
-     "Uniteds historiska dominans hemma är urholkad av en nio matcher lång vinstlös svit"
+     "Manchester United har nio raka ligamatcher utan vinst",
+     "Mauricio Pochettino gör sin första hemmamatch som ny tränare för United",
+     "Brentford har tio raka bortamatcher utan vinst i ligan trots 4-0 senast"
     ],
-    "tid": "2026-11-28T09:37:13Z",
+    "tid": "2026-11-28T11:31:18Z",
     "hemma": {
      "tabell": {
       "plats": 19,
@@ -1188,9 +1187,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.6453,
-    "X": 0.2085,
-    "2": 0.1462
+    "1": 0.6443,
+    "X": 0.2098,
+    "2": 0.1458
    },
    "chans_kalla": "modell",
    "streck": {
@@ -1200,35 +1199,35 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1247,
-    "X": 0.0585,
-    "2": 0.0662
+    "1": -0.1257,
+    "X": 0.0598,
+    "2": 0.0658
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7658,
-    "X": 0.147,
-    "2": 0.0872
+    "1": 0.765,
+    "X": 0.148,
+    "2": 0.087
    },
    "varde_tips": {
-    "1": -0.0042,
-    "X": -0.003,
-    "2": 0.0072
+    "1": -0.005,
+    "X": -0.002,
+    "2": 0.007
    },
    "odds": {
     "antal_bolag": 44,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 1.47,
-     "X": 4.54,
-     "2": 6.46
+     "X": 4.51,
+     "2": 6.47
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.51,
-      "X": 4.56,
-      "2": 6.78
+      "1": 1.5,
+      "X": 4.58,
+      "2": 6.84
      },
      {
       "bolag": "svenskaspel",
@@ -1238,20 +1237,20 @@
      },
      {
       "bolag": "betsson",
-      "1": 1.47,
-      "X": 4.49,
-      "2": 6.7
+      "1": 1.48,
+      "X": 4.44,
+      "2": 6.61
      },
      {
       "bolag": "nordicbet",
-      "1": 1.47,
-      "X": 4.5,
-      "2": 6.7
+      "1": 1.48,
+      "X": 4.45,
+      "2": 6.6
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.52,
-      "X": 4.8,
+      "1": 1.53,
+      "X": 4.7,
       "2": 7.2
      },
      {
@@ -1262,9 +1261,9 @@
      },
      {
       "bolag": "coolbet",
-      "1": 1.5,
-      "X": 4.72,
-      "2": 7.05
+      "1": 1.51,
+      "X": 4.68,
+      "2": 6.9
      },
      {
       "bolag": "marathonbet",
@@ -1292,9 +1291,9 @@
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.45,
+      "1": 1.43,
       "X": 4.55,
-      "2": 6.0
+      "2": 6.25
      }
     ]
    },
@@ -1363,7 +1362,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Leeds är omgångens största favorit med 65 % chans och streckas tungt på 77 %. Det gör ettan överstreckad medan krysset ger fint värde.",
+   "kommentar": "Leeds är omgångens jättefavorit till 64 % men streckas extremt hårt på 77 %, vilket gör krysset till ett intressant värdetecken enligt flera tipsare.",
    "lagkoll": {
     "chans": {
      "1": 0.69,
@@ -1717,9 +1716,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.6341,
-    "X": 0.2058,
-    "2": 0.1602
+    "1": 0.6336,
+    "X": 0.2057,
+    "2": 0.1607
    },
    "chans_kalla": "modell",
    "streck": {
@@ -1729,20 +1728,20 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1559,
-    "X": 0.0758,
-    "2": 0.0802
+    "1": -0.1564,
+    "X": 0.0757,
+    "2": 0.0807
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.8358,
+    "1": 0.8356,
     "X": 0.0926,
-    "2": 0.0716
+    "2": 0.0719
    },
    "varde_tips": {
-    "1": 0.0458,
+    "1": 0.0456,
     "X": -0.0374,
-    "2": -0.0084
+    "2": -0.0081
    },
    "odds": {
     "antal_bolag": 41,
@@ -1750,14 +1749,14 @@
     "snitt": {
      "1": 1.47,
      "X": 4.52,
-     "2": 5.8
+     "2": 5.78
     },
     "bolag": [
      {
       "bolag": "pinnacle",
       "1": 1.51,
-      "X": 4.8,
-      "2": 6.09
+      "X": 4.81,
+      "2": 6.11
      },
      {
       "bolag": "svenskaspel",
@@ -1779,9 +1778,9 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.53,
+      "1": 1.55,
       "X": 4.9,
-      "2": 6.6
+      "2": 6.4
      },
      {
       "bolag": "williamhill",
@@ -1809,9 +1808,9 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 1.44,
+      "1": 1.4,
       "X": 4.33,
-      "2": 5.0
+      "2": 5.25
      },
      {
       "bolag": "betclic_fr",
@@ -1821,9 +1820,9 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.53,
+      "1": 1.55,
       "X": 4.9,
-      "2": 6.6
+      "2": 6.4
      }
     ]
    },
@@ -2262,40 +2261,40 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4149,
-    "X": 0.2843,
-    "2": 0.3008
+    "1": 0.4143,
+    "X": 0.2836,
+    "2": 0.3021
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 40.0,
-    "X": 29.0,
+    "1": 41.0,
+    "X": 28.0,
     "2": 31.0
    },
-   "streck_tid": "2026-11-28T10:31:03Z",
+   "streck_tid": "2026-11-28T11:31:00Z",
    "varde": {
-    "1": 0.0149,
-    "X": -0.0057,
-    "2": -0.0092
+    "1": 0.0043,
+    "X": 0.0036,
+    "2": -0.0079
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4738,
-    "X": 0.2769,
-    "2": 0.2493
+    "1": 0.4733,
+    "X": 0.2763,
+    "2": 0.2504
    },
    "varde_tips": {
-    "1": 0.0738,
-    "X": -0.0131,
-    "2": -0.0607
+    "1": 0.0633,
+    "X": -0.0037,
+    "2": -0.0596
    },
    "odds": {
     "antal_bolag": 39,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 2.25,
-     "X": 3.29,
-     "2": 3.1
+     "X": 3.3,
+     "2": 3.09
     },
     "bolag": [
      {
@@ -2324,9 +2323,9 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.38,
-      "X": 3.45,
-      "2": 3.35
+      "1": 2.4,
+      "X": 3.5,
+      "2": 3.3
      },
      {
       "bolag": "williamhill",
@@ -2354,9 +2353,9 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 2.1,
+      "1": 2.15,
       "X": 3.25,
-      "2": 2.88
+      "2": 2.8
      },
      {
       "bolag": "betclic_fr",
@@ -2366,9 +2365,9 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.38,
-      "X": 3.45,
-      "2": 3.35
+      "1": 2.4,
+      "X": 3.5,
+      "2": 3.3
      }
     ]
    },
@@ -2437,7 +2436,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Odds och streck är i symbios runt 40 % på Derby och 30 % på Watford. Tipsarna är oense och flera spår en öppen eller målsnål historia.",
+   "kommentar": "Oddsen ser matchen som helt visst öppen med 41 % för ettan och 30 % för tvåan, vilket speglas perfekt av de jämna strecken. Tipsarna rekommenderar både helgardering och spikar.",
    "lagkoll": {
     "chans": {
      "1": 0.39,
@@ -2928,9 +2927,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4505,
-    "X": 0.262,
-    "2": 0.2875
+    "1": 0.4475,
+    "X": 0.2618,
+    "2": 0.2907
    },
    "chans_kalla": "modell",
    "streck": {
@@ -2940,65 +2939,65 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.0695,
-    "X": -0.028,
-    "2": 0.0975
+    "1": -0.0725,
+    "X": -0.0282,
+    "2": 0.1007
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.5316,
-    "X": 0.2431,
-    "2": 0.2253
+    "1": 0.5287,
+    "X": 0.2433,
+    "2": 0.228
    },
    "varde_tips": {
-    "1": 0.0116,
-    "X": -0.0469,
-    "2": 0.0353
+    "1": 0.0087,
+    "X": -0.0467,
+    "2": 0.038
    },
    "odds": {
     "antal_bolag": 40,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.08,
+     "1": 2.09,
      "X": 3.56,
-     "2": 3.23
+     "2": 3.21
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.11,
-      "X": 3.77,
-      "2": 3.43
+      "1": 2.17,
+      "X": 3.71,
+      "2": 3.32
      },
      {
       "bolag": "svenskaspel",
-      "1": 2.17,
+      "1": 2.16,
       "X": 3.65,
-      "2": 3.35
+      "2": 3.4
      },
      {
       "bolag": "betsson",
-      "1": 2.12,
+      "1": 2.18,
       "X": 3.45,
-      "2": 3.35
+      "2": 3.2
      },
      {
       "bolag": "nordicbet",
-      "1": 2.12,
-      "X": 3.48,
-      "2": 3.35
+      "1": 2.18,
+      "X": 3.49,
+      "2": 3.21
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.18,
+      "1": 2.2,
       "X": 3.8,
-      "2": 3.55
+      "2": 3.45
      },
      {
       "bolag": "williamhill",
       "1": 2.1,
-      "X": 3.5,
-      "2": 3.25
+      "X": 3.4,
+      "2": 3.2
      },
      {
       "bolag": "coolbet",
@@ -3014,15 +3013,15 @@
      },
      {
       "bolag": "sport888",
-      "1": 2.05,
+      "1": 2.1,
       "X": 3.4,
-      "2": 3.2
+      "2": 3.1
      },
      {
       "bolag": "betano_uk",
       "1": 1.95,
-      "X": 3.5,
-      "2": 2.9
+      "X": 3.6,
+      "2": 2.88
      },
      {
       "bolag": "betclic_fr",
@@ -3032,9 +3031,9 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.18,
+      "1": 2.2,
       "X": 3.8,
-      "2": 3.55
+      "2": 3.45
      }
     ]
    },
@@ -3107,18 +3106,18 @@
    "lagkoll": {
     "chans": {
      "1": 0.42,
-     "X": 0.28,
-     "2": 0.3
+     "X": 0.3,
+     "2": 0.28
     },
     "skrallrisk": "medel",
-    "motivering": "Millwall är i usel form med fyra raka förluster och Burnley spelar ofta oavgjort, vilket gör att X får en något högre sannolikhet trots oddsen.",
+    "motivering": "Båda lagen har svag form och tunga skadelistor, vilket talar för en målsnål tillställning där oavgjort ligger nära till hands.",
     "faktorer": [
      "Millwall har fyra raka förluster",
-     "Burnley kryssar i hälften av matcherna",
-     "Båda lagen har omfattande skadelistor",
-     "Millwall saknar flera ordinarie spelare"
+     "Burnley har åtta raka ligamatcher utan vinst",
+     "Millwall saknar flera spelare och har offensiva problem",
+     "Burnley saknar avstängde C. Roberts och har en lång skadelista"
     ],
-    "tid": "2026-11-28T09:37:13Z",
+    "tid": "2026-11-28T11:31:18Z",
     "hemma": {
      "tabell": {
       "plats": 18,
@@ -3597,9 +3596,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.5421,
-    "X": 0.2528,
-    "2": 0.2052
+    "1": 0.5435,
+    "X": 0.2533,
+    "2": 0.2032
    },
    "chans_kalla": "modell",
    "streck": {
@@ -3609,28 +3608,28 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1779,
-    "X": 0.0928,
-    "2": 0.0852
+    "1": -0.1765,
+    "X": 0.0933,
+    "2": 0.0832
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.713,
-    "X": 0.1587,
-    "2": 0.1283
+    "1": 0.7142,
+    "X": 0.1589,
+    "2": 0.1269
    },
    "varde_tips": {
-    "1": -0.007,
-    "X": -0.0013,
-    "2": 0.0083
+    "1": -0.0058,
+    "X": -0.0011,
+    "2": 0.0069
    },
    "odds": {
     "antal_bolag": 41,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 1.73,
-     "X": 3.7,
-     "2": 4.54
+     "1": 1.72,
+     "X": 3.69,
+     "2": 4.58
     },
     "bolag": [
      {
@@ -3647,21 +3646,21 @@
      },
      {
       "bolag": "betsson",
-      "1": 1.72,
-      "X": 3.8,
-      "2": 4.6
+      "1": 1.75,
+      "X": 3.6,
+      "2": 4.65
      },
      {
       "bolag": "nordicbet",
-      "1": 1.72,
-      "X": 3.83,
-      "2": 4.63
+      "1": 1.76,
+      "X": 3.63,
+      "2": 4.67
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.81,
+      "1": 1.8,
       "X": 3.95,
-      "2": 5.0
+      "2": 5.1
      },
      {
       "bolag": "williamhill",
@@ -3695,15 +3694,15 @@
      },
      {
       "bolag": "betclic_fr",
-      "1": 1.68,
-      "X": 3.6,
-      "2": 4.4
+      "1": 1.65,
+      "X": 3.63,
+      "2": 4.6
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.81,
+      "1": 1.8,
       "X": 3.95,
-      "2": 5.0
+      "2": 5.1
      }
     ]
    },
@@ -3779,7 +3778,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "WBA är klara favoriter men blir kraftigt överstreckade, vilket öppnar för värde på Bristol City. Trots det litar de flesta tipsare på att hemmaspelet håller.",
+   "kommentar": "West Bromwich är klara favoriter till 54 % men överstreckas rejält till 72 %, vilket gör krysset och tvåan till fina värdetecken. Tipsarna lutar dock mest åt ettan.",
    "lagkoll": {
     "chans": {
      "1": 0.58,
@@ -4151,9 +4150,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4774,
-    "X": 0.2625,
-    "2": 0.2601
+    "1": 0.4765,
+    "X": 0.2619,
+    "2": 0.2617
    },
    "chans_kalla": "modell",
    "streck": {
@@ -4163,20 +4162,20 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.0374,
-    "X": -0.0475,
-    "2": 0.0101
+    "1": 0.0365,
+    "X": -0.0481,
+    "2": 0.0117
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6356,
-    "X": 0.2003,
-    "2": 0.1642
+    "1": 0.6348,
+    "X": 0.1999,
+    "2": 0.1653
    },
    "varde_tips": {
-    "1": 0.1956,
-    "X": -0.1097,
-    "2": -0.0858
+    "1": 0.1948,
+    "X": -0.1101,
+    "2": -0.0847
    },
    "odds": {
     "antal_bolag": 41,
@@ -4184,13 +4183,13 @@
     "snitt": {
      "1": 1.96,
      "X": 3.56,
-     "2": 3.58
+     "2": 3.56
     },
     "bolag": [
      {
       "bolag": "pinnacle",
       "1": 2.01,
-      "X": 3.71,
+      "X": 3.72,
       "2": 3.78
      },
      {
@@ -4214,8 +4213,8 @@
      {
       "bolag": "betfair_ex_eu",
       "1": 2.06,
-      "X": 3.75,
-      "2": 3.9
+      "X": 3.8,
+      "2": 3.85
      },
      {
       "bolag": "williamhill",
@@ -4243,7 +4242,7 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 1.87,
+      "1": 1.85,
       "X": 3.5,
       "2": 3.25
      },
@@ -4256,8 +4255,8 @@
      {
       "bolag": "betfair_ex_uk",
       "1": 2.06,
-      "X": 3.75,
-      "2": 3.9
+      "X": 3.8,
+      "2": 3.85
      }
     ]
    },
@@ -4695,9 +4694,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.5611,
-    "X": 0.2365,
-    "2": 0.2024
+    "1": 0.56,
+    "X": 0.2359,
+    "2": 0.2041
    },
    "chans_kalla": "modell",
    "streck": {
@@ -4707,20 +4706,20 @@
    },
    "streck_tid": "2026-11-28T10:31:03Z",
    "varde": {
-    "1": 0.0311,
-    "X": 0.0165,
-    "2": -0.0476
+    "1": 0.03,
+    "X": 0.0159,
+    "2": -0.0459
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6573,
-    "X": 0.2139,
-    "2": 0.1288
+    "1": 0.6565,
+    "X": 0.2135,
+    "2": 0.13
    },
    "varde_tips": {
-    "1": 0.1273,
-    "X": -0.0061,
-    "2": -0.1212
+    "1": 0.1265,
+    "X": -0.0065,
+    "2": -0.12
    },
    "odds": {
     "antal_bolag": 41,
@@ -4728,20 +4727,20 @@
     "snitt": {
      "1": 1.67,
      "X": 3.94,
-     "2": 4.62
+     "2": 4.57
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 1.7,
-      "X": 4.27,
+      "1": 1.69,
+      "X": 4.3,
       "2": 4.74
      },
      {
       "bolag": "svenskaspel",
-      "1": 1.76,
-      "X": 4.0,
-      "2": 4.7
+      "1": 1.78,
+      "X": 3.95,
+      "2": 4.6
      },
      {
       "bolag": "betsson",
@@ -4757,15 +4756,15 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.75,
-      "X": 4.2,
+      "1": 1.73,
+      "X": 4.3,
       "2": 5.0
      },
      {
       "bolag": "williamhill",
-      "1": 1.65,
+      "1": 1.67,
       "X": 3.9,
-      "2": 4.8
+      "2": 4.5
      },
      {
       "bolag": "coolbet",
@@ -4781,14 +4780,14 @@
      },
      {
       "bolag": "sport888",
-      "1": 1.61,
+      "1": 1.67,
       "X": 3.9,
-      "2": 4.8
+      "2": 4.4
      },
      {
       "bolag": "betano_uk",
       "1": 1.6,
-      "X": 3.8,
+      "X": 3.75,
       "2": 4.4
      },
      {
@@ -4799,8 +4798,8 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.75,
-      "X": 4.2,
+      "1": 1.73,
+      "X": 4.3,
       "2": 5.0
      }
     ]
@@ -5207,32 +5206,32 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.4253,
-    "X": 0.2956,
-    "2": 0.2791
+    "1": 0.4262,
+    "X": 0.2958,
+    "2": 0.278
    },
    "chans_kalla": "modell",
    "streck": {
-    "1": 57.0,
+    "1": 58.0,
     "X": 26.0,
-    "2": 17.0
+    "2": 16.0
    },
-   "streck_tid": "2026-11-28T09:31:06Z",
+   "streck_tid": "2026-11-28T11:31:00Z",
    "varde": {
-    "1": -0.1447,
-    "X": 0.0356,
-    "2": 0.1091
+    "1": -0.1538,
+    "X": 0.0358,
+    "2": 0.118
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.6009,
+    "1": 0.6016,
     "X": 0.2176,
-    "2": 0.1816
+    "2": 0.1808
    },
    "varde_tips": {
-    "1": 0.0309,
+    "1": 0.0216,
     "X": -0.0424,
-    "2": 0.0116
+    "2": 0.0208
    },
    "odds": {
     "antal_bolag": 41,
@@ -5240,7 +5239,7 @@
     "snitt": {
      "1": 2.2,
      "X": 3.17,
-     "2": 3.34
+     "2": 3.35
     },
     "bolag": [
      {
@@ -5269,9 +5268,9 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.32,
+      "1": 2.28,
       "X": 3.3,
-      "2": 3.65
+      "2": 3.7
      },
      {
       "bolag": "williamhill",
@@ -5311,9 +5310,9 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.32,
+      "1": 2.28,
       "X": 3.3,
-      "2": 3.65
+      "2": 3.7
      }
     ]
    },
@@ -5389,7 +5388,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Wrexham är favoriter men streckas väl högt, vilket gör Portsmouth och krysset intressanta ur ett värdeperspektiv. Tipsarna tror främst på 1X för hemmalaget.",
+   "kommentar": "Wrexham är favoriter till 43 % men streckas högre på 58 %, vilket ger fint värde på tvåan. Flera tipsare väljer ändå att spika eller gardera ettan.",
    "lagkoll": {
     "chans": {
      "1": 0.44,
@@ -5850,9 +5849,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.545,
+    "1": 0.5452,
     "X": 0.2343,
-    "2": 0.2206
+    "2": 0.2205
    },
    "chans_kalla": "modell",
    "streck": {
@@ -5862,27 +5861,27 @@
    },
    "streck_tid": "2026-11-28T10:31:03Z",
    "varde": {
-    "1": -0.085,
+    "1": -0.0848,
     "X": 0.0143,
-    "2": 0.0706
+    "2": 0.0705
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.7086,
-    "X": 0.1562,
-    "2": 0.1352
+    "1": 0.7088,
+    "X": 0.1561,
+    "2": 0.1351
    },
    "varde_tips": {
-    "1": 0.0786,
-    "X": -0.0638,
-    "2": -0.0148
+    "1": 0.0788,
+    "X": -0.0639,
+    "2": -0.0149
    },
    "odds": {
     "antal_bolag": 35,
     "bara_svenskaspel": false,
     "snitt": {
      "1": 1.71,
-     "X": 3.96,
+     "X": 3.95,
      "2": 4.22
     },
     "bolag": [
@@ -5912,7 +5911,7 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 1.79,
+      "1": 1.78,
       "X": 4.3,
       "2": 4.6
      },
@@ -5948,7 +5947,7 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 1.79,
+      "1": 1.78,
       "X": 4.3,
       "2": 4.6
      },
@@ -6316,9 +6315,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.3751,
-    "X": 0.2548,
-    "2": 0.3701
+    "1": 0.3774,
+    "X": 0.2542,
+    "2": 0.3685
    },
    "chans_kalla": "modell",
    "streck": {
@@ -6328,35 +6327,35 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": -0.1749,
-    "X": 0.0348,
-    "2": 0.1401
+    "1": -0.1726,
+    "X": 0.0342,
+    "2": 0.1385
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.3725,
-    "X": 0.2375,
-    "2": 0.39
+    "1": 0.3748,
+    "X": 0.2369,
+    "2": 0.3883
    },
    "varde_tips": {
-    "1": -0.1775,
-    "X": 0.0175,
-    "2": 0.16
+    "1": -0.1752,
+    "X": 0.0169,
+    "2": 0.1583
    },
    "odds": {
     "antal_bolag": 33,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.49,
+     "1": 2.47,
      "X": 3.65,
-     "2": 2.52
+     "2": 2.53
     },
     "bolag": [
      {
       "bolag": "pinnacle",
-      "1": 2.58,
+      "1": 2.56,
       "X": 3.89,
-      "2": 2.55
+      "2": 2.57
      },
      {
       "bolag": "svenskaspel",
@@ -6366,7 +6365,7 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.6,
+      "1": 2.56,
       "X": 3.95,
       "2": 2.7
      },
@@ -6396,13 +6395,13 @@
      },
      {
       "bolag": "betano_uk",
-      "1": 2.38,
-      "X": 3.4,
-      "2": 2.3
+      "1": 2.3,
+      "X": 3.5,
+      "2": 2.38
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.6,
+      "1": 2.56,
       "X": 3.95,
       "2": 2.7
      },
@@ -6420,7 +6419,7 @@
      },
      {
       "bolag": "betonlineag",
-      "1": 2.52,
+      "1": 2.5,
       "X": 3.7,
       "2": 2.54
      }
@@ -6495,18 +6494,18 @@
    "lagkoll": {
     "chans": {
      "1": 0.4,
-     "X": 0.25,
-     "2": 0.35
+     "X": 0.26,
+     "2": 0.34
     },
     "skrallrisk": "låg",
-    "motivering": "Sheffield Wednesday är stabila under sin nya tränare och obesegrade hemma, vilket väger tyngre än Readings underliggande statistik i nuvarande svacka. Reading lider av en tydlig formdipp och målskytteproblem som gör det svårt att tro på en omedelbar vändning.",
+    "motivering": "Sheffield Wednesday är starka på hemmaplan och har formen på sin sida, medan Reading har tre raka förluster och offensiva problem.",
     "faktorer": [
-     "Sheffield Wednesday obesegrade under nye tränaren",
-     "Reading har tre raka förluster",
-     "Readings offensiva problem med endast ett mål på fyra matcher",
-     "Sheffield Wednesday starka hemma på Hillsborough"
+     "Sheffield Wednesday är obesegrade i sju senaste hemmamatcherna",
+     "Reading har tre raka förluster i ligan",
+     "Reading saknar kreativitet och har bara gjort ett mål på fyra matcher",
+     "Sheffield Wednesday obesegrade under nya tränaren"
     ],
-    "tid": "2026-11-28T09:37:13Z",
+    "tid": "2026-11-28T11:31:18Z",
     "hemma": {
      "tabell": {
       "plats": 4,
@@ -6818,9 +6817,9 @@
    "land": "England",
    "avspark": "2026-11-28T15:00:00Z",
    "chans": {
-    "1": 0.3948,
-    "X": 0.2804,
-    "2": 0.3248
+    "1": 0.3928,
+    "X": 0.281,
+    "2": 0.3262
    },
    "chans_kalla": "modell",
    "streck": {
@@ -6830,28 +6829,28 @@
    },
    "streck_tid": "2026-11-28T09:31:06Z",
    "varde": {
-    "1": 0.0648,
-    "X": -0.0596,
-    "2": -0.0052
+    "1": 0.0628,
+    "X": -0.059,
+    "2": -0.0038
    },
    "osaker": false,
    "chans_tips": {
-    "1": 0.4557,
-    "X": 0.2272,
-    "2": 0.3171
+    "1": 0.4536,
+    "X": 0.2278,
+    "2": 0.3186
    },
    "varde_tips": {
-    "1": 0.1257,
-    "X": -0.1128,
-    "2": -0.0129
+    "1": 0.1236,
+    "X": -0.1122,
+    "2": -0.0114
    },
    "odds": {
     "antal_bolag": 34,
     "bara_svenskaspel": false,
     "snitt": {
-     "1": 2.35,
+     "1": 2.36,
      "X": 3.32,
-     "2": 2.87
+     "2": 2.86
     },
     "bolag": [
      {
@@ -6880,7 +6879,7 @@
      },
      {
       "bolag": "betfair_ex_eu",
-      "1": 2.52,
+      "1": 2.58,
       "X": 3.45,
       "2": 3.0
      },
@@ -6894,7 +6893,7 @@
       "bolag": "coolbet",
       "1": 2.35,
       "X": 3.3,
-      "2": 2.95
+      "2": 2.9
      },
      {
       "bolag": "marathonbet",
@@ -6916,14 +6915,14 @@
      },
      {
       "bolag": "betfair_ex_uk",
-      "1": 2.52,
+      "1": 2.58,
       "X": 3.45,
       "2": 3.0
      },
      {
       "bolag": "betfred_uk",
       "1": 2.3,
-      "X": 3.3,
+      "X": 3.25,
       "2": 2.88
      }
     ]
@@ -6986,7 +6985,7 @@
      "system_rader": 768
     }
    ],
-   "kommentar": "Helt jämnt på oddsen där Wycombe är knappa favoriter (39 %) men streckas lägre än Bradford. Flera tipsare pekar ut bortalaget som en trolig skräll.",
+   "kommentar": "En mycket jmn match där oddsen ger Wycombe 39 % och Bradford 33 %. Svenska folket streckar helt jämnt på 33 %, medan tipsarna lutar åt bortalaget eller helgarderar.",
    "lagkoll": {
     "chans": {
      "1": 0.37,
@@ -10911,27 +10910,27 @@
  "drift": {
   "ai": {
    "konfigurerad": true,
-   "lyckade": 3,
+   "lyckade": 4,
    "misslyckade": 0,
    "modeller": {
-    "gemini-3.5-flash-lite": 3
+    "gemini-3.5-flash-lite": 4
    },
    "tokens": {
     "gemini-3.5-flash-lite": {
-     "in": 8042,
-     "ut": 901
+     "in": 9884,
+     "ut": 1312
     }
    },
    "stoppad": null,
-   "tid": "2026-11-28T10:31:20Z"
+   "tid": "2026-11-28T11:31:22Z"
   },
   "ai_dygn": {
    "datum": "2026-11-28",
    "modeller": {
     "gemini-3.5-flash-lite": {
-     "anrop": 12,
-     "in": 80767,
-     "ut": 9721
+     "anrop": 16,
+     "in": 90651,
+     "ut": 11033
     },
     "gemini-3.6-flash": {
      "anrop": 13,
@@ -10946,8 +10945,8 @@
    }
   },
   "odds": {
-   "kvar": 288,
-   "tid": "2026-11-28T10:31:09Z"
+   "kvar": 282,
+   "tid": "2026-11-28T11:31:09Z"
   }
  },
  "tipsare_form": [
